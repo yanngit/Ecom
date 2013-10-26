@@ -17,8 +17,8 @@ import javax.persistence.PersistenceContext;
  * @author yann
  */
 @Stateless (name="DrinkSession", mappedName="session/DrinkSession")
-public class DrinkSessionBean implements  DrinkFacadeRemote {
-    @PersistenceContext
+public class DrinkSessionBean implements  DrinkFacadeRemote, DrinkFacadeLocal {
+    @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     @Override
     public void create(Drink drink) {
