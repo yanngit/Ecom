@@ -14,6 +14,6 @@ public interface DrinkFacadeRemote {
     public void edit(Drink drink);
     public void remove(Drink drink);
     public Drink find(Object id);
-    public List<Drink> findAll();
+    public List<Drink> findAllRemote();
     public String toString();
 }

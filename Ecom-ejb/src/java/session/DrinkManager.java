@@ -16,10 +16,11 @@ import javax.persistence.PersistenceContext;
  *
  * @author yann
  */
-@Stateless (name="DrinkSession", mappedName="session/DrinkSession")
-public class DrinkSessionBean implements  DrinkFacadeRemote, DrinkFacadeLocal {
+@Stateless (name="Drink", mappedName="session/Drink")
+public class DrinkManager implements  DrinkFacadeRemote, DrinkFacadeLocal {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
+    
     @Override
     public void create(Drink drink) {
         em.persist(drink);
@@ -41,13 +42,19 @@ public class DrinkSessionBean implements  DrinkFacadeRemote, DrinkFacadeLocal {
     }
 
     @Override
-    public List<Drink> findAll() {
+    public List<Drink> findAllRemote() {
         return em.createQuery("select d from Drink d").getResultList();
     }
     
     @Override
     public String toString(){
         return "Hello";
+    }
+
+    @Override
+    public Drink[] findAllLocal() {
+        List<Drink> list = em.createQuery("select d from Drink d").getResultList(); 
+        return list.toArray(new Drink[list.size()]);
     }
     
 }

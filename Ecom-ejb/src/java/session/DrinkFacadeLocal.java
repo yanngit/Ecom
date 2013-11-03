@@ -7,7 +7,6 @@
 package session;
 
 import entity.Drink;
-import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -20,5 +19,5 @@ public interface DrinkFacadeLocal {
     public void edit(Drink drink);
     public void remove(Drink drink);
     public Drink find(Object id);
-    public List<Drink> findAll();
+    public Drink[] findAllLocal();
 }
