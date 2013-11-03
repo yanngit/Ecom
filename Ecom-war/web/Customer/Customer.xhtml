@@ -14,6 +14,44 @@
                         <li>#{alcool.libelle}</li>
             </ui:repeat>
             </ul>
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <h:dataTable value="#{drinkBean.listDrinks}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Libelle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.libelle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantite}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Degre_alcool"/>
+                            </f:facet>
+                            <h:outputText value="#{item.degre_alcool}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </f:view>
+
         </p>
     </h:body>
 </html>
