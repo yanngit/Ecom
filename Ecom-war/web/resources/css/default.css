@@ -1,0 +1,23 @@
+/* 
+    Document   : default
+    Created on : 06-Nov-2013, 00:51:38
+    Author     : yann
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+h1 {
+    text-align: center;
+    color: red;
+    text-decoration: underline;
+}
+
+h2 {
+    margin-left: 20px;
+    color: blue;
+}
+
