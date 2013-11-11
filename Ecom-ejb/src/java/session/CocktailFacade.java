@@ -7,7 +7,6 @@ package session;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,10 +16,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author sohnoun
  */
-@Stateless
-@LocalBean
+@Stateless (name="CocktailFacade", mappedName="session/CocktailFacade")
 public class CocktailFacade implements CocktailFacadeLocalItf, CocktailFacadeRemoteItf{
-    //@EJB (name="Cocktail")
+    //@EJB (name="CocktailManager")
     //private CocktailManager cocktailManager;
     
     @PersistenceContext (name="Ecom_PU")
