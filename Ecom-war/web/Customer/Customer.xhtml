@@ -11,12 +11,12 @@
         
         <h:form>
             <h:inputText binding="#{input1}" />
-            <h:commandButton value="Valider" action="#{cartBean.setName(input1.value)}" />
+            <h:commandButton value="Valider" action="#{clientBean.setName(input1.value)}" />
         </h:form>
 
 
 
-        <h1>Hello <h:outputText value="#{cartBean.getName()}"/></h1>
+        <h1>Hello <h:outputText value="#{clientBean.getName()}"/></h1>
 
 
         <h:outputStylesheet library="css" name="default.css"  />
