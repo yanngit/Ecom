@@ -4,7 +4,7 @@
  */
 package session;
 
-import entity.Cocktail;
+import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.Local;
@@ -19,5 +19,5 @@ public interface CartFacadeLocal {
     public String getName();
     public void addArticle(long ID) throws EcomException;
     public void removeArticle(long ID) throws EcomException;
-    public List<Cocktail> getCocktails();
+    public List<CocktailEntity> getCocktails();
 }

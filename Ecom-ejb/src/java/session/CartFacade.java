@@ -4,7 +4,7 @@
  */
 package session;
 
-import entity.Cocktail;
+import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +17,9 @@ import javax.ejb.Stateful;
  */
 @Stateful
 public class CartFacade implements CartFacadeLocal {
-    @EJB (name="Cocktail")
+    @EJB (name="CocktailFacade")
     private CocktailFacadeLocal cocktailFacade;
-    private List<Cocktail> cart = new ArrayList<>();
+    private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
     
     // Add business logic below. (Right-click in editor and choose
@@ -37,7 +37,7 @@ public class CartFacade implements CartFacadeLocal {
 
     @Override
     public void addArticle(long ID) throws EcomException {
-        Cocktail c = cocktailFacade.getCocktail(ID);
+        CocktailEntity c = cocktailFacade.getCocktail(ID);
         if(c == null){
              throw new EcomException("Can't add the cocktail ["+ID+"] in the cart "+name);
         }
@@ -49,7 +49,7 @@ public class CartFacade implements CartFacadeLocal {
     
     public int getIndexInCartOf(long ID){
         int i = 0;
-        for(Cocktail c : cart){
+        for(CocktailEntity c : cart){
             if(c.getId() == ID){
                 return i;
             }
@@ -70,7 +70,7 @@ public class CartFacade implements CartFacadeLocal {
     }
 
     @Override
-    public List<Cocktail> getCocktails() {
+    public List<CocktailEntity> getCocktails() {
         return cart;
     }
     
