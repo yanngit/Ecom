@@ -8,6 +8,6 @@ package session;
  *
  * @author sohnoun
  */
-public interface CocktailFacadeRemote extends CocktailFacadeLocal {
+public interface CocktailFacadeRemoteItf extends CocktailFacadeLocalItf {
     
 }

@@ -16,9 +16,9 @@ import javax.ejb.Stateful;
  * @author yann
  */
 @Stateful
-public class CartFacade implements CartFacadeLocal {
+public class CartFacade implements CartFacadeLocalItf {
     @EJB (name="CocktailFacade")
-    private CocktailFacadeLocal cocktailFacade;
+    private CocktailFacadeLocalItf cocktailFacade;
     private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
     
@@ -50,7 +50,7 @@ public class CartFacade implements CartFacadeLocal {
     public int getIndexInCartOf(long ID){
         int i = 0;
         for(CocktailEntity c : cart){
-            if(c.getId() == ID){
+            if(c.getID()== ID){
                 return i;
             }
             i ++;

@@ -4,7 +4,7 @@
  */
 package session;
 
-import entity.Cocktail;
+import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -19,19 +19,19 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class CocktailFacade implements CocktailFacadeLocal, CocktailFacadeRemote{
+public class CocktailFacade implements CocktailFacadeLocalItf, CocktailFacadeRemoteItf{
     //@EJB (name="Cocktail")
     //private CocktailManager cocktailManager;
     
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     @Override
-    public Cocktail getCocktail(long id) {
+    public CocktailEntity getCocktail(long id) {
         try
     	{
             final String queryString = "SELECT DISTINCT c from Cocktail c where c.ID = ?"+id;
             Query query = em.createQuery(queryString);
-            List<Cocktail> result = query.getResultList();
+            List<CocktailEntity> result = query.getResultList();
             System.out.println("total Cocktail:"+result.size());
             return result.get(0);
         }
@@ -46,12 +46,12 @@ public class CocktailFacade implements CocktailFacadeLocal, CocktailFacadeRemote
    
     
     @Override
-    public List<Cocktail> getAvailableCocktails() {
+    public List<CocktailEntity> getAvailableCocktails() {
         try
         {
             final String queryString = "select c from Cocktail c where c.QUANTITY > 0";
             Query query = em.createQuery(queryString);
-            List<Cocktail> result = query.getResultList();
+            List<CocktailEntity> result = query.getResultList();
             System.out.println(" total Cocktail:"+result.size());
             return result;
         }
@@ -63,12 +63,12 @@ public class CocktailFacade implements CocktailFacadeLocal, CocktailFacadeRemote
     }
 
     @Override
-    public List<Cocktail> getAnavailableCocktails() {
+    public List<CocktailEntity> getAnavailableCocktails() {
     try
         {
             final String queryString = "select c from Cocktail c";
             Query query = em.createQuery(queryString);
-            List<Cocktail> result = query.getResultList();
+            List<CocktailEntity> result = query.getResultList();
             System.out.println("total Cocktail:"+result.size());
             return result;
         }

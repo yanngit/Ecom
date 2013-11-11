@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * @author yann
  */
 @Local
-public interface CartFacadeLocal {
+public interface CartFacadeLocalItf {
     public void setName(String name);
     public String getName();
     public void addArticle(long ID) throws EcomException;
