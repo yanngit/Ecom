@@ -9,13 +9,14 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import pojo.EntityManagerItf;
 
 /**
  *
  * @author yann
  */
 @Stateless (name="CocktailManager", mappedName="session/CocktailManager")
-public class DecorationManagerBean implements  DecorationManagerItf {
+public class DecorationManagerBean implements  EntityManagerItf<DecorationEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     

@@ -11,13 +11,14 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import pojo.EntityManagerItf;
 
 /**
  *
  * @author yann
  */
 @Stateless (name="BeverageManager", mappedName="session/BeverageManager")
-public class BeverageManagerBean implements  BeverageManagerItf {
+public class BeverageManagerBean implements  EntityManagerItf<BeverageEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     

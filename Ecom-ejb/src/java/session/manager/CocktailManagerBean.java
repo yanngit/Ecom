@@ -4,18 +4,20 @@
  */
 package session.manager;
 
+import entity.BeverageEntity;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import pojo.EntityManagerItf;
 
 /**
  *
  * @author yann
  */
 @Stateless (name="CocktailManager", mappedName="session/CocktailManager")
-public class CocktailManagerBean implements  CocktailManagerItf {
+public class CocktailManagerBean implements  EntityManagerItf<CocktailEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     
