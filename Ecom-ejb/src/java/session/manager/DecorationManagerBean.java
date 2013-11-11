@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
+package session.manager;
 
-import entity.CocktailEntity;
+import entity.DecorationEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,32 +15,32 @@ import javax.persistence.PersistenceContext;
  * @author yann
  */
 @Stateless (name="CocktailManager", mappedName="session/CocktailManager")
-public class CocktailManager implements  CocktailManagerItf {
+public class DecorationManagerBean implements  DecorationManagerItf {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     
     @Override
-    public void create(CocktailEntity cocktail) {
-        em.persist(cocktail);
+    public void create(DecorationEntity decoration) {
+        em.persist(decoration);
     }
 
     @Override
-    public void edit(CocktailEntity cocktail) {
-        em.merge(cocktail);
+    public void edit(DecorationEntity decoration) {
+        em.merge(decoration);
     }
 
     @Override
-    public void remove(CocktailEntity cocktail) {
-        em.remove(cocktail);
+    public void remove(DecorationEntity decoration) {
+        em.remove(decoration);
     }
 
     @Override
-    public CocktailEntity find(Object id) {
-        return em.find(entity.CocktailEntity.class,id);
+    public DecorationEntity find(Object id) {
+        return em.find(entity.DecorationEntity.class,id);
     }
 
     @Override
-    public List<CocktailEntity> findAll() {
+    public List<DecorationEntity> findAll() {
         return em.createQuery("select c from COCKTAIL c").getResultList();
     }
 }

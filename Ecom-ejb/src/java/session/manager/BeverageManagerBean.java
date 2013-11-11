@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package session;
+package session.manager;
 
 import entity.BeverageEntity;
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author yann
  */
 @Stateless (name="BeverageManager", mappedName="session/BeverageManager")
-public class BeverageManager implements  BeverageManagerItf {
+public class BeverageManagerBean implements  BeverageManagerItf {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     

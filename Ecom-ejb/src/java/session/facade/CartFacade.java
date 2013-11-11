@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
+package session.facade;
 
 import entity.CocktailEntity;
 import exceptions.EcomException;
