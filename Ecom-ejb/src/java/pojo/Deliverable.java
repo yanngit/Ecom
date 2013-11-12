@@ -3,9 +3,12 @@ package pojo;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -14,12 +17,14 @@ import javax.persistence.ManyToMany;
  *
  * @author alexis
  */
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+    name="DELIVERABLE_TYPE",
+    discriminatorType=DiscriminatorType.STRING
+)
+@DiscriminatorValue("Deliverable")
 public class Deliverable extends Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
-    protected Long ID;
-    
     @Column(name="QUANTITY")
     protected Integer quantity;
     
@@ -29,11 +34,15 @@ public class Deliverable extends Product {
             name="COCKTAIL_COMPOSITION",
             joinColumns=@JoinColumn(
                 name="DELIVERABLE_ID",
-                referencedColumnName="DELIVERABLE_ID_REF"),
+                referencedColumnName="ID"),
             inverseJoinColumns=@JoinColumn(
                 name="COCKTAIL_ID",
-                referencedColumnName="COCKTAIL_ID_REF"))
+                referencedColumnName="ID"))
     protected List<CocktailEntity> cocktails;
+    
+    protected Deliverable(){
+        super();
+    }
 
     public Integer getQuantity() {
         return quantity;

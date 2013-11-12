@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package session.facade;
+package session.interfaces;
 
 import entity.CocktailEntity;
 import java.util.List;

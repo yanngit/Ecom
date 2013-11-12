@@ -4,12 +4,14 @@
  */
 package session.facade;
 
+import session.interfaces.CartFacadeLocalItf;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import session.interfaces.CocktailFacadeLocalItf;
 
 /**
  *

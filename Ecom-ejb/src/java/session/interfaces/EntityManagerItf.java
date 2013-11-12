@@ -1,4 +1,4 @@
-package pojo;
+package session.interfaces;
 
 import java.util.List;
 

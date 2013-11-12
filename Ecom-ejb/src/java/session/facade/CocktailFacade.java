@@ -4,12 +4,14 @@
  */
 package session.facade;
 
+import session.interfaces.CocktailFacadeRemoteItf;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import session.interfaces.CocktailFacadeLocalItf;
 
 
 /**
