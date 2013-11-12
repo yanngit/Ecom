@@ -10,6 +10,9 @@ import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
@@ -23,6 +26,10 @@ import pojo.Product;
 @Entity
 @Table(name="COCKTAIL")
 public class CocktailEntity extends Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID")
+    protected Long ID;
     private static final long serialVersionUID = 1L;
     @Column(name="PHOTO")
     protected String photoURI;
@@ -37,6 +44,14 @@ public class CocktailEntity extends Product {
     @ManyToMany(mappedBy="cocktails")
     protected List<Deliverable> deliverables;
 
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+    
     public String getPhotoURI() {
         return photoURI;
     }

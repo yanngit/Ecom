@@ -15,6 +15,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
     protected Long ID;
+    
     @Column(name="NAME")
     protected String name;
     @Column(name="PRICE")
