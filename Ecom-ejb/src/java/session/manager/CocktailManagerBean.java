@@ -1,47 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.manager;
 
 import entity.CocktailEntity;
-import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import session.interfaces.EntityManagerItf;
+import pojo.AbstractEntityManager;
 
 /**
  *
- * @author yann
+ * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless (name="CocktailManager", mappedName="session/CocktailManager")
-public class CocktailManagerBean implements  EntityManagerItf<CocktailEntity> {
+@Stateless
+@LocalBean
+public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
+
+    public CocktailManagerBean() {
+        super(CocktailEntity.class);
+    }
     
     @Override
-    public void create(CocktailEntity cocktail) {
-        em.persist(cocktail);
-    }
-
-    @Override
-    public void edit(CocktailEntity cocktail) {
-        em.merge(cocktail);
-    }
-
-    @Override
-    public void remove(CocktailEntity cocktail) {
-        em.remove(cocktail);
-    }
-
-    @Override
-    public CocktailEntity find(Object id) {
-        return em.find(entity.CocktailEntity.class,id);
-    }
-
-    @Override
-    public List<CocktailEntity> findAll() {
-        return em.createQuery("select c from COCKTAIL c").getResultList();
+    protected EntityManager getEntityManager() {
+        return em;
     }
 }

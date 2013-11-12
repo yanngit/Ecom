@@ -1,47 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.manager;
 
 import entity.DecorationEntity;
-import java.util.List;
 import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import session.interfaces.EntityManagerItf;
+import pojo.AbstractEntityManager;
 
 /**
  *
- * @author yann
+ * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless (name="CocktailManager", mappedName="session/CocktailManager")
-public class DecorationManagerBean implements  EntityManagerItf<DecorationEntity> {
+@Stateless
+@LocalBean
+public class DecorationManagerBean extends AbstractEntityManager<DecorationEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
+
+    public DecorationManagerBean() {
+        super(DecorationEntity.class);
+    }
     
     @Override
-    public void create(DecorationEntity decoration) {
-        em.persist(decoration);
-    }
-
-    @Override
-    public void edit(DecorationEntity decoration) {
-        em.merge(decoration);
-    }
-
-    @Override
-    public void remove(DecorationEntity decoration) {
-        em.remove(decoration);
-    }
-
-    @Override
-    public DecorationEntity find(Object id) {
-        return em.find(entity.DecorationEntity.class,id);
-    }
-
-    @Override
-    public List<DecorationEntity> findAll() {
-        return em.createQuery("select c from COCKTAIL c").getResultList();
+    protected EntityManager getEntityManager() {
+        return em;
     }
 }
