@@ -4,9 +4,9 @@
  */
 package session.manager;
 
+import session.interfaces.BeverageManagerRemoteItf;
 import entity.BeverageEntity;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pojo.AbstractEntityManager;
@@ -15,9 +15,9 @@ import pojo.AbstractEntityManager;
  *
  * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless
-@LocalBean
-public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
+@Stateless (name="beverageManager", mappedName="session/manager/beverageManager")
+public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> implements BeverageManagerRemoteItf {
+    
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
 
@@ -28,5 +28,5 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
-    }    
+    }   
 }

@@ -26,45 +26,54 @@
             <p>
                 <ul>
                 <ui:repeat var="alcool" value="#{drinkBean.listDrinks}">
-                            <li>#{alcool.libelle}</li>
+                            <li>#{alcool.name}</li>
                 </ui:repeat>
                 </ul>
+                
                 <f:view>
                     <h:form>
-                        <h:dataTable value="#{drinkBean.listDrinks}" var="item">
+                        <h1><h:outputText value="List"/></h1>
+                        <h:dataTable value="#{dataManagedBean.listDrinks}" var="item">
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Id"/>
+                                    <h:outputText value="Capacity"/>
                                 </f:facet>
-                                <h:outputText value="#{item.id}"/>
+                                <h:outputText value="#{item.capacity}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Libelle"/>
+                                    <h:outputText value="AlcoholicDegree"/>
                                 </f:facet>
-                                <h:outputText value="#{item.libelle}"/>
+                                <h:outputText value="#{item.alcoholicDegree}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Prix"/>
+                                    <h:outputText value="Quantity"/>
                                 </f:facet>
-                                <h:outputText value="#{item.prix}"/>
+                                <h:outputText value="#{item.quantity}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Quantite"/>
+                                    <h:outputText value="ID"/>
                                 </f:facet>
-                                <h:outputText value="#{item.quantite}"/>
+                                <h:outputText value="#{item.ID}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Degre_alcool"/>
+                                    <h:outputText value="Name"/>
                                 </f:facet>
-                                <h:outputText value="#{item.degre_alcool}"/>
+                                <h:outputText value="#{item.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Price"/>
+                                </f:facet>
+                                <h:outputText value="#{item.price}"/>
                             </h:column>
                         </h:dataTable>
                     </h:form>
                 </f:view>
+
 
             </p>
     </h:body>

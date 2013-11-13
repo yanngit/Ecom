@@ -22,7 +22,7 @@ import pojo.Product;
  */
 @Entity
 @Table(name="COCKTAIL")
-public class CocktailEntity extends Product {
+public class CocktailEntity extends Product  {
     private static final long serialVersionUID = 1L;
     @Column(name="PHOTO")
     protected String photoURI;
@@ -37,7 +37,7 @@ public class CocktailEntity extends Product {
     @ManyToMany(mappedBy="cocktails")
     protected List<Deliverable> deliverables;
 
-    protected CocktailEntity(){
+    public CocktailEntity(){
         super();
     }
     

@@ -17,14 +17,14 @@ import javax.persistence.Table;
 @Entity
 @DiscriminatorValue("Beverage")
 @Table(name="BEVERAGE")
-public class BeverageEntity extends Deliverable {
+public class BeverageEntity extends Deliverable  {
     private static final long serialVersionUID = 1L;
     @Column(name="CAPACITY")
     protected Integer capacity; /* in cL */
     @Column(name="DEGREE")
     protected Integer alcoholicDegree;
 
-    protected BeverageEntity(){
+    public BeverageEntity(){
         super();
     }
     

@@ -2,7 +2,6 @@ package session.manager;
 
 import entity.CocktailEntity;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pojo.AbstractEntityManager;
@@ -11,8 +10,7 @@ import pojo.AbstractEntityManager;
  *
  * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless
-@LocalBean
+@Stateless (name="cocktailManager", mappedName="session/manager/cocktailManager")
 public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;

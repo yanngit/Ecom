@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ import pojo.Deliverable;
 public class DecorationEntity extends Deliverable {
     private static final long serialVersionUID = 1L;
 
-    protected DecorationEntity(){
+    public DecorationEntity(){
         super();
     }
     

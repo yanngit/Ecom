@@ -4,12 +4,12 @@
  */
 package managed;
 
-import entity.CocktailEntity;
+import entity.BeverageEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import session.interfaces.CocktailFacadeLocalItf;
+import session.interfaces.BeverageManagerRemoteItf;
 
 /**
  *
@@ -19,13 +19,19 @@ import session.interfaces.CocktailFacadeLocalItf;
 @RequestScoped
 public class DataManagedBean {
 
-    private @EJB CocktailFacadeLocalItf drink;
-    
+   // private @EJB CocktailFacadeLocalItf drink;
+    @EJB (name="beverageManager")
+    private BeverageManagerRemoteItf beverage;
+            
     public DataManagedBean () {
         super();
     }
     
-    public List<CocktailEntity> getAvailableCocktails(){
+   /* public List<CocktailEntity> getAvailableCocktails(){
         return drink.getAvailableCocktails();
+    }*/
+    
+    public List<BeverageEntity> getListDrinks(){
+        return beverage.findAll();
     }
 }
