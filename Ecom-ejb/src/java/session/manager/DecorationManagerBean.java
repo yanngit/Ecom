@@ -10,7 +10,7 @@ import pojo.AbstractEntityManager;
  *
  * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless (name="decorationManager", mappedName="session/manager/decorationManager")
+@Stateless
 public class DecorationManagerBean extends AbstractEntityManager<DecorationEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;

@@ -10,7 +10,7 @@ import pojo.AbstractEntityManager;
  *
  * @author Alexis BRENON <brenon.alexis@gmail.com>
  */
-@Stateless (name="cocktailManager", mappedName="session/manager/cocktailManager")
+@Stateless
 public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;

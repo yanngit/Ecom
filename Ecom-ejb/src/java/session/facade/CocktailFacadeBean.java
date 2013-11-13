@@ -19,7 +19,7 @@ import session.interfaces.CocktailFacadeLocalItf;
  * @author sohnoun
  */
 @Stateless (name="CocktailFacade", mappedName="session/CocktailFacade")
-public class CocktailFacade implements CocktailFacadeLocalItf, CocktailFacadeRemoteItf{
+public class CocktailFacadeBean implements CocktailFacadeLocalItf, CocktailFacadeRemoteItf{
     //@EJB (name="CocktailManager")
     //private CocktailManager cocktailManager;
     

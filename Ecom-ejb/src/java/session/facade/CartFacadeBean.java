@@ -18,7 +18,7 @@ import session.interfaces.CocktailFacadeLocalItf;
  * @author yann
  */
 @Stateful
-public class CartFacade implements CartFacadeLocalItf {
+public class CartFacadeBean implements CartFacadeLocalItf {
     @EJB (name="CocktailFacade")
     private CocktailFacadeLocalItf cocktailFacade;
     private List<CocktailEntity> cart = new ArrayList<>();
