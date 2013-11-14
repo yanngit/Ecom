@@ -103,6 +103,13 @@ public class CartFacadeBean implements CartFacadeLocalItf {
             this.reduction = 0;
         }
     }
+
+    @Override
+    public void emptyCart() {
+        this.cart.removeAll(cart);
+        this.setPrice(0);
+        this.setReduction(0);
+    }
     
     
 
