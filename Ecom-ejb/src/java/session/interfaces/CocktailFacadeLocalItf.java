@@ -14,7 +14,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface CocktailFacadeLocalItf {
-    CocktailEntity getCocktail(long id);
-    List<CocktailEntity> getAvailableCocktails();
-    List<CocktailEntity> getAnavailableCocktails();
+    public CocktailEntity getCocktail(long id);
+    public List<CocktailEntity> getAvailableCocktails();
+    public List<CocktailEntity> getUnavailableCocktails();
 }

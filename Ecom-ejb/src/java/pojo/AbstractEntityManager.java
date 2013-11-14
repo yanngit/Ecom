@@ -2,6 +2,7 @@ package pojo;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -37,5 +38,10 @@ public abstract class AbstractEntityManager<T> {
 
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
+    }
+    
+    public List<T> executeSelect(String query){
+        Query q = getEntityManager().createNamedQuery(query);
+        return q.getResultList();
     }
 }

@@ -23,7 +23,8 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     private CocktailFacadeLocalItf cocktailFacade;
     private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
-    
+    private float price = 0;
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
@@ -36,7 +37,14 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     public String getName() {
         return name;
     }
+    public float getPrice() {
+        return price;
+    }
 
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    
     @Override
     public void addArticle(long ID) throws EcomException {
         CocktailEntity c = cocktailFacade.getCocktail(ID);
@@ -46,7 +54,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         else {
              cart.add(c);
         }
-       
+        updatePrice();
     }
     
     public int getIndexInCartOf(long ID){
@@ -69,11 +77,22 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         else{
             cart.remove(index);  
         }
+        updatePrice();
     }
 
     @Override
     public List<CocktailEntity> getCocktails() {
         return cart;
+    }
+    
+    public void updatePrice(){
+        this.price = 0;
+        for(CocktailEntity c : getCocktails()){
+            this.price = this.price + c.getPrice();
+        }
+        if(getCocktails().size() > 5){
+            this.price = price - 10*price/100;
+        }
     }
     
     
