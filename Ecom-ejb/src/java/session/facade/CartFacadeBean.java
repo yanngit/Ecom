@@ -24,6 +24,15 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
     private float price = 0;
+    private float reduction = 0;
+
+    public float getReduction() {
+        return reduction;
+    }
+
+    public void setReduction(float reduction) {
+        this.reduction = reduction;
+    }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -53,8 +62,8 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         }
         else {
              cart.add(c);
+             updatePrice(c.getPrice());
         }
-        updatePrice();
     }
     
     public int getIndexInCartOf(long ID){
@@ -76,8 +85,8 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         }
         else{
             cart.remove(index);  
+            updatePrice(cart.get(index).getPrice());
         }
-        updatePrice();
     }
 
     @Override
@@ -85,13 +94,13 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         return cart;
     }
     
-    public void updatePrice(){
-        this.price = 0;
-        for(CocktailEntity c : getCocktails()){
-            this.price = this.price + c.getPrice();
-        }
+    public void updatePrice(float price){
+        this.price += price;
         if(getCocktails().size() > 5){
-            this.price = price - 10*price/100;
+            this.reduction = 10*price/100;
+        }
+        else{
+            this.reduction = 0;
         }
     }
     
