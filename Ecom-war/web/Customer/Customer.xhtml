@@ -22,18 +22,12 @@
         <h:outputStylesheet library="css" name="default.css"  />
 
 
-        <h2>List of available alcohol :</h2>
-            <p>
-                <ul>
-                <ui:repeat var="alcool" value="#{drinkBean.listDrinks}">
-                            <li>#{alcool.name}</li>
-                </ui:repeat>
-                </ul>
-                
+        <h2>List of unavailable alcohol :</h2>
+            <p> 
                 <f:view>
                     <h:form>
                         <h1><h:outputText value="List"/></h1>
-                        <h:dataTable value="#{dataManagedBean.listDrinks}" var="item">
+                        <h:dataTable value="#{dataManagedBean.listUnavailableBeverages}" var="item">
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Capacity"/>

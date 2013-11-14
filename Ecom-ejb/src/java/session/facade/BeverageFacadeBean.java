@@ -5,6 +5,7 @@
 package session.facade;
 
 import entity.BeverageEntity;
+import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -20,14 +21,28 @@ public class BeverageFacadeBean implements BeverageFacadeLocalItf {
     @EJB
     private BeverageManagerBean manager;
     
-    public List<BeverageEntity> getAllDrinks(){
-        List<BeverageEntity> res = manager.findAll();
-        return res;
-    }
+   
 
     @Override
     public void create(BeverageEntity entity) {
         manager.create(entity);
+    }
+
+    @Override
+    public List<BeverageEntity> getUnavailableBeverages() { 
+       return manager.getUnavailableBeverage();
+    }
+
+    @Override
+    public List<BeverageEntity> getAllBeverages() {
+        return manager.findAll(); 
+    }
+
+    @Override
+    public List<BeverageEntity> getAvailableBeverages() {
+        final String queryString = "select b from BeverageEntity b";
+        List<BeverageEntity> result = manager.executeSelect(queryString);
+        return result;
     }
    
 

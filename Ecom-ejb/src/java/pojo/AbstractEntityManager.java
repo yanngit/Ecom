@@ -41,7 +41,7 @@ public abstract class AbstractEntityManager<T> {
     }
     
     public List<T> executeSelect(String query){
-        Query q = getEntityManager().createNamedQuery(query);
+        Query q = getEntityManager().createQuery(query);
         return q.getResultList();
     }
 }

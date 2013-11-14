@@ -14,6 +14,9 @@ import javax.ejb.LocalBean;
  */
 @LocalBean
 public interface BeverageFacadeLocalItf {
-    public List<BeverageEntity> getAllDrinks();
+    public List<BeverageEntity> getAllBeverages();
     public void create(BeverageEntity entity);
+    
+    public List<BeverageEntity> getUnavailableBeverages();
+    public List<BeverageEntity> getAvailableBeverages();
 }

@@ -63,7 +63,17 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
-        return beverageFacade.getAllDrinks();
+        return beverageFacade.getAllBeverages();
+    }
+
+    @Override
+    public List<BeverageEntity> getUnavailableBeverages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<BeverageEntity> getAvailableBeverages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

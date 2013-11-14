@@ -33,20 +33,31 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAvailableCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        return  this.cocktailFacade.getAvailableCocktails();
+            }
 
     @Override
     public List<CocktailEntity> getUnavailableCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return  this.cocktailFacade.getUnavailableCocktails();
     }
+    
+    @Override
+    public List<BeverageEntity> getUnavailableBeverages() {
+        return  this.beverageFacade.getUnavailableBeverages();
+    }
+    
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
-        return beverageFacade.getAllDrinks();
+        return beverageFacade.getAllBeverages();
+    }
+
+    @Override
+    public List<BeverageEntity> getAvailableBeverages() {
+        return this.beverageFacade.getAvailableBeverages();
     }
 
 }

@@ -8,12 +8,18 @@ import pojo.Deliverable;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
  * @author alexis
  */
+@NamedQuery(
+    name="findUnavailable",
+    query="SELECT b FROM BeverageEntity b WHERE b.quantity < :val"
+)
+
 @Entity
 @DiscriminatorValue("Beverage")
 @Table(name="BEVERAGE")
