@@ -9,7 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import session.interfaces.BeverageFacadeRemoteItf;
+import session.interfaces.ClientFacadeRemoteItf;
 
 /**
  *
@@ -20,8 +20,8 @@ import session.interfaces.BeverageFacadeRemoteItf;
 public class DataManagedBean {
 
    // private @EJB CocktailFacadeLocalItf drink;
-    @EJB (name="BeverageFacade")
-    private BeverageFacadeRemoteItf beverage;
+    @EJB
+    private ClientFacadeRemoteItf client;
             
     public DataManagedBean () {
         super();
@@ -32,6 +32,6 @@ public class DataManagedBean {
     }*/
     
     public List<BeverageEntity> getListDrinks(){
-        return beverage.getAllDrinks();
+        return client.getAllBeverages();
     }
 }

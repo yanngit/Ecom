@@ -6,14 +6,14 @@ package session.interfaces;
 
 import entity.BeverageEntity;
 import java.util.List;
-import javax.ejb.Remote;
+import javax.ejb.LocalBean;
 
 /**
  *
  * @author yann
  */
-@Remote
-public interface BeverageFacadeRemoteItf {
+@LocalBean
+public interface BeverageFacadeLocalItf {
     public List<BeverageEntity> getAllDrinks();
     public void create(BeverageEntity entity);
 }

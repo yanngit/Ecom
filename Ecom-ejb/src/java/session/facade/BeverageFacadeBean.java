@@ -8,15 +8,15 @@ import entity.BeverageEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import session.interfaces.BeverageFacadeRemoteItf;
+import session.interfaces.BeverageFacadeLocalItf;
 import session.manager.BeverageManagerBean;
 
 /**
  *
  * @author yann
  */
-@Stateless (name="BeverageFacade", mappedName="session/BeverageFacade")
-public class BeverageFacadeBean implements BeverageFacadeRemoteItf {
+@Stateless
+public class BeverageFacadeBean implements BeverageFacadeLocalItf {
     @EJB
     private BeverageManagerBean manager;
     
