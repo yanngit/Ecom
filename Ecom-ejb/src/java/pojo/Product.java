@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author alexis
@@ -16,8 +17,10 @@ public class Product implements Serializable {
     @Column(name="ID")
     protected Long ID;
     @Column(name="NAME")
+    @NotNull
     protected String name;
     @Column(name="PRICE")
+    @NotNull
     protected Float price;
     public Long getID() {
         return ID;
