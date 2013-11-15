@@ -14,8 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
