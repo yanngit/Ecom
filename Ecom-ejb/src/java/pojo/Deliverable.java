@@ -31,15 +31,7 @@ public class Deliverable extends Product {
     protected Integer quantity;
     
     /* n-to-n relation with cocktails */
-    @ManyToMany
-    @JoinTable(
-            name="COCKTAIL_COMPOSITION",
-            joinColumns=@JoinColumn(
-                name="DELIVERABLE_ID",
-                referencedColumnName="ID"),
-            inverseJoinColumns=@JoinColumn(
-                name="COCKTAIL_ID",
-                referencedColumnName="ID"))
+    @ManyToMany(mappedBy="deliverables")
     protected List<CocktailEntity> cocktails;
     
     protected Deliverable(){

@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.persistence.NamedQueries;
@@ -44,7 +46,15 @@ public class CocktailEntity extends Product  {
     @Enumerated(value=EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
-    @ManyToMany(mappedBy="cocktails")
+    @ManyToMany
+    @JoinTable(
+        name="COCKTAIL_COMPOSITION",
+        joinColumns=@JoinColumn(
+            name="COCKTAIL_ID",
+            referencedColumnName="ID"),
+        inverseJoinColumns=@JoinColumn(
+            name="DELIVERABLE_ID",
+            referencedColumnName="ID"))
     @NotNull
     protected List<Deliverable> deliverables;
 
