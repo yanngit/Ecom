@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
@@ -27,14 +28,18 @@ public class CocktailEntity extends Product  {
     @Column(name="PHOTO")
     protected String photoURI;
     @Column(name="RECIPE")
+    @NotNull
     protected String recipe;
     @Column(name="FLAVOR")
     @Enumerated(value=EnumType.ORDINAL)
+    @NotNull
     protected CocktailFlavorEnum flavor;
     @Column(name="POWER")
     @Enumerated(value=EnumType.ORDINAL)
+    @NotNull
     protected CocktailPowerEnum power;
     @ManyToMany(mappedBy="cocktails")
+    @NotNull
     protected List<Deliverable> deliverables;
 
     public CocktailEntity(){

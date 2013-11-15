@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -26,6 +27,7 @@ import javax.persistence.ManyToMany;
 @DiscriminatorValue("Deliverable")
 public class Deliverable extends Product {
     @Column(name="QUANTITY")
+    @NotNull
     protected Integer quantity;
     
     /* n-to-n relation with cocktails */
