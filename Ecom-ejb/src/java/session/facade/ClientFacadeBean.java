@@ -26,9 +26,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        List<CocktailEntity> list = this.cocktailManager.getAvailableCocktails();
-        list.addAll(this.cocktailManager.getUnavailableCocktails());
-        return list;
+        return cocktailManager.findAll();
     }
 
     @Override
