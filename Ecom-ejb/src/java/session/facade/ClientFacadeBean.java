@@ -9,9 +9,9 @@ import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import session.interfaces.BeverageFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.interfaces.CocktailFacadeLocalItf;
+import session.manager.BeverageManagerBean;
 
 /**
  *
@@ -22,7 +22,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
     private CocktailFacadeLocalItf cocktailFacade;
     @EJB
-    private BeverageFacadeLocalItf beverageFacade;
+    private BeverageManagerBean beverageManager;
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
@@ -43,7 +43,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     
     @Override
     public List<BeverageEntity> getUnavailableBeverages() {
-        return  this.beverageFacade.getUnavailableBeverages();
+        return  this.beverageManager.getUnavailableBeverages();
     }
     
 
@@ -52,12 +52,12 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
-        return beverageFacade.getAllBeverages();
+        return beverageManager.findAll();
     }
 
     @Override
     public List<BeverageEntity> getAvailableBeverages() {
-        return this.beverageFacade.getAvailableBeverages();
+        return this.beverageManager.getAvailableBeverages();
     }
 
 }

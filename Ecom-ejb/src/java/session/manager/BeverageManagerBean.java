@@ -31,7 +31,11 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity>{
         return em;
     }   
     
-    public List<BeverageEntity> getUnavailableBeverage(){
-        return em.createNamedQuery("findUnavailable").setParameter("val", 1).getResultList();
+    public List<BeverageEntity> getUnavailableBeverages(){
+        return em.createNamedQuery("findUnavailableBeverages").getResultList();
+    }
+    
+    public List<BeverageEntity> getAvailableBeverages(){
+        return em.createNamedQuery("findAvailableBeverages").getResultList();
     }
 }

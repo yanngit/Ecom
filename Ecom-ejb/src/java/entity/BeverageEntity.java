@@ -8,6 +8,7 @@ import pojo.Deliverable;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -15,10 +16,10 @@ import javax.persistence.Table;
  *
  * @author alexis
  */
-@NamedQuery(
-    name="findUnavailable",
-    query="SELECT b FROM BeverageEntity b WHERE b.quantity < :val"
-)
+@NamedQueries({
+@NamedQuery(name="findUnavailableBeverages",query="SELECT b FROM BeverageEntity b WHERE b.quantity <= 0"),
+@NamedQuery(name="findAvailableBeverages", query="SELECT b FROM BeverageEntity b WHERE b.quantity >= 1")
+})
 
 @Entity
 @DiscriminatorValue("Beverage")

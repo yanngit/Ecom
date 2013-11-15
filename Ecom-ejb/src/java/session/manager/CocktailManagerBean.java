@@ -1,6 +1,8 @@
 package session.manager;
 
+import entity.BeverageEntity;
 import entity.CocktailEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,5 +24,13 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public List<CocktailEntity> getUnavailableCocktails(){
+        return em.createNamedQuery("findUnavailableCocktails").getResultList();
+    }
+    
+    public List<CocktailEntity> getAvailableCocktails(){
+        return em.createNamedQuery("findAvailableCocktails").getResultList();
     }
 }

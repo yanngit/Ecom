@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import session.interfaces.AdminFacadeRemoteItf;
-import session.interfaces.BeverageFacadeLocalItf;
+import session.manager.BeverageManagerBean;
 
 /**
  *
@@ -21,11 +21,11 @@ import session.interfaces.BeverageFacadeLocalItf;
 @LocalBean
 public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @EJB
-    private BeverageFacadeLocalItf beverageFacade;
+    private BeverageManagerBean beverageManager;
     
     @Override
     public void addBeverage(BeverageEntity beverage) {
-        beverageFacade.create(beverage);
+        beverageManager.create(beverage);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
-        return beverageFacade.getAllBeverages();
+        return beverageManager.findAll();
     }
 
     @Override
