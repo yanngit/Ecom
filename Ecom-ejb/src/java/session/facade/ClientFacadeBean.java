@@ -10,8 +10,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import session.interfaces.ClientFacadeRemoteItf;
-import session.interfaces.CocktailFacadeLocalItf;
 import session.manager.BeverageManagerBean;
+import session.manager.CocktailManagerBean;
 
 /**
  *
@@ -20,25 +20,25 @@ import session.manager.BeverageManagerBean;
 @Stateless
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
-    private CocktailFacadeLocalItf cocktailFacade;
+    private CocktailManagerBean cocktailManager;
     @EJB
     private BeverageManagerBean beverageManager;
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        List<CocktailEntity> list = this.cocktailFacade.getAvailableCocktails();
-        list.addAll(this.cocktailFacade.getUnavailableCocktails());
+        List<CocktailEntity> list = this.cocktailManager.getAvailableCocktails();
+        list.addAll(this.cocktailManager.getUnavailableCocktails());
         return list;
     }
 
     @Override
     public List<CocktailEntity> getAvailableCocktails() {
-        return  this.cocktailFacade.getAvailableCocktails();
+        return  this.cocktailManager.getAvailableCocktails();
             }
 
     @Override
     public List<CocktailEntity> getUnavailableCocktails() {
-        return  this.cocktailFacade.getUnavailableCocktails();
+        return  this.cocktailManager.getUnavailableCocktails();
     }
     
     @Override
