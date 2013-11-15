@@ -19,7 +19,7 @@ public abstract class AbstractEntityManager<T> {
         this.entityClass = entityClass;
     }
     
-    public T find(Object id) {
+    public T find(Long id) {
         return (T) getEntityManager().find(entityClass, id);
     }
 
