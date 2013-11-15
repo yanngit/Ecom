@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import session.interfaces.CocktailFacadeLocalItf;
+import session.manager.CocktailManagerBean;
 
 /**
  *
@@ -19,8 +19,8 @@ import session.interfaces.CocktailFacadeLocalItf;
  */
 @Stateful
 public class CartFacadeBean implements CartFacadeLocalItf {
-    @EJB (name="CocktailFacade")
-    private CocktailFacadeLocalItf cocktailFacade;
+    @EJB
+    private CocktailManagerBean cocktailManager;
     private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
     private float price = 0;
@@ -47,7 +47,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     
     @Override
     public void addArticle(long ID) throws EcomException {
-        CocktailEntity c = cocktailFacade.getCocktail(ID);
+        CocktailEntity c = cocktailManager.find(ID);
         if(c == null){
              throw new EcomException("Can't add the cocktail ["+ID+"] in the cart "+name);
         }

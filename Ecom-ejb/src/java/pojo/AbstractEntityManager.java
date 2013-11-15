@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author alexis
  */
+//@LocalBean
 public abstract class AbstractEntityManager<T> {
     abstract protected EntityManager getEntityManager();
 

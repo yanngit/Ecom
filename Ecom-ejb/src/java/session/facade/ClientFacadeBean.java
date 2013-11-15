@@ -9,9 +9,9 @@ import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import session.interfaces.BeverageFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
-import session.interfaces.CocktailFacadeLocalItf;
+import session.manager.BeverageManagerBean;
+import session.manager.CocktailManagerBean;
 
 /**
  *
@@ -20,30 +20,30 @@ import session.interfaces.CocktailFacadeLocalItf;
 @Stateless
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
-    private CocktailFacadeLocalItf cocktailFacade;
+    private CocktailManagerBean cocktailManager;
     @EJB
-    private BeverageFacadeLocalItf beverageFacade;
+    private BeverageManagerBean beverageManager;
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        List<CocktailEntity> list = this.cocktailFacade.getAvailableCocktails();
-        list.addAll(this.cocktailFacade.getUnavailableCocktails());
+        List<CocktailEntity> list = this.cocktailManager.getAvailableCocktails();
+        list.addAll(this.cocktailManager.getUnavailableCocktails());
         return list;
     }
 
     @Override
     public List<CocktailEntity> getAvailableCocktails() {
-        return  this.cocktailFacade.getAvailableCocktails();
+        return  this.cocktailManager.getAvailableCocktails();
             }
 
     @Override
     public List<CocktailEntity> getUnavailableCocktails() {
-        return  this.cocktailFacade.getUnavailableCocktails();
+        return  this.cocktailManager.getUnavailableCocktails();
     }
     
     @Override
     public List<BeverageEntity> getUnavailableBeverages() {
-        return  this.beverageFacade.getUnavailableBeverages();
+        return  this.beverageManager.getUnavailableBeverages();
     }
     
 
@@ -52,12 +52,12 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
-        return beverageFacade.getAllBeverages();
+        return beverageManager.findAll();
     }
 
     @Override
     public List<BeverageEntity> getAvailableBeverages() {
-        return this.beverageFacade.getAvailableBeverages();
+        return this.beverageManager.getAvailableBeverages();
     }
 
 }
