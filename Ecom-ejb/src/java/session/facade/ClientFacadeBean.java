@@ -58,4 +58,9 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         return this.beverageManager.getAvailableBeverages();
     }
 
+    @Override
+    public CocktailEntity getCocktail(Long id) {
+        return cocktailManager.find(id);
+    }
+
 }

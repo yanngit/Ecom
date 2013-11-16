@@ -116,7 +116,10 @@
                     </h:dataTable>
                 </h:form>
             </f:view>
-            
+            <f:view>
+                <h1><h:outputText value="Cocktail by ID"/></h1>
+                <h:outputText value="#{dataManagedBean.getCocktail(2)}"/>
+            </f:view>
         </p>
     </h:body>
 </html>

@@ -30,7 +30,7 @@ public class DataManagedBean {
     }
     
     public CocktailEntity getCocktail(Long id) throws Exception {
-        throw NotImplementedException("*** ECOM *** : TODO get Cocktail with it's ID.");
+        return client.getCocktail(id);
     }
     
    public List<CocktailEntity> getListCocktails(){
