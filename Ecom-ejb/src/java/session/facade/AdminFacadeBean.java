@@ -9,7 +9,6 @@ import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
@@ -19,7 +18,6 @@ import session.manager.CocktailManagerBean;
  * @author yann
  */
 @Stateless
-@LocalBean
 public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @EJB
     private BeverageManagerBean beverageManager;
