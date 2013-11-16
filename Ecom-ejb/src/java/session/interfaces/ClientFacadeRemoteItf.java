@@ -22,5 +22,4 @@ public interface ClientFacadeRemoteItf {
     public List<BeverageEntity> getAllBeverages();
     public List<BeverageEntity> getAvailableBeverages();
     public List<BeverageEntity> getUnavailableBeverages();
-
 }

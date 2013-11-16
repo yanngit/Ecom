@@ -59,9 +59,6 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
     @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();
@@ -75,6 +72,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public List<BeverageEntity> getAvailableBeverages() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CocktailEntity getCocktail(Long id) {
+        return cocktailManager.find(id);
     }
 
 }

@@ -24,10 +24,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     private List<CocktailEntity> cart = new ArrayList<>();
     private String name = null;
     private float price = 0;
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
+    
     @Override
     public void setName(String name) {
         this.name = name;

@@ -44,10 +44,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         return  this.beverageManager.getUnavailableBeverages();
     }
     
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
     @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();
@@ -62,5 +58,4 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public CocktailEntity getCocktail(Long id) {
         return cocktailManager.find(id);
     }
-
 }
