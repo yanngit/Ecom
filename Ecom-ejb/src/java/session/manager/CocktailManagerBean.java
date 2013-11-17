@@ -117,5 +117,9 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     public List<CocktailEntity> getCocktailsByFirstLetter(char letter){
         return em.createNamedQuery("getCocktailsByExp").setParameter("exp", letter+"%").getResultList();
     }
+    
+    public List<CocktailEntity> getCocktailsByName(String name){
+        return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%"+name+"%").getResultList();
+    }
 
 }
