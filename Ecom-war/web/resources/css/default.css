@@ -37,7 +37,7 @@ td {
  background-color: green;
 }
 
-[class="row"] {
-    margin-left: auto;
+.container {
     margin-right: auto;
+    margin-left: auto;
 }
