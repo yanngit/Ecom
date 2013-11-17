@@ -67,4 +67,8 @@ public class DataManagedBean {
     public List<CocktailEntity> getCart() {
         return client.getCart();
     }
+    
+    public List<CocktailEntity> getListMostPopularCocktails() {
+        return client.getMostPopularCocktails();
+    }
 }

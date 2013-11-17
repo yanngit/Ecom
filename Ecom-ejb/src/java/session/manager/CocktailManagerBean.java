@@ -94,4 +94,9 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
             }
         }
     }
+    
+    public List<CocktailEntity> getMostPopularCocktails() {
+        return em.createNamedQuery("getPopularCocktails").setMaxResults(5).getResultList();
+    }
+
 }

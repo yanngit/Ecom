@@ -82,4 +82,9 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCart() {
         return cart.getCocktails();
     }
+
+    @Override
+    public List<CocktailEntity> getMostPopularCocktails() {
+        return cocktailManager.getMostPopularCocktails();
+    }
 }
