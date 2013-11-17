@@ -35,6 +35,14 @@ public class DataManagedBean {
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
+    
+    public List<CocktailEntity> getListAvailableCocktails() {
+        return client.getAvailableCocktails();
+    }
+    
+    public List<CocktailEntity> getListUnavailableCocktails() {
+        return client.getUnavailableCocktails();
+    }
 
     public List<BeverageEntity> getListBeverages() {
         return client.getAllBeverages();
