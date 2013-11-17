@@ -173,6 +173,13 @@
                             </f:facet>
                             <h:outputText value="#{item.price}"/>
                         </h:column>
+                         <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Supprimer du panier"/>
+                            </f:facet>
+                            <h:commandButton label="Supprimer"
+                                             action="#{dataManagedBean.removeArticleToCart(item.ID)}"/>
+                        </h:column>
                     </h:dataTable>
                 </h:form>
             </f:view>

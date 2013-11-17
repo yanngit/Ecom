@@ -52,6 +52,10 @@ public class DataManagedBean {
         client.addArticle(id);
     }
     
+    public void removeArticleToCart(Long id) throws EcomException {
+        client.removeArticle(id);
+    }
+    
     public List<CocktailEntity> getCart() {
         return client.getCart();
     }
