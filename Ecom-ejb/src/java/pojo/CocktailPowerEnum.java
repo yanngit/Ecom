@@ -1,9 +1,5 @@
 package pojo;
 
-/**
- *
- * @author alexis
- */
 public enum CocktailPowerEnum {
     SOFT("Doux"),
     MEDIUM("Moyen"),

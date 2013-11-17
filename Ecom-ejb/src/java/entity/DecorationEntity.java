@@ -4,16 +4,11 @@
  */
 package entity;
 
-import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import pojo.Deliverable;
 
-/**
- *
- * @author alexis
- */
 @Entity
 @DiscriminatorValue("Decoration")
 @Table(name="DECORATION")

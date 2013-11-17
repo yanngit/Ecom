@@ -6,10 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-/**
- *
- * @author alexis
- */
+
 @MappedSuperclass
 public class Product implements Serializable {
     @Id

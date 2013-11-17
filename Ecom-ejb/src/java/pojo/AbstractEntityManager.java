@@ -2,14 +2,8 @@ package pojo;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-/**
- *
- * @author alexis
- */
-//@LocalBean
 public abstract class AbstractEntityManager<T> {
     abstract protected EntityManager getEntityManager();
 
@@ -19,7 +13,7 @@ public abstract class AbstractEntityManager<T> {
         this.entityClass = entityClass;
     }
     
-    public T find(Object id) {
+    public T find(Long id) {
         return (T) getEntityManager().find(entityClass, id);
     }
 
@@ -39,10 +33,5 @@ public abstract class AbstractEntityManager<T> {
 
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
-    }
-    
-    public List<T> executeSelect(String query){
-        Query q = getEntityManager().createQuery(query);
-        return q.getResultList();
     }
 }

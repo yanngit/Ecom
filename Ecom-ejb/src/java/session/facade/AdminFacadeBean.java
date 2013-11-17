@@ -4,28 +4,30 @@
  */
 package session.facade;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.OrderEntity;
+import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import session.interfaces.AdminFacadeRemoteItf;
+import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.OrderManagerBean;
 
-/**
- *
- * @author yann
- */
 @Stateless
-@LocalBean
 public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @EJB
     private BeverageManagerBean beverageManager;
     @EJB
     private CocktailManagerBean cocktailManager;
-    
+    @EJB
+    private OrderManagerBean orderManager;
+    @EJB
+    private AddressManagerBean addressManager;
     @Override
     public void addBeverage(BeverageEntity beverage) {
         beverageManager.create(beverage);
@@ -48,7 +50,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.findAll();
     }
 
     @Override
@@ -60,9 +62,6 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<CocktailEntity> getUnavailableCocktails() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 
     @Override
     public List<BeverageEntity> getAllBeverages() {
@@ -76,6 +75,39 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getAvailableBeverages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public CocktailEntity getCocktail(Long id) {
+        return cocktailManager.find(id);
+    }
+
+    @Override
+    public void addArticle(Long id) throws EcomException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void addOrder(OrderEntity o) {
+       orderManager.create(o);
+    }
+
+    @Override
+    public void addAddress(AddressEntity address) {
+        addressManager.create(address);
+    }
+    @Override
+    public List<AddressEntity> getAllAddresses() {
+        return addressManager.findAll();
+    }
+
+    @Override
+    public void removeArticle(Long id) throws EcomException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

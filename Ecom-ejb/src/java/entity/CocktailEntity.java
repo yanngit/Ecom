@@ -13,48 +13,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
-/**
- *
- * @author alexis
- */
 
 @NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c"),
-
-
-
-
-
-//@NamedQuery(name="findAvailableCocktails", query="SELECT c.deliverables FROM CocktailEntity c WHERE c.ID IN :cent"),// WHERE c.ID IN :cent"),//  "
-
-//@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
-
-
-@NamedQuery(name="findAvailableCocktails", query="SELECT c.ID FROM CocktailEntity c INNER JOIN c.deliverables d "),// WHERE c.ID IN :cent"),//  "
-
-/*
-"SELECT p FROM Pan p WHERE p.id IN " +
-            "(SELECT p.id FROM p.panRes prs WHERE id IN " +
-            "(SELECT r.id FROM PanRes r where r.pant = :pant))"+                       
-            " ORDER BY pr.clD"
- */      
-        
-
-//la var cent .... les ID de tt les delivrables        
-@NamedQuery(name="getIdDelivrables", query="SELECT d.ID FROM Deliverable d")//  ")
-
-//les delivrables disponibles        
-        
+@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
+@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co INNER JOIN co.deliverables de WHERE de.quantity <= 0)")
 })
-
 @Entity
 @Table(name="COCKTAIL")
 public class CocktailEntity extends Product  {
@@ -83,6 +54,17 @@ public class CocktailEntity extends Product  {
             referencedColumnName="ID"))
     @NotNull
     protected List<Deliverable> deliverables;
+    
+    @ManyToMany(mappedBy="cocktails")
+    protected List<OrderEntity> orders;
+     
+    public List<OrderEntity> getOrders(){
+        return orders;
+    }
+    
+    public void setOrders(List<OrderEntity> list){
+        orders = list;
+    }
 
     public CocktailEntity(){
         super();

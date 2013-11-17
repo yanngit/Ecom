@@ -13,10 +13,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author alexis
- */
 @NamedQueries({
 @NamedQuery(name="findUnavailableBeverages",query="SELECT b FROM BeverageEntity b WHERE b.quantity <= 0"),
 @NamedQuery(name="findAvailableBeverages", query="SELECT b FROM BeverageEntity b WHERE b.quantity >= 1")
