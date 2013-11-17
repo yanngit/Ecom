@@ -25,10 +25,33 @@ import pojo.Product;
  *
  * @author alexis
  */
-/*@NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.quantity <= 0"),
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.quantity >= 1")
-})*/
+
+@NamedQueries({
+@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c"),
+
+
+
+
+
+//@NamedQuery(name="findAvailableCocktails", query="SELECT c.deliverables FROM CocktailEntity c WHERE c.ID IN :cent"),// WHERE c.ID IN :cent"),//  "
+
+@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM COCKTAIL_COMPOSITION c"),// WHERE c.ID IN :cent"),//  "
+
+/*
+"SELECT p FROM Pan p WHERE p.id IN " +
+            "(SELECT p.id FROM p.panRes prs WHERE id IN " +
+            "(SELECT r.id FROM PanRes r where r.pant = :pant))"+                       
+            " ORDER BY pr.clD"
+ */      
+        
+
+//la var cent .... les ID de tt les delivrables        
+@NamedQuery(name="getIdDelivrables", query="SELECT d.ID FROM Deliverable d")//  ")
+
+//les delivrables disponibles        
+        
+})
+
 @Entity
 @Table(name="COCKTAIL")
 public class CocktailEntity extends Product  {
@@ -106,5 +129,4 @@ public class CocktailEntity extends Product  {
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";
     }
-    
 }
