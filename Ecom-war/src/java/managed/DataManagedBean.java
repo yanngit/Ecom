@@ -35,6 +35,14 @@ public class DataManagedBean {
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
+    
+    public List<CocktailEntity> getListAvailableCocktails() {
+        return client.getAvailableCocktails();
+    }
+    
+    public List<CocktailEntity> getListUnavailableCocktails() {
+        return client.getUnavailableCocktails();
+    }
 
 
     public List<BeverageEntity> getListBeverages() {
@@ -53,7 +61,19 @@ public class DataManagedBean {
         client.addArticle(id);
     }
     
+    public void removeArticleToCart(Long id) throws EcomException {
+        client.removeArticle(id);
+    }
+    
     public List<CocktailEntity> getCart() {
         return client.getCart();
+    }
+    
+    public List<CocktailEntity> getListMostPopularCocktails() {
+        return client.getMostPopularCocktails();
+    }
+    
+    public List<CocktailEntity> getListNewestCocktails() {
+        return client.getNewestCocktails();
     }
 }

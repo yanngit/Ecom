@@ -22,4 +22,7 @@ public interface ClientFacadeRemoteItf {
     public void addArticle(Long id) throws EcomException;
     public void removeArticle(Long id) throws EcomException;
     public List<CocktailEntity> getCart();
+    public List<CocktailEntity> getMostPopularCocktails();
+    public List<CocktailEntity> getNewestCocktails();
+
 }

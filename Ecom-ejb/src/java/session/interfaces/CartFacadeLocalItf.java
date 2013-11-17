@@ -16,6 +16,7 @@ public interface CartFacadeLocalItf {
     public void addArticle(long ID) throws EcomException;
     public void removeArticle(long ID) throws EcomException;
     public List<CocktailEntity> getCocktails();
-    public void updatePrice(float price);
     public void emptyCart();
+    public float getReduction();
+    public float getPrice();
 }
