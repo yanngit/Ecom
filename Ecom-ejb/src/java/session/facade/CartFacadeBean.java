@@ -66,7 +66,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     public int getIndexInCartOf(long ID){
         int i = 0;
         for(CocktailEntity c : cart){
-            if(c.getID()== ID){
+            if(c.getID().compareTo(ID) == 0){
                 return i;
             }
             i ++;
@@ -80,9 +80,10 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         if(index == -1){
             throw new EcomException("Can't remove the cocktail ["+ID+"] in the cart"+name);
         }
-        else{
+        else {
+            float price = cart.get(index).getPrice();
             cart.remove(index);  
-            updatePrice(cart.get(index).getPrice());
+            updatePrice(-price);
         }
     }
 
