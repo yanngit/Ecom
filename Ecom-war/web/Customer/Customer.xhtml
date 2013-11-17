@@ -20,8 +20,8 @@
 
 
         <h:outputStylesheet library="css" name="default.css"  />
-
-
+        <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />
+        <ui:insert name="message" >Message</ui:insert>
         <h2>List of alcohol :</h2>
         <p> 
             <f:view>
@@ -173,7 +173,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Acheter"/>
                             </f:facet>
-                            <h:commandButton label="Ajouter"
+                            <h:commandButton label="Ajouter" title="ajouter au panier"
                                              action="#{dataManagedBean.addArticleToCart(item.ID)}"/>
                         </h:column>
                     </h:dataTable>
