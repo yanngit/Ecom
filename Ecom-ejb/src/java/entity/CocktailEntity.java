@@ -10,9 +10,10 @@ import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
@@ -21,10 +22,10 @@ import pojo.Product;
 /**
  *
  * @author alexis
- 
-@NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE b.quantity <= 0"),
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE b.quantity >= 1")
+ */
+/*@NamedQueries({
+@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.quantity <= 0"),
+@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.quantity >= 1")
 })*/
 @Entity
 @Table(name="COCKTAIL")
@@ -33,14 +34,26 @@ public class CocktailEntity extends Product  {
     @Column(name="PHOTO")
     protected String photoURI;
     @Column(name="RECIPE")
+    @NotNull
     protected String recipe;
     @Column(name="FLAVOR")
     @Enumerated(value=EnumType.ORDINAL)
+    @NotNull
     protected CocktailFlavorEnum flavor;
     @Column(name="POWER")
     @Enumerated(value=EnumType.ORDINAL)
+    @NotNull
     protected CocktailPowerEnum power;
-    @ManyToMany(mappedBy="cocktails")
+    @ManyToMany
+    @JoinTable(
+        name="COCKTAIL_COMPOSITION",
+        joinColumns=@JoinColumn(
+            name="COCKTAIL_ID",
+            referencedColumnName="ID"),
+        inverseJoinColumns=@JoinColumn(
+            name="DELIVERABLE_ID",
+            referencedColumnName="ID"))
+    @NotNull
     protected List<Deliverable> deliverables;
 
     public CocktailEntity(){

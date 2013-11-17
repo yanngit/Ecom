@@ -1,6 +1,5 @@
 package session.manager;
 
-import entity.BeverageEntity;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;

@@ -11,6 +11,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -27,8 +28,10 @@ import javax.persistence.Table;
 public class BeverageEntity extends Deliverable  {
     private static final long serialVersionUID = 1L;
     @Column(name="CAPACITY")
+    @NotNull
     protected Integer capacity; /* in cL */
     @Column(name="DEGREE")
+    @NotNull
     protected Integer alcoholicDegree;
 
     public BeverageEntity(){

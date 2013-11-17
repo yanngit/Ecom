@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,10 +25,13 @@ public class ClientAccountEntity implements Serializable {
     @Column(name="ID")
     protected Long id;
     @Column(name="LOGIN")
+    @NotNull
     protected String login;
     @Column(name="PASSWORD")
+    @NotNull
     protected String password;
     @Column(name="DELIVERY_ADDRESS")
+    @NotNull
     protected String delivery_address;
     
     public Long getId() {

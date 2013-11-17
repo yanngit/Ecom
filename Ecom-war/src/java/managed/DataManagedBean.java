@@ -5,6 +5,7 @@
 package managed;
 
 import entity.BeverageEntity;
+import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -27,9 +28,9 @@ public class DataManagedBean {
         super();
     }
     
-   /* public List<CocktailEntity> getAvailableCocktails(){
-        return drink.getAvailableCocktails();
-    }*/
+   public List<CocktailEntity> getListCocktails(){
+        return client.getAllCocktails();
+    }
     
     public List<BeverageEntity> getListBeverages(){
         return client.getAllBeverages();
