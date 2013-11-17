@@ -9,10 +9,6 @@ import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Remote;
 
-/**
- *
- * @author yann
- */
 @Remote
 public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
     public void addBeverage(BeverageEntity beverage);

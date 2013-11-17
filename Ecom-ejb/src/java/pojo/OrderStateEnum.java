@@ -4,10 +4,6 @@
  */
 package pojo;
 
-/**
- *
- * @author bach
- */
 public enum OrderStateEnum {
     VALIDATED("Validée"), 
     SENT("Envoyée"), 

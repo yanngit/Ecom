@@ -13,10 +13,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import session.manager.CocktailManagerBean;
 
-/**
- *
- * @author yann
- */
 @Stateful
 public class CartFacadeBean implements CartFacadeLocalItf {
     @EJB

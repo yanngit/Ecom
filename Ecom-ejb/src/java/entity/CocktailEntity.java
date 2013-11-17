@@ -19,10 +19,6 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
-/**
- *
- * @author alexis
- */
 /*@NamedQueries({
 @NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.quantity <= 0"),
 @NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.quantity >= 1")

@@ -10,10 +10,6 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.Remote;
 
-/**
- *
- * @author yann
- */
 @Remote
 public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getAllCocktails();

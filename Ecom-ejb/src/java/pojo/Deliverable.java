@@ -9,15 +9,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author alexis
- */
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
@@ -58,6 +52,5 @@ public class Deliverable extends Product {
     public String toString() {
         return "pojo.Deliverable[" + ID + " : " + name + "]";
     }
-    
     
 }

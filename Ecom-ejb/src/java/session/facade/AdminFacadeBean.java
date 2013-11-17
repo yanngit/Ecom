@@ -14,10 +14,6 @@ import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
 
-/**
- *
- * @author yann
- */
 @Stateless
 public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @EJB

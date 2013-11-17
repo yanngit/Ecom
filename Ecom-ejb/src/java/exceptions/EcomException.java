@@ -4,10 +4,6 @@
  */
 package exceptions;
 
-/**
- *
- * @author yann
- */
 public class EcomException extends Exception {
     private String message;
     

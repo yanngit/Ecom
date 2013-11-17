@@ -9,10 +9,6 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.LocalBean;
 
-/**
- *
- * @author yann
- */
 @LocalBean
 public interface CartFacadeLocalItf {
     public void setName(String name);

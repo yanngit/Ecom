@@ -1,10 +1,5 @@
 package pojo;
 
-/**
- *
- * @author alexis
- * @TODO Internationalize enum
- */
 public enum CocktailFlavorEnum {
     FRUITY("Fruité"),
     BITTER("Amer");

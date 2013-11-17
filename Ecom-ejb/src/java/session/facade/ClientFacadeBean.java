@@ -15,10 +15,6 @@ import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
 
-/**
- *
- * @author yann
- */
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
@@ -65,7 +61,15 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public void addArticle(Long id) throws EcomException {
-        cart.addArticle(id);
+        /*Vérifie que le cocktail soit toujours disponible, sinon exception*/
+        if(cocktailManager.getAvailabilityByCocktailId(id)) {
+                /*Ajoute le cocktail au panier et update le prix du panier*/
+                cart.addArticle(id);
+                cocktailManager.decreaseQuantityOfCocktail(id, 1);
+        }
+        else {
+            throw new EcomException("Impossible d'ajouter le cocktail ["+id+"] au panier, il n'est plus disponible.");
+        }
     }
     
     @Override
