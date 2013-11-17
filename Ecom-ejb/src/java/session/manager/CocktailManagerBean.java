@@ -82,4 +82,16 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
             }
         }
     }
+    
+    public void increaseQuantityOfCocktail(Long id, int quantity) {
+        List<Deliverable> list = find(id).getDeliverables();
+        /*Parcourir la liste des deliverable et incrémenter tous les deliverable de la quantite quantity*/
+        for(Deliverable d : list){
+            if(d instanceof BeverageEntity){
+                beverageManager.increaseQuantityOfBeverage(d.getID(),quantity);
+            } else {
+                decorationManager.increaseQuantityOfDecoration(d.getID(),quantity);
+            }
+        }
+    }
 }

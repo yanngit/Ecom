@@ -44,4 +44,11 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity>{
         beverage.setQuantity(newQuantity);
         this.edit(beverage);
     }
+    
+    public void increaseQuantityOfBeverage(Long id, int quantity) {
+        BeverageEntity beverage = find(id);
+        int newQuantity = beverage.getQuantity() + quantity;
+        beverage.setQuantity(newQuantity);
+        this.edit(beverage);
+    }
 }

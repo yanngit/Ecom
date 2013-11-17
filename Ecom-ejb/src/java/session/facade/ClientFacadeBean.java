@@ -72,6 +72,12 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         }
     }
     
+     @Override
+    public void removeArticle(Long id) throws EcomException {
+                cart.removeArticle(id);
+                cocktailManager.increaseQuantityOfCocktail(id, 1);
+    }
+    
     @Override
     public List<CocktailEntity> getCart() {
         return cart.getCocktails();

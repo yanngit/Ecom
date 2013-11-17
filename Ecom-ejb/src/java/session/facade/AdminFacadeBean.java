@@ -12,7 +12,6 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.HEAD;
 import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
@@ -105,6 +104,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public List<AddressEntity> getAllAddresses() {
         return addressManager.findAll();
+    }
+
+    @Override
+    public void removeArticle(Long id) throws EcomException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
