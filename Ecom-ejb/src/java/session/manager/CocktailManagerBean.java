@@ -3,7 +3,6 @@ package session.manager;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import exceptions.EcomException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -113,6 +112,10 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     
     public List<CocktailEntity> getCocktailsWithAlcohol() {
         return em.createNamedQuery("getCocktailsWithAlcohol").getResultList();
+    }
+    
+    public List<CocktailEntity> getCocktailsByFirstLetter(char letter){
+        return em.createNamedQuery("getCocktailsByExp").setParameter("exp", letter+"%").getResultList();
     }
 
 }

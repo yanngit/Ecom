@@ -26,4 +26,5 @@ public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getNewestCocktails();
     public List<CocktailEntity> getCocktailsWithAlcohol();
     public List<CocktailEntity> getCocktailsWithoutAlcohol();
+    public List<CocktailEntity> getCocktailsByFirstLetter(char letter);
 }
