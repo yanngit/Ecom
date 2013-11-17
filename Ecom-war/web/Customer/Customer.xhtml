@@ -507,6 +507,106 @@
                 </h:form>
             </f:view>
             
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="Cocktails first letter C :"/></h1>
+                    <h:dataTable value="#{dataManagedBean.listCocktailsByFirstLetter('C%')}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PhotoURI"/>
+                            </f:facet>
+                            <h:outputText value="#{item.photoURI}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Recipe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.recipe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Flavor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flavor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Power"/>
+                            </f:facet>
+                            <h:outputText value="#{item.power}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Price"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </f:view>
+            
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="Cocktails taht name containt banana :"/></h1>
+                    <h:dataTable value="#{dataManagedBean.listCocktailsByName('%banana%')}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PhotoURI"/>
+                            </f:facet>
+                            <h:outputText value="#{item.photoURI}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Recipe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.recipe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Flavor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.flavor}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Power"/>
+                            </f:facet>
+                            <h:outputText value="#{item.power}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Price"/>
+                            </f:facet>
+                            <h:outputText value="#{item.price}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </f:view>
+            
         </p>
     </h:body>
 </html>

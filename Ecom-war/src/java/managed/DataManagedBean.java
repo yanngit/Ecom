@@ -84,4 +84,13 @@ public class DataManagedBean {
     public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
         return client.getCocktailsWithoutAlcohol();
     }
+    
+    public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
+        return client.getCocktailsByFirstLetter(letter);
+    }
+    
+    public List<CocktailEntity> listCocktailsByName(String name) {
+        return client.getCocktailsByName(name);
+    }
+
 }
