@@ -13,16 +13,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
-/*@NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.quantity <= 0"),
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.quantity >= 1")
-})*/
+@NamedQueries({
+@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
+@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co INNER JOIN co.deliverables de WHERE de.quantity <= 0)")
+})
 @Entity
 @Table(name="COCKTAIL")
 public class CocktailEntity extends Product  {

@@ -3,6 +3,7 @@ package session.manager;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import exceptions.EcomException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -38,15 +39,30 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     }
     
     /*Return the list of all available cocktails.*/
-    public List<CocktailEntity> getAvailableCocktails(){
+    public List<CocktailEntity> getAvailableCocktails() {
+        /*List<CocktailEntity> res = new ArrayList<>();
+        List<CocktailEntity> listCocktails = findAll();
+        for(CocktailEntity c : listCocktails) {
+            boolean available = true;
+            List<Deliverable> listDeliverable = c.getDeliverables();
+            for(Deliverable d : listDeliverable) {
+                if(d.getQuantity() <= 0) {
+                    available = false;
+                }
+            }
+            if(available) { 
+                res.add(c);
+            }
+        }
+        return res;*/
         return em.createNamedQuery("findAvailableCocktails").getResultList();
     }
     
     /*Get the availability of a specific cocktail. True is returned if the cocktail is available, false otherwise.*/
-    public boolean getAvailabilityByCocktailId(Long id){
+    public boolean getAvailabilityByCocktailId(Long id) {
         List<CocktailEntity> list = getAvailableCocktails();
-        for(CocktailEntity c : list){
-            if(c.getID().equals(id)){
+        for(CocktailEntity c : list) {
+            if(c.getID().equals(id)) {
                 return true;
             }
         }
@@ -60,9 +76,9 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         /*Parcourir la liste des deliverable et décrémenter tous les deliverable de la quantite quantity*/
         for(Deliverable d : list){
             if(d instanceof BeverageEntity){
-                beverageManager.decreaseQuantityOfBeverage(id,quantity);
+                beverageManager.decreaseQuantityOfBeverage(d.getID(),quantity);
             } else {
-                decorationManager.decreaseQuantityOfDecoration(id,quantity);
+                decorationManager.decreaseQuantityOfDecoration(d.getID(),quantity);
             }
         }
     }
