@@ -14,16 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author bach
- */
 @Entity
 @Table(name="Address")
 public class AddressEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID")
     private Long id;
 
     @Column(name="SURNAME")

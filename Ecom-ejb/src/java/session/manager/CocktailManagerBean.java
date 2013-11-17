@@ -7,10 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pojo.AbstractEntityManager;
 
-/**
- *
- * @author Alexis BRENON <brenon.alexis@gmail.com>
- */
 @Stateless
 public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @PersistenceContext (name="Ecom_PU")

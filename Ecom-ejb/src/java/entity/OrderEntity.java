@@ -9,6 +9,8 @@ import java.util.List;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,12 +20,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author bach
- */
-@Table(name="ORDER")
 @Entity
+@Table(name="ORDERENTITY")
 public class OrderEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,6 +29,7 @@ public class OrderEntity implements Serializable {
     @Column(name="ID")
     protected Long id;
     @Column(name="STATUS")
+    @Enumerated(value=EnumType.ORDINAL)
     protected OrderStateEnum status;
     @ManyToMany
     @JoinTable(name="ORDER_ADDRESS",

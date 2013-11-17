@@ -56,7 +56,7 @@ public class CocktailEntity extends Product  {
     @NotNull
     protected List<Deliverable> deliverables;
     
-     @ManyToMany(mappedBy="cocktails")
+    @ManyToMany(mappedBy="cocktails")
     protected List<OrderEntity> orders;
      
     public List<OrderEntity> getOrders(){
