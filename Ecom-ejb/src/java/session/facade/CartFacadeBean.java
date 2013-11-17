@@ -108,7 +108,4 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         this.setPrice(0);
         this.setReduction(0);
     }
-    
-    
-
 }
