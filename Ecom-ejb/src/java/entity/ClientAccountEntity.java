@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author bach
  */
+@Table(name="CLIENTACCOUNT")
 @Entity
 public class ClientAccountEntity implements Serializable {
     private static final long serialVersionUID = 1L;

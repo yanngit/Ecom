@@ -55,7 +55,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.findAll();
     }
 
     @Override

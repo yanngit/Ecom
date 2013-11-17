@@ -16,11 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author bach
  */
+@Table(name="ORDER")
 @Entity
 public class OrderEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,15 +33,36 @@ public class OrderEntity implements Serializable {
     @Column(name="STATUS")
     protected OrderStateEnum status;
     @ManyToMany
-    @JoinTable(name="ORDERS_ADDRESSES",
+    @JoinTable(name="ORDER_ADDRESS",
         joinColumns=@JoinColumn(
             name="ORDER_ID",
             referencedColumnName="ID"),
         inverseJoinColumns=@JoinColumn(
             name="ADDRESS_ID",
             referencedColumnName="ID"))
+    @NotNull
     protected List<AddressEntity> addresses;
+    
+    @ManyToMany
+    @JoinTable(name="ORDER_COCKTAIL",
+        joinColumns=@JoinColumn(
+            name="ORDER_ID",
+            referencedColumnName="ID"),
+        inverseJoinColumns=@JoinColumn(
+            name="COCKTAIL_ID",
+            referencedColumnName="ID"))
+    @NotNull
+    protected List<CocktailEntity> cocktails;
 
+    public List<CocktailEntity> getCocktails(){
+        return cocktails;
+    }
+    
+    public void setCocktails(List<CocktailEntity> list){
+        cocktails = list;
+    }
+    
+    
     public List<AddressEntity> getAddresses() {
         return addresses;
     }
@@ -48,9 +71,8 @@ public class OrderEntity implements Serializable {
         this.addresses = addresses;
     }
     
-    
-    @JoinColumn(name = "CONTENT")
-    protected List<CocktailEntity> content;
+    /*@JoinColumn(name = "CONTENT")
+    protected List<CocktailEntity> content;*/
 
     public OrderStateEnum getStatus() {
         return status;
@@ -60,13 +82,13 @@ public class OrderEntity implements Serializable {
         this.status = status;
     }
 
-    public List<CocktailEntity> getContent() {
+    /*public List<CocktailEntity> getContent() {
         return content;
-    }
+    }*/
 
-    public void setContent(List<CocktailEntity> content) {
+    /*public void setContent(List<CocktailEntity> content) {
         this.content = content;
-    }
+    }*/
 
     public Long getId() {
         return id;

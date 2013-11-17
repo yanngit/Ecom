@@ -55,6 +55,17 @@ public class CocktailEntity extends Product  {
             referencedColumnName="ID"))
     @NotNull
     protected List<Deliverable> deliverables;
+    
+     @ManyToMany(mappedBy="cocktails")
+    protected List<OrderEntity> orders;
+     
+    public List<OrderEntity> getOrders(){
+        return orders;
+    }
+    
+    public void setOrders(List<OrderEntity> list){
+        orders = list;
+    }
 
     public CocktailEntity(){
         super();
