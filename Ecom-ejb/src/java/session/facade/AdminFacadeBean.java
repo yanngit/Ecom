@@ -4,15 +4,20 @@
  */
 package session.facade;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.HEAD;
 import session.interfaces.AdminFacadeRemoteItf;
+import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.OrderManagerBean;
 
 @Stateless
 public class AdminFacadeBean implements AdminFacadeRemoteItf {
@@ -20,7 +25,10 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     private BeverageManagerBean beverageManager;
     @EJB
     private CocktailManagerBean cocktailManager;
-    
+    @EJB
+    private OrderManagerBean orderManager;
+    @EJB
+    private AddressManagerBean addressManager;
     @Override
     public void addBeverage(BeverageEntity beverage) {
         beverageManager.create(beverage);
@@ -43,7 +51,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.findAll();
     }
 
     @Override
@@ -84,6 +92,19 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public List<CocktailEntity> getCart() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void addOrder(OrderEntity o) {
+       orderManager.create(o);
+    }
+
+    @Override
+    public void addAddress(AddressEntity address) {
+        addressManager.create(address);
+    }
+    @Override
+    public List<AddressEntity> getAllAddresses() {
+        return addressManager.findAll();
     }
 
 }

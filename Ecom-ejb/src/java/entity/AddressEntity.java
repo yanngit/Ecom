@@ -5,20 +5,24 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Address")
 public class AddressEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="ID")
     private Long id;
-    
+
     @Column(name="SURNAME")
     protected String surname;
     @Column(name="FIRST_NAME")
@@ -31,10 +35,18 @@ public class AddressEntity implements Serializable {
     protected String city;
     @Column(name="COUNTRY")
     protected String country;
+    @ManyToMany(mappedBy="addresses")
+    protected List<OrderEntity> orders;
 
-    @ManyToMany(mappedBy="address")
-    
-    public String getSurname() {
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
+    }
+
+        public String getSurname() {
         return surname;
     }
 
