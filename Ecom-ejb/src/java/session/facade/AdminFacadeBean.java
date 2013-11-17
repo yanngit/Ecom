@@ -121,4 +121,14 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public List<CocktailEntity> getCocktailsWithAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsWithoutAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

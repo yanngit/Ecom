@@ -25,7 +25,9 @@ import pojo.Product;
 @NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
 @NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co INNER JOIN co.deliverables de WHERE de.quantity <= 0)"),
 @NamedQuery(name="getPopularCocktails", query="SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
-@NamedQuery(name="getNewestCocktails", query="SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC")
+@NamedQuery(name="getNewestCocktails", query="SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
+@NamedQuery(name="getVirginCocktails", query="SELECT c FROM CocktailEntity c WHERE c.virgin = 1"),
+@NamedQuery(name="getCocktailsWithAlcohol", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co WHERE co.virgin = 1)")
 })
 @Entity
 @Table(name="COCKTAIL")
@@ -54,11 +56,12 @@ public class CocktailEntity extends Product  {
             name="DELIVERABLE_ID",
             referencedColumnName="ID"))
     @NotNull
-    protected List<Deliverable> deliverables;
-    
+    protected List<Deliverable> deliverables;   
     @ManyToMany(mappedBy="cocktails")
     protected List<OrderEntity> orders;
-     
+    @Column(name="VIRGIN")
+    protected Boolean virgin;
+    
     public List<OrderEntity> getOrders(){
         return orders;
     }
@@ -108,7 +111,16 @@ public class CocktailEntity extends Product  {
     }
 
     public void setDeliverables(List<Deliverable> deliverables) {
+        virgin = true;
         this.deliverables = deliverables;
+        for(Deliverable d : deliverables){
+            if(d instanceof BeverageEntity){
+                BeverageEntity b = (BeverageEntity)d;
+                if(b.getAlcoholicDegree() > 0){
+                    virgin = false;
+                }
+            }
+        }
     }
         
     @Override

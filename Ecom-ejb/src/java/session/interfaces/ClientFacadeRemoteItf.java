@@ -24,5 +24,6 @@ public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getCart();
     public List<CocktailEntity> getMostPopularCocktails();
     public List<CocktailEntity> getNewestCocktails();
-
+    public List<CocktailEntity> getCocktailsWithAlcohol();
+    public List<CocktailEntity> getCocktailsWithoutAlcohol();
 }
