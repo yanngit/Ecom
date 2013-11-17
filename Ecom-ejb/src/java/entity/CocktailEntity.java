@@ -35,7 +35,10 @@ import pojo.Product;
 
 //@NamedQuery(name="findAvailableCocktails", query="SELECT c.deliverables FROM CocktailEntity c WHERE c.ID IN :cent"),// WHERE c.ID IN :cent"),//  "
 
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM COCKTAIL_COMPOSITION c"),// WHERE c.ID IN :cent"),//  "
+//@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
+
+
+@NamedQuery(name="findAvailableCocktails", query="SELECT c.ID FROM CocktailEntity c INNER JOIN c.deliverables d "),// WHERE c.ID IN :cent"),//  "
 
 /*
 "SELECT p FROM Pan p WHERE p.id IN " +
