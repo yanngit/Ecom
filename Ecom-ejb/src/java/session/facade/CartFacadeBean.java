@@ -23,11 +23,12 @@ public class CartFacadeBean implements CartFacadeLocalItf {
 
     private float reduction = 0;
 
+    @Override
     public float getReduction() {
         return reduction;
     }
 
-    public void setReduction(float reduction) {
+    private void setReduction(float reduction) {
         this.reduction = reduction;
     }
 
@@ -43,11 +44,13 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     public String getName() {
         return name;
     }
+    
+    @Override
     public float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    private void setPrice(float price) {
         this.price = price;
     }
     
@@ -63,7 +66,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         }
     }
     
-    public int getIndexInCartOf(long ID){
+    private int getIndexInCartOf(long ID){
         int i = 0;
         for(CocktailEntity c : cart){
             if(c.getID().compareTo(ID) == 0){
@@ -92,7 +95,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         return cart;
     }
     
-    public void updatePrice(float price){
+    private void updatePrice(float price){
         this.price += price;
         if(getCocktails().size() > 5){
             this.reduction = 10*price/100;
