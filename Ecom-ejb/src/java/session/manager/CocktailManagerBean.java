@@ -110,5 +110,13 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
                 .setMaxResults(5)
                 .getResultList();
     }
+    
+    public List<CocktailEntity> getVirginCocktails() {
+        return em.createNamedQuery("getVirginCocktails").getResultList();
+    }
+    
+    public List<CocktailEntity> getCocktailsWithAlcohol() {
+        return em.createNamedQuery("getCocktailsWithAlcohol").getResultList();
+    }
 
 }

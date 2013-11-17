@@ -76,4 +76,12 @@ public class DataManagedBean {
     public List<CocktailEntity> getListNewestCocktails() {
         return client.getNewestCocktails();
     }
+    
+    public List<CocktailEntity> getListCocktailsWithAlcohol() {
+        return client.getCocktailsWithAlcohol();
+    }
+    
+    public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
+        return client.getCocktailsWithoutAlcohol();
+    }
 }
