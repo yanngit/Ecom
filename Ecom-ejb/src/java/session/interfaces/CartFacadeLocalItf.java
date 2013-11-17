@@ -7,13 +7,13 @@ package session.interfaces;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.List;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 
 /**
  *
  * @author yann
  */
-@Local
+@LocalBean
 public interface CartFacadeLocalItf {
     public void setName(String name);
     public String getName();

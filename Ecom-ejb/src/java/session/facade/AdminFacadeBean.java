@@ -6,6 +6,7 @@ package session.facade;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -77,6 +78,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public CocktailEntity getCocktail(Long id) {
         return cocktailManager.find(id);
+    }
+
+    @Override
+    public void addArticle(Long id) throws EcomException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

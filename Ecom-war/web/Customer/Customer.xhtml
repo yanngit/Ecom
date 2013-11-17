@@ -9,14 +9,14 @@
 
     <h:body>
 
-        <h:form>
+        <!--<h:form>
             <h:inputText binding="#{input1}" />
             <h:commandButton value="Valider" action="#{clientBean.setName(input1.value)}" />
-        </h:form>
+        </h:form>-->
 
 
 
-        <h1>Hello <h:outputText value="#{clientBean.getName()}"/></h1>
+        <!--<h1>Hello <h:outputText value="#{clientBean.getName()}"/></h1>-->
 
 
         <h:outputStylesheet library="css" name="default.css"  />
@@ -125,7 +125,7 @@
             </f:view>
             <f:view>
                 <h1><h:outputText value="Cocktail by ID"/></h1>
-                <h:outputText value="#{dataManagedBean.getCocktail(2)}"/>
+                <h:outputText value="#{dataManagedBean.getCocktail(51).getName()}"/>
             </f:view>
             <f:view>
                 <h:form>

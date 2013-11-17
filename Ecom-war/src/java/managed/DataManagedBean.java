@@ -10,9 +10,7 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import session.facade.CartFacadeBean;
-import session.interfaces.CartFacadeLocalItf;
+import javax.faces.bean.SessionScoped;
 import session.interfaces.ClientFacadeRemoteItf;
 
 /**
@@ -20,13 +18,11 @@ import session.interfaces.ClientFacadeRemoteItf;
  * @author yann
  */
 @ManagedBean(name = "dataManagedBean")
-@RequestScoped
+@SessionScoped
 public class DataManagedBean {
 
     @EJB
     private ClientFacadeRemoteItf client;
-    @EJB
-    private CartFacadeLocalItf cart;
 
     public DataManagedBean() {
         super();
@@ -53,10 +49,10 @@ public class DataManagedBean {
     }
     
     public void addArticleToCart(Long id) throws EcomException {
-        cart.addArticle(id);
+        client.addArticle(id);
     }
     
     public List<CocktailEntity> getCart() {
-        return cart.getCocktails();
+        return client.getCart();
     }
 }

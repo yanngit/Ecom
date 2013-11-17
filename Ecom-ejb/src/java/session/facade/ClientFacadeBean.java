@@ -6,9 +6,11 @@ package session.facade;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
+import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
@@ -17,12 +19,14 @@ import session.manager.CocktailManagerBean;
  *
  * @author yann
  */
-@Stateless
+@Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
     private CocktailManagerBean cocktailManager;
     @EJB
     private BeverageManagerBean beverageManager;
+    @EJB
+    private CartFacadeLocalItf cart;
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
@@ -57,5 +61,15 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public CocktailEntity getCocktail(Long id) {
         return cocktailManager.find(id);
+    }
+
+    @Override
+    public void addArticle(Long id) throws EcomException {
+        cart.addArticle(id);
+    }
+    
+    @Override
+    public List<CocktailEntity> getCart() {
+        return cart.getCocktails();
     }
 }
