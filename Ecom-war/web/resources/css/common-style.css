@@ -37,7 +37,7 @@ td {
     background-color: green;
 }
 
-.container-fluid, .container {
+.container {
     margin-right: auto;
     margin-left: auto;
     border: 2px dashed black;
