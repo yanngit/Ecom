@@ -1,13 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
     <h:head>
         <title>Acceuil</title>
     </h:head>
     <h:body>
-        Hello bienvenue sur la page d'acceuil du site ! <br />
-        <h:outputLink value="/Ecom-war/Customer/Customer.xhtml" >Liste des boissons disponibles</h:outputLink>
+        <ui:composition template="template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <h2>Redirection</h2>
+                <h:outputLink value="/Ecom-war/Customer/Customer.xhtml" >Liste des boissons disponibles</h:outputLink>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
