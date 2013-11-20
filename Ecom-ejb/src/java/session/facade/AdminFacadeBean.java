@@ -19,7 +19,7 @@ import session.manager.CocktailManagerBean;
 import session.manager.OrderManagerBean;
 
 @Stateless
-public class AdminFacadeBean implements AdminFacadeRemoteItf {
+public class AdminFacadeBean implements AdminFacadeRemoteItf{
     @EJB
     private BeverageManagerBean beverageManager;
     @EJB
@@ -35,7 +35,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void removeBeverage(BeverageEntity beverage) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        beverageManager.remove(beverage);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void removeCocktail(CocktailEntity cocktail) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cocktailManager.remove(cocktail);
     }
 
     @Override
@@ -55,12 +55,12 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getAvailableCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getAvailableCocktails();
     }
 
     @Override
     public List<CocktailEntity> getUnavailableCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getUnavailableCocktails();
     }
 
     @Override
@@ -70,12 +70,12 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getUnavailableBeverages() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beverageManager.getUnavailableBeverages();
     }
 
     @Override
     public List<BeverageEntity> getAvailableBeverages() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beverageManager.getAvailableBeverages();
     }
 
     @Override
@@ -85,12 +85,12 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void addArticle(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<CocktailEntity> getCart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void addOrder(OrderEntity o) {
@@ -108,37 +108,47 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void removeArticle(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<CocktailEntity> getMostPopularCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getMostPopularCocktails();
     }
 
     @Override
     public List<CocktailEntity> getNewestCocktails() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getNewestCocktails();
     }
 
     @Override
     public List<CocktailEntity> getCocktailsWithAlcohol() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getCocktailsWithAlcohol();
     }
 
     @Override
     public List<CocktailEntity> getCocktailsWithoutAlcohol() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getVirginCocktails();
     }
 
     @Override
     public List<CocktailEntity> getCocktailsByFirstLetter(char letter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getCocktailsByFirstLetter(letter);
     }
     
     @Override
     public List<CocktailEntity> getCocktailsByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cocktailManager.getCocktailsByName(name);
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsWithAlcoholByFirstLetter(char letter) {
+        return cocktailManager.getCocktailsWithAlcoholByFirstLetter(letter);
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter) {
+        return cocktailManager.getVirginCocktailsByFirstLetter(letter);
     }
 
 }

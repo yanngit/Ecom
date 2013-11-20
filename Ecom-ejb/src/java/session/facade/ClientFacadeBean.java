@@ -111,6 +111,16 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name) {
         return cocktailManager.getCocktailsByName(name);
     }
+
+    @Override
+    public List<CocktailEntity> getCocktailsWithAlcoholByFirstLetter(char letter) {
+        return cocktailManager.getCocktailsWithAlcoholByFirstLetter(letter);
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter) {
+        return cocktailManager.getVirginCocktailsByFirstLetter(letter);
+    }
     
 
     

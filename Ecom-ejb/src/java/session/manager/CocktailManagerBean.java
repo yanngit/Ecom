@@ -107,16 +107,24 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     }
     
     public List<CocktailEntity> getVirginCocktails() {
-        return em.createNamedQuery("getVirginCocktails").getResultList();
+        return em.createNamedQuery("getCocktailsByVirginDetail").setParameter("num",true).getResultList();
     }
     
     public List<CocktailEntity> getCocktailsWithAlcohol() {
-        return em.createNamedQuery("getCocktailsWithAlcohol").getResultList();
+        return em.createNamedQuery("getCocktailsByVirginDetail").setParameter("num", false).getResultList();
     }
     
     public List<CocktailEntity> getCocktailsByFirstLetter(char letter){
         return em.createNamedQuery("getCocktailsByExp").setParameter("exp", letter+"%").getResultList();
     }
+    
+    public List<CocktailEntity> getVirginCocktailsByFirstLetter(char letter){
+        return em.createNamedQuery("getCocktailsByExpAndVirginDetail").setParameter("num", true).setParameter("exp", letter+"%").getResultList();
+    }
+    
+    public List<CocktailEntity> getCocktailsWithAlcoholByFirstLetter(char letter){
+        return em.createNamedQuery("getCocktailsByExpAndVirginDetail").setParameter("num", false).setParameter("exp", letter+"%").getResultList();
+    } 
     
     public List<CocktailEntity> getCocktailsByName(String name){
         return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%"+name+"%").getResultList();
