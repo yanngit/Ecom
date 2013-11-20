@@ -33,10 +33,6 @@ td {
     text-align: center;
 }
 
-[class="span10"] {
-    background-color: green;
-}
-
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -45,4 +41,8 @@ td {
 
 .bleu {
     background-color: blue;
+}
+
+.nav li {
+    padding: 18px;
 }
