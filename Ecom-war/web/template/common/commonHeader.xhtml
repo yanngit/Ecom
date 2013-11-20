@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:h="http://java.sun.com/jsf/html">
     <body>
         <ui:composition>
             <header class="container">
@@ -13,16 +13,20 @@
                         <nav class="navbar">
                             <div class="navbar-inner" role="navigation">
                                     <ul class="nav">
-                                        <li> <a href="#">Accueil</a> </li>
-                                        <li> <a href="#">Alcools</a> </li>
-                                        <li> <a href="#">Allongeurs</a> </li>
-                                        <li> <a href="#">Recherche</a> </li>
+                                        <li> <h:link value="Accueil" outcome="index" /> </li>
+                                        <li> <h:link value="Alcool" outcome="Customer/Customer" /> </li>
+                                        <li> <h:link value="Allongeurs" outcome="index" /> </li>
+                                        <li> <h:link value="Recherche" outcome="index" /></li>
                                     </ul>
                             </div>
                         </nav>
                     </div>
-                    <div class="span2 bleu">Se connecter etc ...</div>
-                    <div class="span3">Mon panier</div>
+                    <div class="span2 bleu">
+                        Se connecter etc ...
+                    </div>
+                    <div class="span3">
+                        Mon panier
+                    </div>
                 </div>
             </header> 
         </ui:composition>
