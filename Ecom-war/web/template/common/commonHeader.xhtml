@@ -12,12 +12,24 @@
                     <div class="span6">
                         <nav class="navbar">
                             <div class="navbar-inner" role="navigation">
-                                    <ul class="nav">
-                                        <li> <h:link value="Accueil" outcome="index" /> </li>
-                                        <li> <h:link value="Alcool" outcome="Customer/Customer" /> </li>
-                                        <li> <h:link value="Allongeurs" outcome="index" /> </li>
-                                        <li> <h:link value="Recherche" outcome="index" /></li>
-                                    </ul>
+                                <ul class="nav">
+                                    <li> <h:outputLink value="index.xhtml" >
+                                            Accueil
+                                        </h:outputLink> 
+                                    </li>
+                                    <li> <h:outputLink value="Customer/Customer.xhtml" >
+                                            Alcools
+                                        </h:outputLink> 
+                                    </li>
+                                    <li> <h:outputLink value="index.xhtml" >
+                                            Allongeurs
+                                        </h:outputLink> 
+                                    </li>
+                                    <li> <h:outputLink value="index.xhtml" >
+                                            Recherche
+                                        </h:outputLink> 
+                                    </li>
+                                </ul>
                             </div>
                         </nav>
                     </div>
