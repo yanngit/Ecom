@@ -89,7 +89,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     }
 
     @Override
-    public List<CocktailEntity> getCart() {
+    public List<CocktailEntity> getCartContent() {
         throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -149,6 +149,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     @Override
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter) {
         return cocktailManager.getVirginCocktailsByFirstLetter(letter);
+    }
+    
+    @Override
+    public Float getCartPrice() {
+        throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public Integer getCartSize() {
+        throw new UnsupportedOperationException("Not supported for the admin.");
     }
 
 }

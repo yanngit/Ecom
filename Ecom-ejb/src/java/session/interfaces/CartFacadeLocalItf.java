@@ -19,4 +19,5 @@ public interface CartFacadeLocalItf {
     public void emptyCart();
     public float getReduction();
     public float getPrice();
+    public int getSize();
 }

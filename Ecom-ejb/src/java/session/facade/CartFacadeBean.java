@@ -24,6 +24,11 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     private float reduction = 0;
 
     @Override
+    public int getSize() {
+        return cart.size();
+    }
+
+    @Override
     public float getReduction() {
         return reduction;
     }

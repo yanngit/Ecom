@@ -64,8 +64,16 @@ public class DataManagedBean {
         client.removeArticle(id);
     }
     
-    public List<CocktailEntity> getCart() {
-        return client.getCart();
+    public List<CocktailEntity> getCartContent() {
+        return client.getCartContent();
+    }
+    
+    public Integer getCartLength() {
+        return client.getCartSize();
+    }
+    
+    public Float getCartPrice() {
+        return client.getCartPrice();
     }
     
     public List<CocktailEntity> getListMostPopularCocktails() {

@@ -79,7 +79,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
     
     @Override
-    public List<CocktailEntity> getCart() {
+    public List<CocktailEntity> getCartContent() {
         return cart.getCocktails();
     }
 
@@ -121,6 +121,19 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter) {
         return cocktailManager.getVirginCocktailsByFirstLetter(letter);
     }
+    
+    @Override
+    public Float getCartPrice() {
+        return cart.getPrice();
+    }
+
+    @Override
+    public Integer getCartSize() {
+        return cart.getSize();
+    }
+
+    
+    
     
 
     

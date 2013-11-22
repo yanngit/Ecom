@@ -2,45 +2,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
-    <body>
-        <ui:composition>
-            <header class="container">
-                <div class="row">
-                    <div class="span12">Banniere</div>
+    <ui:composition>
+        <header class="container">
+            <div class="row">
+                <div class="span12">Banniere</div>
+            </div>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <h:outputLink class="brand" value="index.xhtml">
+                        Tchin-Tchin
+                    </h:outputLink>
+                    <ul class="nav">
+                        <li> <h:outputLink class="active" value="index.xhtml" >
+                                Accueil
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="Customer/Customer.xhtml" >
+                                Alcools
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="index.xhtml" >
+                                Allongeurs
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="index.xhtml" >
+                                Recherche
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="index.xhtml" >
+                                Se connecter
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="index.xhtml" >
+                                Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                            </h:outputLink> 
+                        </li>
+                    </ul>
                 </div>
-                <div class="row">
-                    <div class="span6">
-                        <nav class="navbar">
-                            <div class="navbar-inner" role="navigation">
-                                <ul class="nav">
-                                    <li> <h:outputLink value="index.xhtml" >
-                                            Accueil
-                                        </h:outputLink> 
-                                    </li>
-                                    <li> <h:outputLink value="Customer/Customer.xhtml" >
-                                            Alcools
-                                        </h:outputLink> 
-                                    </li>
-                                    <li> <h:outputLink value="index.xhtml" >
-                                            Allongeurs
-                                        </h:outputLink> 
-                                    </li>
-                                    <li> <h:outputLink value="index.xhtml" >
-                                            Recherche
-                                        </h:outputLink> 
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="span2 bleu">
-                        Se connecter etc ...
-                    </div>
-                    <div class="span3">
-                        Mon panier
-                    </div>
-                </div>
-            </header> 
-        </ui:composition>
-    </body>
+            </div>
+        </header> 
+    </ui:composition>
 </html>
