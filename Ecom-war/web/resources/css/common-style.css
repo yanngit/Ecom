@@ -57,3 +57,10 @@ td {
 .box-content {
 
 }
+
+.cocktail-vignette {
+    width: 120px;
+    height: 150px;
+    border: 2px solid red;
+    border-radius: 5px 5px 5px 5px;
+}

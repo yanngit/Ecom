@@ -1,4 +1,4 @@
-package classes;
+package component;
 
 import java.io.IOException;
 import javax.faces.context.FacesContext;
@@ -17,10 +17,6 @@ public class Vitrine extends UIComponentBase {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-    
-    public String getComponentType(){
-        return("Vitrine");
     }
 
     @Override

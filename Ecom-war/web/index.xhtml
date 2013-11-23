@@ -3,13 +3,22 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:t="http://fr.mon.projet/lib">
+                xmlns:t="http://fr.mon.projet/lib"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Index</ui:define>
 
     <ui:define name="content">
-            <f:view>
-                <t:vitrine label="Param"></t:vitrine> 
-            </f:view> 
+        <f:view>
+            <h:form>
+                <c:forEach items="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
+                     <h:outputText value="#{item.name}"/>
+                    <t:cocktailVignette idPrefix="newCocktails" name="foo" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                    <t:vitrine label="#{item.name}" ></t:vitrine>
+                </c:forEach>
+                
+                <!--<t:cocktailVignette idPrefix="allCocktails" name="OSEF" price="20" urlPhoto="osefdelurl" ></t:cocktailVignette> -->
+            </h:form>               
+        </f:view> 
     </ui:define>
 </ui:composition>
 

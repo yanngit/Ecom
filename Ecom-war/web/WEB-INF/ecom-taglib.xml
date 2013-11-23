@@ -12,6 +12,12 @@
             <component-type>Vitrine</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>cocktailVignette</tag-name>
+        <component>
+            <component-type>CocktailVignette</component-type>
+        </component>
+    </tag>
     <!--<tag>
         <tag-name>simpleOutputTitle</tag-name>
         <source>simpleOutputTitle.xhtml</source>

@@ -5,7 +5,12 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
 <component>
 <component-type>Vitrine</component-type>
-<component-class>classes.Vitrine</component-class>
+<component-class>component.Vitrine</component-class>
+</component>
+
+<component>
+<component-type>CocktailVignette</component-type>
+<component-class>component.CocktailVignette</component-class>
 </component>
 
 </faces-config>
