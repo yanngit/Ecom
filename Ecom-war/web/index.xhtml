@@ -13,7 +13,8 @@
                 <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
                     <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
                 </ui:repeat>            
-            </h:form>               
+            </h:form> 
+            <t:vitrine idDiv="vitrine_new" title="Nouveautés" itemList="#{dataManagedBean.listNewestCocktails}"/>
         </f:view> 
     </ui:define>
 </ui:composition>

@@ -63,4 +63,11 @@ td {
     height: 150px;
     border: 2px solid red;
     border-radius: 5px 5px 5px 5px;
+    overflow-y: scroll;
+}
+
+.cocktail-vitrine {
+    border: 2px dashed black;
+    height: 200px;
+    overflow-y: scroll;   
 }

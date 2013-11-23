@@ -9,11 +9,6 @@ import javax.faces.context.ResponseWriter;
 @FacesComponent(value = "CocktailVignette")
 public class CocktailVignette extends UIComponentBase {
 
-    private String idPrefix;
-    private String name;
-    private String price;
-    private String urlPhoto;
-
     public String getIdPrefix() {
         return (String) getStateHelper().eval("idPrefix");
     }
