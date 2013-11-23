@@ -47,8 +47,8 @@ public class Vitrine extends UIComponentBase {
         } else {
             span = "span7";
         }    
-        writer.write("<div id=\"" + getIdDiv()+"\" class=\""+span+" cocktail-vitrine\">");
-        writer.write("<h2>"+getTitle()+"</h2>");
+        writer.write("<div id=\""+getIdDiv()+"\" class=\""+span+" cocktail-vitrine\">");
+        writer.write("<div class=\"vitrine-titre\"><p>"+getTitle()+"</p></div>");
     }
     
     @Override

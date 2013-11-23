@@ -26,21 +26,11 @@ td {
 }
 
 [class*="span"] {
-    background-color: lightgreen;
+   /* background-color: lightgreen;*/
     margin-bottom: 10px;
     border-radius: 5px 5px 5px 5px;
     line-height: 80px;
     text-align: center;
-}
-/*
-.container {
-    margin-right: auto;
-    margin-left: auto;
-    border: 2px dashed black;
-}*/
-
-.bleu {
-    background-color: blue;
 }
 
 .nav li {
@@ -59,16 +49,35 @@ td {
 }
 
 .cocktail-vignette {
-    height: 100px;
+    height: 200px;
     border: 2px solid red;
     border-radius: 5px 5px 5px 5px;
-    /*overflow-y: scroll;
-    overflow-x: scroll*/
+    overflow-y: hidden;  
+    overflow-x: hidden;
 }
 
 .cocktail-vitrine {
     border: 2px dashed black;
-    height: 200px;
-    /*overflow-y: scroll;  
-    overflow-x: scroll;*/
+    height: 300px;
+    overflow-y: hidden;  
+    overflow-x: hidden;
+}
+
+.vitrine-titre p {
+    height: 50px;
+    line-height: 45px;
+    text-align: left;
+    font-family: sans-serif Helvetica;
+    font-size: 25px;
+    margin-left: 80px;
+    overflow-y: hidden;  
+    overflow-x: hidden;
+}
+
+.vitrine-titre {
+    margin-left: 30px;
+    background-image: url("#{resource['img:puce_titre.png']}");;
+    background-repeat:no-repeat;
+    overflow-y: hidden;  
+    overflow-x: hidden;
 }

@@ -50,7 +50,7 @@ public class CocktailVignette extends UIComponentBase {
     public void encodeBegin(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         writer.write("<div id=\"" + getIdPrefix() +"\" class=\"span2 cocktail-vignette\">");
-        writer.write("<h5>" + getName() + "</h5>");
+        writer.write("<img src=\"resources/img/"+getUrlPhoto()+"\" alt=\"Photo du cocktail "+getName()+"\" />");
         writer.write("</div>");
     }
 }
