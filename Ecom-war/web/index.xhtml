@@ -10,11 +10,10 @@
     <ui:define name="content">
         <f:view>
             <h:form>
-                <c:forEach items="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
-                     <h:outputText value="#{item.name}"/>
+                <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
+                    <h:outputText value="#{item.name}"/>
                     <t:cocktailVignette idPrefix="newCocktails" name="foo" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
-                    <t:vitrine label="#{item.name}" ></t:vitrine>
-                </c:forEach>
+                </ui:repeat>
                 
                 <!--<t:cocktailVignette idPrefix="allCocktails" name="OSEF" price="20" urlPhoto="osefdelurl" ></t:cocktailVignette> -->
             </h:form>               
