@@ -39,21 +39,6 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     
     /*Return the list of all available cocktails.*/
     public List<CocktailEntity> getAvailableCocktails() {
-        /*List<CocktailEntity> res = new ArrayList<>();
-        List<CocktailEntity> listCocktails = findAll();
-        for(CocktailEntity c : listCocktails) {
-            boolean available = true;
-            List<Deliverable> listDeliverable = c.getDeliverables();
-            for(Deliverable d : listDeliverable) {
-                if(d.getQuantity() <= 0) {
-                    available = false;
-                }
-            }
-            if(available) { 
-                res.add(c);
-            }
-        }
-        return res;*/
         return em.createNamedQuery("findAvailableCocktails").getResultList();
     }
     
@@ -96,7 +81,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     
     public List<CocktailEntity> getMostPopularCocktails() {
         return em.createNamedQuery("getPopularCocktails")
-                .setMaxResults(1)
+                .setMaxResults(3)
                 .getResultList();
     }
     
