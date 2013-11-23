@@ -32,12 +32,12 @@ td {
     line-height: 80px;
     text-align: center;
 }
-
+/*
 .container {
     margin-right: auto;
     margin-left: auto;
     border: 2px dashed black;
-}
+}*/
 
 .bleu {
     background-color: blue;
@@ -45,4 +45,15 @@ td {
 
 .nav li {
     padding: 18px;
+}
+
+/*Style des box */
+.box {
+    border: 1px dashed black;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.box-content {
+
 }

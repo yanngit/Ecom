@@ -2,12 +2,14 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:t="http://fr.mon.projet/lib">
     <ui:define name="title">Index</ui:define>
 
     <ui:define name="content">
-        <h2>Redirection</h2>
-        <h:outputLink value="/Ecom-war/Customer/Customer.xhtml" >Liste des boissons disponibles</h:outputLink>
+            <f:view>
+                <t:vitrine label="Param"></t:vitrine> 
+            </f:view> 
     </ui:define>
 </ui:composition>
 
