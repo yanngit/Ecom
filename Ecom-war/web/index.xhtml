@@ -10,11 +10,13 @@
     <ui:define name="content">
         <f:view>
             <h:form>
-                <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
-                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
-                </ui:repeat>            
+                <t:vitrine idDiv="vitrine_new" title="Nouveautés" size="#{dataManagedBean.listNewestCocktails.size()}">
+                    <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
+                        <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                    </ui:repeat>   
+                </t:vitrine>
             </h:form> 
-            <t:vitrine idDiv="vitrine_new" title="Nouveautés" itemList="#{dataManagedBean.listNewestCocktails}"/>
+
         </f:view> 
     </ui:define>
 </ui:composition>

@@ -49,9 +49,8 @@ public class CocktailVignette extends UIComponentBase {
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        writer.write("<div id=\"" + getIdPrefix() + getName() + "\" class=\"cocktail-vignette\">");
-        writer.write("<h2>" + getName() + "</h2>");
-        writer.write("<h3>" + getPrice() + "</h3>");
+        writer.write("<div id=\"" + getIdPrefix() +"\" class=\"span2 cocktail-vignette\">");
+        writer.write("<h5>" + getName() + "</h5>");
         writer.write("</div>");
     }
 }

@@ -1,8 +1,6 @@
 package component;
 
-import entity.CocktailEntity;
 import java.io.IOException;
-import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
@@ -11,6 +9,14 @@ import javax.faces.context.ResponseWriter;
 @FacesComponent(value = "Vitrine")
 public class Vitrine extends UIComponentBase {
       
+    public Integer getSize() {
+        return (Integer) getStateHelper().eval("size");
+    }
+
+    public void setSize(int size) {
+        getStateHelper().put("size", new Integer(size));
+    }
+    
     public String getIdDiv() {
         return (String) getStateHelper().eval("id");
     }
@@ -26,14 +32,6 @@ public class Vitrine extends UIComponentBase {
     public void setTitle(String title) {
         getStateHelper().put("title", title);
     }
-    
-    public List<CocktailEntity> getItemList() {
-        return (List<CocktailEntity>)getStateHelper().get("list");
-    }
-
-    public void setItemList(List<CocktailEntity> list) {
-       getStateHelper().put("list", list);
-    }
 
     @Override
     public String getFamily() {
@@ -43,12 +41,19 @@ public class Vitrine extends UIComponentBase {
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        writer.write("<div id=\"" + getIdDiv()+"\" class=\"cocktail-vitrine\">");
-        writer.write("<h2>" + getTitle()+ "</h2>");
-        List<CocktailEntity> list = (List<CocktailEntity>)getStateHelper().get("list");
-        for(CocktailEntity c : list){
-            writer.write("<t:cocktailVignette idPrefix=\\\"newCocktails#{item.name}\\\" name=\\\"#{item.name}\\\" price=\\\"#{item.price}\\\" urlPhoto=\\\"#{item.photoURI}\\\"/> ");
-        }
+        String span;
+        if(getSize() < 7){
+            span = "span"+(getSize()*2+1);
+        } else {
+            span = "span7";
+        }    
+        writer.write("<div id=\"" + getIdDiv()+"\" class=\""+span+" cocktail-vitrine\">");
+        writer.write("<h2>"+getTitle()+"</h2>");
+    }
+    
+    @Override
+    public void encodeEnd(FacesContext context) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
         writer.write("</div>");
     }
 }
