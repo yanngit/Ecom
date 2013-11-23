@@ -1,23 +1,21 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:t="http://fr.mon.projet/lib"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:t="http://fr.mon.projet/lib">
     <ui:define name="title">Index</ui:define>
 
     <ui:define name="content">
         <f:view>
             <t:vitrine idDiv="vitrine_new" title="Nouveautés" size="#{dataManagedBean.listNewestCocktails.size()}">
                 <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
-                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                    <t:cocktailVignette idPrefix="newCocktails" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
                 </ui:repeat>   
             </t:vitrine>
 
             <t:vitrine idDiv="vitrine_popular" title="Meilleures ventes" size="#{dataManagedBean.listMostPopularCocktails.size()}">
                 <ui:repeat value="#{dataManagedBean.listMostPopularCocktails}" var="item" varStatus="status">
-                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                    <t:cocktailVignette idPrefix="mostPopularCocktails" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
                 </ui:repeat>   
             </t:vitrine>
 
