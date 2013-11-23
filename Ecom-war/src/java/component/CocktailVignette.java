@@ -15,36 +15,35 @@ public class CocktailVignette extends UIComponentBase {
     private String urlPhoto;
 
     public String getIdPrefix() {
-        return idPrefix;
+        return (String) getStateHelper().eval("idPrefix");
     }
 
     public void setIdPrefix(String idPrefix) {
-        this.idPrefix = idPrefix;
+        getStateHelper().put("idPrefix", idPrefix);
     }
-    
 
     public String getName() {
-        return name;
+        return (String) getStateHelper().eval("name");
     }
 
     public void setName(String name) {
-        this.name = name;
+        getStateHelper().put("name", name);
     }
 
     public String getPrice() {
-        return price;
+        return (String) getStateHelper().eval("price");
     }
 
     public void setPrice(String price) {
-        this.price = price;
+        getStateHelper().put("price", price);
     }
 
     public String getUrlPhoto() {
-        return urlPhoto;
+        return (String) getStateHelper().eval("urlPhoto");
     }
 
     public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
+        getStateHelper().put("urlPhoto", urlPhoto);
     }
 
     @Override
@@ -55,9 +54,9 @@ public class CocktailVignette extends UIComponentBase {
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        writer.write("<div id=\""+idPrefix+name+"\" class=\"cocktail-vignette\">");
-        writer.write("<h2>"+name+"</h2>");
-        writer.write("<h3>"+price+"</h3>");
+        writer.write("<div id=\"" + getIdPrefix() + getName() + "\" class=\"cocktail-vignette\">");
+        writer.write("<h2>" + getName() + "</h2>");
+        writer.write("<h3>" + getPrice() + "</h3>");
         writer.write("</div>");
     }
 }

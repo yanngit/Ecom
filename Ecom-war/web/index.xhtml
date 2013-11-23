@@ -11,11 +11,8 @@
         <f:view>
             <h:form>
                 <ui:repeat value="#{dataManagedBean.listNewestCocktails}" var="item" varStatus="status">
-                    <h:outputText value="#{item.name}"/>
-                    <t:cocktailVignette idPrefix="newCocktails" name="foo" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
-                </ui:repeat>
-                
-                <!--<t:cocktailVignette idPrefix="allCocktails" name="OSEF" price="20" urlPhoto="osefdelurl" ></t:cocktailVignette> -->
+                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                </ui:repeat>            
             </h:form>               
         </f:view> 
     </ui:define>
