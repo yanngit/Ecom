@@ -42,10 +42,10 @@ public class Vitrine extends UIComponentBase {
     public void encodeBegin(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         String span;
-        if(getSize() < 7){
+        if(getSize() < 6){
             span = "span"+(getSize()*2+1);
         } else {
-            span = "span7";
+            span = "span6";
         }    
         writer.write("<div id=\""+getIdDiv()+"\" class=\""+span+" cocktail-vitrine\">");
         writer.write("<div class=\"vitrine-titre\"><p>"+getTitle()+"</p></div>");
