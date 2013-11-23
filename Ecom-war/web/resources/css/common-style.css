@@ -58,7 +58,7 @@ td {
 
 .cocktail-vitrine {
     border: 2px dashed black;
-    height: 300px;
+    /*height: 300px;*/
     overflow-y: hidden;  
     overflow-x: hidden;
 }

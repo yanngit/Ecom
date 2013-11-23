@@ -45,7 +45,7 @@ public class Vitrine extends UIComponentBase {
         if(getSize() < 6){
             span = "span"+(getSize()*2+1);
         } else {
-            span = "span6";
+            span = "span12";
         }    
         writer.write("<div id=\""+getIdDiv()+"\" class=\""+span+" cocktail-vitrine\">");
         writer.write("<div class=\"vitrine-titre\"><p>"+getTitle()+"</p></div>");
