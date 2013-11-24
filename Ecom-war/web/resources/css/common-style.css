@@ -10,17 +10,6 @@ root {
     display: block;
 }
 
-h1 {
-    text-align: center;
-    color: red;
-    text-decoration: underline;
-}
-
-h2 {
-    margin-left: 20px;
-    color: blue;
-}
-
 td {
     border: 2px solid black;   
 }
@@ -35,26 +24,35 @@ td {
 
 
 /*Mise en forme de la barre de menu*/
+/*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/'
 .nav li {
-    padding: 18px;
+    padding: 0px;
+    display: inline-block;
+    width: auto;
 }
 
-.navbar .navbar-inner .nav li a {
-    width : 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+/* DEBUG
+.navbar .navbar-inner .nav > li {
+    border: 2px dashed blue;
+}
+*/
+
+/*On fixe les propriété du a qui va définir la taille du parent li*/
+.navbar .navbar-inner .nav > li a {
+   display: block;
+   padding: 18px;
 }
 
 /*Elements de gauche*/
 .navbar .nav > li:hover {
-    background-color: #F56C8C;
+    background-color: rgba(255,115,148,0.8);
     border-radius: 8px 8px 8px 8px;
 }
 
 .navbar .nav > li:hover a {
     font-size: 20px;
     color: white;
+    text-shadow: 0 0 2px #000;
 }
 
 .navbar .nav > li:hover a:hover {
@@ -64,7 +62,7 @@ td {
 
 /*Elements de droite*/
 .navbar .pull-right > li:hover {
-    background-color: #FFC569;
+    background-color: rgba(255,197,105,0.8);
     border-radius: 8px 8px 8px 8px;
     font-size: 10px;
 }
