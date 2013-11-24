@@ -7,6 +7,7 @@ package managed;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import exceptions.EcomException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -101,4 +102,30 @@ public class DataManagedBean {
         return client.getCocktailsByName(name);
     }
 
+    public List<List<CocktailEntity>> listAllCocktailsByFirstLetter() {
+        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if(client.getCocktailsByFirstLetter(ch).size() >0 )
+                list.add(client.getCocktailsByFirstLetter(ch));
+        }
+        return list;
+    }
+    
+    public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter(){
+        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if(client.getCocktailsWithoutAlcoholByFirstLetter(ch).size() >0 )
+                list.add(client.getCocktailsWithoutAlcoholByFirstLetter(ch));
+        }
+        return list;
+    }
+    
+    public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter(){
+        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if(client.getCocktailsWithAlcoholByFirstLetter(ch).size() >0 )
+                list.add(client.getCocktailsWithAlcoholByFirstLetter(ch));
+        }
+        return list;
+    }
 }
