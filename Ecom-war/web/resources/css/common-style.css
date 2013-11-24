@@ -24,7 +24,7 @@ td {
 
 
 /*Mise en forme de la barre de menu*/
-/*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/'
+/*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/
 .nav li {
     padding: 0px;
     display: inline-block;
@@ -90,6 +90,14 @@ td {
     border-radius: 5px 5px 5px 5px;
     overflow-y: hidden;  
     overflow-x: hidden;
+    position: relative;
+}
+
+.cocktail-vignette-name {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    font-size: 12px;
 }
 
 .cocktail-vitrine {

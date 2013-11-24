@@ -55,7 +55,8 @@ public class CocktailVignette extends UIComponentBase {
             id+="_"+s;
         }
         writer.write("<div id=\"" + id+"\" class=\"span2 cocktail-vignette\">");
-        writer.write("<img src=\"resources/img/"+getUrlPhoto()+"\" alt=\"Photo du cocktail "+getName()+"\" />");
+        writer.write("<img src=\"resources/img/"+getUrlPhoto()+"\" alt=\"Photo du cocktail "+getName()+"\" /><br />");
+        writer.write("<h2 class=\"cocktail-vignette-name\">"+getName()+"</h2>");
         writer.write("</div>");
     }
 }
