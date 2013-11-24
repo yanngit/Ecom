@@ -10,10 +10,6 @@ root {
     display: block;
 }
 
-td {
-    border: 2px solid black;   
-}
-
 [class*="span"] {
     /* background-color: lightgreen;*/
     margin-bottom: 10px;
@@ -45,7 +41,7 @@ td {
 
 /*Elements de gauche*/
 .navbar .nav > li:hover {
-    background-color: rgba(255,115,148,0.8);
+    background-color: rgba(228,22,76,0.8);
     border-radius: 8px 8px 8px 8px;
 }
 
@@ -62,7 +58,7 @@ td {
 
 /*Elements de droite*/
 .navbar .pull-right > li:hover {
-    background-color: rgba(255,197,105,0.8);
+    background-color: rgba(247,150,26,0.8);
     border-radius: 8px 8px 8px 8px;
     font-size: 10px;
 }
@@ -86,11 +82,12 @@ td {
 
 .cocktail-vignette {
     height: 200px;
-    border: 2px solid red;
+    border: 2px solid rgba(228,22,76,1);
     border-radius: 5px 5px 5px 5px;
     overflow-y: hidden;  
     overflow-x: hidden;
     position: relative;
+    background-color: white;
 }
 
 .cocktail-vignette-name {
@@ -101,27 +98,29 @@ td {
 }
 
 .cocktail-vitrine {
-    border: 2px dashed black;
-    /*height: 300px;*/
+    background-color: rgba(247,150,26,0.5);
     overflow-y: hidden;  
     overflow-x: hidden;
 }
 
 .vitrine-titre p {
-    height: 50px;
     line-height: 45px;
     text-align: left;
     font-family: sans-serif Helvetica;
     font-size: 25px;
-    margin-left: 80px;
+    margin-left: 120px;
 }
 
 .vitrine-titre {
-    margin-left: 30px;
+    height: 50px;
     background-image: url("#{resource['img:puce_titre.png']}");;
     background-repeat:no-repeat;
+    background-position: 30px;
     overflow-y: hidden;  
     overflow-x: hidden;
+    background-color: rgba(247,150,26,0.5);
+    margin-bottom : 10px;
+    border-radius: 5px 5px 5px 5px; 
 }
 
 
