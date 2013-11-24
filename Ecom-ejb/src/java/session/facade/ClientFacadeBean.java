@@ -65,7 +65,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         if(cocktailManager.getAvailabilityByCocktailId(id)) {
                 /*Ajoute le cocktail au panier et update le prix du panier*/
                 cart.addArticle(id);
-                cocktailManager.decreaseQuantityOfCocktail(id, 1);
+                /*A faire dans la validate panier*/
+                //cocktailManager.decreaseQuantityOfCocktail(id, 1);
         }
         else {
             throw new EcomException("Impossible d'ajouter le cocktail ["+id+"] au panier, il n'est plus disponible.");

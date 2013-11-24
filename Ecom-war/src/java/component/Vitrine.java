@@ -3,11 +3,12 @@ package component;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.ResponseWriter;
 
 @FacesComponent(value = "Vitrine")
-public class Vitrine extends UIComponentBase {
+public class Vitrine extends UIComponentBase implements NamingContainer {
       
     public Integer getSize() {
         return (Integer) getStateHelper().eval("size");
@@ -40,6 +41,7 @@ public class Vitrine extends UIComponentBase {
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
+        super.encodeBegin(context);
         ResponseWriter writer = context.getResponseWriter();
         String span;
         if(getSize() < 6){
@@ -53,6 +55,7 @@ public class Vitrine extends UIComponentBase {
     
     @Override
     public void encodeEnd(FacesContext context) throws IOException {
+        super.encodeEnd(context);
         ResponseWriter writer = context.getResponseWriter();
         writer.write("</div>");
     }
