@@ -18,6 +18,11 @@ root {
     text-align: center;
 }
 
+/*
+#content {
+    background-color: rgba(228,22,76,0.1)
+}
+*/
 
 /*Mise en forme de la barre de menu*/
 /*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/
@@ -73,13 +78,7 @@ root {
     color: white;
 }
 
-/*Style des box */
-.box {
-    border: 1px dashed black;
-    height: 200px;
-    overflow-y: scroll;
-}
-
+/*Style vignette cocktail*/
 .cocktail-vignette {
     height: 200px;
     border: 2px solid rgba(228,22,76,1);
@@ -88,6 +87,7 @@ root {
     overflow-x: hidden;
     position: relative;
     background-color: white;
+    background-color: rgba(228,22,76,0.1)
 }
 
 .cocktail-vignette-name {
@@ -97,6 +97,7 @@ root {
     font-size: 12px;
 }
 
+/*Style vitrine cocktails*/
 .cocktail-vitrine {
     background-color: rgba(247,150,26,0.5);
     overflow-y: hidden;  
