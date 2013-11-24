@@ -77,6 +77,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
             } else {
                 decorationManager.decreaseQuantityOfDecoration(d.getID(),quantity);
             }
+            d = beverageManager.find(d.getID());
             /*Vérifications des cocktails pour mettre à jour la disponibilité*/
             if(d.getQuantity() == 0){
                 List<CocktailEntity> listCocktails = d.getCocktails();
