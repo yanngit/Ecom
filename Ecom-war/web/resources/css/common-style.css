@@ -26,15 +26,57 @@ td {
 }
 
 [class*="span"] {
-   /* background-color: lightgreen;*/
+    /* background-color: lightgreen;*/
     margin-bottom: 10px;
     border-radius: 5px 5px 5px 5px;
     line-height: 80px;
     text-align: center;
 }
 
+
+/*Mise en forme de la barre de menu*/
 .nav li {
     padding: 18px;
+}
+
+.navbar .navbar-inner .nav li a {
+    width : 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+/*Elements de gauche*/
+.navbar .nav > li:hover {
+    background-color: #F56C8C;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.navbar .nav > li:hover a {
+    font-size: 20px;
+    color: white;
+}
+
+.navbar .nav > li:hover a:hover {
+    font-size: 20px;
+    color: white;
+}
+
+/*Elements de droite*/
+.navbar .pull-right > li:hover {
+    background-color: #FFC569;
+    border-radius: 8px 8px 8px 8px;
+    font-size: 10px;
+}
+
+.navbar .pull-right > li:hover a {
+    font-size: 20px;
+    color: white;
+}
+
+.navbar .pull-right > li:hover a:hover {
+    font-size: 20px;
+    color: white;
 }
 
 /*Style des box */
@@ -42,10 +84,6 @@ td {
     border: 1px dashed black;
     height: 200px;
     overflow-y: scroll;
-}
-
-.box-content {
-
 }
 
 .cocktail-vignette {
@@ -79,3 +117,5 @@ td {
     overflow-y: hidden;  
     overflow-x: hidden;
 }
+
+
