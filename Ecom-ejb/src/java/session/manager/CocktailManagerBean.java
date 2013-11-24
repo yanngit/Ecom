@@ -14,6 +14,8 @@ import pojo.Deliverable;
 
 @Stateless
 public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
+    private int MARGE = 10;
+    
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
     @EJB
@@ -24,6 +26,17 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     /*Default constructor for the CocktailManagerBean*/
     public CocktailManagerBean() {
         super(CocktailEntity.class);
+    }
+    
+    @Override
+    public void create(CocktailEntity cocktail){
+        List<Deliverable> list = cocktail.getDeliverables();
+        float price = MARGE;
+        for(Deliverable d : list){
+            price += d.getPrice();
+        }
+        cocktail.setPrice(price);
+        em.persist(cocktail);
     }
     
     /*Get the entity manager used by the CocktailManagerBean. Used by the abstract Manager only.*/
