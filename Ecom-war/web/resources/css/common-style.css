@@ -162,3 +162,20 @@ root {
     top: 11px;
     left: -6px;
 }
+
+.form-validate-cart  table {
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-validate-cart td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 10px;
+}
+
+.form-validate-cart form input {
+    margin: auto;
+    line-height: 10px;
+        background-image: url("#{resource['img:puce_titre.png']}");
+
+}
