@@ -62,13 +62,8 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     
     /*Get the availability of a specific cocktail. True is returned if the cocktail is available, false otherwise.*/
     public boolean getAvailabilityByCocktailId(Long id) {
-        List<CocktailEntity> list = getAvailableCocktails();
-        for(CocktailEntity c : list) {
-            if(c.getID().equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        CocktailEntity c = find(id);
+        return c.getAvailable();
     }
     
     /*Decrease the quantity of components of the cocktail by a certain number, the number of cocktails added to a 
@@ -76,7 +71,6 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     public void decreaseQuantityOfCocktail(Long id, int quantity) throws EcomException {
         List<Deliverable> list = find(id).getDeliverables();
         /*Parcourir la liste des deliverable et décrémenter tous les deliverable de la quantite quantity*/
-        boolean update_cocktails_availability = false;
         for(Deliverable d : list){
             if(d instanceof BeverageEntity){
                 beverageManager.decreaseQuantityOfBeverage(d.getID(),quantity);
@@ -88,6 +82,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
                 List<CocktailEntity> listCocktails = d.getCocktails();
                 for(CocktailEntity c : listCocktails){
                     c.setAvailable(false);
+                    edit(c);
                 }          
             }
         }
@@ -116,6 +111,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
                             }
                         }
                         c.setAvailable(available);
+                        edit(c);
                     }
                 } 
             }

@@ -23,6 +23,11 @@ root {
     background-color: rgba(228,22,76,0.1)
 }
 */
+.banniere {
+    background-image: url("#{resource['img:banniere.jpg']}");
+    background-repeat:no-repeat;
+    line-height: 180px;
+}
 
 /*Mise en forme de la barre de menu*/
 /*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/
@@ -120,7 +125,7 @@ root {
 
 .vitrine-titre {
     height: 50px;
-    background-image: url("#{resource['img:puce_titre.png']}");;
+    background-image: url("#{resource['img:puce_titre.png']}");
     background-repeat:no-repeat;
     background-position: 30px;
     overflow-y: hidden;  

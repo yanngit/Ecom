@@ -22,8 +22,8 @@ import pojo.Deliverable;
 import pojo.Product;
 
 @NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co INNER JOIN co.deliverables de WHERE de.quantity <= 0)"),
+@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.available = 0"),
+@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.available = 1"),
 @NamedQuery(name="getPopularCocktails", query="SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
 @NamedQuery(name="getNewestCocktails", query="SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
 @NamedQuery(name="getCocktailsByVirginDetail", query="SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
