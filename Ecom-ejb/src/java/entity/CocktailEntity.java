@@ -21,6 +21,7 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
+
 @NamedQueries({
 @NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.available = 0"),
 @NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.available = 1"),
@@ -139,5 +140,4 @@ public class CocktailEntity extends Product  {
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";
     }
-    
 }

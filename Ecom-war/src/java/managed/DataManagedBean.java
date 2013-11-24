@@ -44,6 +44,7 @@ public class DataManagedBean {
         return client.getUnavailableCocktails();
     }
 
+
     public List<BeverageEntity> getListBeverages() {
         return client.getAllBeverages();
     }

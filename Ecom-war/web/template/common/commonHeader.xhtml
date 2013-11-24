@@ -9,36 +9,59 @@
             </div>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <ul class="nav">
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                    <ul class="nav pull-left">
+                        <li> <h:outputLink value="index.xhtml" >
                                 Accueil
                             </h:outputLink> 
                         </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithAlcohol.xhtml" >
+
+                        
+
+                        <li class="dropdown">
+                            
+                            <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Alcoolisés
-                            </h:outputLink> 
+                            </h:outputLink>
+                            
+                            <ul class="dropdown-menu">
+                                <ui:repeat value="#{dataManagedBean.listCocktailsByFirstLetter('c')}" var="item" varStatus="status">
+                                       <li><h:outputText value="#{item.name}"/></li>    
+                                </ui:repeat>
+                                    <li><a href="#">A </a></li>
+                            </ul>
                         </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithoutAlcohol.xhtml" >
+
+
+
+
+                        <li> <h:outputLink value="CocktailsWithoutAlcohol.xhtml" >
                                 Softs
                             </h:outputLink> 
                         </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
+
+                        <li> <h:outputLink value="index.xhtml" >
+                                Recherche
+                            </h:outputLink> 
+                        </li>
+                        <li> <h:outputLink value="tst.html" >
                                 Recherche
                             </h:outputLink> 
                         </li>
                     </ul>
                     <ul class="nav pull-right">
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                        <li> <h:outputLink value="index.xhtml" >
                                 Se connecter
                             </h:outputLink> 
                         </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                        <li> <h:outputLink value="index.xhtml" >
                                 Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
                             </h:outputLink> 
                         </li>
                     </ul>
                 </div>
+
             </div>
         </header> 
+
     </ui:composition>
 </html>
