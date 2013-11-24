@@ -173,9 +173,8 @@ root {
     line-height: 10px;
 }
 
-.form-validate-cart form input {
+.paypal-button {
     margin: auto;
     line-height: 10px;
-        background-image: url("#{resource['img:puce_titre.png']}");
-
+    background-image: url("#{resource['img:puce_titre.png']}");
 }

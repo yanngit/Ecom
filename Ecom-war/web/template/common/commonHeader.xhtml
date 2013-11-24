@@ -19,10 +19,10 @@
                             <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Alcoolisés
                             </h:outputLink>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu span10">
                                 <ui:repeat value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="item" varStatus="status">
                                     <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
-                                        <li><h:outputText value="#{itemItem.name}"/></li>
+                                        <li><h:outputLink value="#{itemItem.name}">#{itemItem.name}</h:outputLink></li>
                                     </ui:repeat>     
                                 </ui:repeat>
                             </ul>
@@ -35,10 +35,10 @@
                             <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Softs
                             </h:outputLink>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu span10">
                                 <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
                                     <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
-                                        <li><h:outputText value="#{itemItem.name}"/></li>
+                                        <li><h:outputLink value="#{itemItem.name}">#{itemItem.name}</h:outputLink></li>
                                     </ui:repeat>     
                                 </ui:repeat>
                             </ul>

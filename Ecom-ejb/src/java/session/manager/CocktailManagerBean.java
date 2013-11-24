@@ -8,9 +8,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Lob;
 import javax.persistence.PersistenceContext;
-import org.apache.jasper.tagplugins.jstl.ForEach;
 import pojo.AbstractEntityManager;
 import pojo.Deliverable;
 
