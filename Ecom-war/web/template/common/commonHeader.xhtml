@@ -15,19 +15,21 @@
                             </h:outputLink> 
                         </li>
 
-                        
-
                         <li class="dropdown">
-                            
+
                             <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Alcoolisés
                             </h:outputLink>
-                            
+
                             <ul class="dropdown-menu">
-                                <ui:repeat value="#{dataManagedBean.listCocktailsByFirstLetter('c')}" var="item" varStatus="status">
-                                       <li><h:outputText value="#{item.name}"/></li>    
+                                <ui:repeat value="#{dataManagedBean.listAllCocktailsByFirstLetter()}" var="item" varStatus="status">
+                                    <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
+                                        
+                                        <li><h:outputText value="#{itemItem.name}"/></li>    
+                                    
+                                    </ui:repeat>  
+                                    <!--<li><h:outputText value="__"/></li>-->    
                                 </ui:repeat>
-                                    <li><a href="#">A </a></li>
                             </ul>
                         </li>
 
