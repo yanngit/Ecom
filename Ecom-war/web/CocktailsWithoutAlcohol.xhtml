@@ -15,7 +15,15 @@
                     <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
                 </ui:repeat>   
             </t:vitrine>
+        </f:view>
+        <f:view>
+            <t:vitrine idDiv="vitrine_alcohol" title="Nos cocktails softs" size="#{dataManagedBean.listCocktailsWithoutAlcohol.size()}">
+                <ui:repeat value="#{dataManagedBean.listCocktailsWithoutAlcohol}" var="item" varStatus="status">
+                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
+                </ui:repeat>   
+            </t:vitrine>
         </f:view> 
+    
     </ui:define>
 </ui:composition>
 
