@@ -91,7 +91,14 @@ root {
 
 .add-button-vignette {
     position : absolute;
-    right: 10px;
+    background-size: 55px 30px;
+    background-image: url("#{resource['img:cart.png']}");
+    background-color: #FFCCA9;
+    padding-bottom: 7px;
+        padding-left: 29px;
+        padding-right: 24px;
+        padding-top: 2px;
+    right: 7px;
     bottom: 0px;
 }
 
