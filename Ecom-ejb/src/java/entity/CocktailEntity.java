@@ -63,6 +63,16 @@ public class CocktailEntity extends Product  {
     protected List<OrderEntity> orders;
     @Column(name="VIRGIN")
     protected Boolean virgin;
+    @Column(name="AVAILABLE")
+    protected Boolean available;
+    
+    public void setAvailable(boolean available){
+        this.available = available;
+    }
+    
+    public boolean getAvailable(){
+        return available;
+    }
     
     public List<OrderEntity> getOrders(){
         return orders;

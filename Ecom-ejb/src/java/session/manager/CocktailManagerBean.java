@@ -30,12 +30,17 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     
     @Override
     public void create(CocktailEntity cocktail){
+        boolean available = true;
         List<Deliverable> list = cocktail.getDeliverables();
         float price = MARGE;
         for(Deliverable d : list){
             price += d.getPrice();
+            if(d.getQuantity() <= 0){
+                available = false;
+            }
         }
         cocktail.setPrice(price);
+        cocktail.setAvailable(available);
         em.persist(cocktail);
     }
     
@@ -71,11 +76,19 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     public void decreaseQuantityOfCocktail(Long id, int quantity) throws EcomException {
         List<Deliverable> list = find(id).getDeliverables();
         /*Parcourir la liste des deliverable et décrémenter tous les deliverable de la quantite quantity*/
+        boolean update_cocktails_availability = false;
         for(Deliverable d : list){
             if(d instanceof BeverageEntity){
                 beverageManager.decreaseQuantityOfBeverage(d.getID(),quantity);
             } else {
                 decorationManager.decreaseQuantityOfDecoration(d.getID(),quantity);
+            }
+            /*Vérifications des cocktails pour mettre à jour la disponibilité*/
+            if(d.getQuantity() == 0){
+                List<CocktailEntity> listCocktails = d.getCocktails();
+                for(CocktailEntity c : listCocktails){
+                    c.setAvailable(false);
+                }          
             }
         }
     }
@@ -88,6 +101,23 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
                 beverageManager.increaseQuantityOfBeverage(d.getID(),quantity);
             } else {
                 decorationManager.increaseQuantityOfDecoration(d.getID(),quantity);
+            }
+            /*Vérifications des cocktails pour mettre à jour la disponibilité*/
+            if(quantity > 0){
+                List<CocktailEntity> listCocktails = d.getCocktails();
+                for(CocktailEntity c : listCocktails){
+                    if(!c.getAvailable()) {
+                        List<Deliverable> listDeliverable = c.getDeliverables();
+                        boolean available = true;
+                        for(Deliverable de : listDeliverable){
+                            if(de.getQuantity() <= 0){
+                                available = false;
+                                break;
+                            }
+                        }
+                        c.setAvailable(available);
+                    }
+                } 
             }
         }
     }

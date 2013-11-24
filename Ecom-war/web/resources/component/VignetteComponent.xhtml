@@ -18,13 +18,13 @@
     <composite:implementation>
         <f:view>
             <t:vitrine idDiv="#{cc.attrs.idDiv}" title="#{cc.attrs.title}" size="#{cc.attrs.size}">
-                <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
-                    <h:form>              
+                <h:form>  
+                    <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
                         <t:cocktailVignette idPrefix="newCocktails" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}" ID="#{item.ID}">  
                             <h:commandButton title="Ajouter le cocktail #{item.name} au panier" class="add-button-vignette" value="Ajouter" alt="Ajouter le cocktail #{item.name} au panier" action="#{dataManagedBean.addArticleToCart(item.ID)}"/>
                         </t:cocktailVignette>
-                    </h:form>
-                </ui:repeat>   
+                    </ui:repeat> 
+                </h:form>
             </t:vitrine>
         </f:view>
     </composite:implementation>
