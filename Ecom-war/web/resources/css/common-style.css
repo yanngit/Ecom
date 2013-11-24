@@ -97,6 +97,12 @@ root {
     font-size: 12px;
 }
 
+.add-button-vignette {
+    position : absolute;
+    right: 10px;
+    bottom: 0px;
+}
+
 /*Style vitrine cocktails*/
 .cocktail-vitrine {
     background-color: rgba(247,150,26,0.5);
