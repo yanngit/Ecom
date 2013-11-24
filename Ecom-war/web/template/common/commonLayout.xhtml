@@ -5,44 +5,28 @@
       >
     <h:head>
         <meta charset="UTF-8"/>
-        <h:outputStylesheet name="common-style.css" library="css" />
-        <h:outputStylesheet library="css" name ="bootstrap.css"  />
-        <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />
+        <!--<h:outputStylesheet name="common-style.css" library="css" />-->
+        <h:outputStylesheet name ="bootstrap.css" library="css"/>
+        <h:outputStylesheet name="alexis-style.css" library="css"/>
+        <!--<h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />-->
         <!--<h:outputScript library="js" name="bootstrap.js" />-->
         <title><ui:insert name="title">COMMON TITLE</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </h:head>
 
     <h:body>
-
         <div id="page">
+            <ui:insert name="header" >
+                <ui:include src="/template/common/commonHeader.xhtml" />
+            </ui:insert>
 
-            <div id="header">
-                <ui:insert name="header" >
-                    <ui:include src="/template/common/commonHeader.xhtml" />
-                </ui:insert>
+            <div class="container">
+                <ui:insert name="content"/>
             </div>
 
-            <div class ="container">
-                <div class="row">
-                    <div id="content" class="span12">
-                        <section>
-                            <ui:insert name="content" >
-                                <ui:include src="/template/common/commonContent.xhtml" />
-                            </ui:insert>
-                        </section>
-                    </div>
-
-                </div>
-            </div>
-
-            <div id="footer">
-                <ui:insert name="footer" >
-                    <ui:include src="/template/common/commonFooter.xhtml" />
-                </ui:insert>
-            </div>
-
+            <ui:insert name="footer" >
+                <ui:include src="/template/common/commonFooter.xhtml" />
+            </ui:insert>
         </div>
-
     </h:body>
 </html>

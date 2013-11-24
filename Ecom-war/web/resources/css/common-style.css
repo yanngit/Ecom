@@ -40,14 +40,14 @@ root {
 
 /*On fixe les propriété du a qui va définir la taille du parent li*/
 .navbar .navbar-inner .nav > li a {
-   display: block;
-   padding: 18px;
+    display: block;
+    padding: 18px;
 }
 
 /*Elements de gauche*/
 .navbar .nav > li:hover {
     background-color: rgba(228,22,76,0.8);
-    border-radius: 8px 8px 8px 8px;
+    /*border-radius: 8px 8px 8px 8px;*/
 }
 
 .navbar .nav > li:hover a {

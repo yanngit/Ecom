@@ -13,5 +13,10 @@
 <component-class>component.CocktailVignette</component-class>
 </component>
 
+<component>
+<component-type>CocktailThumbnail</component-type>
+<component-class>component.CocktailThumbnail</component-class>
+</component>
+
 </faces-config>
 

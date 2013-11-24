@@ -4,41 +4,45 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <ui:composition>
         <header class="container">
-            <div class="row">
-                <div class="span12">Banniere</div>
+            <div class="jumbotron subhead" id="overview">
+                <h1>Banniere</h1>
             </div>
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <ul class="nav">
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
-                                Accueil
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithAlcohol.xhtml" >
-                                Alcoolisés
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithoutAlcohol.xhtml" >
-                                Softs
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
-                                Recherche
-                            </h:outputLink> 
-                        </li>
-                    </ul>
-                    <ul class="nav pull-right">
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
-                                Se connecter
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/" >
-                                Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
-                            </h:outputLink> 
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </header> 
+            <div class="navbar navbar-inner">
+                <ul class="nav">
+                    <li>
+                        <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                            Accueil
+                        </h:outputLink> 
+                    </li>
+                    <li>
+                        <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithAlcohol.xhtml" >
+                            Alcoolisés
+                        </h:outputLink> 
+                    </li>
+                    <li> 
+                        <h:outputLink value="http://localhost:8080/Ecom-war/CocktailsWithoutAlcohol.xhtml" >
+                            Softs
+                        </h:outputLink> 
+                    </li>
+                    <li>
+                        <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                            Recherche
+                        </h:outputLink> 
+                    </li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li>
+                        <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                            Se connecter
+                        </h:outputLink> 
+                    </li>
+                    <li> 
+                        <h:outputLink value="http://localhost:8080/Ecom-war/" >
+                            Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                        </h:outputLink> 
+                    </li>
+                </ul>
+            </div> 
+        </header>
     </ui:composition>
 </html>
