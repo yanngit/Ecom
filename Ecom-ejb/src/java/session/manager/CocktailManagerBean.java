@@ -34,7 +34,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     @Override
     public void create(CocktailEntity cocktail){
         boolean available = true;
-        String name =  cocktail.getName();
+        String name = cocktail.getName();
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
         cocktail.setName(name);
         List<Deliverable> list = cocktail.getDeliverables();
