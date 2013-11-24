@@ -6,6 +6,26 @@
         Purpose of the stylesheet follows.
 */
 
+.debug{
+    border: 2px solid blue;
+}
+
+.item-menu {
+    text-align: left;
+}
+
+.nav li .item-menu{
+    display: inline;
+}
+
+li .item-menu, li .item-menu  :hover,  .item-menu a  .item-menu a :hover{
+    height: 10px;
+    display: inline;
+    
+}
+
+
+
 root { 
     display: block;
 }
@@ -162,3 +182,6 @@ root {
     top: 11px;
     left: -6px;
 }
+
+
+
