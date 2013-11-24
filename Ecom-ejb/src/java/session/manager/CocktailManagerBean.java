@@ -2,12 +2,15 @@ package session.manager;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Lob;
 import javax.persistence.PersistenceContext;
+import org.apache.jasper.tagplugins.jstl.ForEach;
 import pojo.AbstractEntityManager;
 import pojo.Deliverable;
 
@@ -53,6 +56,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     /*Return the list of all available cocktails.*/
     public List<CocktailEntity> getAvailableCocktails() {
         return em.createNamedQuery("findAvailableCocktails").getResultList();
+
     }
     
     /*Get the availability of a specific cocktail. True is returned if the cocktail is available, false otherwise.*/

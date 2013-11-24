@@ -21,6 +21,7 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
+
 @NamedQueries({
 @NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c INNER JOIN c.deliverables d WHERE d.quantity <= 0"),
 @NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.ID NOT IN (SELECT co.ID FROM CocktailEntity co INNER JOIN co.deliverables de WHERE de.quantity <= 0)"),
@@ -129,5 +130,4 @@ public class CocktailEntity extends Product  {
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";
     }
-    
 }
