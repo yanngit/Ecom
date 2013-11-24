@@ -1,27 +1,25 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      lang="fr">
     <h:head>
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />
         <h:outputStylesheet library="css" name ="bootstrap.css"  />
         <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />
-        <!--<h:outputScript library="js" name="bootstrap.js" />-->
+        <h:outputScript library="js" name="bootstrap.js" />
         <title><ui:insert name="title">COMMON TITLE</ui:insert></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
     </h:head>
 
     <h:body>
 
         <div id="page">
 
-            <div id="header">
                 <ui:insert name="header" >
                     <ui:include src="/template/common/commonHeader.xhtml" />
                 </ui:insert>
-            </div>
 
             <div class ="container">
                 <div class="row">
