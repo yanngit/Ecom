@@ -111,5 +111,21 @@ public class DataManagedBean {
         return list;
     }
     
+    public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter(){
+        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if(client.getCocktailsWithoutAlcoholByFirstLetter(ch).size() >0 )
+                list.add(client.getCocktailsWithoutAlcoholByFirstLetter(ch));
+        }
+        return list;
+    }
     
+    public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter(){
+        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if(client.getCocktailsWithAlcoholByFirstLetter(ch).size() >0 )
+                list.add(client.getCocktailsWithAlcoholByFirstLetter(ch));
+        }
+        return list;
+    }
 }

@@ -16,19 +16,14 @@
                         </li>
 
                         <li class="dropdown">
-
                             <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Alcoolisés
                             </h:outputLink>
-
                             <ul class="dropdown-menu">
-                                <ui:repeat value="#{dataManagedBean.listAllCocktailsByFirstLetter()}" var="item" varStatus="status">
-                                    <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
-                                        
-                                        <li><h:outputText value="#{itemItem.name}"/></li>    
-                                    
-                                    </ui:repeat>  
-                                    <!--<li><h:outputText value="__"/></li>-->    
+                                <ui:repeat value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="item" varStatus="status">
+                                    <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
+                                        <li><h:outputText value="#{itemItem.name}"/></li>
+                                    </ui:repeat>     
                                 </ui:repeat>
                             </ul>
                         </li>
@@ -36,9 +31,17 @@
 
 
 
-                        <li> <h:outputLink value="CocktailsWithoutAlcohol.xhtml" >
+                        <li class="dropdown">
+                            <h:outputLink value="CocktailsWithAlcohol.xhtml" >
                                 Softs
-                            </h:outputLink> 
+                            </h:outputLink>
+                            <ul class="dropdown-menu">
+                                <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
+                                    <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
+                                        <li><h:outputText value="#{itemItem.name}"/></li>
+                                    </ui:repeat>     
+                                </ui:repeat>
+                            </ul>
                         </li>
 
                         <li> <h:outputLink value="index.xhtml" >
