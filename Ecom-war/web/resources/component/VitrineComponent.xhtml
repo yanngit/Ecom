@@ -22,7 +22,7 @@
                 <h:form>  
                     <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
                         <t:cocktailVignette idPrefix="newCocktails" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}" ID="#{item.ID}">  
-                                <h:commandButton rendered="#{item.available == true}" title="Ajouter le cocktail #{item.name} au panier" class="add-button-vignette" value="Ajouter" alt="Ajouter le cocktail #{item.name} au panier" action="#{dataManagedBean.addArticleToCart(item.ID)}"/>
+                                <h:commandButton rendered="#{item.available == true}" title="Ajouter le cocktail #{item.name} au panier" class="add-button-vignette"  alt="Ajouter le cocktail #{item.name} au panier" action="#{dataManagedBean.addArticleToCart(item.ID)}"/>
                         </t:cocktailVignette>
                     </ui:repeat> 
                 </h:form>
