@@ -31,6 +31,11 @@ public class DataManagedBean {
         super();
     }
 
+    public String afficherCocktail(String id){
+        setCocktailDetailId(id);
+        return "AfficherCocktail.xhtml?faces-redirect=true";
+    }
+    
     public String getCocktailDetailId() {
         return cocktailDetailId;
     }

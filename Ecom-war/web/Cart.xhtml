@@ -4,10 +4,12 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Index</ui:define>
-
     <ui:define name="content">
-        <h:outputLink onclick="#{dataManagedBean.setCocktailDetailId(11)}" value="AfficherCocktail.xhtml"> Afficher : 11 </h:outputLink>
-        <h:outputLink onclick="#{dataManagedBean.setCocktailDetailId(15)}" value="AfficherCocktail.xhtml"> Afficher : 15 </h:outputLink>
+        <h:form>
+            <h:commandButton value="cocktail 11" action="#{dataManagedBean.afficherCocktail(11)}"/>
+            <h:commandButton value="cocktail 15" action="#{dataManagedBean.afficherCocktail(15)}"  />
+        </h:form>
+        
         <component:VitrineComponent idDiv="vitrine_new" title="Panier" size="#{dataManagedBean.cartContent.size()}" list="#{dataManagedBean.cartContent}"/> 
     </ui:define>
 </ui:composition>
