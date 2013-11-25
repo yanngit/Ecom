@@ -5,26 +5,9 @@
     Description:
         Purpose of the stylesheet follows.
 */
-
 .debug{
     border: 2px solid blue;
 }
-
-.item-menu {
-    text-align: left;
-}
-
-.nav li .item-menu{
-    display: inline;
-}
-
-li .item-menu, li .item-menu  :hover,  .item-menu a  .item-menu a :hover{
-    height: 10px;
-    display: inline;
-    
-}
-
-
 
 root { 
     display: block;
@@ -38,11 +21,6 @@ root {
     text-align: center;
 }
 
-/*
-#content {
-    background-color: rgba(228,22,76,0.1)
-}
-*/
 .banniere {
     background-image: url("#{resource['img:banniere.jpg']}");
     background-repeat:no-repeat;
@@ -51,112 +29,19 @@ root {
 
 /*Mise en forme de la barre de menu*/
 /*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/
-.nav li {
-    padding: 0px;
-    display: inline-block;
-    width: auto;
-}
-
-/* DEBUG
-.navbar .navbar-inner .nav > li {
-    border: 2px dashed blue;
-}
-*/
-
-/*On fixe les propriété du a qui va définir la taille du parent li*/
-.navbar .navbar-inner .nav > li a {
-    display: block;
-    padding: 18px;
-}
-
 /*Elements de gauche*/
-.navbar .nav > li:hover {
-    background-color: rgba(228,22,76,0.8);
-    /*border-radius: 8px 8px 8px 8px;*/
-}
-
-.navbar .nav > li:hover a {
-    font-size: 20px;
-    color: white;
-    text-shadow: 0 0 2px #000;
+.nav li a:hover {
     background-color: rgba(228,22,76,0.8);
     border-radius: 8px 8px 8px 8px;
 }
 
-
 /*Elements de droite*/
-
 .navbar .pull-right > li:hover a:hover {
-    font-size: 20px;
-    color: white;
-    text-shadow: 0 0 2px #000;
-    color: white;
     background-color: rgba(247,150,26,0.8);
     border-radius: 8px 8px 8px 8px;
 }
 
-/*Style vignette cocktail*/
-.cocktail-vignette {
-    height: 200px;
-    border: 2px solid rgba(228,22,76,1);
-    border-radius: 5px 5px 5px 5px;
-    overflow-y: hidden;  
-    overflow-x: hidden;
-    position: relative;
-    background-color: white;
-    background-color: rgba(228,22,76,0.1)
-}
-
-.cocktail-vignette-name {
-    position: absolute;
-    bottom: 0px;
-    left: 10px;
-    font-size: 12px;
-}
-
-.add-button-vignette {
-    position : absolute;
-    background-size: 55px 30px;
-    background-image: url("#{resource['img:cart.png']}");
-    background-color: #FFCCA9;
-    padding-bottom: 7px;
-        padding-left: 29px;
-        padding-right: 24px;
-        padding-top: 2px;
-    right: 7px;
-    bottom: 0px;
-}
-
-/*Style vitrine cocktails*/
-.cocktail-vitrine {
-    background-color: rgba(247,150,26,0.5);
-    overflow-y: hidden;  
-    overflow-x: hidden;
-}
-
-.vitrine-titre p {
-    line-height: 45px;
-    text-align: left;
-    font-family: sans-serif Helvetica;
-    font-size: 25px;
-    margin-left: 120px;
-}
-
-.vitrine-titre {
-    height: 50px;
-    background-image: url("#{resource['img:puce_titre.png']}");
-    background-repeat:no-repeat;
-    background-position: 30px;
-    overflow-y: hidden;  
-    overflow-x: hidden;
-    background-color: rgba(247,150,26,0.5);
-    margin-bottom : 10px;
-    border-radius: 5px 5px 5px 5px; 
-}
-
-
 /*sohnoun qui ecrit de la merde*/
-
 .dropdown-menu .sub-menu {
     left: 100%;
     position: absolute;
