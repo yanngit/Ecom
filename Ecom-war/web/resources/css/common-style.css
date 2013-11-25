@@ -65,12 +65,17 @@ root {
 
 /*On fixe les propriété du a qui va définir la taille du parent li*/
 .navbar .navbar-inner .nav > li a {
-   display: block;
-   padding: 18px;
+    display: block;
+    padding: 18px;
 }
 
 /*Elements de gauche*/
-.navbar .pull-left > li:hover a:hover {
+.navbar .nav > li:hover {
+    background-color: rgba(228,22,76,0.8);
+    /*border-radius: 8px 8px 8px 8px;*/
+}
+
+.navbar .nav > li:hover a {
     font-size: 20px;
     color: white;
     text-shadow: 0 0 2px #000;
@@ -190,6 +195,7 @@ root {
     left: -6px;
 }
 
+/*CSS formulaire*/
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
@@ -206,5 +212,22 @@ root {
         padding-left: 57px;
         padding-right: 57px;
         padding-top: 2px;
+}
 
+/*Thumbnail cocktail*/
+/* Cocktail thumbnail display */
+li.thumbnail {
+    background: #FFF;
+}
+.filling-thumb {
+    height: 150px;
+    vertical-align: middle;
+    text-align: center;
+}
+.filling-thumb > img {
+    display: inline;
+}
+.caption > h5 {
+    white-space: nowrap;
+    overflow: hidden;
 }

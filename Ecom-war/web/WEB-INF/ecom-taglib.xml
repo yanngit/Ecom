@@ -18,6 +18,12 @@
             <component-type>CocktailVignette</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>cocktailThumbnail</tag-name>
+        <component>
+            <component-type>CocktailThumbnail</component-type>
+        </component>
+    </tag>
     <!--<tag>
         <tag-name>simpleOutputTitle</tag-name>
         <source>simpleOutputTitle.xhtml</source>

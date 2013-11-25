@@ -1,12 +1,42 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://fr.mon.projet/lib"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Index</ui:define>
-
     <ui:define name="content">
-        <component:VitrineComponent idDiv="vitrine_new" title="Nouveautés" size="#{dataManagedBean.listNewestCocktails.size()}" list="#{dataManagedBean.listNewestCocktails}"/> 
+        <!--<component:VitrineComponent idDiv="vitrine_new" title="Nouveautés" size="#{dataManagedBean.listNewestCocktails.size()}" list="#{dataManagedBean.listNewestCocktails}"/> 
         <component:VitrineComponent idDiv="vitrine_popular" title="Meilleures ventes" size="#{dataManagedBean.listMostPopularCocktails.size()}" list="#{dataManagedBean.listMostPopularCocktails}"/> 
+        -->
+        <div id="news">
+            <h2>
+                Nouveautés
+            </h2>
+            <div class="well well-small">
+                <ul class="thumbnails">
+                    <ui:repeat value="#{dataManagedBean.listNewestCocktails}"
+                               var="item"
+                               varStatus="status">
+                        <t:cocktailThumbnail name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>
+                    </ui:repeat>
+                </ul>
+            </div>
+        </div>
+        <div id="popular">
+            <h2>
+                Meilleures ventes
+            </h2>
+            <div class="well well-small">
+                <ul class="thumbnails">
+                    <ui:repeat value="#{dataManagedBean.listMostPopularCocktails}"
+                               var="item"
+                               varStatus="status">
+                        <t:cocktailThumbnail name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>
+                    </ui:repeat>
+                </ul>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
 

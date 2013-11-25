@@ -4,38 +4,33 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <ui:composition>
         <header class="container">
-            <div class="row">
-                <div class="span12 banniere"><br /></div>
+            <div class="jumbotron subhead" id="overview">
+                <h1>Banniere</h1>
             </div>
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <ul class="nav pull-left">
-                        <li> <h:outputLink value="index.xhtml" >
-                                Accueil
-                            </h:outputLink> 
-                        </li>
-
-                        <li class="dropdown">
-                            <h:outputLink value="CocktailsWithAlcohol.xhtml" >
-                                Alcoolisés
-                            </h:outputLink>
-                            <ul class="dropdown-menu span10">
+            <div class="navbar navbar-inner">
+                <ul class="nav">
+                    <li>
+                        <h:outputLink value="index.xhtml" >
+                            Accueil
+                        </h:outputLink> 
+                    </li>
+                    <li>
+                        <h:outputLink value="CocktailsWithAlcohol.xhtml" >
+                            Alcoolisés
+                        </h:outputLink> 
+                        <ul class="dropdown-menu span10">
                                 <ui:repeat value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="item" varStatus="status">
                                     <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
                                         <li><h:outputLink value="#{itemItem.name}">  #{itemItem.name} </h:outputLink></li>
                                     </ui:repeat>     
                                 </ui:repeat>
-                            </ul>
-                        </li>
-
-
-
-
-                        <li class="dropdown">
-                            <h:outputLink value="CocktailsWithoutAlcohol.xhtml" >
-                                Softs
-                            </h:outputLink>
-                            <ul class="dropdown-menu span10">
+                        </ul>
+                    </li>
+                    <li> 
+                        <h:outputLink value="CocktailsWithoutAlcohol.xhtml" >
+                            Softs
+                        </h:outputLink> 
+                        <ul class="dropdown-menu span10">
                                 <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
                                     <div class="row">                                       
                                         <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">                                        
@@ -43,33 +38,27 @@
                                         </ui:repeat>                                     
                                     </div>
                                 </ui:repeat>
-                            </ul>
-                        </li>
-
-                        <li> <h:outputLink value="index.xhtml" >
-                                Recherche
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="tst.html" >
-                                Recherche
-                            </h:outputLink> 
-                        </li>
-                    </ul>
-                    <ul class="nav pull-right">
-
-                        <li> <h:outputLink value="http://localhost:8080/Ecom-war/Form.xhtml" >
-                                Se connecter
-                            </h:outputLink> 
-                        </li>
-                        <li> <h:outputLink value="index.xhtml" >
-                                Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
-                            </h:outputLink> 
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </header> 
-
+                        </ul>
+                    </li>
+                    <li>
+                        <h:outputLink value="index.xhtml" >
+                            Recherche
+                        </h:outputLink> 
+                    </li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li>
+                        <h:outputLink value="Form.xhtml" >
+                            Se connecter
+                        </h:outputLink> 
+                    </li>
+                    <li> 
+                        <h:outputLink value="Cart.xhtml" >
+                            Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                        </h:outputLink> 
+                    </li>
+                </ul>
+            </div> 
+        </header>
     </ui:composition>
 </html>

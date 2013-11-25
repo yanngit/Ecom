@@ -12,35 +12,17 @@
         <title><ui:insert name="title">COMMON TITLE</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
     </h:head>
-
     <h:body>
-
         <div id="page">
-
-                <ui:insert name="header" >
-                    <ui:include src="/template/common/commonHeader.xhtml" />
-                </ui:insert>
-
-            <div class ="container">
-                <div class="row">
-                    <div id="content" class="span12">
-                        <section>
-                            <ui:insert name="content" >
-                                <ui:include src="/template/common/commonContent.xhtml" />
-                            </ui:insert>
-                        </section>
-                    </div>
-
-                </div>
+            <ui:insert name="header" >
+                <ui:include src="/template/common/commonHeader.xhtml" />
+            </ui:insert>
+            <div class="container">
+                <ui:insert name="content"/>
             </div>
-
-            <div id="footer">
-                <ui:insert name="footer" >
-                    <ui:include src="/template/common/commonFooter.xhtml" />
-                </ui:insert>
-            </div>
-
+            <ui:insert name="footer" >
+                <ui:include src="/template/common/commonFooter.xhtml" />
+            </ui:insert>
         </div>
-
     </h:body>
 </html>

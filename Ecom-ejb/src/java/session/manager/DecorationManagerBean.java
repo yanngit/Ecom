@@ -1,6 +1,5 @@
 package session.manager;
 
-import entity.BeverageEntity;
 import entity.DecorationEntity;
 import exceptions.EcomException;
 import javax.ejb.Stateless;
