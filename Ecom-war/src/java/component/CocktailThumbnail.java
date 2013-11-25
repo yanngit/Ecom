@@ -39,12 +39,14 @@ public class CocktailThumbnail extends UIComponentBase {
 "                                    <h5>\n" +
 "                                        " + getName() + "\n" +
 "                                    </h5>\n" +
-"                                    <button type=\"button\" class=\"btn btn-small btn-block\">\n" +
-"                                        Détails\n" +
-"                                    </button>\n" +
-"                                    <button type=\"button\" class=\"btn btn-small btn-success btn-block\">\n" +
-"                                        Commander\n" +
-"                                    </button>\n" +
+"                                    <div class=\"btn-group span12\">\n" +
+"                                         <button type=\"button\" class=\"btn\">\n" +
+"                                             <i class=\"icon-info-sign\"></i>\n" +
+"                                         </button>\n" +
+"                                         <button type=\"button\" class=\"btn btn-success\">\n" +
+"                                             <i class=\"icon-shopping-cart\"></i>\n" +
+"                                         </button>\n" +
+"                                     </div>\n" +
 "                                </div>\n" +
 "                            </li>");
     }
