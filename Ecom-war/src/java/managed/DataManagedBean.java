@@ -22,11 +22,21 @@ import session.interfaces.ClientFacadeRemoteItf;
 @SessionScoped
 public class DataManagedBean {
 
+    private String cocktailDetailId = "1";
+
     @EJB
     private ClientFacadeRemoteItf client;
 
     public DataManagedBean() {
         super();
+    }
+
+    public String getCocktailDetailId() {
+        return cocktailDetailId;
+    }
+
+    public void setCocktailDetailId(String cocktailDetailId) {
+        this.cocktailDetailId = cocktailDetailId;
     }
 
     public CocktailEntity getCocktail(Long id) throws Exception {
