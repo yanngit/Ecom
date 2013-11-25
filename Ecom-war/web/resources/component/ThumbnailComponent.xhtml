@@ -17,13 +17,16 @@
             </div>
             <div class="caption">
                 <h5>#{cc.attrs.name}</h5>
-                <div class="btn-group">
-                    <button type="button" class="btn"><i class="icon-info-sign"/></button>
-                        <button type="button" class="btn btn-success" onclick="#{dataManagedBean.addArticleToCart(cc.attrs.ID)}">
-                            <i class="icon-shopping-cart"/>
+                <h:form>
+                    <div class="btn-group">                    
+                        <button type="button" class="btn">
+                            <i class="icon-info-sign"/>
                         </button>
-                </div>
-
+                        <h:commandLink styleClass="btn btn-success" action="#{dataManagedBean.addArticleToCart(cc.attrs.ID)}">
+                            <i class="icon-shopping-cart"/>
+                        </h:commandLink>
+                    </div>
+                </h:form>
             </div>
         </li>
     </composite:implementation>
