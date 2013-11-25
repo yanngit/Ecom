@@ -5,44 +5,15 @@
     Description:
         Purpose of the stylesheet follows.
 */
-.debug{
-    border: 2px solid blue;
-}
 
-root { 
-    display: block;
-}
-
-[class*="span"] {
-    /* background-color: lightgreen;*/
-    margin-bottom: 10px;
-    border-radius: 5px 5px 5px 5px;
-    line-height: 80px;
-    text-align: center;
-}
-
-.banniere {
+#banniere {
     background-image: url("#{resource['img:banniere.jpg']}");
-    background-repeat:no-repeat;
-    line-height: 180px;
-}
-
-/*Mise en forme de la barre de menu*/
-/*Utilisation de inline-block et width auto pour prendre automatiquement la taille du a qui sera a l'interieur*/
-/*Elements de gauche*/
-.nav li a:hover {
-    background-color: rgba(228,22,76,0.8);
-    border-radius: 8px 8px 8px 8px;
-}
-
-/*Elements de droite*/
-.navbar .pull-right > li:hover a:hover {
-    background-color: rgba(247,150,26,0.8);
-    border-radius: 8px 8px 8px 8px;
+    background-repeat: no-repeat;
+    min-height: 160px;
 }
 
 /*sohnoun qui ecrit de la merde*/
-.dropdown-menu .sub-menu {
+/*.dropdown-menu .sub-menu {
     left: 100%;
     position: absolute;
     top: 0;
@@ -78,7 +49,7 @@ root {
     left: 10px;
     top: 11px;
     left: -6px;
-}
+}*/
 
 /*CSS formulaire*/
 .form-validate-cart  table {
