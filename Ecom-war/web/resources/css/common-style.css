@@ -12,8 +12,16 @@
     min-height: 160px;
 }
 
-/*sohnoun qui ecrit de la merde*/
-/*.dropdown-menu .sub-menu {
+/* Navbar dropdown.
+ * Override bootstrap JS :
+ *   - Allow non JS user
+ *   - Display menu on hover, not click !
+ */
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.dropdown-menu .sub-menu {
     left: 100%;
     position: absolute;
     top: 0;
@@ -49,9 +57,10 @@
     left: 10px;
     top: 11px;
     left: -6px;
-}*/
+}
 
-/*CSS formulaire*/
+
+/* CSS formulaire */
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
