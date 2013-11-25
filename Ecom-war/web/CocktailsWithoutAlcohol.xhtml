@@ -2,20 +2,13 @@
 <!DOCTYPE html >
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:t="http://fr.mon.projet/lib">
+                xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Cocktails non alcoolisés</ui:define>
 
     <ui:define name="content">
-        <f:view>
-            <t:vitrine idDiv="vitrine_alcohol" title="Nos cocktails softs" size="#{dataManagedBean.listCocktailsWithoutAlcohol.size()}">
-                <ui:repeat value="#{dataManagedBean.listCocktailsWithoutAlcohol}" var="item" varStatus="status">
-                    <t:cocktailVignette idPrefix="newCocktails#{item.name}" name="#{item.name}" price="#{item.price}" urlPhoto="#{item.photoURI}"/>  
-                </ui:repeat>   
-            </t:vitrine>
-        </f:view> 
+        <component:VitrineComponent idDiv="vitrine_non_alcohol" title="Nos cocktails softs" size="#{dataManagedBean.listCocktailsWithoutAlcohol.size()}" list="#{dataManagedBean.listCocktailsWithoutAlcohol}"/>
     </ui:define>
+    
 </ui:composition>
 

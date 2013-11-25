@@ -1,0 +1,10 @@
+<ui:composition template="template/common/commonLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:component="http://java.sun.com/jsf/composite/component">
+    <ui:define name="title">Index</ui:define>
+
+    <ui:define name="content">
+        <component:VitrineComponent idDiv="vitrine_new" title="Panier" size="#{dataManagedBean.cartContent.size()}" list="#{dataManagedBean.cartContent}"/> 
+    </ui:define>
+</ui:composition>

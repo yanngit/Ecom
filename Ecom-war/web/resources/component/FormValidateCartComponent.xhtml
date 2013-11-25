@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="firstNameValue" />
+        <composite:attribute name="lastNameValue" />
+        <composite:attribute name="adressValue" />
+        <composite:attribute name="postalCodeValue" />
+        <composite:attribute name="cityValue" />
+    </composite:interface>
+
+    <composite:implementation>
+       <h:form class="form-validate-cart">
+         <h:message for="formPanel" style="color:red;" />
+         <h:panelGrid columns="2" id="formPanel">
+            <label for="firstName">Prenom : </label>
+            <h:inputText id="firstName" value="#{cc.attrs.firstNameValue}" />
+            <label for="lastName">Nom : </label>
+            <h:inputText id="lastName" value="#{cc.attrs.lastNameValue}" />
+            <label for="address">Adresse : </label>
+            <h:inputText id="address" value="#{cc.attrs.adressValue}" />
+            <label for="postalCode">Code postal : </label>
+            <h:inputText id="postalCode" value="#{cc.attrs.postalCodeValue}"/>
+            <label for="city">Ville : </label>
+            <h:inputText id="city" value="#{cc.attrs.cityValue}" />
+         </h:panelGrid>
+         <h:commandButton class="paypal-button"/>
+      </h:form>
+        
+    </composite:implementation>
+
+</html>
