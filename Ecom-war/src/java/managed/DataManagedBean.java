@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pojo.Deliverable;
 import session.interfaces.ClientFacadeRemoteItf;
 
 /**
@@ -22,25 +23,28 @@ import session.interfaces.ClientFacadeRemoteItf;
 @SessionScoped
 public class DataManagedBean {
 
-    private String cocktailDetailId = "";
+    /* Main facade to interact with Change to the application */
     @EJB
     private ClientFacadeRemoteItf client;
+    /* Save the cocktail we want to see details */
+    private CocktailEntity currentCocktail = null;
 
     public DataManagedBean() {
         super();
     }
 
-    public String displayCocktailDetails(String id) {
-        setCocktailDetailId(id);
-        return "AfficherCocktail.xhtml?faces-redirect=true";
+    /* Navigate to the cocktailDetails.xhtml page and record the cocktail we
+     * want to watch.
+     */
+    public String displayCocktailDetails(CocktailEntity cocktail) {
+        this.currentCocktail = cocktail;
+        /* TODO : Instanciate the Deliverable list which is LAZY */
+        return "cocktailDetails.xhtml?faces-redirect=true";
     }
 
-    public String getCocktailDetailId() {
-        return cocktailDetailId;
-    }
-
-    public void setCocktailDetailId(String cocktailDetailId) {
-        this.cocktailDetailId = cocktailDetailId;
+    /* All getters */
+    public CocktailEntity getCurrentCocktail() {
+        return currentCocktail;
     }
 
     public CocktailEntity getCocktail(Long id) throws Exception {
@@ -71,14 +75,6 @@ public class DataManagedBean {
         return client.getUnavailableBeverages();
     }
 
-    public void addArticleToCart(Long id) throws EcomException {
-        client.addArticle(id);
-    }
-
-    public void removeArticleToCart(Long id) throws EcomException {
-        client.removeArticle(id);
-    }
-
     public List<CocktailEntity> getCartContent() {
         return client.getCartContent();
     }
@@ -107,6 +103,15 @@ public class DataManagedBean {
         return client.getCocktailsWithoutAlcohol();
     }
 
+    /* Setters, symbolizing an action */
+    public void addArticleToCart(Long id) throws EcomException {
+        client.addArticle(id);
+    }
+
+    public void removeArticleToCart(Long id) throws EcomException {
+        client.removeArticle(id);
+    }
+
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
         return client.getCocktailsByFirstLetter(letter);
     }
@@ -115,8 +120,10 @@ public class DataManagedBean {
         return client.getCocktailsByName(name);
     }
 
+    /* Nice function, but doesn't respect convention name, or application
+     * architecture... */
     public List<List<CocktailEntity>> listAllCocktailsByFirstLetter() {
-        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
             if (client.getCocktailsByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsByFirstLetter(ch));
@@ -126,7 +133,7 @@ public class DataManagedBean {
     }
 
     public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter() {
-        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
             if (client.getCocktailsWithoutAlcoholByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsWithoutAlcoholByFirstLetter(ch));
@@ -136,7 +143,7 @@ public class DataManagedBean {
     }
 
     public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter() {
-        List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
+        List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
             if (client.getCocktailsWithAlcoholByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsWithAlcoholByFirstLetter(ch));

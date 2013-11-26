@@ -5,24 +5,21 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:h="http://java.sun.com/jsf/html">
     <composite:interface>
-        <composite:attribute name="urlPhoto" />
-        <composite:attribute name="name" />
-        <composite:attribute name="price" />
-        <composite:attribute name="ID" />
+        <composite:attribute name="item" type="entity.CocktailEntity" />
     </composite:interface>
     <composite:implementation>
         <li class="span2 thumbnail">
             <div class="filling-thumb">
-                <img src="resources/img/#{cc.attrs.urlPhoto}" alt="Cocktail#{cc.attrs.name}"/>
+                <img src="resources/img/#{cc.attrs.item.photoURI}" alt="Cocktail#{cc.attrs.item.name}"/>
             </div>
             <div class="caption">
-                <h5>#{cc.attrs.name}</h5>
+                <h5>#{cc.attrs.item.name}</h5>
                 <h:form>
                     <div class="btn-group">
-                        <h:commandLink styleClass="btn" action="#{dataManagedBean.displayCocktailDetails(cc.attrs.ID)}">
+                        <h:commandLink styleClass="btn" action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             <i class="icon-info-sign"/>
                         </h:commandLink>
-                        <h:commandLink styleClass="btn btn-success" action="#{dataManagedBean.addArticleToCart(cc.attrs.ID)}">
+                        <h:commandLink styleClass="btn btn-success" action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
                             <i class="icon-shopping-cart"/>
                         </h:commandLink>
                     </div>
