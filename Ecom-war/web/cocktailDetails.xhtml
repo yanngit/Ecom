@@ -7,14 +7,17 @@
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
         <div class="media">
-            <div class="pull-left media-object">
-                <h:form>
-                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
-                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+            <div class="pull-left media-object span2">
+                <h:form styleClass="text-center">
+                    <div class="filling-thumb">
+                        <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
+                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+                    </div>
                     <p/>
-                    <h:commandLink styleClass="btn btn-success btn-block btn-large"
+                    <h:commandLink styleClass="btn btn-success btn-block btn-large
+                                   #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
                                    action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}">
-                        <i class="icon-shopping-cart"/>
+                        <i class="icon-shopping-cart icon-white"/> : #{dataManagedBean.currentCocktail.price} €
                     </h:commandLink>
                 </h:form>
             </div>
@@ -28,14 +31,26 @@
                         <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
                         <dt>Puissance :</dt>
                         <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                        <br/>
                         <dt>Composition :</dt>
                         <dd>
-                            #{dataManagedBean.currentCocktail.deliverables.isInstantiated()}
+                            <ul class="unstyled">
+                                <ui:repeat value="#{dataManagedBean.currentCocktail.deliverables}"
+                                           var='product'>
+                                    <li>
+                                        #{product.name}
+                                    </li>
+                                </ui:repeat>
+                            </ul>
                         </dd>
                     </dl>
                 </div>
             </div>
         </div>
+        <h2>Recette :</h2>
+        <p class="well">
+            #{dataManagedBean.currentCocktail.recipe}
+        </p>
     </ui:define>
 </ui:composition>
 
