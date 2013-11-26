@@ -22,11 +22,25 @@ import session.interfaces.ClientFacadeRemoteItf;
 @SessionScoped
 public class DataManagedBean {
 
+    private String cocktailDetailId = "";
     @EJB
     private ClientFacadeRemoteItf client;
 
     public DataManagedBean() {
         super();
+    }
+
+    public String displayCocktailDetails(String id) {
+        setCocktailDetailId(id);
+        return "AfficherCocktail.xhtml?faces-redirect=true";
+    }
+
+    public String getCocktailDetailId() {
+        return cocktailDetailId;
+    }
+
+    public void setCocktailDetailId(String cocktailDetailId) {
+        this.cocktailDetailId = cocktailDetailId;
     }
 
     public CocktailEntity getCocktail(Long id) throws Exception {
@@ -36,15 +50,14 @@ public class DataManagedBean {
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
-    
+
     public List<CocktailEntity> getListAvailableCocktails() {
         return client.getAvailableCocktails();
     }
-    
+
     public List<CocktailEntity> getListUnavailableCocktails() {
         return client.getUnavailableCocktails();
     }
-
 
     public List<BeverageEntity> getListBeverages() {
         return client.getAllBeverages();
@@ -57,74 +70,77 @@ public class DataManagedBean {
     public List<BeverageEntity> getListUnavailableBeverages() {
         return client.getUnavailableBeverages();
     }
-    
+
     public void addArticleToCart(Long id) throws EcomException {
         client.addArticle(id);
     }
-    
+
     public void removeArticleToCart(Long id) throws EcomException {
         client.removeArticle(id);
     }
-    
+
     public List<CocktailEntity> getCartContent() {
         return client.getCartContent();
     }
-    
+
     public Integer getCartLength() {
         return client.getCartSize();
     }
-    
+
     public Float getCartPrice() {
         return client.getCartPrice();
     }
-    
+
     public List<CocktailEntity> getListMostPopularCocktails() {
         return client.getMostPopularCocktails();
     }
-    
+
     public List<CocktailEntity> getListNewestCocktails() {
         return client.getNewestCocktails();
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithAlcohol() {
         return client.getCocktailsWithAlcohol();
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
         return client.getCocktailsWithoutAlcohol();
     }
-    
+
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
         return client.getCocktailsByFirstLetter(letter);
     }
-    
+
     public List<CocktailEntity> listCocktailsByName(String name) {
         return client.getCocktailsByName(name);
     }
 
     public List<List<CocktailEntity>> listAllCocktailsByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
-        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
-            if(client.getCocktailsByFirstLetter(ch).size() >0 )
+        for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if (client.getCocktailsByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsByFirstLetter(ch));
+            }
         }
         return list;
     }
-    
-    public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter(){
+
+    public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
-        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
-            if(client.getCocktailsWithoutAlcoholByFirstLetter(ch).size() >0 )
+        for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if (client.getCocktailsWithoutAlcoholByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsWithoutAlcoholByFirstLetter(ch));
+            }
         }
         return list;
     }
-    
-    public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter(){
+
+    public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<List<CocktailEntity>>();
-        for (char ch: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
-            if(client.getCocktailsWithAlcoholByFirstLetter(ch).size() >0 )
+        for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
+            if (client.getCocktailsWithAlcoholByFirstLetter(ch).size() > 0) {
                 list.add(client.getCocktailsWithAlcoholByFirstLetter(ch));
+            }
         }
         return list;
     }
