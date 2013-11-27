@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -47,7 +48,10 @@ public class CocktailEntity extends Product {
     @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
-    @ManyToMany
+    /* TODO : Change fetch type to LAZY ==> Recall local functions for
+     * cocktailDetails, instanciating this List.
+     */
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "COCKTAIL_COMPOSITION",
             joinColumns =

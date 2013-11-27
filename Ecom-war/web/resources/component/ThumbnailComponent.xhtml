@@ -19,7 +19,7 @@
                         <h:commandLink styleClass="btn" action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             <i class="icon-info-sign"/>
                         </h:commandLink>
-                        <h:commandLink styleClass="btn btn-success" action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
+                        <h:commandLink styleClass="btn btn-success" onclick="checkPasswords();" action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
                             <i class="icon-shopping-cart"/>
                         </h:commandLink>
                     </div>
