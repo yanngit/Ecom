@@ -4,6 +4,10 @@
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <component:ShowcaseComponent idDiv="vitrine_new" title="Panier" list="#{dataManagedBean.cartContent}"/>
+        <component:ShowcaseComponent idDiv="vitrine_new" title="Panier" list="#{dataManagedBean.listCocktailsWithAlcohol}">
+        </component:ShowcaseComponent>
+        <component:ShowcaseComponent idDiv="non_virgin" title="Total" list="#{dataManagedBean.cartContent}"/>
+        <component:ShowcaseComponent idDiv="non_virgin" title="Nos cocktails alcoolisés" list="#{dataManagedBean.listCocktailsWithAlcohol}"/>
+        
     </ui:define>
 </ui:composition>
