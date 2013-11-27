@@ -37,7 +37,7 @@ public class DataManagedBean {
      * want to watch.
      */
     public String displayCocktailDetails(CocktailEntity cocktail) {
-        this.currentCocktail = client.getCocktailFull(cocktail.getID());
+        this.currentCocktail = getCocktailFull(cocktail);
         return "cocktailDetails.xhtml?faces-redirect=true";
     }
 
@@ -63,7 +63,13 @@ public class DataManagedBean {
     }
 
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
-        return getCocktailFull(cocktail).getDeliverables();
+        List<Deliverable> deliverables;
+        if (cocktail.getDeliverables() != null) {
+            deliverables = cocktail.getDeliverables();
+        } else {
+            deliverables = getCocktailFull(cocktail).getDeliverables();
+        }
+        return deliverables;
     }
 
     public List<CocktailEntity> getListCocktails() {
