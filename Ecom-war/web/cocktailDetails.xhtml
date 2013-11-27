@@ -1,0 +1,41 @@
+<ui:composition template="template/common/commonLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="title">#{dataManagedBean.currentCocktail.name}</ui:define>
+    <ui:define name="content">
+        <!-- Display an image, left-aligned, cocktail name and other info on
+        the right side -->
+        <div class="media">
+            <div class="pull-left media-object">
+                <h:form>
+                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
+                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+                    <p/>
+                    <h:commandLink styleClass="btn btn-success btn-block btn-large"
+                                   action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}">
+                        <i class="icon-shopping-cart"/>
+                    </h:commandLink>
+                </h:form>
+            </div>
+            <div class="media-body">
+                <h1 class="media-heading">
+                    #{dataManagedBean.currentCocktail.name}
+                </h1>
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>Gout :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
+                        <dt>Puissance :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                        <dt>Composition :</dt>
+                        <dd>
+                            #{dataManagedBean.currentCocktail.deliverables.isInstantiated()}
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

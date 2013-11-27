@@ -21,72 +21,72 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.Product;
 
-
 @NamedQueries({
-@NamedQuery(name="findUnavailableCocktails",query="SELECT c FROM CocktailEntity c WHERE c.available = 0"),
-@NamedQuery(name="findAvailableCocktails", query="SELECT c FROM CocktailEntity c WHERE c.available = 1"),
-@NamedQuery(name="getPopularCocktails", query="SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
-@NamedQuery(name="getNewestCocktails", query="SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
-@NamedQuery(name="getCocktailsByVirginDetail", query="SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
-@NamedQuery(name="getCocktailsByExp", query="SELECT c FROM CocktailEntity c WHERE c.name LIKE :exp"),
-@NamedQuery(name="getCocktailsByExpAndVirginDetail", query="SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),
-
-})
+    @NamedQuery(name = "findUnavailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 0"),
+    @NamedQuery(name = "findAvailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 1"),
+    @NamedQuery(name = "getPopularCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
+    @NamedQuery(name = "getNewestCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
+    @NamedQuery(name = "getCocktailsByVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
+    @NamedQuery(name = "getCocktailsByExp", query = "SELECT c FROM CocktailEntity c WHERE c.name LIKE :exp"),
+    @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),})
 @Entity
-@Table(name="COCKTAIL")
-public class CocktailEntity extends Product  {
+@Table(name = "COCKTAIL")
+public class CocktailEntity extends Product {
+
     private static final long serialVersionUID = 1L;
-    @Column(name="PHOTO")
+    @Column(name = "PHOTO")
     protected String photoURI;
-    @Column(name="RECIPE")
+    @Column(name = "RECIPE")
     @NotNull
     protected String recipe;
-    @Column(name="FLAVOR")
-    @Enumerated(value=EnumType.ORDINAL)
+    @Column(name = "FLAVOR")
+    @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailFlavorEnum flavor;
-    @Column(name="POWER")
-    @Enumerated(value=EnumType.ORDINAL)
+    @Column(name = "POWER")
+    @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
     @ManyToMany
     @JoinTable(
-        name="COCKTAIL_COMPOSITION",
-        joinColumns=@JoinColumn(
-            name="COCKTAIL_ID",
-            referencedColumnName="ID"),
-        inverseJoinColumns=@JoinColumn(
-            name="DELIVERABLE_ID",
-            referencedColumnName="ID"))
+            name = "COCKTAIL_COMPOSITION",
+            joinColumns =
+            @JoinColumn(
+            name = "COCKTAIL_ID",
+            referencedColumnName = "ID"),
+            inverseJoinColumns =
+            @JoinColumn(
+            name = "DELIVERABLE_ID",
+            referencedColumnName = "ID"))
     @NotNull
-    protected List<Deliverable> deliverables;   
-    @ManyToMany(mappedBy="cocktails")
+    protected List<Deliverable> deliverables;
+    @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
-    @Column(name="VIRGIN")
+    @Column(name = "VIRGIN")
     protected Boolean virgin;
-    @Column(name="AVAILABLE")
+    @Column(name = "AVAILABLE")
     protected Boolean available;
-    
-    public void setAvailable(boolean available){
+
+    public void setAvailable(boolean available) {
         this.available = available;
     }
-    
-    public boolean getAvailable(){
+
+    public boolean getAvailable() {
         return available;
     }
-    
-    public List<OrderEntity> getOrders(){
+
+    public List<OrderEntity> getOrders() {
         return orders;
     }
-    
-    public void setOrders(List<OrderEntity> list){
+
+    public void setOrders(List<OrderEntity> list) {
         orders = list;
     }
 
-    public CocktailEntity(){
+    public CocktailEntity() {
         super();
     }
-    
+
     public String getPhotoURI() {
         return photoURI;
     }
@@ -126,16 +126,16 @@ public class CocktailEntity extends Product  {
     public void setDeliverables(List<Deliverable> deliverables) {
         virgin = true;
         this.deliverables = deliverables;
-        for(Deliverable d : deliverables){
-            if(d instanceof BeverageEntity){
-                BeverageEntity b = (BeverageEntity)d;
-                if(b.getAlcoholicDegree() > 0){
+        for (Deliverable d : deliverables) {
+            if (d instanceof BeverageEntity) {
+                BeverageEntity b = (BeverageEntity) d;
+                if (b.getAlcoholicDegree() > 0) {
                     virgin = false;
                 }
             }
         }
     }
-        
+
     @Override
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";

@@ -4,8 +4,8 @@
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Index</ui:define>
     <ui:define name="content">
-        <component:VitrineComponent idDiv="news" title="Nouveautés" list="#{dataManagedBean.listNewestCocktails}"/> 
-        <component:VitrineComponent idDiv="popular" title="Meilleures ventes" list="#{dataManagedBean.listMostPopularCocktails}"/> 
+        <component:ShowcaseComponent idDiv="news" title="Nouveautés" list="#{dataManagedBean.listNewestCocktails}"/>
+        <component:ShowcaseComponent idDiv="popular" title="Meilleures ventes" list="#{dataManagedBean.listMostPopularCocktails}"/>
     </ui:define>
 </ui:composition>
 
