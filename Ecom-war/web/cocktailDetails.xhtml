@@ -14,11 +14,11 @@
                              alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
                     </div>
                     <p/>
-                    <h:commandLink styleClass="btn btn-success btn-block btn-large
-                                   #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
-                                   action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}">
-                        <i class="icon-shopping-cart icon-white"/> : #{dataManagedBean.currentCocktail.price} €
-                    </h:commandLink>
+                    <h:commandButton styleClass="btn btn-success btn-block btn-large
+                                     #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                     action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
+                                     value="Acheter - #{dataManagedBean.currentCocktail.price} €">
+                    </h:commandButton>
                 </h:form>
             </div>
             <div class="media-body">
@@ -31,7 +31,7 @@
                         <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
                         <dt>Puissance :</dt>
                         <dd>#{dataManagedBean.currentCocktail.power}</dd>
-                        <br/>
+                        <dt/><dd/>
                         <dt>Composition :</dt>
                         <dd>
                             <ul class="unstyled">
@@ -45,12 +45,12 @@
                         </dd>
                     </dl>
                 </div>
+                <h2>Recette :</h2>
+                <p class="well">
+                    #{dataManagedBean.currentCocktail.recipe}
+                </p>
             </div>
         </div>
-        <h2>Recette :</h2>
-        <p class="well">
-            #{dataManagedBean.currentCocktail.recipe}
-        </p>
     </ui:define>
 </ui:composition>
 
