@@ -48,10 +48,7 @@ public class CocktailEntity extends Product {
     @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
-    /* TODO : Change fetch type to LAZY ==> Recall local functions for
-     * cocktailDetails, instanciating this List.
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "COCKTAIL_COMPOSITION",
             joinColumns =

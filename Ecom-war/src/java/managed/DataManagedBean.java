@@ -37,8 +37,7 @@ public class DataManagedBean {
      * want to watch.
      */
     public String displayCocktailDetails(CocktailEntity cocktail) {
-        this.currentCocktail = cocktail;
-        /* TODO : Instanciate the Deliverable list which is LAZY */
+        this.currentCocktail = client.getCocktailFull(cocktail.getID());
         return "cocktailDetails.xhtml?faces-redirect=true";
     }
 
@@ -49,6 +48,22 @@ public class DataManagedBean {
 
     public CocktailEntity getCocktail(Long id) throws Exception {
         return client.getCocktail(id);
+    }
+
+    public CocktailEntity getCocktailFull(Long id) {
+        return client.getCocktailFull(id);
+    }
+
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
+        return client.getCocktailFull(cocktail.getID());
+    }
+
+    public List<Deliverable> getCocktailDeliverables(Long id) {
+        return getCocktailFull(id).getDeliverables();
+    }
+
+    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
+        return getCocktailFull(cocktail).getDeliverables();
     }
 
     public List<CocktailEntity> getListCocktails() {
