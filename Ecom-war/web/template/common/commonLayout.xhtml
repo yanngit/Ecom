@@ -16,15 +16,20 @@
     </h:head>
     <h:body>
         <div id="page">
-            <ui:insert name="header" >
-                <ui:include src="/template/common/commonHeader.xhtml" />
-            </ui:insert>
-            <div class="container">
-                <ui:insert name="content"/>
-            </div>
-            <ui:insert name="footer" >
-                <ui:include src="/template/common/commonFooter.xhtml" />
-            </ui:insert>
+            <h:form class="jsf-form container-fluid">
+                <ui:insert name="header" >
+                    <ui:include src="/template/common/commonHeader.xhtml" />
+                </ui:insert>
+                <img src="#{resource['img:fond.jpg']}"
+                     alt="Image de fond, représentant des cocktails"
+                     class="image-fond"/>
+                <div id="content">
+                    <ui:insert name="content"/>
+                </div>
+                <ui:insert name="footer" >
+                    <ui:include src="/template/common/commonFooter.xhtml" />
+                </ui:insert>
+            </h:form>
         </div>
     </h:body>
 </html>

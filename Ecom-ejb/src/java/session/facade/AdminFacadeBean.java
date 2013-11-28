@@ -19,7 +19,8 @@ import session.manager.CocktailManagerBean;
 import session.manager.OrderManagerBean;
 
 @Stateless
-public class AdminFacadeBean implements AdminFacadeRemoteItf{
+public class AdminFacadeBean implements AdminFacadeRemoteItf {
+
     @EJB
     private BeverageManagerBean beverageManager;
     @EJB
@@ -28,6 +29,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     private OrderManagerBean orderManager;
     @EJB
     private AddressManagerBean addressManager;
+
     @Override
     public void addBeverage(BeverageEntity beverage) {
         beverageManager.create(beverage);
@@ -84,6 +86,14 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     }
 
     @Override
+    public CocktailEntity getCocktailFull(Long id) {
+        CocktailEntity cocktail = cocktailManager.find(id);
+        /* Force deliverables list instanciation */
+        cocktail.getDeliverables().size();
+        return cocktail;
+    }
+
+    @Override
     public void addArticle(Long id) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -92,15 +102,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     public List<CocktailEntity> getCartContent() {
         throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public void addOrder(OrderEntity o) {
-       orderManager.create(o);
+        orderManager.create(o);
     }
 
     @Override
     public void addAddress(AddressEntity address) {
         addressManager.create(address);
     }
+
     @Override
     public List<AddressEntity> getAllAddresses() {
         return addressManager.findAll();
@@ -135,7 +146,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     public List<CocktailEntity> getCocktailsByFirstLetter(char letter) {
         return cocktailManager.getCocktailsByFirstLetter(letter);
     }
-    
+
     @Override
     public List<CocktailEntity> getCocktailsByName(String name) {
         return cocktailManager.getCocktailsByName(name);
@@ -150,7 +161,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter) {
         return cocktailManager.getVirginCocktailsByFirstLetter(letter);
     }
-    
+
     @Override
     public Float getCartPrice() {
         throw new UnsupportedOperationException("Not supported for the admin.");
@@ -160,5 +171,4 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf{
     public Integer getCartSize() {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
-
 }
