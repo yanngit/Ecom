@@ -43,6 +43,13 @@
     visibility: visible;
 }
 
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a { 
+background-color: blue;
+border-radius: 4px;
+color: blue;
+text-decoration: none;
+}
+
 .dropdown:hover .dropdown-menu {
     display: block;
 }
@@ -68,6 +75,7 @@
     top: 11px;
     left: -6px;
 }
+
 
 
 /* CSS formulaire */
