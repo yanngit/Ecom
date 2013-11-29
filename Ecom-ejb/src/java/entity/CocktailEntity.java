@@ -23,6 +23,7 @@ import pojo.Deliverable;
 import pojo.Product;
 
 @NamedQueries({
+    @NamedQuery(name = "findProposal", query = "SELECT c FROM CocktailEntity c WHERE c.statePublication = 0"),
     @NamedQuery(name = "findUnavailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 0"),
     @NamedQuery(name = "findAvailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 1"),
     @NamedQuery(name = "getPopularCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
@@ -67,6 +68,16 @@ public class CocktailEntity extends Product {
     protected Boolean virgin;
     @Column(name = "AVAILABLE")
     protected Boolean available;
+    @Column(name= "STATE_PUBLICATION")
+    protected Boolean statePublication;
+
+    public Boolean getStatePublication() {
+        return statePublication;
+    }
+
+    public void setStatePublication(Boolean statePublication) {
+        this.statePublication = statePublication;
+    }
 
     public void setAvailable(boolean available) {
         this.available = available;
