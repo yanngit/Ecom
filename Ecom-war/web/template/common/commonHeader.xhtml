@@ -34,7 +34,10 @@
                                 </li>
                                 <ui:repeat var="itemsItem" value="#{items}">
                                     <li>    
-                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
+                                        <h:commandLink value="#{itemsItem.name}"
+                                                       styleClass="afaire"
+                                                       action="#{dataManagedBean.displayCocktailDetails(itemsItem)}">
+                                        </h:commandLink>
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
@@ -47,16 +50,25 @@
                             <b class="caret"/>
                         </h:outputLink>
                         <ul class="dropdown-menu">
-                            <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
-                                <li>    
-                                    <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
-                                </li>
-                                <ui:repeat var="itemsItem" value="#{items}">
-                                    <li>    
-                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
-                                    </li>
+                            <div class="span10">
+                            <div class="row-fluid">
+                                <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
+                                    <ul class="unstyled span4">                                        
+                                        <li>    
+                                            <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
+                                        </li>
+                                        <ui:repeat var="itemsItem" value="#{items}">
+                                            <li>
+                                                <h:commandLink value="#{itemsItem.name}"
+                                                               styleClass="afaire"
+                                                               action="#{dataManagedBean.displayCocktailDetails(itemsItem)}">
+                                                </h:commandLink>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
                                 </ui:repeat>
-                            </ui:repeat>
+                            </div>
+                            </div>
                         </ul>
                     </li>
 
