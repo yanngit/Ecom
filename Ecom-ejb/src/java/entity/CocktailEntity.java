@@ -88,6 +88,14 @@ public class CocktailEntity extends Product {
         super();
     }
 
+    public String getPhotoURIName(){
+        return photoURI.split("\\.")[0];
+    }
+    
+    public String getPhotoURIExt(){
+        return photoURI.split("\\.")[1];
+    }
+    
     public String getPhotoURI() {
         return photoURI;
     }

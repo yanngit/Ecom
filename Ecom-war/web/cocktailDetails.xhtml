@@ -8,18 +8,16 @@
         the right side -->
         <div class="media">
             <div class="pull-left media-object span2">
-                <h:form styleClass="text-center">
-                    <div class="filling-thumb">
-                        <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
-                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
-                    </div>
+                <div class="text-center">
+                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
+                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
                     <p/>
-                    <h:commandButton styleClass="btn btn-success btn-block btn-large
-                                     #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                    <h:commandButton image="#{resource['img:cart.png']}"
+                                     styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
                                      action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
                                      value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                     </h:commandButton>
-                </h:form>
+                </div>
             </div>
             <div class="media-body">
                 <h1 class="media-heading">

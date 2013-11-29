@@ -1,11 +1,17 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
         <component:CartComponent idDiv="vitrine_Co" title="Panier" list="#{dataManagedBean.cartContent}"/>
-        
-        <component:CartComponent idDiv="vitrine_De" title="Total" list="#{dataManagedBean.cartContent}"/>
+        <!--<component:CartTotalComponent idDiv="vitrine_To" title="Total"/>-->
+        <div class="total">
+                <h2>Total #{dataManagedBean.getCartPrice()}€</h2>
+        </div>
+        <h:commandButton styleClass="btn btn-large btn-success"
+                         value="Valider">
+        </h:commandButton>
     </ui:define>
 </ui:composition>

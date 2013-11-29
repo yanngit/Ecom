@@ -16,6 +16,12 @@
     left: 150px;
 }
 
+.image-fond {
+    position: fixed;
+    z-index: -1;
+    left: 20%;    
+}
+
 /* Navbar dropdown.
  * Override bootstrap JS :
  *   - Allow non JS user

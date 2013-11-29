@@ -10,19 +10,21 @@
     <composite:implementation>
         <li class="span2 thumbnail">
             <div class="filling-thumb">
-                <img src="resources/img/#{cc.attrs.item.photoURI}" alt="Cocktail#{cc.attrs.item.name}"/>
+                <img src="resources/img/#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" alt="Cocktail#{cc.attrs.item.name}"/>
             </div>
             <div class="caption">
                 <h5>#{cc.attrs.item.name}</h5>
                 <div class="text-center">
                     <div class="btn-group">
-                        <h:commandButton styleClass="btn"
-                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}"
-                                         value="Détails">
+                        <h:commandButton image="#{resource['img:info_small.png']}"
+                                         alt="Détails du cocktail"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                         </h:commandButton>
-                        <h:commandButton styleClass="btn btn-success"
-                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}"
-                                         value="Acheter">
+                        <h:commandButton image="#{resource['img:cart_small.png']}"
+                                         alt="Ajouter le cocktail au panier"
+                                         styleClass="btn btn-success"
+                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
                         </h:commandButton>
                     </div>
                 </div>
