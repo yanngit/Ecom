@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:composition>
         <header>
             <div class="jumbotron subhead" id="overview">
@@ -27,23 +28,29 @@
                             <b class="caret"/>
                         </h:outputLink>
                         <ul class="dropdown-menu">
-                            <ui:repeat value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="item" varStatus="status">
-                                <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
-                                    <li>
-                                        <h:outputLink value="#{itemItem.name}">
-                                            #{itemItem.name}
-                                        </h:outputLink>
-                                    </li>
-                                </ui:repeat>
-                            </ui:repeat>
+                            <c:set var="FirstLettre" value="0" />
+                            <c:forEach items="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="itemF">
+                                <c:forEach items="#{itemF}" var="itemItemF">
+
+                                    <c:if test="#{itemItemF.name.charAt(0) != FirstLettre}">
+                                        <c:set var="FirstLettre" value="#{itemItemF.name.charAt(0)}" />
+                                        #{FirstLettre}
+                                    </c:if>
+
+                                    <li><h:outputLink value="#{itemItemF.name}">
+                                            #{itemItemF.name}
+                                        </h:outputLink></li>
+                                </c:forEach>
+                            </c:forEach>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <h:outputLink value="CocktailsWithoutAlcohol.xhtml" >
-                            Softs
+                        <h:outputLink value="CocktailsWithAlcohol.xhtml">
+                            Alcoolisés
                             <b class="caret"/>
                         </h:outputLink>
                         <ul class="dropdown-menu">
+                            <<<<<<< HEAD
                             <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
                                 <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
                                     <li>
@@ -53,6 +60,20 @@
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
+                            =======
+                            <c:set var="FirstLettre" value="0" />
+                            <c:forEach items="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="itemF">
+                                <c:forEach items="#{itemF}" var="itemItemF">
+                                    <c:if test="#{itemItemF.name.charAt(0) != FirstLettre}">
+                                        <c:set var="FirstLettre" value="#{itemItemF.name.charAt(0)}" />
+                                        #{FirstLettre}
+                                    </c:if>
+                                    <li><h:outputLink value="#{itemItemF.name}">
+                                            #{itemItemF.name}
+                                        </h:outputLink></li>
+                                </c:forEach>
+                            </c:forEach>
+                            >>>>>>> sohnoun
                         </ul>
                     </li>
                     <li>
