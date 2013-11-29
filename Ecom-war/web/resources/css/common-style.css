@@ -82,12 +82,26 @@ text-decoration: none;
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 .form-validate-cart td {
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: 10px;
 }
+.form-validate-cart fieldset {
+  padding: 1em;
+  font:80%/1 sans-serif;
+  }
+.form-validate-cart label {
+  float:left;
+  width:25%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+  }
+
 
 .paypal-button {
     background-image: url("#{resource['img:paypal-button.png']}");
