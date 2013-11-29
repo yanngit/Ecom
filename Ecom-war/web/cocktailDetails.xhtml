@@ -9,10 +9,8 @@
         <div class="media">
             <div class="pull-left media-object span2">
                 <div class="text-center">
-                    <div class="filling-thumb">
-                        <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
-                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
-                    </div>
+                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
+                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
                     <p/>
                     <h:commandButton image="#{resource['img:cart.png']}"
                                      styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
