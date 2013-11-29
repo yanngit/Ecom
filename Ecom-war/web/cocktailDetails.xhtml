@@ -7,33 +7,48 @@
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
         <div class="media">
-            <div class="pull-left media-object">
-                <h:form>
-                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
-                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+            <div class="pull-left media-object span2">
+                <h:form styleClass="text-center">
+                    <div class="filling-thumb">
+                        <img src="resources/img/#{dataManagedBean.currentCocktail.photoURI}"
+                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+                    </div>
                     <p/>
-                    <h:commandLink styleClass="btn btn-success btn-block btn-large"
-                                   action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}">
-                        <i class="icon-shopping-cart"/>
-                    </h:commandLink>
+                    <h:commandButton styleClass="btn btn-success btn-block btn-large
+                                     #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                     action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
+                                     value="Acheter - #{dataManagedBean.currentCocktail.price} €">
+                    </h:commandButton>
                 </h:form>
             </div>
             <div class="media-body">
                 <h1 class="media-heading">
                     #{dataManagedBean.currentCocktail.name}
                 </h1>
-                <div>
+                <div class="well">
                     <dl class="dl-horizontal">
                         <dt>Gout :</dt>
                         <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
                         <dt>Puissance :</dt>
                         <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                        <dt/><dd/>
                         <dt>Composition :</dt>
                         <dd>
-                            #{dataManagedBean.currentCocktail.deliverables.isInstantiated()}
+                            <ul class="unstyled">
+                                <ui:repeat value="#{dataManagedBean.currentCocktail.deliverables}"
+                                           var='product'>
+                                    <li>
+                                        #{product.name}
+                                    </li>
+                                </ui:repeat>
+                            </ul>
                         </dd>
                     </dl>
                 </div>
+                <h2>Recette :</h2>
+                <p class="well">
+                    #{dataManagedBean.currentCocktail.recipe}
+                </p>
             </div>
         </div>
     </ui:define>

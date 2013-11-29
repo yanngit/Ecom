@@ -10,21 +10,20 @@
         <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />      
         <h:outputScript library="js" name="jquery-2.0.3.js" />
         <h:outputScript library="js" name="bootstrap.js" />
-        <h:outputScript library="js" name="common.js" />
         <title><ui:insert name="title">COMMON TITLE</ui:insert> - Tchin-Tchin - Votre barman en ligne</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
     </h:head>
     <h:body>
         <div id="page">
-            <ui:insert name="header" >
-                <ui:include src="/template/common/commonHeader.xhtml" />
-            </ui:insert>
-            <div class="container">
+            <h:form class="jsf-form container-fluid">
+                <ui:insert name="header" >
+                    <ui:include src="/template/common/commonHeader.xhtml" />
+                </ui:insert>
                 <ui:insert name="content"/>
-            </div>
-            <ui:insert name="footer" >
-                <ui:include src="/template/common/commonFooter.xhtml" />
-            </ui:insert>
+                <ui:insert name="footer" >
+                    <ui:include src="/template/common/commonFooter.xhtml" />
+                </ui:insert>
+            </h:form>
         </div>
     </h:body>
 </html>

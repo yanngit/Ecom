@@ -14,16 +14,18 @@
             </div>
             <div class="caption">
                 <h5>#{cc.attrs.item.name}</h5>
-                <h:form>
+                <div class="text-center">
                     <div class="btn-group">
-                        <h:commandLink styleClass="btn" action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
-                            <i class="icon-info-sign"/>
-                        </h:commandLink>
-                        <h:commandLink styleClass="btn btn-success" onclick="checkPasswords();" action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
-                            <i class="icon-shopping-cart"/>
-                        </h:commandLink>
+                        <h:commandButton styleClass="btn"
+                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}"
+                                         value="Détails">
+                        </h:commandButton>
+                        <h:commandButton styleClass="btn btn-success"
+                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}"
+                                         value="Acheter">
+                        </h:commandButton>
                     </div>
-                </h:form>
+                </div>
             </div>
         </li>
     </composite:implementation>
