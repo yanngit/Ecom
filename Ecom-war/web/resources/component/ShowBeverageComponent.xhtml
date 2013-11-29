@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <composite:interface>
+        <composite:attribute name="item" type="entity.BeverageEntity" />
+    </composite:interface>
+    <composite:implementation>
+        <h5 class="text-center">#{cc.attrs.item.name}</h5>
+        <!--<li class="span2 thumbnail">
+            <div class="caption">
+                <h5 class="text-center">#{cc.attrs.item.name}</h5>
+            </div>
+        </li>-->
+    </composite:implementation>
+</html>
