@@ -7,10 +7,10 @@ $(document).ready(function(){
     $( ".btn-success" ).click(function() {
       var didConfirm = confirm("Voulez vous poursuivre votre achat ?");
       if(didConfirm) {
-          return false;
+          return true;
       } else {
           alert('redirection');
-          return false;
+          return true;
       }
     }); 
     

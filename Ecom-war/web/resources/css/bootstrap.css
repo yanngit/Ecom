@@ -3114,7 +3114,8 @@ table th[class*="span"],
     min-height: 20px;
     padding: 19px;
     margin-bottom: 20px;
-    background-color: #f5f5f5;
+    /*MODIFIED origin : #f5f5f5*/
+    background-color: rgba(255,255,255,0.5);
     border: 1px solid #e3e3e3;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;

@@ -50,7 +50,6 @@
                             <b class="caret"/>
                         </h:outputLink>
                         <ul class="dropdown-menu">
-                            <<<<<<< HEAD
                             <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
                                 <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
                                     <li>
@@ -60,7 +59,6 @@
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
-                            =======
                             <c:set var="FirstLettre" value="0" />
                             <c:forEach items="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="itemF">
                                 <c:forEach items="#{itemF}" var="itemItemF">
@@ -73,7 +71,6 @@
                                         </h:outputLink></li>
                                 </c:forEach>
                             </c:forEach>
-                            >>>>>>> sohnoun
                         </ul>
                     </li>
                     <li>
