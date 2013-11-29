@@ -34,7 +34,10 @@
                                 </li>
                                 <ui:repeat var="itemsItem" value="#{items}">
                                     <li>    
-                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
+                                        <h:commandLink value="#{itemsItem.name}"
+                                                       styleClass="afaire"
+                                                       action="#{dataManagedBean.displayCocktailDetails(itemsItem)}">
+                                        </h:commandLink>
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
@@ -52,8 +55,11 @@
                                     <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
                                 </li>
                                 <ui:repeat var="itemsItem" value="#{items}">
-                                    <li>    
-                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
+                                    <li>
+                                        <h:commandLink value="#{itemsItem.name}"
+                                                       styleClass="afaire"
+                                                       action="#{dataManagedBean.displayCocktailDetails(itemsItem)}">
+                                        </h:commandLink>
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
