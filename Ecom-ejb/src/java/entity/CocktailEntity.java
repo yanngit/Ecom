@@ -88,14 +88,14 @@ public class CocktailEntity extends Product {
         super();
     }
 
-    public String getPhotoURIName(){
+    public String getPhotoURIName() {
         return photoURI.split("\\.")[0];
     }
-    
-    public String getPhotoURIExt(){
+
+    public String getPhotoURIExt() {
         return photoURI.split("\\.")[1];
     }
-    
+
     public String getPhotoURI() {
         return photoURI;
     }
@@ -148,5 +148,9 @@ public class CocktailEntity extends Product {
     @Override
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";
+    }
+
+    public void setPower(CocktailFlavorEnum cocktailFlavorEnum) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
