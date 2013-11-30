@@ -64,6 +64,8 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
+    /*ONETOMANY HERE
+    protected ClientAccountEntity client;*/
     @Column(name = "VIRGIN")
     protected Boolean virgin;
     @Column(name = "AVAILABLE")
