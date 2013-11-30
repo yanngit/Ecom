@@ -13,7 +13,7 @@ import javax.ejb.Remote;
 
 @Remote
 public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
-    public void addBeverage(BeverageEntity beverage);
+    public BeverageEntity addBeverage(BeverageEntity beverage);
     public List<BeverageEntity> getAllBeverages();
     public void removeBeverage(BeverageEntity beverage);
     public void addCocktail(CocktailEntity cocktail);

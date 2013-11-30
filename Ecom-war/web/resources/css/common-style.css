@@ -5,6 +5,9 @@
     Description:
         Purpose of the stylesheet follows.
 */
+#content {
+    padding-left: 3%;
+}
 
 .banniereImg {
     position: relative;

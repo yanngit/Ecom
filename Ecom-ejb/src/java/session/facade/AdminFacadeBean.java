@@ -31,8 +31,9 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     private AddressManagerBean addressManager;
 
     @Override
-    public void addBeverage(BeverageEntity beverage) {
+    public BeverageEntity addBeverage(BeverageEntity beverage) {
         beverageManager.create(beverage);
+        return beverage;
     }
 
     @Override
