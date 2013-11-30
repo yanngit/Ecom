@@ -5,6 +5,9 @@
     Description:
         Purpose of the stylesheet follows.
 */
+#content {
+    padding-left: 3%;
+}
 
 .banniereImg {
     position: relative;
@@ -43,6 +46,13 @@
     visibility: visible;
 }
 
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a { 
+background-color: blue;
+border-radius: 4px;
+color: blue;
+text-decoration: none;
+}
+
 .dropdown:hover .dropdown-menu {
     display: block;
 }
@@ -70,16 +80,31 @@
 }
 
 
+
 /* CSS formulaire */
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 .form-validate-cart td {
     padding-top: 0px;
     padding-bottom: 0px;
     line-height: 10px;
 }
+.form-validate-cart fieldset {
+  padding: 1em;
+  font:80%/1 sans-serif;
+  }
+.form-validate-cart label {
+  float:left;
+  width:25%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+  }
+
 
 .paypal-button {
     background-image: url("#{resource['img:paypal-button.png']}");
