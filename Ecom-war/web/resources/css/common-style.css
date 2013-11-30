@@ -7,7 +7,10 @@
 */
 #content {
     padding-left: 3%;
+<<<<<<< HEAD
     padding-right: 3%;
+=======
+>>>>>>> shi
 }
 
 .banniereImg {
@@ -86,6 +89,7 @@ text-decoration: none;
 form[id$="form"] h2 {
     text-align: center;
 }
+
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
@@ -137,4 +141,28 @@ li.thumbnail {
 }
 .jsf-form {
     margin: 0px;
+<<<<<<< HEAD
+=======
+}
+
+/*panier*/
+.totalPanier h2{
+    float:left;
+}
+
+.totalPanier-button{
+    float:right;
+}
+
+.clear{
+    clear: both;
+}
+
+.ShowBev{
+    float:left;
+}
+
+.BeverageCart{
+    float: left;
+>>>>>>> shi
 }

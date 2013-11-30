@@ -2,8 +2,9 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
-    <ui:define name="title">Index</ui:define>
+    <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <component:ShowcaseComponent idDiv="vitrine_new" title="Panier" list="#{dataManagedBean.cartContent}"/>
+        <component:CartComponent idDiv="vitrine_Cart" title="Panier" list="#{dataManagedBean.cartContent}"/>
+        <component:CartTotalComponent idDiv="vitrine_Cart" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>
     </ui:define>
 </ui:composition>
