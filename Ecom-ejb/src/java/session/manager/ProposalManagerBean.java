@@ -27,7 +27,7 @@ public class ProposalManagerBean extends AbstractEntityManager<CocktailEntity> {
     }
     
     @Override
-    public void create(CocktailEntity cocktail){
+    public CocktailEntity create(CocktailEntity cocktail){
         boolean available = true;
         String name = cocktail.getName();
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
@@ -44,6 +44,7 @@ public class ProposalManagerBean extends AbstractEntityManager<CocktailEntity> {
         cocktail.setAvailable(available);
         cocktail.setStatePublication(false);
         em.persist(cocktail);
+        return cocktail;
     }
     
     /*Get the entity manager used by the CocktailManagerBean. Used by the abstract Manager only.*/
