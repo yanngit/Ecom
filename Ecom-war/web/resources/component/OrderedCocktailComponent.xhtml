@@ -40,7 +40,7 @@
                <!-- <img src="resources/img/bottle1.png"/>-->
             <!--<div class="well well-small">-->
             <div class="ShowBev">
-                    <ui:repeat value="#{dataManagedBean.getCocktailDeliverables(cc.attrs.item)}" var="item" varStatus="status">
+                    <ui:repeat value="#{dataManagedBean.getCocktailDeliverables(cc.attrs.item.ID)}" var="item" varStatus="status">
                             <component:ShowBeverageComponent item="#{item}"/>
                     </ui:repeat>
             </div> 

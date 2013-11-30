@@ -7,47 +7,49 @@
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
         <div class="media">
-            <div class="pull-left media-object span2">
-                <div class="text-center">
-                    <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
-                         alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
-                    <p/>
-                    <h:commandButton image="#{resource['img:cart.png']}"
-                                     styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
-                                     action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
-                                     value="Acheter - #{dataManagedBean.currentCocktail.price} €">
-                    </h:commandButton>
-                </div>
+            <h:form>
+                <div class="pull-left media-object span2">
+                    <div class="text-center">
+                        <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
+                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
+                        <p/>
+                        <h:commandButton image="#{resource['img:cart.png']}"
+                                         styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                         action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
+                                         value="Acheter - #{dataManagedBean.currentCocktail.price} €">
+                        </h:commandButton>
+                    </div>
+            </h:form>
+        </div>
+        <div class="media-body">
+            <h1 class="media-heading">
+                #{dataManagedBean.currentCocktail.name}
+            </h1>
+            <div class="well">
+                <dl class="dl-horizontal">
+                    <dt>Gout :</dt>
+                    <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
+                    <dt>Puissance :</dt>
+                    <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                    <dt/><dd/>
+                    <dt>Composition :</dt>
+                    <dd>
+                        <ul class="unstyled">
+                            <ui:repeat value="#{dataManagedBean.currentCocktail.deliverables}"
+                                       var='product'>
+                                <li>
+                                    #{product.name}
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </dd>
+                </dl>
             </div>
-            <div class="media-body">
-                <h1 class="media-heading">
-                    #{dataManagedBean.currentCocktail.name}
-                </h1>
-                <div class="well">
-                    <dl class="dl-horizontal">
-                        <dt>Gout :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
-                        <dt>Puissance :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.power}</dd>
-                        <dt/><dd/>
-                        <dt>Composition :</dt>
-                        <dd>
-                            <ul class="unstyled">
-                                <ui:repeat value="#{dataManagedBean.currentCocktail.deliverables}"
-                                           var='product'>
-                                    <li>
-                                        #{product.name}
-                                    </li>
-                                </ui:repeat>
-                            </ul>
-                        </dd>
-                    </dl>
-                </div>
-                <h2>Recette :</h2>
-                <p class="well">
-                    #{dataManagedBean.currentCocktail.recipe}
-                </p>
-            </div>
+            <h2>Recette :</h2>
+            <p class="well">
+                #{dataManagedBean.currentCocktail.recipe}
+            </p>
+        </div>
         </div>
     </ui:define>
 </ui:composition>
