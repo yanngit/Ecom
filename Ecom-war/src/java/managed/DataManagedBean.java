@@ -121,8 +121,9 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public void addArticleToCart(Long id) throws EcomException {
+    public String addArticleToCart(Long id) throws EcomException {
         client.addArticle(id);
+        return "index.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {

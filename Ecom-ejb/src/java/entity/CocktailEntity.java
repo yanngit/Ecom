@@ -23,6 +23,7 @@ import pojo.Deliverable;
 import pojo.Product;
 
 @NamedQueries({
+    @NamedQuery(name = "findProposal", query = "SELECT c FROM CocktailEntity c WHERE c.statePublication = 0"),
     @NamedQuery(name = "findUnavailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 0"),
     @NamedQuery(name = "findAvailableCocktails", query = "SELECT c FROM CocktailEntity c WHERE c.available = 1"),
     @NamedQuery(name = "getPopularCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
@@ -63,10 +64,22 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
+    /*ONETOMANY HERE
+    protected ClientAccountEntity client;*/
     @Column(name = "VIRGIN")
     protected Boolean virgin;
     @Column(name = "AVAILABLE")
     protected Boolean available;
+    @Column(name= "STATE_PUBLICATION")
+    protected Boolean statePublication;
+
+    public Boolean getStatePublication() {
+        return statePublication;
+    }
+
+    public void setStatePublication(Boolean statePublication) {
+        this.statePublication = statePublication;
+    }
 
     public void setAvailable(boolean available) {
         this.available = available;
@@ -88,14 +101,14 @@ public class CocktailEntity extends Product {
         super();
     }
 
-    public String getPhotoURIName(){
+    public String getPhotoURIName() {
         return photoURI.split("\\.")[0];
     }
-    
-    public String getPhotoURIExt(){
+
+    public String getPhotoURIExt() {
         return photoURI.split("\\.")[1];
     }
-    
+
     public String getPhotoURI() {
         return photoURI;
     }
@@ -148,5 +161,9 @@ public class CocktailEntity extends Product {
     @Override
     public String toString() {
         return "entity.CocktailEntity[" + ID + " : " + name + "]";
+    }
+
+    public void setPower(CocktailFlavorEnum cocktailFlavorEnum) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
