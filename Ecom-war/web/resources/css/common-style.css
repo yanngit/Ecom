@@ -7,6 +7,7 @@
 */
 #content {
     padding-left: 3%;
+    padding-right: 3%;
 }
 
 .banniereImg {
@@ -82,6 +83,9 @@ text-decoration: none;
 
 
 /* CSS formulaire */
+form[id$="form"] h2 {
+    text-align: center;
+}
 .form-validate-cart  table {
     margin-left: auto;
     margin-right: auto;
