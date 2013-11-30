@@ -31,12 +31,10 @@
                             <c:set var="FirstLettre" value="0" />
                             <c:forEach items="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="itemF">
                                 <c:forEach items="#{itemF}" var="itemItemF">
-
                                     <c:if test="#{itemItemF.name.charAt(0) != FirstLettre}">
                                         <c:set var="FirstLettre" value="#{itemItemF.name.charAt(0)}" />
                                         #{FirstLettre}    
                                     </c:if>
-
                                     <li><h:outputLink value="#{itemItemF.name}">
                                             #{itemItemF.name}
                                         </h:outputLink></li>

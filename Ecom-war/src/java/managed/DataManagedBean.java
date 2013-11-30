@@ -63,7 +63,7 @@ public class DataManagedBean {
     }
 
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
-        List<Deliverable> deliverables;  
+        List<Deliverable> deliverables;
         deliverables = getCocktailFull(cocktail).getDeliverables();
         return deliverables;
     }

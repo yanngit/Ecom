@@ -8,11 +8,9 @@
         <composite:attribute name="item" type="entity.BeverageEntity" />
     </composite:interface>
     <composite:implementation>
-        <h5 class="text-center">#{cc.attrs.item.name}</h5>
-        <!--<li class="span2 thumbnail">
-            <div class="caption">
-                <h5 class="text-center">#{cc.attrs.item.name}</h5>
-            </div>
-        </li>-->
+        <div class="BeverageCart">
+            <img src="resources/img/bottle1.png"/>
+            <h5 class="text-center">#{cc.attrs.item.name}</h5>
+        </div>
     </composite:implementation>
 </html>

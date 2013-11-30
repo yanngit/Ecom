@@ -14,7 +14,7 @@
         <div id="#{cc.attrs.idDiv}">
             <h2>#{cc.attrs.title}</h2>
             <div class="well well-small">
-                <ul class="thumbnails"> 　　　　　<!--这里要改class-->
+                <ul class="thumbnails">
                     <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
                         <component:OrderedCocktailComponent item="#{item}"/>
                     </ui:repeat>

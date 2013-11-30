@@ -109,3 +109,24 @@ li.thumbnail {
 .jsf-form {
     margin: 0px;
 }
+
+/*panier*/
+.totalPanier h2{
+    float:left;
+}
+
+.totalPanier-button{
+    float:right;
+}
+
+.clear{
+    clear: both;
+}
+
+.ShowBev{
+    float:left;
+}
+
+.BeverageCart{
+    float: left;
+}

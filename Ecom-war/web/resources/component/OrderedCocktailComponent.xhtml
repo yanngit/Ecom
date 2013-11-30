@@ -5,7 +5,8 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:component="http://java.sun.com/jsf/composite/component"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <composite:interface>
         <composite:attribute name="item" type="entity.CocktailEntity" />
     </composite:interface>
@@ -19,9 +20,10 @@
                 <h5 class="text-center">#{cc.attrs.item.price}€</h5>
                 <div class="text-center">
                     <div class="btn-group">
-                        <h:commandButton styleClass="btn"
-                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}"
-                                         value="Détails">
+                        <h:commandButton image="#{resource['img:info_small.png']}"
+                                         alt="Détails du cocktail"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                         </h:commandButton>
                         <h:commandButton styleClass="btn btn-success"
                                          action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}"
@@ -35,25 +37,13 @@
                 </div>
             </div>
             <div>
-                <img src="resources/img/bottle1.png"/>
-            <div class="well well-small">
-                <ul class="thumbnails"> 
+               <!-- <img src="resources/img/bottle1.png"/>-->
+            <!--<div class="well well-small">-->
+            <div class="ShowBev">
                     <ui:repeat value="#{dataManagedBean.getCocktailDeliverables(cc.attrs.item)}" var="item" varStatus="status">
-                        <component:ShowBeverageComponent item="#{item}"/>
+                            <component:ShowBeverageComponent item="#{item}"/>
                     </ui:repeat>
-                </ul>
             </div> 
-            </div>
-            
-            <!--<div>
-                <img src="resources/img/deco.jpg"/>
-            <!--<div class="well well-small">
-                <ul class="thumbnails"> 
-                    <ui:repeat value="#{dataManagedBean.getCocktailDeliverables(cc.attrs.item)}" var="item" varStatus="status">
-                        <component:ShowDecorationComponent item="#{item}"/>
-                    </ui:repeat>
-                </ul>
-            </div> -->
             </div>
         </li>
     </composite:implementation>
