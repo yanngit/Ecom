@@ -6,6 +6,7 @@ package session.interfaces;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.DecorationEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.Remote;
@@ -54,4 +55,8 @@ public interface ClientFacadeRemoteItf {
     public Float getCartPrice();
 
     public Integer getCartSize();
+    
+    public List<BeverageEntity> getCocktailBeverages(Long id);
+    
+    public List<DecorationEntity> getCocktailDecorations(Long id);
 }

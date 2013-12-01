@@ -206,4 +206,14 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public void removeDecoration(DecorationEntity deco) {
         decorationManager.remove(deco);
     }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(id);
+    }
+
+    @Override
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return cocktailManager.getCocktailDecorations(id);
+    }
 }
