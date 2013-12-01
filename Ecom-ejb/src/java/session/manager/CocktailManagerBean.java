@@ -2,8 +2,10 @@ package session.manager;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.DecorationEntity;
 
 import exceptions.EcomException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -159,5 +161,27 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
 
     public List<CocktailEntity> getCocktailsByName(String name) {
         return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%" + name + "%").getResultList();
+    }
+    
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        List<Deliverable> list = find(id).getDeliverables();
+        List<DecorationEntity> res = new ArrayList<>();
+        for(Deliverable d : list){
+            if(d instanceof DecorationEntity){
+                res.add((DecorationEntity)d);
+            }
+        }
+        return res;
+    }
+    
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        List<Deliverable> list = find(id).getDeliverables();
+        List<BeverageEntity> res = new ArrayList<>();
+        for(Deliverable d : list){
+            if(d instanceof BeverageEntity){
+                res.add((BeverageEntity)d);
+            }
+        }
+        return res;
     }
 }

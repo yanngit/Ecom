@@ -6,6 +6,7 @@ package managed;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.DecorationEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +59,16 @@ public class DataManagedBean {
         return client.getCocktailFull(cocktail.getID());
     }
 
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return client.getCocktailDecorations(id);
+    }
+    
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return client.getCocktailBeverages(id);
+    }
+    
     public List<Deliverable> getCocktailDeliverables(Long id) {
         return getCocktailFull(id).getDeliverables();
-    }
-
-    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
-        List<Deliverable> deliverables;
-        deliverables = getCocktailFull(cocktail).getDeliverables();
-        return deliverables;
     }
 
     public List<CocktailEntity> getListCocktails() {
