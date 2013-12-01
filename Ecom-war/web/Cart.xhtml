@@ -5,8 +5,8 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <c:if test="#{dataManagedBean.cartContent} != null">
-            <component:CartComponent idDiv="vitrine_Cart" title="Panier" list="#{dataManagedBean.cartContent}"/>
+        <c:if test="#{not empty dataManagedBean.cartContent}">
+            <component:CartComponent idDiv="vitrine_Cart" title="Panier" list="#{dataManagedBean.cartContent}" />
         </c:if>
         <component:CartTotalComponent idDiv="vitrine_Cart" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>
     </ui:define>
