@@ -62,12 +62,6 @@ public class DataManagedBean {
         return getCocktailFull(id).getDeliverables();
     }
 
-    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
-        List<Deliverable> deliverables;
-        deliverables = getCocktailFull(cocktail).getDeliverables();
-        return deliverables;
-    }
-
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
