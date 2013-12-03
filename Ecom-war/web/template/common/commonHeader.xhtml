@@ -28,51 +28,38 @@
                             <b class="caret"/>
                         </h:outputLink>
                         <ul class="dropdown-menu">
-                            <c:set var="FirstLettre" value="0" />
-                            <c:forEach items="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}" var="itemF">
-                                <c:forEach items="#{itemF}" var="itemItemF">
-
-                                    <c:if test="#{itemItemF.name.charAt(0) != FirstLettre}">
-                                        <c:set var="FirstLettre" value="#{itemItemF.name.charAt(0)}" />
-                                        #{FirstLettre}
-                                    </c:if>
-
-                                    <li><h:outputLink value="#{itemItemF.name}">
-                                            #{itemItemF.name}
-                                        </h:outputLink></li>
-                                </c:forEach>
-                            </c:forEach>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <h:outputLink value="CocktailsWithAlcohol.xhtml">
-                            Alcoolisés
-                            <b class="caret"/>
-                        </h:outputLink>
-                        <ul class="dropdown-menu">
-                            <ui:repeat value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="item" varStatus="status">
-                                <ui:repeat value="#{item}" var="itemItem" varStatus="statusStatus">
+                            <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
+                                <li>
+                                    <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
+                                </li>
+                                <ui:repeat var="itemsItem" value="#{items}">
                                     <li>
-                                        <h:outputLink value="#{itemItem.name}">
-                                            #{itemItem.name}
-                                        </h:outputLink>
+                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
                                     </li>
                                 </ui:repeat>
                             </ui:repeat>
-                            <c:set var="FirstLettre" value="0" />
-                            <c:forEach items="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}" var="itemF">
-                                <c:forEach items="#{itemF}" var="itemItemF">
-                                    <c:if test="#{itemItemF.name.charAt(0) != FirstLettre}">
-                                        <c:set var="FirstLettre" value="#{itemItemF.name.charAt(0)}" />
-                                        #{FirstLettre}
-                                    </c:if>
-                                    <li><h:outputLink value="#{itemItemF.name}">
-                                            #{itemItemF.name}
-                                        </h:outputLink></li>
-                                </c:forEach>
-                            </c:forEach>
                         </ul>
                     </li>
+
+                    <li class="dropdown">
+                        <h:outputLink value="CocktailsWithoutAlcohol.xhtml">
+                            Softs
+                            <b class="caret"/>
+                        </h:outputLink>
+                        <ul class="dropdown-menu">
+                            <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
+                                <li>
+                                    <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
+                                </li>
+                                <ui:repeat var="itemsItem" value="#{items}">
+                                    <li>
+                                        <h:outputLink value="#{itemsItem.name}">#{itemsItem.name}</h:outputLink>
+                                    </li>
+                                </ui:repeat>
+                            </ui:repeat>
+                        </ul>
+                    </li>
+
                     <li>
                         <h:outputLink value="index.xhtml" >
                             Recherche

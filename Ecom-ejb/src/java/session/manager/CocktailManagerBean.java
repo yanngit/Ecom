@@ -45,6 +45,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         }
         cocktail.setPrice(price);
         cocktail.setAvailable(available);
+        cocktail.setStatePublication(true);
         em.persist(cocktail);
     }
     

@@ -64,11 +64,7 @@ public class DataManagedBean {
 
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
         List<Deliverable> deliverables;
-        if (cocktail.getDeliverables() != null) {
-            deliverables = cocktail.getDeliverables();
-        } else {
-            deliverables = getCocktailFull(cocktail).getDeliverables();
-        }
+        deliverables = getCocktailFull(cocktail).getDeliverables();
         return deliverables;
     }
 
@@ -125,8 +121,9 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public void addArticleToCart(Long id) throws EcomException {
+    public String addArticleToCart(Long id) throws EcomException {
         client.addArticle(id);
+        return "index.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
