@@ -5,36 +5,43 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="CLIENTACCOUNT")
+@Table(name = "CLIENTACCOUNT")
 public class ClientAccountEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
+    @Column(name = "ID")
     protected Long id;
-    @Column(name="LOGIN")
+    @Column(name = "LOGIN")
     @NotNull
     protected String login;
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     @NotNull
     protected String password;
-    @Column(name="DELIVERY_ADDRESS")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @NotNull
-    protected String delivery_address;
-    /*mapped by HERE
-     * protected List<CocktailEntity> cocktails;
-     */
+    protected AddressEntity delivery_address;
+    @OneToMany(mappedBy = "client",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.MERGE)
+    protected List<CocktailEntity> cocktails;
+
     /*Il manque la liste d'order*/
-    
     public Long getId() {
         return id;
     }
@@ -59,11 +66,11 @@ public class ClientAccountEntity implements Serializable {
         this.password = password;
     }
 
-    public String getDelivery_address() {
+    public AddressEntity getDelivery_address() {
         return delivery_address;
     }
 
-    public void setDelivery_address(String delivery_address) {
+    public void setDelivery_address(AddressEntity delivery_address) {
         this.delivery_address = delivery_address;
     }
 
@@ -91,5 +98,4 @@ public class ClientAccountEntity implements Serializable {
     public String toString() {
         return "entity.ClientAccount[ id=" + id + " ]";
     }
-    
 }

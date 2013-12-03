@@ -2,6 +2,7 @@ package pojo;
 
 import entity.CocktailEntity;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -13,22 +14,22 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
-    name="DELIVERABLE_TYPE",
-    discriminatorType=DiscriminatorType.STRING
-)
+        name = "DELIVERABLE_TYPE",
+        discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("Deliverable")
 public class Deliverable extends Product {
-    @Column(name="QUANTITY")
+
+    @Column(name = "QUANTITY")
     @NotNull
     protected Integer quantity;
-    
     /* n-to-n relation with cocktails */
-    @ManyToMany(mappedBy="deliverables")
+    @ManyToMany(mappedBy = "deliverables",
+            cascade = CascadeType.REMOVE)
     protected List<CocktailEntity> cocktails;
-    
-    protected Deliverable(){
+
+    protected Deliverable() {
         super();
     }
 
@@ -47,10 +48,9 @@ public class Deliverable extends Product {
     public void setCocktails(List<CocktailEntity> cocktails) {
         this.cocktails = cocktails;
     }
-    
+
     @Override
     public String toString() {
         return "pojo.Deliverable[" + ID + " : " + name + "]";
     }
-    
 }

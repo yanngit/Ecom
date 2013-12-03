@@ -5,6 +5,7 @@
 package entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
@@ -49,7 +51,9 @@ public class CocktailEntity extends Product {
     @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "COCKTAIL_COMPOSITION",
             joinColumns =
@@ -64,13 +68,16 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
-    /*ONETOMANY HERE
-    protected ClientAccountEntity client;*/
+    @JoinColumn(name = "CLIENT_ACCOUNT_FK", referencedColumnName = "ID")
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST)
+    protected ClientAccountEntity client;
     @Column(name = "VIRGIN")
     protected Boolean virgin;
     @Column(name = "AVAILABLE")
     protected Boolean available;
-    @Column(name= "STATE_PUBLICATION")
+    @Column(name = "STATE_PUBLICATION")
     protected Boolean statePublication;
 
     public Boolean getStatePublication() {
@@ -156,6 +163,22 @@ public class CocktailEntity extends Product {
                 }
             }
         }
+    }
+
+    public ClientAccountEntity getClient() {
+        return client;
+    }
+
+    public void setClient(ClientAccountEntity client) {
+        this.client = client;
+    }
+
+    public Boolean getVirgin() {
+        return virgin;
+    }
+
+    public void setVirgin(Boolean virgin) {
+        this.virgin = virgin;
     }
 
     @Override

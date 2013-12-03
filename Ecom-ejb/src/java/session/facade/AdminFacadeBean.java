@@ -6,6 +6,7 @@ package session.facade;
 
 import entity.AddressEntity;
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
@@ -16,6 +17,7 @@ import javax.ejb.Stateless;
 import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
+import session.manager.ClientAccountManagerBean;
 import session.manager.CocktailManagerBean;
 import session.manager.DecorationManagerBean;
 import session.manager.OrderManagerBean;
@@ -33,6 +35,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     private AddressManagerBean addressManager;
     @EJB
     private DecorationManagerBean decorationManager;
+    @EJB
+    private ClientAccountManagerBean clientAccountManager;
 
     @Override
     public BeverageEntity addBeverage(BeverageEntity beverage) {
@@ -215,5 +219,10 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return cocktailManager.getCocktailDecorations(id);
+    }
+
+    @Override
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
     }
 }

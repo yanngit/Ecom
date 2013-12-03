@@ -5,6 +5,7 @@
 package session.interfaces;
 
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
 import exceptions.EcomException;
@@ -55,8 +56,10 @@ public interface ClientFacadeRemoteItf {
     public Float getCartPrice();
 
     public Integer getCartSize();
-    
+
     public List<BeverageEntity> getCocktailBeverages(Long id);
-    
+
     public List<DecorationEntity> getCocktailDecorations(Long id);
+
+    public ClientAccountEntity addClient(ClientAccountEntity client);
 }

@@ -5,6 +5,7 @@
 package session.facade;
 
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
 import exceptions.EcomException;
@@ -14,6 +15,7 @@ import javax.ejb.Stateful;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.BeverageManagerBean;
+import session.manager.ClientAccountManagerBean;
 import session.manager.CocktailManagerBean;
 
 @Stateful
@@ -23,6 +25,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     private CocktailManagerBean cocktailManager;
     @EJB
     private BeverageManagerBean beverageManager;
+    @EJB
+    private ClientAccountManagerBean clientAccountManager;
     @EJB
     private CartFacadeLocalItf cart;
 
@@ -142,14 +146,19 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public Integer getCartSize() {
         return cart.getSize();
     }
-    
+
     @Override
     public List<BeverageEntity> getCocktailBeverages(Long id) {
         return cocktailManager.getCocktailBeverages(id);
     }
-    
+
     @Override
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return cocktailManager.getCocktailDecorations(id);
+    }
+
+    @Override
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
     }
 }
