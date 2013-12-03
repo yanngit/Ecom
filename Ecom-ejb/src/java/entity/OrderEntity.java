@@ -52,6 +52,7 @@ public class OrderEntity implements Serializable {
             referencedColumnName="ID"))
     @NotNull
     protected List<CocktailEntity> cocktails;
+    /*Il manque le client !!!! */
 
     public List<CocktailEntity> getCocktails(){
         return cocktails;

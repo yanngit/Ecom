@@ -7,6 +7,7 @@ package session.facade;
 import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
@@ -16,6 +17,7 @@ import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.DecorationManagerBean;
 import session.manager.OrderManagerBean;
 
 @Stateless
@@ -29,10 +31,17 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     private OrderManagerBean orderManager;
     @EJB
     private AddressManagerBean addressManager;
+    @EJB
+    private DecorationManagerBean decorationManager;
 
     @Override
-    public void addBeverage(BeverageEntity beverage) {
-        beverageManager.create(beverage);
+    public BeverageEntity addBeverage(BeverageEntity beverage) {
+        return beverageManager.create(beverage);
+    }
+
+    @Override
+    public void updateBeverage(BeverageEntity beverage) {
+        beverageManager.edit(beverage);
     }
 
     @Override
@@ -41,8 +50,13 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public void addCocktail(CocktailEntity cocktail) {
-        cocktailManager.create(cocktail);
+    public CocktailEntity addCocktail(CocktailEntity cocktail) {
+        return cocktailManager.create(cocktail);
+    }
+
+    @Override
+    public void updateCocktail(CocktailEntity entity) {
+        cocktailManager.edit(entity);
     }
 
     @Override
@@ -103,13 +117,14 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void addOrder(OrderEntity o) {
-        orderManager.create(o);
+    @Override
+    public OrderEntity addOrder(OrderEntity o) {
+        return orderManager.create(o);
     }
 
     @Override
-    public void addAddress(AddressEntity address) {
-        addressManager.create(address);
+    public AddressEntity addAddress(AddressEntity address) {
+        return addressManager.create(address);
     }
 
     @Override
@@ -170,5 +185,35 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public Integer getCartSize() {
         throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public List<DecorationEntity> getAllDecorations() {
+        return decorationManager.findAll();
+    }
+
+    @Override
+    public DecorationEntity addDecoration(DecorationEntity deco) {
+        return decorationManager.create(deco);
+    }
+
+    @Override
+    public void updateDecoration(DecorationEntity deco) {
+        decorationManager.edit(deco);
+    }
+
+    @Override
+    public void removeDecoration(DecorationEntity deco) {
+        decorationManager.remove(deco);
+    }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(id);
+    }
+
+    @Override
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return cocktailManager.getCocktailDecorations(id);
     }
 }

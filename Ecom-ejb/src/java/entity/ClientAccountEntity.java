@@ -30,6 +30,10 @@ public class ClientAccountEntity implements Serializable {
     @Column(name="DELIVERY_ADDRESS")
     @NotNull
     protected String delivery_address;
+    /*mapped by HERE
+     * protected List<CocktailEntity> cocktails;
+     */
+    /*Il manque la liste d'order*/
     
     public Long getId() {
         return id;

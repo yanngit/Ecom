@@ -5,14 +5,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class AbstractEntityManager<T> {
-    abstract protected EntityManager getEntityManager();
 
+    abstract protected EntityManager getEntityManager();
     private Class<T> entityClass;
 
     public AbstractEntityManager(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-    
+
     public T find(Long id) {
         return (T) getEntityManager().find(entityClass, id);
     }
@@ -23,10 +23,11 @@ public abstract class AbstractEntityManager<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public void create(T entity) {
+    public T create(T entity) {
         getEntityManager().persist(entity);
+        return entity;
     }
-    
+
     public void edit(T entity) {
         getEntityManager().merge(entity);
     }

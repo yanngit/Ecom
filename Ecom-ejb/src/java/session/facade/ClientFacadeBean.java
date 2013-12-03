@@ -6,6 +6,7 @@ package session.facade;
 
 import entity.BeverageEntity;
 import entity.CocktailEntity;
+import entity.DecorationEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
@@ -140,5 +141,15 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public Integer getCartSize() {
         return cart.getSize();
+    }
+    
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(id);
+    }
+    
+    @Override
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return cocktailManager.getCocktailDecorations(id);
     }
 }

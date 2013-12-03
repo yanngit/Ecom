@@ -3,34 +3,40 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:composite="http://java.sun.com/jsf/composite">
-
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
     <composite:interface>
-        <composite:attribute name="firstNameValue" />
-        <composite:attribute name="lastNameValue" />
-        <composite:attribute name="adressValue" />
-        <composite:attribute name="postalCodeValue" />
-        <composite:attribute name="cityValue" />
+        <composite:attribute name="title" />
     </composite:interface>
-
     <composite:implementation>
-       <h:form class="form-validate-cart">
-         <h:message for="formPanel" style="color:red;" />
-         <h:panelGrid columns="2" id="formPanel">
-            <label for="firstName">Prenom : </label>
-            <h:inputText id="firstName" value="#{cc.attrs.firstNameValue}" />
-            <label for="lastName">Nom : </label>
-            <h:inputText id="lastName" value="#{cc.attrs.lastNameValue}" />
-            <label for="address">Adresse : </label>
-            <h:inputText id="address" value="#{cc.attrs.adressValue}" />
-            <label for="postalCode">Code postal : </label>
-            <h:inputText id="postalCode" value="#{cc.attrs.postalCodeValue}"/>
-            <label for="city">Ville : </label>
-            <h:inputText id="city" value="#{cc.attrs.cityValue}" />
-         </h:panelGrid>
-         <h:commandButton class="paypal-button"/>
-      </h:form>
-        
+        <h:form id="form" class="span5 offset4">
+            <h2>#{cc.attrs.title}</h2>
+            <p:panel header="Adresse de Livraison">  
+                <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
+                    <h:outputLabel for="firstname" value="Prenom : " />  
+                    <p:inputText id="firstName" />
+                    <h:outputLabel for="lastName" value="Nom : "/>  
+                    <p:inputText id="lastName" />
+                    <h:outputLabel for="address" value="Addresse : "/>  
+                    <p:inputText id="address" />
+                    <h:outputLabel for="postalCode" value="Code Postale : "/>  
+                    <p:inputText id="postalCode" />
+                    <h:outputLabel for="city" value="Ville : "/>  
+                    <p:inputText id="city" />
+                    <h:outputLabel for="pbutton"/>  
+                    <h:commandButton id="pbutton" class="paypal-button"/>  
+                </h:panelGrid>  
+            </p:panel>         
+            <p:panel header="Connexion">  
+                <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
+                    <h:outputLabel for="login" value="Login : "/>  
+                    <p:inputText id="login" />
+                    <h:outputLabel for="password" value="Mot de passe : "/>  
+                    <p:inputText id="password" />
+                    <h:outputLabel for="connexionButton"/>  
+                    <h:commandButton id="connexionButton" value="Se connecter"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>  
     </composite:implementation>
-
 </html>

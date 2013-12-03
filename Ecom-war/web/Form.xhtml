@@ -1,12 +1,10 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Formulaire</ui:define>
 
     <ui:define name="content">
-        <h2>Veuillez remplir ce formlaire</h2>
-            <component:FormValidateCartComponent />
+            <component:FormValidateCartComponent title="Valider mon panier" />
     </ui:define>
 </ui:composition>
