@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      lang="fr">
+      lang="fr"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />
@@ -16,8 +17,8 @@
     </h:head>
     <h:body>
         <div id="page">
-           <!-- <h:form class="jsf-form container-fluid"> -->
-                <ui:insert name="header" >
+            <f:view transient="true">
+                 <ui:insert name="header" >
                     <ui:include src="/template/common/commonHeader.xhtml" />
                 </ui:insert>
                 <img src="#{resource['img:fond.jpg']}"
@@ -29,6 +30,9 @@
                 <ui:insert name="footer" >
                     <ui:include src="/template/common/commonFooter.xhtml" />
                 </ui:insert>
+            </f:view>
+           <!-- <h:form class="jsf-form container-fluid"> -->
+               
             <!-- </h:form> -->
         </div>
     </h:body>
