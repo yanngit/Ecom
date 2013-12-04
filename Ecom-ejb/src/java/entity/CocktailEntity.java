@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -41,6 +42,7 @@ public class CocktailEntity extends Product {
     @Column(name = "PHOTO")
     protected String photoURI;
     @Column(name = "RECIPE")
+    @Lob
     @NotNull
     protected String recipe;
     @Column(name = "FLAVOR")
@@ -51,6 +53,9 @@ public class CocktailEntity extends Product {
     @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
+    /* Cascade : when you persist a cocktail, persist all its Deliverables
+     *           You can update deliverables through cocktail (merge)
+     */
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -68,10 +73,13 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
-    @JoinColumn(name = "CLIENT_ACCOUNT_FK", referencedColumnName = "ID")
+    /* Cascade : When you persist a proposed cocktail, persist the client
+     *   account linked.
+     */
     @ManyToOne(
             fetch = FetchType.LAZY,
-            cascade = CascadeType.PERSIST)
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "CLIENT_ACCOUNT_FK", referencedColumnName = "ID")
     protected ClientAccountEntity client;
     @Column(name = "VIRGIN")
     protected Boolean virgin;

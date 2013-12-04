@@ -28,24 +28,28 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @EJB
     private BeverageManagerBean beverageManager;
     @EJB
+    private DecorationManagerBean decorationManager;
+    @EJB
     private CocktailManagerBean cocktailManager;
     @EJB
     private OrderManagerBean orderManager;
     @EJB
     private AddressManagerBean addressManager;
     @EJB
-    private DecorationManagerBean decorationManager;
-    @EJB
     private ClientAccountManagerBean clientAccountManager;
 
+    /*
+     * Add, Update and Remove entities.
+     */
+    /* Beverage */
     @Override
     public BeverageEntity addBeverage(BeverageEntity beverage) {
         return beverageManager.create(beverage);
     }
 
     @Override
-    public void updateBeverage(BeverageEntity beverage) {
-        beverageManager.edit(beverage);
+    public BeverageEntity updateBeverage(BeverageEntity beverage) {
+        return beverageManager.edit(beverage);
     }
 
     @Override
@@ -53,14 +57,31 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         beverageManager.remove(beverage);
     }
 
+    /* Decoration */
+    @Override
+    public DecorationEntity addDecoration(DecorationEntity deco) {
+        return decorationManager.create(deco);
+    }
+
+    @Override
+    public DecorationEntity updateDecoration(DecorationEntity deco) {
+        return decorationManager.edit(deco);
+    }
+
+    @Override
+    public void removeDecoration(DecorationEntity deco) {
+        decorationManager.remove(deco);
+    }
+
+    /* Cocktail */
     @Override
     public CocktailEntity addCocktail(CocktailEntity cocktail) {
         return cocktailManager.create(cocktail);
     }
 
     @Override
-    public void updateCocktail(CocktailEntity entity) {
-        cocktailManager.edit(entity);
+    public CocktailEntity updateCocktail(CocktailEntity entity) {
+        return cocktailManager.edit(entity);
     }
 
     @Override
@@ -68,21 +89,43 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         cocktailManager.remove(cocktail);
     }
 
+    /* Address */
     @Override
-    public List<CocktailEntity> getAllCocktails() {
-        return cocktailManager.findAll();
+    public AddressEntity updateAddress(AddressEntity address) {
+        return addressManager.edit(address);
     }
 
     @Override
-    public List<CocktailEntity> getAvailableCocktails() {
-        return cocktailManager.getAvailableCocktails();
+    public void removeAddress(AddressEntity address) {
+        addressManager.remove(address);
+    }
+
+    /* Order */
+    @Override
+    public OrderEntity updateOrder(OrderEntity order) {
+        return orderManager.edit(order);
     }
 
     @Override
-    public List<CocktailEntity> getUnavailableCocktails() {
-        return cocktailManager.getUnavailableCocktails();
+    public void removeOrder(OrderEntity order) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /* Client Account */
+    @Override
+    public ClientAccountEntity updateClient(ClientAccountEntity client) {
+        return clientAccountManager.edit(client);
+    }
+
+    @Override
+    public void removeClient(ClientAccountEntity client) {
+        clientAccountManager.remove(client);
+    }
+
+    /* *************************************************************************
+     * Getter
+     */
+    /* Beverages */
     @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();
@@ -99,46 +142,49 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(id);
+    }
+
+    /* Decorations */
+    @Override
+    public List<DecorationEntity> getAllDecorations() {
+        return decorationManager.findAll();
+    }
+
+    @Override
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return cocktailManager.getCocktailDecorations(id);
+    }
+
+    /* Cocktails */
+    @Override
+    public List<CocktailEntity> getAllCocktails() {
+        return cocktailManager.findAll();
+    }
+
+    @Override
+    public List<CocktailEntity> getAvailableCocktails() {
+        return cocktailManager.getAvailableCocktails();
+    }
+
+    @Override
+    public List<CocktailEntity> getUnavailableCocktails() {
+        return cocktailManager.getUnavailableCocktails();
+    }
+
+    @Override
     public CocktailEntity getCocktail(Long id) {
+        /* The deliverables list isn't instanciated and serialized. */
         return cocktailManager.find(id);
     }
 
     @Override
     public CocktailEntity getCocktailFull(Long id) {
         CocktailEntity cocktail = cocktailManager.find(id);
-        /* Force deliverables list instanciation */
+        /* Force deliverables list instanciation and serialization */
         cocktail.getDeliverables().size();
         return cocktail;
-    }
-
-    @Override
-    public void addArticle(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<CocktailEntity> getCartContent() {
-        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public OrderEntity addOrder(OrderEntity o) {
-        return orderManager.create(o);
-    }
-
-    @Override
-    public AddressEntity addAddress(AddressEntity address) {
-        return addressManager.create(address);
-    }
-
-    @Override
-    public List<AddressEntity> getAllAddresses() {
-        return addressManager.findAll();
-    }
-
-    @Override
-    public void removeArticle(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -181,6 +227,37 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         return cocktailManager.getVirginCocktailsByFirstLetter(letter);
     }
 
+    /* Addresses */
+    @Override
+    public List<AddressEntity> getAllAddresses() {
+        return addressManager.findAll();
+    }
+
+    /* Orders */
+    /* Clients */
+    @Override
+    public List<ClientAccountEntity> getAllClients() {
+        return clientAccountManager.findAll();
+    }
+
+    /*
+     * Cart operations (unavailable for admin)
+     */
+    @Override
+    public void addArticleToCart(Long id) throws EcomException {
+        throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public void removeArticleFromCart(Long id) throws EcomException {
+        throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public List<CocktailEntity> getCartContent() {
+        throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
     @Override
     public Float getCartPrice() {
         throw new UnsupportedOperationException("Not supported for the admin.");
@@ -190,39 +267,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public Integer getCartSize() {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
-
-    @Override
-    public List<DecorationEntity> getAllDecorations() {
-        return decorationManager.findAll();
-    }
-
-    @Override
-    public DecorationEntity addDecoration(DecorationEntity deco) {
-        return decorationManager.create(deco);
-    }
-
-    @Override
-    public void updateDecoration(DecorationEntity deco) {
-        decorationManager.edit(deco);
-    }
-
-    @Override
-    public void removeDecoration(DecorationEntity deco) {
-        decorationManager.remove(deco);
-    }
-
-    @Override
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        return cocktailManager.getCocktailBeverages(id);
-    }
-
-    @Override
-    public List<DecorationEntity> getCocktailDecorations(Long id) {
-        return cocktailManager.getCocktailDecorations(id);
-    }
-
-    @Override
-    public ClientAccountEntity addClient(ClientAccountEntity client) {
-        return clientAccountManager.create(client);
-    }
+    /*
+     * Getters
+     ************************************************************************* */
 }

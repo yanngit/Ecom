@@ -62,11 +62,11 @@ public class DataManagedBean {
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return client.getCocktailDecorations(id);
     }
-    
+
     public List<BeverageEntity> getCocktailBeverages(Long id) {
         return client.getCocktailBeverages(id);
     }
-    
+
     public List<Deliverable> getCocktailDeliverables(Long id) {
         return getCocktailFull(id).getDeliverables();
     }
@@ -81,10 +81,6 @@ public class DataManagedBean {
 
     public List<CocktailEntity> getListUnavailableCocktails() {
         return client.getUnavailableCocktails();
-    }
-
-    public List<BeverageEntity> getListBeverages() {
-        return client.getAllBeverages();
     }
 
     public List<BeverageEntity> getListAvailableBeverages() {
@@ -125,12 +121,12 @@ public class DataManagedBean {
 
     /* Setters, symbolizing an action */
     public String addArticleToCart(Long id) throws EcomException {
-        client.addArticle(id);
+        client.addArticleToCart(id);
         return "index.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
-        client.removeArticle(id);
+        client.removeArticleFromCart(id);
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {

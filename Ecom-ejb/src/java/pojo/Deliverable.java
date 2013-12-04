@@ -25,8 +25,11 @@ public class Deliverable extends Product {
     @NotNull
     protected Integer quantity;
     /* n-to-n relation with cocktails */
+    /* Cascade : when we remove a deliverable, remove all cocktails that need it
+     *           when we update a deliverable, update the cocktails (as price)
+     */
     @ManyToMany(mappedBy = "deliverables",
-            cascade = CascadeType.REMOVE)
+            cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     protected List<CocktailEntity> cocktails;
 
     protected Deliverable() {

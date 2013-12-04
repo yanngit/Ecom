@@ -33,12 +33,18 @@ public class ClientAccountEntity implements Serializable {
     @Column(name = "PASSWORD")
     @NotNull
     protected String password;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /* Cascade : when you persist or merge an account, persist or merge its
+     *    address.
+     */
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @NotNull
     protected AddressEntity delivery_address;
+    /* Cascade : persist the cocktails proposed by this client when you persist
+     *    or merge it.
+     */
     @OneToMany(mappedBy = "client",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.MERGE)
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     protected List<CocktailEntity> cocktails;
 
     /*Il manque la liste d'order*/
@@ -88,7 +94,8 @@ public class ClientAccountEntity implements Serializable {
             return false;
         }
         ClientAccountEntity other = (ClientAccountEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((!this.login.equals(other.login))
+                || (!this.password.equals(other.password))) {
             return false;
         }
         return true;
@@ -96,6 +103,6 @@ public class ClientAccountEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.ClientAccount[ id=" + id + " ]";
+        return "entity.ClientAccount[ id=" + id + ", login=" + login + " ]";
     }
 }
