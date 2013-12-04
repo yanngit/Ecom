@@ -70,11 +70,11 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public void addArticle(Long id) throws EcomException {
+    public void addArticle(Long id, int qty) throws EcomException {
         /*Vérifie que le cocktail soit toujours disponible, sinon exception*/
         if (cocktailManager.getAvailabilityByCocktailId(id)) {
             /*Ajoute le cocktail au panier et update le prix du panier*/
-            cart.addArticle(id);
+            cart.addArticle(id, qty);
             /*A faire dans la validate panier*/
             //cocktailManager.decreaseQuantityOfCocktail(id, 1);
         } else {

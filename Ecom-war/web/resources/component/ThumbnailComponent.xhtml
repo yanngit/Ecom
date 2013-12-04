@@ -15,10 +15,10 @@
                 <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
             </div>
             <div class="caption">
-                <h5>#{cc.attrs.item.name}</h5>
+                <h5>#{cc.attrs.item.name} - X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</h5>
                 <div class="text-center">
                     <div class="btn-group">
-                        <h:commandButton image="#{resource['img:info_small.png']}"
+                        <h:commandButton value=" #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}" image="#{resource['img:info_small.png']}"
                                          alt="Détails du cocktail"
                                          styleClass="btn"
                                          action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
@@ -26,7 +26,15 @@
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          alt="Ajouter le cocktail au panier"
                                          styleClass="btn btn-success"
-                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}">
+                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
+                        </h:commandButton>
+                        <h:commandButton value="+"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.increaseQuantity(cc.attrs.item)}">
+                        </h:commandButton>
+                        <h:commandButton value="-"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.decreaseQuantity(cc.attrs.item)}">
                         </h:commandButton>
                     </div>
                 </div>

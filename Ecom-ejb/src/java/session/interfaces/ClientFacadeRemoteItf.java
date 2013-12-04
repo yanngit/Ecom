@@ -30,7 +30,7 @@ public interface ClientFacadeRemoteItf {
 
     public List<BeverageEntity> getUnavailableBeverages();
 
-    public void addArticle(Long id) throws EcomException;
+    public void addArticle(Long id, int qty) throws EcomException;
 
     public void removeArticle(Long id) throws EcomException;
 

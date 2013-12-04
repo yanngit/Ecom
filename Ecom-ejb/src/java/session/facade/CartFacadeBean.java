@@ -8,7 +8,9 @@ import session.interfaces.CartFacadeLocalItf;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import session.manager.CocktailManagerBean;
@@ -17,7 +19,7 @@ import session.manager.CocktailManagerBean;
 public class CartFacadeBean implements CartFacadeLocalItf {
     @EJB
     private CocktailManagerBean cocktailManager;
-    private List<CocktailEntity> cart = new ArrayList<>();
+    private Map<CocktailEntity,Integer> cart = new HashMap<>();
     private String name = null;
     private float price = 0;
 
@@ -25,7 +27,11 @@ public class CartFacadeBean implements CartFacadeLocalItf {
 
     @Override
     public int getSize() {
-        return cart.size();
+        int size = 0;
+        for(CocktailEntity c : cart.keySet()){
+            size += cart.get(c);
+        }
+        return size;
     }
 
     @Override
@@ -60,49 +66,38 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     }
     
     @Override
-    public void addArticle(long ID) throws EcomException {
+    public void addArticle(long ID, int qty) throws EcomException {
         CocktailEntity c = cocktailManager.find(ID);
         if(c == null){
              throw new EcomException("Can't add the cocktail ["+ID+"] in the cart "+name);
         }
         else {
-             cart.add(c);
-             updatePrice(c.getPrice());
+             cart.put(c,new Integer(qty));
+             updatePrice(c.getPrice()*qty);
         }
     }
     
-    private int getIndexInCartOf(long ID){
-        int i = 0;
-        for(CocktailEntity c : cart){
-            if(c.getID().compareTo(ID) == 0){
-                return i;
-            }
-            i ++;
-        }
-        return -1;
-    }
-
+    
     @Override
     public void removeArticle(long ID) throws EcomException{
-        int index = getIndexInCartOf(ID);
-        if(index == -1){
-            throw new EcomException("Can't remove the cocktail ["+ID+"] in the cart"+name);
-        }
-        else {
-            float price = cart.get(index).getPrice();
-            cart.remove(index);  
-            updatePrice(-price);
-        }
+        CocktailEntity c = cocktailManager.find(ID);
+        cart.remove(c);
+        float prix = c.getPrice();
+        updatePrice(-prix);
     }
 
     @Override
     public List<CocktailEntity> getCocktails() {
-        return cart;
+        List<CocktailEntity> res = new ArrayList<>();
+        for(CocktailEntity c : cart.keySet() ){
+            res.add(c);
+        }
+        return res;
     }
     
     private void updatePrice(float price){
         this.price += price;
-        if(getCocktails().size() > 5){
+        if(getSize() > 5){
             this.reduction = 10*price/100;
         }
         else{
@@ -112,7 +107,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
 
     @Override
     public void emptyCart() {
-        this.cart.removeAll(cart);
+        this.cart.clear();
         this.setPrice(0);
         this.setReduction(0);
     }

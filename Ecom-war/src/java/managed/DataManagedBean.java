@@ -29,9 +29,44 @@ public class DataManagedBean {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
+    private int quantity = 1;
+    private CocktailEntity cocktailQuantity = null;
 
     public DataManagedBean() {
         super();
+    }
+
+    public void increaseQuantity(CocktailEntity cocktail) {
+        /*Si c'est la première incrémentation pas de problème*/
+        if (cocktailQuantity == null) {
+            cocktailQuantity = cocktail;
+            quantity++;
+        } else {
+            /*Si on incrémente le meme cocktail OK*/
+            if (cocktailQuantity.equals(cocktail)) {
+                quantity++;
+            } /*Sinon on repars à 2 et on oublie ce qui c'est passé avant*/ else {
+                cocktailQuantity = cocktail;
+                quantity = 2;
+            }
+        }
+    }
+
+    public void decreaseQuantity(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail) && quantity > 1) {
+                quantity--;
+            }
+        }
+    }
+
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail)) {
+                return String.valueOf(quantity);
+            }
+        }
+        return "1";
     }
 
     /* Navigate to the cocktailDetails.xhtml page and record the cocktail we
@@ -62,11 +97,11 @@ public class DataManagedBean {
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return client.getCocktailDecorations(id);
     }
-    
+
     public List<BeverageEntity> getCocktailBeverages(Long id) {
         return client.getCocktailBeverages(id);
     }
-    
+
     public List<Deliverable> getCocktailDeliverables(Long id) {
         return getCocktailFull(id).getDeliverables();
     }
@@ -124,8 +159,14 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public String addArticleToCart(Long id) throws EcomException {
-        client.addArticle(id);
+    public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
+        int qty = 1 ;
+        if(cocktailQuantity.equals(cocktail)){
+            qty = quantity;
+        }
+        client.addArticle(cocktail.getID(),qty);
+        quantity = 1;
+        cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
     }
 

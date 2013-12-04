@@ -108,7 +108,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public void addArticle(Long id) throws EcomException {
+    public void addArticle(Long id, int qty) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin."); //To change body of generated methods, choose Tools | Templates.
     }
 
