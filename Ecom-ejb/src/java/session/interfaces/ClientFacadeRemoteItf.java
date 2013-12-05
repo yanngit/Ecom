@@ -67,9 +67,9 @@ public interface ClientFacadeRemoteItf {
     /*
      * Account creation functions
      */
-    public AddressEntity updateAddress(AddressEntity address);
+    public AddressEntity addAddress(AddressEntity address);
 
-    public OrderEntity updateOrder(OrderEntity order);
+    public OrderEntity addOrder(OrderEntity order);
 
-    public ClientAccountEntity updateClient(ClientAccountEntity client);
+    public ClientAccountEntity addClient(ClientAccountEntity client);
 }

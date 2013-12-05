@@ -37,7 +37,7 @@ public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
 
     public void removeCocktail(CocktailEntity cocktail);
 
-    /* Update avalaible for clients */
+    /* addXXXX() avalaible for clients */
     public void removeAddress(AddressEntity address);
 
     public void removeClient(ClientAccountEntity client);

@@ -2,7 +2,6 @@ package pojo;
 
 import entity.CocktailEntity;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -25,11 +24,7 @@ public class Deliverable extends Product {
     @NotNull
     protected Integer quantity;
     /* n-to-n relation with cocktails */
-    /* Cascade : when we remove a deliverable, remove all cocktails that need it
-     *           when we update a deliverable, update the cocktails (as price)
-     */
-    @ManyToMany(mappedBy = "deliverables",
-            cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "deliverables")
     protected List<CocktailEntity> cocktails;
 
     protected Deliverable() {

@@ -33,10 +33,7 @@ public class ClientAccountEntity implements Serializable {
     @Column(name = "PASSWORD")
     @NotNull
     protected String password;
-    /* Cascade : when you persist or merge an account, persist or merge its
-     *    address.
-     */
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToOne
     @NotNull
     protected AddressEntity delivery_address;
     /* Cascade : persist the cocktails proposed by this client when you persist

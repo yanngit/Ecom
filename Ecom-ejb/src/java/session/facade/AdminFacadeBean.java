@@ -91,8 +91,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     /* Address */
     @Override
-    public AddressEntity updateAddress(AddressEntity address) {
-        return addressManager.edit(address);
+    public AddressEntity addAddress(AddressEntity address) {
+        return addressManager.create(address);
     }
 
     @Override
@@ -102,8 +102,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     /* Order */
     @Override
-    public OrderEntity updateOrder(OrderEntity order) {
-        return orderManager.edit(order);
+    public OrderEntity addOrder(OrderEntity order) {
+        return orderManager.create(order);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     /* Client Account */
     @Override
-    public ClientAccountEntity updateClient(ClientAccountEntity client) {
-        return clientAccountManager.edit(client);
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
     }
 
     @Override

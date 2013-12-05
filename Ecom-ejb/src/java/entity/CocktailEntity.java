@@ -56,9 +56,7 @@ public class CocktailEntity extends Product {
     /* Cascade : when you persist a cocktail, persist all its Deliverables
      *           You can update deliverables through cocktail (merge)
      */
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "COCKTAIL_COMPOSITION",
             joinColumns =
@@ -73,12 +71,8 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
-    /* Cascade : When you persist a proposed cocktail, persist the client
-     *   account linked.
-     */
     @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "CLIENT_ACCOUNT_FK", referencedColumnName = "ID")
     protected ClientAccountEntity client;
     @Column(name = "VIRGIN")

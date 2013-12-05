@@ -174,17 +174,17 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
      * Account creation functions
      */
     @Override
-    public AddressEntity updateAddress(AddressEntity address) {
-        return addressManager.edit(address);
+    public AddressEntity addAddress(AddressEntity address) {
+        return addressManager.create(address);
     }
 
     @Override
-    public OrderEntity updateOrder(OrderEntity order) {
-        return orderManager.edit(order);
+    public OrderEntity addOrder(OrderEntity order) {
+        return orderManager.create(order);
     }
 
     @Override
-    public ClientAccountEntity updateClient(ClientAccountEntity client) {
-        return clientAccountManager.edit(client);
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
     }
 }
