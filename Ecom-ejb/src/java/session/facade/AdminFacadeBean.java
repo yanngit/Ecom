@@ -122,10 +122,25 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         clientAccountManager.remove(client);
     }
 
+    @Override
+    public void terminateTransactions() {
+        beverageManager.flush();
+        decorationManager.flush();
+        cocktailManager.flush();
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
+
     /* *************************************************************************
      * Getter
      */
     /* Beverages */
+    @Override
+    public BeverageEntity getBeverage(Long ID) {
+        return beverageManager.find(ID);
+    }
+
     @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();

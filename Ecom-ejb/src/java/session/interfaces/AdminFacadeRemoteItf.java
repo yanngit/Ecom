@@ -47,6 +47,8 @@ public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
      * Get
      */
 
+    public BeverageEntity getBeverage(Long ID);
+
     public List<BeverageEntity> getAllBeverages();
 
     public List<DecorationEntity> getAllDecorations();

@@ -187,4 +187,11 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public ClientAccountEntity addClient(ClientAccountEntity client) {
         return clientAccountManager.create(client);
     }
+
+    @Override
+    public void terminateTransactions() {
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
 }

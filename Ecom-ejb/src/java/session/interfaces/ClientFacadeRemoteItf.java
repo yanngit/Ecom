@@ -72,4 +72,6 @@ public interface ClientFacadeRemoteItf {
     public OrderEntity addOrder(OrderEntity order);
 
     public ClientAccountEntity addClient(ClientAccountEntity client);
+
+    public void terminateTransactions();
 }
