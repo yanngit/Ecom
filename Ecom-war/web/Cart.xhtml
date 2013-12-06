@@ -6,8 +6,8 @@
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
         <c:if test="#{not empty dataManagedBean.cartContent}">
-            <component:CartComponent idDiv="vitrine_Cart" title="Panier" list="#{dataManagedBean.cartContent}" />
+            <component:CartComponent idDiv="cart-component" title="Panier" list="#{dataManagedBean.cartContent}" />
         </c:if>
-        <component:CartTotalComponent idDiv="vitrine_Cart" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>
+        <component:CartTotalComponent idDiv="total-panier" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>
     </ui:define>
 </ui:composition>

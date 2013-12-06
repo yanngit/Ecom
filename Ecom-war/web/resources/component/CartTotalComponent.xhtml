@@ -10,15 +10,15 @@
         <composite:attribute name="value" type="Float" />
     </composite:interface>
     <composite:implementation>
-         <li class="thumbnail">
-             <div class="totalPanier">
-                <h2>Total:  #{cc.attrs.value}€</h2>
+        <li class="thumbnail">
+            <div class="totalPanier">
                 <h:commandButton class="totalPanier-button"
                                  image="#{resource['img:btn_valider.png']}"
                                  alt="valider">
                 </h:commandButton>
+                <div class="total-cart"> Total:  #{cc.attrs.value}€</div>
                 <div class="clear"></div>
             </div>
-         </li>
+        </li>
     </composite:implementation>
 </html>

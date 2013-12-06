@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     <composite:interface>
         <composite:attribute name="title" />
+        <!--ajouter des attributs pour le cas ou l'utilisateur est connecté -->
     </composite:interface>
     <composite:implementation>
         <h:form id="form" class="span5 offset4">
@@ -23,8 +24,8 @@
                     <p:inputText id="postalCode" />
                     <h:outputLabel for="city" value="Ville : "/>  
                     <p:inputText id="city" />
-                    <h:outputLabel for="pbutton"/>  
-                    <h:commandButton id="pbutton" class="paypal-button"/>  
+                    <h:outputLabel for="pay-button"/>  
+                    <h:commandButton id="pay-button" class="paypal-button"/>  
                 </h:panelGrid>  
             </p:panel>         
             <p:panel header="Connexion">  

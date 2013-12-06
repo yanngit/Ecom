@@ -15,9 +15,7 @@
             <h2>#{cc.attrs.title}</h2>
             <div class="well well-small">
                 <ul class="thumbnails">
-                    <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
-                        <component:OrderedCocktailComponent item="#{item}"/>
-                    </ui:repeat>
+                    <component:OrderedCocktailComponent list="#{cc.attrs.list}"/>
                 </ul>
             </div>
         </div>

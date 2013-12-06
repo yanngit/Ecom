@@ -22,7 +22,7 @@ public interface ClientFacadeRemoteItf {
 
     public List<BeverageEntity> getUnavailableBeverages();
 
-    public List<BeverageEntity> getCocktailBeverages(Long id);
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail);
 
     public List<DecorationEntity> getCocktailDecorations(Long id);
 
@@ -36,6 +36,10 @@ public interface ClientFacadeRemoteItf {
     public CocktailEntity getCocktail(Long id);
 
     public CocktailEntity getCocktailFull(Long id);
+
+    public void removeArticle(Long id) throws EcomException;
+
+    public List<CocktailEntity> getCartContent();
 
     public List<CocktailEntity> getMostPopularCocktails();
 
@@ -54,11 +58,9 @@ public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */
-    public void addArticleToCart(Long id) throws EcomException;
+    public void addArticleToCart(Long id, int qty) throws EcomException;
 
     public void removeArticleFromCart(Long id) throws EcomException;
-
-    public List<CocktailEntity> getCartContent();
 
     public Float getCartPrice();
 
@@ -74,4 +76,6 @@ public interface ClientFacadeRemoteItf {
     public ClientAccountEntity addClient(ClientAccountEntity client);
 
     public void terminateTransactions();
+
+    public String getQuantityForCocktail(CocktailEntity cocktail);
 }
