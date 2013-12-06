@@ -142,8 +142,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        return cocktailManager.getCocktailBeverages(id);
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        return cocktailManager.getCocktailBeverages(cocktail);
     }
 
     /* Decorations */
@@ -272,6 +272,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void removeArticle(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        throw new UnsupportedOperationException("Not supported for the admin.");
     }
 }

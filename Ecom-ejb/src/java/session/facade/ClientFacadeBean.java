@@ -53,8 +53,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        return cocktailManager.getCocktailBeverages(id);
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        return cocktailManager.getCocktailBeverages(cocktail);
     }
 
     @Override
@@ -194,6 +194,11 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public ClientAccountEntity addClient(ClientAccountEntity client) {
         return clientAccountManager.create(client);
+    }
+
+    @Override
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        return cart.getQuantityForCocktail(cocktail);
     }
 
 }

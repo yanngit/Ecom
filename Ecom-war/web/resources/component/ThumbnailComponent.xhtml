@@ -15,7 +15,7 @@
                 <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
             </div>
             <div class="caption">
-                <h5>#{cc.attrs.item.name} - X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</h5>
+                <h3 class="title-cocktail">#{cc.attrs.item.name} - X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</h3>
                 <div class="text-center">
                     <div class="btn-group">
                         <h:commandButton value=" #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}" image="#{resource['img:info_small.png']}"

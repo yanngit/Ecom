@@ -138,17 +138,32 @@ li.thumbnail {
 }
 .jsf-form {
     margin: 0px;
-<<<<<<< HEAD
-=======
+}
+
+h3.title-cocktail {
+    font-size : 15px;
+}
+
+.beverage-cart h4 {
+    font-size: 10px;
+    text-align: left;
+}
+
+.thumbnails .beverage-cart {
+    margin: 0px;
+    padding: 0px;
+}
+
+div.span2.right {
+    float: right;
 }
 
 /*panier*/
-.totalPanier h2{
-    float:left;
-}
-
-.totalPanier-button{
-    float:right;
+.total-cart {
+    float: right;
+    font-size : 40px;
+    top: 20px;
+    position : relative;
 }
 
 .clear{
@@ -157,9 +172,4 @@ li.thumbnail {
 
 .ShowBev{
     float:left;
-}
-
-.BeverageCart{
-    float: left;
->>>>>>> shi
 }

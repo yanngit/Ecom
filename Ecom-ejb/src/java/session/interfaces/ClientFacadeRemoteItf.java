@@ -22,7 +22,7 @@ public interface ClientFacadeRemoteItf {
 
     public List<BeverageEntity> getUnavailableBeverages();
 
-    public List<BeverageEntity> getCocktailBeverages(Long id);
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail);
 
     public List<DecorationEntity> getCocktailDecorations(Long id);
 
@@ -74,4 +74,6 @@ public interface ClientFacadeRemoteItf {
     public OrderEntity addOrder(OrderEntity order);
 
     public ClientAccountEntity addClient(ClientAccountEntity client);
+
+    public String getQuantityForCocktail(CocktailEntity cocktail);
 }

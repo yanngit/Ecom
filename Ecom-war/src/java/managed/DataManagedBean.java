@@ -35,6 +35,11 @@ public class DataManagedBean {
     public DataManagedBean() {
         super();
     }
+    
+    /*récupérer le nb de cocktail de type cocktail dans le caddie*/
+    public String getQuantityForCocktailInCart(CocktailEntity cocktail){
+        return client.getQuantityForCocktail(cocktail);
+    }
 
     public void increaseQuantity(CocktailEntity cocktail) {
         /*Si c'est la première incrémentation pas de problème*/
@@ -60,6 +65,7 @@ public class DataManagedBean {
         }
     }
 
+    /*Récupérer la quantity a afficher pour la mise en panier, local au bean*/
     public String getQuantityForCocktail(CocktailEntity cocktail) {
         if (cocktailQuantity != null) {
             if (cocktailQuantity.equals(cocktail)) {
@@ -98,8 +104,8 @@ public class DataManagedBean {
         return client.getCocktailDecorations(id);
     }
 
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        return client.getCocktailBeverages(id);
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        return client.getCocktailBeverages(cocktail);
     }
 
     public List<Deliverable> getCocktailDeliverables(Long id) {

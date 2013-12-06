@@ -20,4 +20,5 @@ public interface CartFacadeLocalItf {
     public float getReduction();
     public float getPrice();
     public int getSize();
+    public String getQuantityForCocktail(CocktailEntity cocktail);
 }

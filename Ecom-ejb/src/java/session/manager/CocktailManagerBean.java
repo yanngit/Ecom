@@ -195,8 +195,8 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         return res;
     }
 
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        List<Deliverable> list = find(id).getDeliverables();
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        List<Deliverable> list = cocktail.getDeliverables();
         List<BeverageEntity> res = new ArrayList<>();
         for (Deliverable d : list) {
             if (d instanceof BeverageEntity) {
