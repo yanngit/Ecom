@@ -2,15 +2,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:composite="http://java.sun.com/jsf/composite">
     <composite:interface>
         <composite:attribute name="item" type="entity.BeverageEntity" />
     </composite:interface>
     <composite:implementation>
-        <div class="BeverageCart">
-            <img src="resources/img/bottle1.png"/>
-            <h5 class="text-center">#{cc.attrs.item.name}</h5>
-        </div>
+        <li>
+            <div class="span1 beverage-cart">
+                <img src="resources/img/bottle1.png"/>
+                <h4 class="text-center">#{cc.attrs.item.name}</h4>
+            </div> 
+        </li>
     </composite:implementation>
 </html>

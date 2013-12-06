@@ -15,7 +15,7 @@
                     </h1>
                 </div>
             </div>
-            <h:form>
+            <h:form transient="true">
                 <div class="navbar navbar-inner">
                     <ul class="nav">
                         <li>
@@ -30,11 +30,11 @@
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
-                                    <li>    
+                                    <li>
                                         <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
                                     </li>
                                     <ui:repeat var="itemsItem" value="#{items}">
-                                        <li>    
+                                        <li>
                                             <h:commandLink value="#{itemsItem.name}"
                                                            styleClass="afaire"
                                                            action="#{dataManagedBean.displayCocktailDetails(itemsItem)}">
@@ -53,8 +53,8 @@
                                 <div class="span6">
                                     <div class="row-fluid">
                                         <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
-                                            <ul class="unstyled span4">                                        
-                                                <li>    
+                                            <ul class="unstyled span4">
+                                                <li>
                                                     <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
                                                 </li>
                                                 <ui:repeat var="itemsItem" value="#{items}">
