@@ -72,7 +72,12 @@ public class CartFacadeBean implements CartFacadeLocalItf {
              throw new EcomException("Can't add the cocktail ["+ID+"] in the cart "+name);
         }
         else {
-             cart.put(c,new Integer(qty));
+            /*Si le cocktail est déjà présent, on met à jour la quantité, sinon on l'ajoute*/
+            if(cart.containsKey(c)){
+                cart.put(c, cart.get(c) + qty );
+            } else {
+                cart.put(c,new Integer(qty));
+            }
              updatePrice(c.getPrice()*qty);
         }
     }

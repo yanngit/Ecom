@@ -118,10 +118,6 @@ public class DataManagedBean {
         return client.getUnavailableCocktails();
     }
 
-    public List<BeverageEntity> getListBeverages() {
-        return client.getAllBeverages();
-    }
-
     public List<BeverageEntity> getListAvailableBeverages() {
         return client.getAvailableBeverages();
     }
@@ -166,14 +162,14 @@ public class DataManagedBean {
                 qty = quantity;
             }
         }
-        client.addArticle(cocktail.getID(), qty);
+        client.addArticleToCart(cocktail.getID(), qty);
         quantity = 1;
         cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
-        client.removeArticle(id);
+        client.removeArticleFromCart(id);
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {

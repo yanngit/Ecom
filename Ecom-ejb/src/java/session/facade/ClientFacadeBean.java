@@ -4,17 +4,23 @@
  */
 package session.facade;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
+import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
+import session.manager.ClientAccountManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.OrderManagerBean;
 
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
@@ -24,8 +30,42 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @EJB
     private BeverageManagerBean beverageManager;
     @EJB
+    private AddressManagerBean addressManager;
+    @EJB
+    private OrderManagerBean orderManager;
+    @EJB
+    private ClientAccountManagerBean clientAccountManager;
+    @EJB
     private CartFacadeLocalItf cart;
 
+    /*
+     * Operation on Deliverables
+     */
+    /* Beverages */
+    @Override
+    public List<BeverageEntity> getUnavailableBeverages() {
+        return this.beverageManager.getUnavailableBeverages();
+    }
+
+    @Override
+    public List<BeverageEntity> getAvailableBeverages() {
+        return this.beverageManager.getAvailableBeverages();
+    }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(id);
+    }
+
+    @Override
+    public List<DecorationEntity> getCocktailDecorations(Long id) {
+        return cocktailManager.getCocktailDecorations(id);
+    }
+
+
+    /*
+     * Operation on Cocktails (fetching)
+     */
     @Override
     public List<CocktailEntity> getAllCocktails() {
         return cocktailManager.findAll();
@@ -42,44 +82,18 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public List<BeverageEntity> getUnavailableBeverages() {
-        return this.beverageManager.getUnavailableBeverages();
-    }
-
-    @Override
-    public List<BeverageEntity> getAllBeverages() {
-        return beverageManager.findAll();
-    }
-
-    @Override
-    public List<BeverageEntity> getAvailableBeverages() {
-        return this.beverageManager.getAvailableBeverages();
-    }
-
-    @Override
     public CocktailEntity getCocktail(Long id) {
+        /* Here, the deliverables list will not be instanciated and serialized.
+         */
         return cocktailManager.find(id);
     }
 
     @Override
     public CocktailEntity getCocktailFull(Long id) {
         CocktailEntity cocktail = cocktailManager.find(id);
-        /* Force deliverables list instanciation */
+        /* Force deliverables list instanciation for serialization */
         cocktail.getDeliverables().size();
         return cocktail;
-    }
-
-    @Override
-    public void addArticle(Long id, int qty) throws EcomException {
-        /*Vérifie que le cocktail soit toujours disponible, sinon exception*/
-        if (cocktailManager.getAvailabilityByCocktailId(id)) {
-            /*Ajoute le cocktail au panier et update le prix du panier*/
-            cart.addArticle(id, qty);
-            /*A faire dans la validate panier*/
-            //cocktailManager.decreaseQuantityOfCocktail(id, 1);
-        } else {
-            throw new EcomException("Impossible d'ajouter le cocktail [" + id + "] au panier, il n'est plus disponible.");
-        }
     }
 
     @Override
@@ -133,6 +147,27 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         return cocktailManager.getVirginCocktailsByFirstLetter(letter);
     }
 
+    /*
+     * Operation on the cart.
+     */
+    @Override
+    public void addArticleToCart(Long id, int qty) throws EcomException {
+        /*Vérifie que le cocktail soit toujours disponible, sinon exception*/
+        if (cocktailManager.getAvailabilityByCocktailId(id)) {
+            /*Ajoute le cocktail au panier et update le prix du panier*/
+            cart.addArticle(id, qty);
+            /*A faire dans la validate panier*/
+            //cocktailManager.decreaseQuantityOfCocktail(id, 1);
+        } else {
+            throw new EcomException("Impossible d'ajouter le cocktail [" + id + "] au panier, il n'est plus disponible.");
+        }
+    }
+
+    @Override
+    public void removeArticleFromCart(Long id) throws EcomException {
+        cart.removeArticle(id);
+    }
+
     @Override
     public Float getCartPrice() {
         return cart.getPrice();
@@ -142,14 +177,23 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public Integer getCartSize() {
         return cart.getSize();
     }
-    
+
+    /*
+     * Account creation functions
+     */
     @Override
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        return cocktailManager.getCocktailBeverages(id);
+    public AddressEntity addAddress(AddressEntity address) {
+        return addressManager.create(address);
     }
-    
+
     @Override
-    public List<DecorationEntity> getCocktailDecorations(Long id) {
-        return cocktailManager.getCocktailDecorations(id);
+    public OrderEntity addOrder(OrderEntity order) {
+        return orderManager.create(order);
     }
+
+    @Override
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
+    }
+
 }
