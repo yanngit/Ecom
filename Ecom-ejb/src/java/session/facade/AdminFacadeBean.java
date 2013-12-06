@@ -163,6 +163,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     /* Decorations */
     @Override
+    public DecorationEntity getDecoration(Long ID) {
+        return decorationManager.find(ID);
+    }
+
+    @Override
     public List<DecorationEntity> getAllDecorations() {
         return decorationManager.findAll();
     }
