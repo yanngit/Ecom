@@ -15,7 +15,7 @@
                         <p/>
                         <h:commandButton image="#{resource['img:cart.png']}"
                                          styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
-                                         action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail.ID)}"
+                                         action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton>
                     </div>

@@ -4,46 +4,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:component="http://java.sun.com/jsf/composite/component"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:component="http://java.sun.com/jsf/composite/component">
     <composite:interface>
-        <composite:attribute name="item" type="entity.CocktailEntity" />
+        <composite:attribute name="list" type="java.util.List" />
     </composite:interface>
     <composite:implementation>
-        <li class="span2 thumbnail">
-            <div class="filling-thumb">
-                <img src="resources/img/#{cc.attrs.item.photoURI}" alt="Cocktail#{cc.attrs.item.name}"/>
-            </div>
-            <div class="caption">
-                <h5 class="text-center">#{cc.attrs.item.name}</h5>
-                <h5 class="text-center">#{cc.attrs.item.price}€</h5>
-                <div class="text-center">
-                    <div class="btn-group">
-                        <h:commandButton image="#{resource['img:info_small.png']}"
-                                         alt="Détails du cocktail"
-                                         styleClass="btn"
-                                         action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
-                        </h:commandButton>
-                        <h:commandButton styleClass="btn btn-success"
-                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item.ID)}"
-                                         value="+">
-                        </h:commandButton>
-                        <h:commandButton styleClass="btn"
-                                         action="#{dataManagedBean.removeArticleToCart(cc.attrs.item.ID)}"
-                                         value="-">
-                        </h:commandButton>
+        <ui:repeat value = "#{cc.attrs.list}" var = "item" varStatus="status">
+            <div class="media">
+                <div class="pull-left media-object span2">
+                    <div class="text-center">
+                        <img src="resources/img/#{item.photoURIName}.#{item.photoURIExt}"
+                             alt="Photo du cocktail #{item.name}"/> 
+                    </div>
+                </div>
+                <div class="media-body">
+                    <h3 class="media-heading">
+                        #{item.name}
+                    </h3>
+                    <div class="well well-small">
+                        <ul class="thumbnails">
+                            <ui:repeat value="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" varStatus="status1">
+                                <component:ShowBeverageComponent item="#{bev}"/>
+                            </ui:repeat>
+                            <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
+                            <div class = "span2 right">Prix unitaire : x €</div><br />
+                            <div class = "span2 right">Prix total : xx €</div>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div>
-               <!-- <img src="resources/img/bottle1.png"/>-->
-            <!--<div class="well well-small">-->
-            <div class="ShowBev">
-                    <ui:repeat value="#{dataManagedBean.getCocktailBeverages(cc.attrs.item.ID)}" var="item" varStatus="status">
-                            <component:ShowBeverageComponent item="#{item}"/>
-                    </ui:repeat>
-            </div> 
-            </div>
-        </li>
+        </ui:repeat>
     </composite:implementation>
 </html>

@@ -15,27 +15,27 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Address")
+@Table(name = "Address")
 public class AddressEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
+    @Column(name = "ID")
     private Long id;
-
-    @Column(name="SURNAME")
+    @Column(name = "SURNAME")
     protected String surname;
-    @Column(name="FIRST_NAME")
+    @Column(name = "FIRST_NAME")
     protected String first_name;
-    @Column(name="Street")
+    @Column(name = "Street")
     protected String street;
-    @Column(name="POSTAL_CODE")
+    @Column(name = "POSTAL_CODE")
     protected String postal_code;
-    @Column(name="CITY")
+    @Column(name = "CITY")
     protected String city;
-    @Column(name="COUNTRY")
+    @Column(name = "COUNTRY")
     protected String country;
-    @ManyToMany(mappedBy="addresses")
+    @ManyToMany(mappedBy = "addresses")
     protected List<OrderEntity> orders;
 
     public List<OrderEntity> getOrders() {
@@ -46,7 +46,7 @@ public class AddressEntity implements Serializable {
         this.orders = orders;
     }
 
-        public String getSurname() {
+    public String getSurname() {
         return surname;
     }
 
@@ -111,12 +111,14 @@ public class AddressEntity implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof AddressEntity)) {
             return false;
         }
         AddressEntity other = (AddressEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((!this.surname.equals(other.surname))
+                || (!this.street.equals(other.street))
+                || (!this.city.equals(other.city))
+                || (!this.country.equals(other.country))) {
             return false;
         }
         return true;
@@ -124,8 +126,10 @@ public class AddressEntity implements Serializable {
 
     @Override
     public String toString() {
-        return this.first_name + " " + this.surname + " , " + this.street + ".\n" + this.city 
-                +  ", " + this.country +". \n" + this.postal_code ;
+        return "pojo.Address[" + id + "] : \n"
+                + "\t" + first_name + " " + surname + "\n"
+                + "\t" + street + "\n"
+                + "\t" + postal_code + " " + city + "\n"
+                + "\t" + country.toUpperCase();
     }
-    
 }

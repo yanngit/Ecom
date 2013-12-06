@@ -5,6 +5,7 @@
 package entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Entity;
@@ -13,7 +14,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
@@ -39,6 +42,7 @@ public class CocktailEntity extends Product {
     @Column(name = "PHOTO")
     protected String photoURI;
     @Column(name = "RECIPE")
+    @Lob
     @NotNull
     protected String recipe;
     @Column(name = "FLAVOR")
@@ -49,6 +53,9 @@ public class CocktailEntity extends Product {
     @Enumerated(value = EnumType.ORDINAL)
     @NotNull
     protected CocktailPowerEnum power;
+    /* Cascade : when you persist a cocktail, persist all its Deliverables
+     *           You can update deliverables through cocktail (merge)
+     */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "COCKTAIL_COMPOSITION",
@@ -64,13 +71,15 @@ public class CocktailEntity extends Product {
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")
     protected List<OrderEntity> orders;
-    /*ONETOMANY HERE
-    protected ClientAccountEntity client;*/
+    @ManyToOne(
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLIENT_ACCOUNT_FK", referencedColumnName = "ID")
+    protected ClientAccountEntity client;
     @Column(name = "VIRGIN")
     protected Boolean virgin;
     @Column(name = "AVAILABLE")
     protected Boolean available;
-    @Column(name= "STATE_PUBLICATION")
+    @Column(name = "STATE_PUBLICATION")
     protected Boolean statePublication;
 
     public Boolean getStatePublication() {
@@ -156,6 +165,22 @@ public class CocktailEntity extends Product {
                 }
             }
         }
+    }
+
+    public ClientAccountEntity getClient() {
+        return client;
+    }
+
+    public void setClient(ClientAccountEntity client) {
+        this.client = client;
+    }
+
+    public Boolean getVirgin() {
+        return virgin;
+    }
+
+    public void setVirgin(Boolean virgin) {
+        this.virgin = virgin;
     }
 
     @Override

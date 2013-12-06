@@ -17,7 +17,7 @@ import pojo.Deliverable;
 @Stateless
 public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
 
-    private int MARGE = 10;
+    private final int MARGE = 10;
     @PersistenceContext(name = "Ecom_PU")
     private EntityManager em;
     @EJB
@@ -48,6 +48,27 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         cocktail.setAvailable(available);
         cocktail.setStatePublication(true);
         em.persist(cocktail);
+        return cocktail;
+    }
+
+    @Override
+    public CocktailEntity edit(CocktailEntity cocktail) {
+        boolean available = true;
+        String name = cocktail.getName();
+        name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+        cocktail.setName(name);
+        List<Deliverable> list = cocktail.getDeliverables();
+        float price = MARGE;
+        for (Deliverable d : list) {
+            price += d.getPrice();
+            if (d.getQuantity() <= 0) {
+                available = false;
+            }
+        }
+        cocktail.setPrice(price);
+        cocktail.setAvailable(available);
+        cocktail.setStatePublication(true);
+        em.merge(cocktail);
         return cocktail;
     }
 
@@ -162,24 +183,24 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     public List<CocktailEntity> getCocktailsByName(String name) {
         return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%" + name + "%").getResultList();
     }
-    
+
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         List<Deliverable> list = find(id).getDeliverables();
         List<DecorationEntity> res = new ArrayList<>();
-        for(Deliverable d : list){
-            if(d instanceof DecorationEntity){
-                res.add((DecorationEntity)d);
+        for (Deliverable d : list) {
+            if (d instanceof DecorationEntity) {
+                res.add((DecorationEntity) d);
             }
         }
         return res;
     }
-    
-    public List<BeverageEntity> getCocktailBeverages(Long id) {
-        List<Deliverable> list = find(id).getDeliverables();
+
+    public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        List<Deliverable> list = cocktail.getDeliverables();
         List<BeverageEntity> res = new ArrayList<>();
-        for(Deliverable d : list){
-            if(d instanceof BeverageEntity){
-                res.add((BeverageEntity)d);
+        for (Deliverable d : list) {
+            if (d instanceof BeverageEntity) {
+                res.add((BeverageEntity) d);
             }
         }
         return res;
