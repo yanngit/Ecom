@@ -203,6 +203,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         clientAccountManager.flush();
     }
 
+    @Override
     public String getQuantityForCocktail(CocktailEntity cocktail) {
         return cart.getQuantityForCocktail(cocktail);
     }
