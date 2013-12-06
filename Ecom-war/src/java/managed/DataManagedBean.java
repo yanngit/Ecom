@@ -160,11 +160,13 @@ public class DataManagedBean {
 
     /* Setters, symbolizing an action */
     public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
-        int qty = 1 ;
-        if(cocktailQuantity.equals(cocktail)){
-            qty = quantity;
+        int qty = 1;
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail)) {
+                qty = quantity;
+            }
         }
-        client.addArticle(cocktail.getID(),qty);
+        client.addArticle(cocktail.getID(), qty);
         quantity = 1;
         cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
