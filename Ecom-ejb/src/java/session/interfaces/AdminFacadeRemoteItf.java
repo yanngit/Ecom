@@ -19,6 +19,7 @@ public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
 
     public void updateBeverage(BeverageEntity beverage);
 
+    @Override
     public List<BeverageEntity> getAllBeverages();
 
     public void removeBeverage(BeverageEntity beverage);
@@ -28,9 +29,11 @@ public interface AdminFacadeRemoteItf extends ClientFacadeRemoteItf {
     public void updateCocktail(CocktailEntity cocktail);
 
     public void removeCocktail(CocktailEntity cocktail);
-
+    
+    @Override
     public OrderEntity addOrder(OrderEntity order);
 
+    @Override
     public AddressEntity addAddress(AddressEntity address);
 
     public List<AddressEntity> getAllAddresses();

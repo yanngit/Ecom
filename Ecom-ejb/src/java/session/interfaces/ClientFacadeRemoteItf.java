@@ -4,9 +4,11 @@
  */
 package session.interfaces;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.Remote;
@@ -59,4 +61,12 @@ public interface ClientFacadeRemoteItf {
     public List<BeverageEntity> getCocktailBeverages(Long id);
     
     public List<DecorationEntity> getCocktailDecorations(Long id);
+
+    public AddressEntity addAddress(AddressEntity entireAddress);
+
+    public OrderEntity addOrder(OrderEntity order);
+    
+    public AddressEntity getAddress(Long id);
+    
+    public OrderEntity getOrder(Long id);
 }

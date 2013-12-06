@@ -4,17 +4,21 @@
  */
 package session.facade;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
+import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.OrderManagerBean;
 
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
@@ -25,6 +29,10 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     private BeverageManagerBean beverageManager;
     @EJB
     private CartFacadeLocalItf cart;
+    @EJB
+    private OrderManagerBean orderManager;
+    @EJB
+    private AddressManagerBean addressManager;
 
     @Override
     public List<CocktailEntity> getAllCocktails() {
@@ -151,5 +159,25 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return cocktailManager.getCocktailDecorations(id);
+    } 
+
+    @Override
+    public OrderEntity addOrder(OrderEntity o) {
+        return orderManager.create(o);
+    }
+
+    @Override
+    public AddressEntity addAddress(AddressEntity address) {
+        return addressManager.create(address);
+    }
+
+    @Override
+    public AddressEntity getAddress(Long id) {
+        return addressManager.find(id);
+    }
+
+    @Override
+    public OrderEntity getOrder(Long id) {
+        return orderManager.find(id);
     }
 }

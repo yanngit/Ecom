@@ -124,7 +124,8 @@ public class AddressEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "pojo.Address[ id=" + id + " ]";
+        return this.first_name + " " + this.surname + " , " + this.street + ".\n" + this.city 
+                +  ", " + this.country +". \n" + this.postal_code ;
     }
     
 }

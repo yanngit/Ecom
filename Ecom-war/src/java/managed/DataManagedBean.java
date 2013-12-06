@@ -4,9 +4,11 @@
  */
 package managed;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import pojo.Deliverable;
+import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 
 /**
@@ -29,6 +32,8 @@ public class DataManagedBean {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
+    private AddressEntity entireAddress = null;
+    private OrderEntity order=null;
 
     public DataManagedBean() {
         super();
@@ -171,5 +176,32 @@ public class DataManagedBean {
             }
         }
         return list;
+    }
+    
+    //ajouter par bach
+    public void creatOrder(String firstName,String lastName, String street, String postalCode, String city){        
+        //System.out.println(city);
+        entireAddress = new AddressEntity();
+        entireAddress.setFirst_name(firstName);
+        entireAddress.setSurname(lastName);
+        entireAddress.setStreet(street);
+        entireAddress.setPostal_code(postalCode);
+        entireAddress.setCity(city);
+        entireAddress.setCountry("France");
+        
+        order = new OrderEntity();
+        List<OrderEntity> listOrder = new ArrayList<>();
+        List<AddressEntity> listAddress = new ArrayList<>();
+        
+        client.addAddress(entireAddress);
+        listAddress.add(client.getAddress(entireAddress.getId()));
+        
+        order.setAddresses(listAddress);
+        order.setCocktails(client.getCartContent());
+        order.setStatus(OrderStateEnum.PAYED);
+        listOrder.add(order);
+        client.addAddress(entireAddress);
+        client.addOrder(order);
+       
     }
 }
