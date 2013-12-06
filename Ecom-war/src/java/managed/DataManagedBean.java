@@ -227,26 +227,30 @@ public class DataManagedBean {
     public void creatOrder(String firstName,String lastName, String street, String postalCode, String city){        
         //System.out.println(city);
         entireAddress = new AddressEntity();
+        order = new OrderEntity();
+        List<OrderEntity> listOrder = new ArrayList<>();
+        List<AddressEntity> listAddress = new ArrayList<>();
+        
         entireAddress.setFirst_name(firstName);
         entireAddress.setSurname(lastName);
         entireAddress.setStreet(street);
         entireAddress.setPostal_code(postalCode);
         entireAddress.setCity(city);
         entireAddress.setCountry("France");
+        entireAddress.setOrders(null);
+        // Persistance de l'addresse saiasie et
+        //Récuperation de l'addresse persistée
+        AddressEntity tempA = client.addAddress(entireAddress);
+        listAddress.add(client.getAddress(tempA.getId()));
         
-        order = new OrderEntity();
-        List<OrderEntity> listOrder = new ArrayList<>();
-        List<AddressEntity> listAddress = new ArrayList<>();
-        
-        client.addAddress(entireAddress);
-        listAddress.add(client.getAddress(entireAddress.getId()));
-        
-        order.setAddresses(listAddress);
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
-        listOrder.add(order);
-        client.addAddress(entireAddress);
-        client.addOrder(order);
+        order.setAddresses(listAddress);
+        
+        //Persistance de la commande
+        OrderEntity tempO = client.addOrder(order);
+        listOrder.add(client.getOrder(tempO.getId()));
        
+        client.getAddress(tempA.getId()).setOrders(listOrder);
     }
 }
