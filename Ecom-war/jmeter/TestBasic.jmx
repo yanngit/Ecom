@@ -26,7 +26,7 @@
           </elementProp>
           <elementProp name="nb.users" elementType="Argument">
             <stringProp name="Argument.metadata">=</stringProp>
-            <stringProp name="Argument.value">200</stringProp>
+            <stringProp name="Argument.value">20</stringProp>
             <stringProp name="Argument.name">nb.users</stringProp>
           </elementProp>
           <elementProp name="nb.rampup" elementType="Argument">
