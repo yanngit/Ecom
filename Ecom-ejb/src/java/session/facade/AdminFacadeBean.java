@@ -122,10 +122,25 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         clientAccountManager.remove(client);
     }
 
+    @Override
+    public void terminateTransactions() {
+        beverageManager.flush();
+        decorationManager.flush();
+        cocktailManager.flush();
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
+
     /* *************************************************************************
      * Getter
      */
     /* Beverages */
+    @Override
+    public BeverageEntity getBeverage(Long ID) {
+        return beverageManager.find(ID);
+    }
+
     @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();
@@ -147,6 +162,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     /* Decorations */
+    @Override
+    public DecorationEntity getDecoration(Long ID) {
+        return decorationManager.find(ID);
+    }
+
     @Override
     public List<DecorationEntity> getAllDecorations() {
         return decorationManager.findAll();
@@ -179,8 +199,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public CocktailEntity getCocktailFull(Long id) {
-        CocktailEntity cocktail = cocktailManager.find(id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
         /* Force deliverables list instanciation and serialization */
         cocktail.getDeliverables().size();
         return cocktail;
@@ -278,5 +297,20 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public String getQuantityForCocktail(CocktailEntity cocktail) {
         throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AddressEntity getAddress(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public OrderEntity getOrder(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

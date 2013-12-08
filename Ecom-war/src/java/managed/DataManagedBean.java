@@ -4,9 +4,11 @@
  */
 package managed;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import pojo.Deliverable;
+import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 
 /**
@@ -29,6 +32,8 @@ public class DataManagedBean {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
+    private AddressEntity entireAddress = null;
+    private OrderEntity order=null;
     private int quantity = 1;
     private CocktailEntity cocktailQuantity = null;
 
@@ -92,12 +97,8 @@ public class DataManagedBean {
         return client.getCocktail(id);
     }
 
-    public CocktailEntity getCocktailFull(Long id) {
-        return client.getCocktailFull(id);
-    }
-
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail.getID());
+        return client.getCocktailFull(cocktail);
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -108,8 +109,8 @@ public class DataManagedBean {
         return client.getCocktailBeverages(cocktail);
     }
 
-    public List<Deliverable> getCocktailDeliverables(Long id) {
-        return getCocktailFull(id).getDeliverables();
+    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
+        return cocktail.getDeliverables();
     }
 
     public List<CocktailEntity> getListCocktails() {
@@ -216,5 +217,36 @@ public class DataManagedBean {
             }
         }
         return list;
+    }
+    
+    //ajouter par bach
+    public void creatOrder(String firstName,String lastName, String street, String postalCode, String city){        
+        //System.out.println(city);
+        entireAddress = new AddressEntity();
+        order = new OrderEntity();
+        List<OrderEntity> listOrder = new ArrayList<>();
+        List<AddressEntity> listAddress = new ArrayList<>();
+        
+        entireAddress.setFirst_name(firstName);
+        entireAddress.setSurname(lastName);
+        entireAddress.setStreet(street);
+        entireAddress.setPostal_code(postalCode);
+        entireAddress.setCity(city);
+        entireAddress.setCountry("France");
+        entireAddress.setOrders(null);
+        // Persistance de l'addresse saiasie et
+        //Récuperation de l'addresse persistée
+        AddressEntity tempA = client.addAddress(entireAddress);
+        listAddress.add(tempA);//client.getAddress(tempA.getId()));
+        
+        order.setCocktails(client.getCartContent());
+        order.setStatus(OrderStateEnum.PAYED);
+        order.setAddresses(listAddress);
+        
+        //Persistance de la commande
+        OrderEntity tempO = client.addOrder(order);
+        listOrder.add(tempO);//client.getOrder(tempO.getId()));
+       
+        client.getAddress(tempA.getId()).setOrders(listOrder);
     }
 }

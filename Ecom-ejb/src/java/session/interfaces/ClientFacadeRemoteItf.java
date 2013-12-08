@@ -35,7 +35,7 @@ public interface ClientFacadeRemoteItf {
 
     public CocktailEntity getCocktail(Long id);
 
-    public CocktailEntity getCocktailFull(Long id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail);
 
     public void removeArticle(Long id) throws EcomException;
 
@@ -65,15 +65,22 @@ public interface ClientFacadeRemoteItf {
     public Float getCartPrice();
 
     public Integer getCartSize();
+    
+    public List<BeverageEntity> getCocktailBeverages(Long id);
+    
+    public AddressEntity addAddress(AddressEntity entireAddress);
 
+    public OrderEntity addOrder(OrderEntity order);
+    
+    public AddressEntity getAddress(Long id);
+    
+    public OrderEntity getOrder(Long id);
     /*
      * Account creation functions
      */
-    public AddressEntity addAddress(AddressEntity address);
-
-    public OrderEntity addOrder(OrderEntity order);
-
     public ClientAccountEntity addClient(ClientAccountEntity client);
 
-    public String getQuantityForCocktail(CocktailEntity cocktail);
+    public void terminateTransactions();
+
+    public String getQuantityForCocktail(CocktailEntity cocktail);    
 }
