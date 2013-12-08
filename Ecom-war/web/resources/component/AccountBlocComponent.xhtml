@@ -28,44 +28,47 @@
             </h:form>  
             <ui:fragment rendered="#{dataManagedBean.getDisplayOrders()}">
                 <div class="well well-small">
-                        <ul class="thumbnails">
-                            <li class="span3 thumbnail">
-                                <ui:repeat value="#{dataManagedBean.getOrdersOfAccount()}" var="item" varStatus="status">
-                                    <div>
-                                        <f:view>
-                                            <h:form>
-                                                <h1><h:outputText value="List"/></h1>
-                                                <h:dataTable value="#{dataManagedBean.ordersOfAccount}" var="item">
-                                                    <h:column>
-                                                        <f:facet name="header">
-                                                            <h:outputText value="Status"/>
-                                                        </f:facet>
-                                                        <h:outputText value="#{item.status}"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">
-                                                            <h:outputText value="Id"/>
-                                                        </f:facet>
-                                                        <h:outputText value="#{item.id}"/>
-                                                    </h:column>
-                                                </h:dataTable>
-                                            </h:form>
-                                        </f:view>
+                    <ul class="thumbnails">
+                        <li class="span3 thumbnail">
+                            <h:form>
+                                <h:commandButton image="#{resource['img:updiv.png']}" action="#{dataManagedBean.setDisplayOrders(false)}" ></h:commandButton>
+                            </h:form>
+                            <ui:repeat value="#{dataManagedBean.getOrdersOfAccount()}" var="item" varStatus="status">
+                                <div>
+                                    <f:view>
+                                        <h:form>
+                                            <h1><h:outputText value="List"/></h1>
+                                            <h:dataTable value="#{dataManagedBean.ordersOfAccount}" var="item">
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Status"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.status}"/>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="Id"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.id}"/>
+                                                </h:column>
+                                            </h:dataTable>
+                                        </h:form>
+                                    </f:view>
 
-                                    </div> 
-                                </ui:repeat>
-                            </li>
-                        </ul>
-                    </div>
+                                </div> 
+                            </ui:repeat>
+                        </li>
+                    </ul>
+                </div>
             </ui:fragment>
             <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
                 <div class="well well-small">
-                        <ul class="thumbnails">
-                            <li class="span2 thumbnail">
-                                <div>First address</div>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="thumbnails">
+                        <li class="span2 thumbnail">
+                            <div>First address</div>
+                        </li>
+                    </ul>
+                </div>
             </ui:fragment>
         </ui:fragment>
     </composite:implementation>
