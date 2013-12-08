@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <composite:interface>
         <composite:attribute name="title" />
         <!--ajouter des attributs pour le cas ou l'utilisateur est connecté -->
@@ -26,7 +27,8 @@
                     <p:inputText id="city"  binding="#{city}"/>
                     <h:outputLabel for="pbutton"/>  
                     <h:commandButton id="pbutton" class="paypal-button" 
-                                     action="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/> 
+                                     action="Cart.xhtml" 
+                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
                 </h:panelGrid>  
             </p:panel>         
             <p:panel header="Connexion">  

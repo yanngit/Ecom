@@ -199,8 +199,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public CocktailEntity getCocktailFull(Long id) {
-        CocktailEntity cocktail = cocktailManager.find(id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
         /* Force deliverables list instanciation and serialization */
         cocktail.getDeliverables().size();
         return cocktail;

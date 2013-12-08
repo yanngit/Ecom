@@ -35,7 +35,7 @@ public interface ClientFacadeRemoteItf {
 
     public CocktailEntity getCocktail(Long id);
 
-    public CocktailEntity getCocktailFull(Long id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail);
 
     public void removeArticle(Long id) throws EcomException;
 
@@ -82,5 +82,5 @@ public interface ClientFacadeRemoteItf {
 
     public void terminateTransactions();
 
-    public String getQuantityForCocktail(CocktailEntity cocktail);
+    public String getQuantityForCocktail(CocktailEntity cocktail);    
 }

@@ -97,12 +97,8 @@ public class DataManagedBean {
         return client.getCocktail(id);
     }
 
-    public CocktailEntity getCocktailFull(Long id) {
-        return client.getCocktailFull(id);
-    }
-
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail.getID());
+        return client.getCocktailFull(cocktail);
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -113,8 +109,8 @@ public class DataManagedBean {
         return client.getCocktailBeverages(cocktail);
     }
 
-    public List<Deliverable> getCocktailDeliverables(Long id) {
-        return getCocktailFull(id).getDeliverables();
+    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
+        return cocktail.getDeliverables();
     }
 
     public List<CocktailEntity> getListCocktails() {
@@ -241,7 +237,7 @@ public class DataManagedBean {
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
         AddressEntity tempA = client.addAddress(entireAddress);
-        listAddress.add(client.getAddress(tempA.getId()));
+        listAddress.add(tempA);//client.getAddress(tempA.getId()));
         
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
@@ -249,7 +245,7 @@ public class DataManagedBean {
         
         //Persistance de la commande
         OrderEntity tempO = client.addOrder(order);
-        listOrder.add(client.getOrder(tempO.getId()));
+        listOrder.add(tempO);//client.getOrder(tempO.getId()));
        
         client.getAddress(tempA.getId()).setOrders(listOrder);
     }

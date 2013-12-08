@@ -89,11 +89,11 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public CocktailEntity getCocktailFull(Long id) {
-        CocktailEntity cocktail = cocktailManager.find(id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
+        CocktailEntity cocktail1 = cocktailManager.find(cocktail.getID());
         /* Force deliverables list instanciation for serialization */
-        cocktail.getDeliverables().size();
-        return cocktail;
+        cocktail1.getDeliverables().size();
+        return cocktail1;
     }
 
     @Override
