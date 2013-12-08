@@ -17,9 +17,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@NamedQueries({
+    @NamedQuery(name = "getOrdersOfAddress", query = "SELECT o FROM OrderEntity o inner join o.addresses oa WHERE oa.surname = :surname and oa.first_name = :first_name and oa.street = :street")
+})
 @Entity
 @Table(name="ORDERENTITY")
 public class OrderEntity implements Serializable {

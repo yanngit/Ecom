@@ -75,11 +75,17 @@ public interface ClientFacadeRemoteItf {
     public AddressEntity getAddress(Long id);
     
     public OrderEntity getOrder(Long id);
+    
+    public void clearCart();
     /*
      * Account creation functions
      */
     public ClientAccountEntity addClient(ClientAccountEntity client);
 
+    public ClientAccountEntity connect(String login, String password);
+    
+    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account);
+    
     public void terminateTransactions();
 
     public String getQuantityForCocktail(CocktailEntity cocktail);    

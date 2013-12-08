@@ -4,7 +4,10 @@
  */
 package session.manager;
 
+import entity.ClientAccountEntity;
 import entity.OrderEntity;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +21,8 @@ import pojo.AbstractEntityManager;
 public class OrderManagerBean extends AbstractEntityManager<OrderEntity> {
     @PersistenceContext (name="Ecom_PU")
     private EntityManager em;
+    @EJB
+    private ClientAccountManagerBean clientManager;
 
     public OrderManagerBean() {
         super(OrderEntity.class);
@@ -26,5 +31,9 @@ public class OrderManagerBean extends AbstractEntityManager<OrderEntity> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account){
+        return em.createNamedQuery("getOrdersOfAddress").setParameter("surname", account.getDelivery_address().getSurname()).setParameter("first_name",account.getDelivery_address().getFirst_name()).setParameter("street", account.getDelivery_address().getStreet()).getResultList();
     }
 }

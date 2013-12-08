@@ -6,6 +6,7 @@ package managed;
 
 import entity.AddressEntity;
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
@@ -33,16 +34,46 @@ public class DataManagedBean {
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
     private AddressEntity entireAddress = null;
-    private OrderEntity order=null;
+    private OrderEntity order = null;
     private int quantity = 1;
     private CocktailEntity cocktailQuantity = null;
+    private ClientAccountEntity account = null;
+    private boolean displayOrders = false;
+    private boolean displayAddresses = false;
 
     public DataManagedBean() {
         super();
     }
-    
+
+    public String getLogin() {
+        return account.getLogin();
+    }
+
+    public void createAccount(String login, String password, AddressEntity address) {
+        account = new ClientAccountEntity();
+        account.setLogin(login);
+        account.setPassword(password);
+        account.setDelivery_address(address);
+        client.addClient(account);
+    }
+
+    public void connect(String login, String password) {
+        account = client.connect(login, password);
+    }
+
+    public String disconnect() {
+        if (account != null) {
+            account = null;
+        }
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public boolean isConnected() {
+        return account != null;
+    }
+
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
-    public String getQuantityForCocktailInCart(CocktailEntity cocktail){
+    public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
     }
 
@@ -218,15 +249,15 @@ public class DataManagedBean {
         }
         return list;
     }
-    
+
     //ajouter par bach
-    public void creatOrder(String firstName,String lastName, String street, String postalCode, String city){        
+    public AddressEntity creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
         //System.out.println(city);
         entireAddress = new AddressEntity();
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-        
+
         entireAddress.setFirst_name(firstName);
         entireAddress.setSurname(lastName);
         entireAddress.setStreet(street);
@@ -238,15 +269,42 @@ public class DataManagedBean {
         //Récuperation de l'addresse persistée
         AddressEntity tempA = client.addAddress(entireAddress);
         listAddress.add(tempA);//client.getAddress(tempA.getId()));
-        
+
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
-        
+
         //Persistance de la commande
         OrderEntity tempO = client.addOrder(order);
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
-       
+
         client.getAddress(tempA.getId()).setOrders(listOrder);
+        client.clearCart();
+        return client.getAddress(tempA.getId());
+    }
+
+    public void setDisplayOrders(boolean b) {
+        displayOrders = b;
+        displayAddresses = false;
+    }
+
+    public boolean getDisplayOrders() {
+        return displayOrders;
+    }
+
+    public void setDisplayAddresses(boolean b) {
+        displayAddresses = b;
+        displayOrders = false;
+    }
+
+    public boolean getDisplayAddresses() {
+        return displayAddresses;
+    }
+
+    public List<OrderEntity> getOrdersOfAccount() {
+        if (account != null) {
+            return client.getOrdersOfAccount(account);
+        }
+        return null;
     }
 }

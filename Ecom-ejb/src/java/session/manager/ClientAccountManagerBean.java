@@ -24,4 +24,8 @@ public class ClientAccountManagerBean extends AbstractEntityManager<ClientAccoun
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public ClientAccountEntity getAccountByAuthentification(String login, String password){
+        return (ClientAccountEntity) em.createNamedQuery("getAccountByAuthentification").setParameter("login",login).setParameter("password",password).getSingleResult();
+    }
 }

@@ -78,9 +78,17 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
-                            <h:outputLink value="Form.xhtml" >
-                                Se connecter
-                            </h:outputLink>
+
+                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
+                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
+                                    #{dataManagedBean.getLogin()} - Deconnection
+                                </h:commandLink>
+                            </ui:fragment>   
+                            <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
+                                <h:outputLink value="Connexion.xhtml" >
+                                    Connection
+                                </h:outputLink>
+                            </ui:fragment> 
                         </li>
                         <li>
                             <h:outputLink value="Cart.xhtml" >

@@ -37,6 +37,7 @@ public class AddressEntity implements Serializable {
     protected String country;
     @ManyToMany(mappedBy = "addresses")
     protected List<OrderEntity> orders;
+    
 
     public List<OrderEntity> getOrders() {
         return orders;
