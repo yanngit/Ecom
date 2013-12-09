@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <composite:interface>
         <composite:attribute name="title" />
         <composite:attribute name="first_name"/>
@@ -31,17 +31,19 @@
                                      action="Cart.xhtml" 
                                      actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
                 </h:panelGrid>  
-            </p:panel>         
-            <p:panel header="Connexion">  
-                <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
-                    <h:outputLabel for="login" value="Login : "/>  
-                    <p:inputText id="login" binding="#{login}" />
-                    <h:outputLabel for="password" value="Mot de passe : "/>  
-                    <p:inputText id="password" binding="#{password}" />
-                    <h:outputLabel for="accountCreationButton"/>  
-                    <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
-                </h:panelGrid>
-            </p:panel>
+            </p:panel> 
+            <ui:fragment rendered="#{!dataManagedBean.connected}">
+                <p:panel header="Utilisateur">  
+                    <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
+                        <h:outputLabel for="login" value="Login : "/>  
+                        <p:inputText id="login" binding="#{login}" />
+                        <h:outputLabel for="password" value="Mot de passe : "/>  
+                        <p:inputText id="password" binding="#{password}" />
+                        <h:outputLabel for="accountCreationButton"/>  
+                        <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </ui:fragment>
         </h:form>  
     </composite:implementation>
 </html>

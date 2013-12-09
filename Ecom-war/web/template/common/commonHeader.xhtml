@@ -76,6 +76,7 @@
                         <li>
 
                             <ui:fragment rendered="#{dataManagedBean.isConnected()}">
+                                <!--UTILISER COMMANDBUTTON pour JS-->
                                 <h:commandLink action="#{dataManagedBean.disconnect()}"  >
                                     #{dataManagedBean.getLogin()} - Deconnection
                                 </h:commandLink>
