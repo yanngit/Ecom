@@ -71,6 +71,10 @@ public class DataManagedBean {
     public boolean isConnected() {
         return account != null;
     }
+    
+    public AddressEntity getAccountAddress(){
+        return account.getDelivery_address();
+    }
 
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {

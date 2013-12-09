@@ -8,6 +8,7 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <composite:interface>
         <composite:attribute name="title" />
+        <composite:attribute name="first_name"/>
         <!--ajouter des attributs pour le cas ou l'utilisateur est connecté -->
     </composite:interface>
     <composite:implementation>
@@ -16,7 +17,7 @@
             <p:panel header="Adresse de Livraison">  
                 <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
                     <h:outputLabel for="firstName" value="Prenom : " />  
-                    <p:inputText id="firstName" binding="#{firstName}"/>
+                    <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
                     <h:outputLabel for="lastName" value="Nom : " />  
                     <p:inputText id="lastName" binding="#{lastName}"/>
                     <h:outputLabel for="street" value="Rue : " />  
@@ -37,9 +38,7 @@
                     <p:inputText id="login" binding="#{login}" />
                     <h:outputLabel for="password" value="Mot de passe : "/>  
                     <p:inputText id="password" binding="#{password}" />
-                    <h:outputLabel for="connexionButton"/>  
-                    <h:commandButton id="connexionButton" value="Se connecter" action="Cart.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
-                    <h:outputLabel for="accountCreationButton"/> 
+                    <h:outputLabel for="accountCreationButton"/>  
                     <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
                 </h:panelGrid>
             </p:panel>
