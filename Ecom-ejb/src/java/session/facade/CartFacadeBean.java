@@ -8,6 +8,7 @@ import session.interfaces.CartFacadeLocalItf;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,9 +95,10 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     @Override
     public List<CocktailEntity> getCocktails() {
         List<CocktailEntity> res = new ArrayList<>();
-        for(CocktailEntity c : cart.keySet() ){
+        for(CocktailEntity c : cart.keySet()){
             res.add(c);
         }
+        Collections.sort(res);
         return res;
     }
     

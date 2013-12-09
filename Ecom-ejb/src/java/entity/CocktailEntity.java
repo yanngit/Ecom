@@ -36,7 +36,7 @@ import pojo.Product;
     @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),})
 @Entity
 @Table(name = "COCKTAIL")
-public class CocktailEntity extends Product {
+public class CocktailEntity extends Product implements Comparable<CocktailEntity>{
 
     private static final long serialVersionUID = 1L;
     @Column(name = "PHOTO")
@@ -190,5 +190,16 @@ public class CocktailEntity extends Product {
 
     public void setPower(CocktailFlavorEnum cocktailFlavorEnum) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int compareTo(CocktailEntity c) {
+        if(c.getName().compareTo(getName()) == 0){
+            return 0;
+        } else if (getName().compareTo(c.getName()) > 0){
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

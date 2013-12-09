@@ -37,6 +37,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     private ClientAccountManagerBean clientAccountManager;
     @EJB
     private CartFacadeLocalItf cart;
+    private ClientAccountEntity account = null;
 
     /*
      * Operation on Deliverables
@@ -89,11 +90,11 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public CocktailEntity getCocktailFull(Long id) {
-        CocktailEntity cocktail = cocktailManager.find(id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
+        CocktailEntity cocktail1 = cocktailManager.find(cocktail.getID());
         /* Force deliverables list instanciation for serialization */
-        cocktail.getDeliverables().size();
-        return cocktail;
+        cocktail1.getDeliverables().size();
+        return cocktail1;
     }
 
     @Override
@@ -187,13 +188,60 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public OrderEntity addOrder(OrderEntity order) {
-        return orderManager.create(order);
+    public OrderEntity addOrder(OrderEntity o) {
+        return orderManager.create(o);
+    }
+
+
+    @Override
+    public AddressEntity getAddress(Long id) {
+        return addressManager.find(id);
+    }
+
+    @Override
+    public OrderEntity getOrder(Long id) {
+        return orderManager.find(id);
     }
 
     @Override
     public ClientAccountEntity addClient(ClientAccountEntity client) {
         return clientAccountManager.create(client);
+    }
+
+    @Override
+    public void terminateTransactions() {
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
+
+    @Override
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        return cart.getQuantityForCocktail(cocktail);
+    }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        return cocktailManager.getCocktailBeverages(getCocktail(id));
+    }
+
+    @Override
+    public ClientAccountEntity connect(String login, String password) {
+        if(account == null){
+            account = clientAccountManager.getAccountByAuthentification(login,password);
+            return account;
+        }
+        return account;
+    }
+
+    @Override
+    public void clearCart() {
+        cart.emptyCart();
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
+        return orderManager.getOrdersOfAccount(account);
     }
 
     @Override

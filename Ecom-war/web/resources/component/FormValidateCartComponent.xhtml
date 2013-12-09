@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <composite:interface>
         <composite:attribute name="title" />
         <!--ajouter des attributs pour le cas ou l'utilisateur est connecté -->
@@ -14,28 +15,32 @@
             <h2>#{cc.attrs.title}</h2>
             <p:panel header="Adresse de Livraison">  
                 <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
-                    <h:outputLabel for="firstname" value="Prenom : " />  
-                    <p:inputText id="firstName" />
-                    <h:outputLabel for="lastName" value="Nom : "/>  
-                    <p:inputText id="lastName" />
-                    <h:outputLabel for="address" value="Addresse : "/>  
-                    <p:inputText id="address" />
-                    <h:outputLabel for="postalCode" value="Code Postale : "/>  
-                    <p:inputText id="postalCode" />
+                    <h:outputLabel for="firstName" value="Prenom : " />  
+                    <p:inputText id="firstName" binding="#{firstName}"/>
+                    <h:outputLabel for="lastName" value="Nom : " />  
+                    <p:inputText id="lastName" binding="#{lastName}"/>
+                    <h:outputLabel for="street" value="Rue : " />  
+                    <p:inputText id="street" binding="#{street}" />
+                    <h:outputLabel for="postalCode" value="Code Postale : " />  
+                    <p:inputText id="postalCode" binding="#{postalCode}" />
                     <h:outputLabel for="city" value="Ville : "/>  
-                    <p:inputText id="city" />
-                    <h:outputLabel for="pay-button"/>  
-                    <h:commandButton id="pay-button" class="paypal-button"/>  
+                    <p:inputText id="city"  binding="#{city}"/>
+                    <h:outputLabel for="pbutton"/>  
+                    <h:commandButton id="pbutton" class="paypal-button" 
+                                     action="Cart.xhtml" 
+                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
                 </h:panelGrid>  
             </p:panel>         
             <p:panel header="Connexion">  
                 <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
                     <h:outputLabel for="login" value="Login : "/>  
-                    <p:inputText id="login" />
+                    <p:inputText id="login" binding="#{login}" />
                     <h:outputLabel for="password" value="Mot de passe : "/>  
-                    <p:inputText id="password" />
+                    <p:inputText id="password" binding="#{password}" />
                     <h:outputLabel for="connexionButton"/>  
-                    <h:commandButton id="connexionButton" value="Se connecter"/>
+                    <h:commandButton id="connexionButton" value="Se connecter" action="Cart.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
+                    <h:outputLabel for="accountCreationButton"/> 
+                    <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>  

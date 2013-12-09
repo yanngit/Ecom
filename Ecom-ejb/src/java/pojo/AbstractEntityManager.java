@@ -35,4 +35,8 @@ public abstract class AbstractEntityManager<T> {
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
+
+    public void flush() {
+        getEntityManager().flush();
+    }
 }

@@ -4,9 +4,12 @@
  */
 package managed;
 
+import entity.AddressEntity;
 import entity.BeverageEntity;
+import entity.ClientAccountEntity;
 import entity.CocktailEntity;
 import entity.DecorationEntity;
+import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import pojo.Deliverable;
+import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 
 /**
@@ -29,8 +33,13 @@ public class DataManagedBean {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
+    private AddressEntity entireAddress = null;
+    private OrderEntity order = null;
     private int quantity = 1;
     private CocktailEntity cocktailQuantity = null;
+    private ClientAccountEntity account = null;
+    private boolean displayOrders = false;
+    private boolean displayAddresses = false;
 
     public DataManagedBean() {
         super();
@@ -38,6 +47,72 @@ public class DataManagedBean {
     
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail){
+        return client.getQuantityForCocktail(cocktail);
+    }
+
+    public void increaseQuantity(CocktailEntity cocktail) {
+        /*Si c'est la première incrémentation pas de problème*/
+        if (cocktailQuantity == null) {
+            cocktailQuantity = cocktail;
+            quantity++;
+        } else {
+            /*Si on incrémente le meme cocktail OK*/
+            if (cocktailQuantity.equals(cocktail)) {
+                quantity++;
+            } /*Sinon on repars à 2 et on oublie ce qui c'est passé avant*/ else {
+                cocktailQuantity = cocktail;
+                quantity = 2;
+            }
+        }
+    }
+
+    public void decreaseQuantity(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail) && quantity > 1) {
+                quantity--;
+            }
+        }
+    }
+
+    /*Récupérer la quantity a afficher pour la mise en panier, local au bean*/
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail)) {
+                return String.valueOf(quantity);
+            }
+        }
+        return "1";
+    }
+
+    public String getLogin() {
+        return account.getLogin();
+    }
+
+    public void createAccount(String login, String password, AddressEntity address) {
+        account = new ClientAccountEntity();
+        account.setLogin(login);
+        account.setPassword(password);
+        account.setDelivery_address(address);
+        client.addClient(account);
+    }
+
+    public void connect(String login, String password) {
+        account = client.connect(login, password);
+    }
+
+    public String disconnect() {
+        if (account != null) {
+            account = null;
+        }
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public boolean isConnected() {
+        return account != null;
+    }
+
+    /*récupérer le nb de cocktail de type cocktail dans le caddie*/
+    public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
     }
 
@@ -92,12 +167,8 @@ public class DataManagedBean {
         return client.getCocktail(id);
     }
 
-    public CocktailEntity getCocktailFull(Long id) {
-        return client.getCocktailFull(id);
-    }
-
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail.getID());
+        return client.getCocktailFull(cocktail);
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -108,8 +179,8 @@ public class DataManagedBean {
         return client.getCocktailBeverages(cocktail);
     }
 
-    public List<Deliverable> getCocktailDeliverables(Long id) {
-        return getCocktailFull(id).getDeliverables();
+    public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
+        return cocktail.getDeliverables();
     }
 
     public List<CocktailEntity> getListCocktails() {
@@ -216,5 +287,63 @@ public class DataManagedBean {
             }
         }
         return list;
+    }
+
+    //ajouter par bach
+    public AddressEntity creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+        //System.out.println(city);
+        entireAddress = new AddressEntity();
+        order = new OrderEntity();
+        List<OrderEntity> listOrder = new ArrayList<>();
+        List<AddressEntity> listAddress = new ArrayList<>();
+
+        entireAddress.setFirst_name(firstName);
+        entireAddress.setSurname(lastName);
+        entireAddress.setStreet(street);
+        entireAddress.setPostal_code(postalCode);
+        entireAddress.setCity(city);
+        entireAddress.setCountry("France");
+        entireAddress.setOrders(null);
+        // Persistance de l'addresse saiasie et
+        //Récuperation de l'addresse persistée
+        AddressEntity tempA = client.addAddress(entireAddress);
+        listAddress.add(tempA);//client.getAddress(tempA.getId()));
+
+        order.setCocktails(client.getCartContent());
+        order.setStatus(OrderStateEnum.PAYED);
+        order.setAddresses(listAddress);
+
+        //Persistance de la commande
+        OrderEntity tempO = client.addOrder(order);
+        listOrder.add(tempO);//client.getOrder(tempO.getId()));
+
+        client.getAddress(tempA.getId()).setOrders(listOrder);
+        client.clearCart();
+        return client.getAddress(tempA.getId());
+    }
+
+    public void setDisplayOrders(boolean b) {
+        displayOrders = b;
+        displayAddresses = false;
+    }
+
+    public boolean getDisplayOrders() {
+        return displayOrders;
+    }
+
+    public void setDisplayAddresses(boolean b) {
+        displayAddresses = b;
+        displayOrders = false;
+    }
+
+    public boolean getDisplayAddresses() {
+        return displayAddresses;
+    }
+
+    public List<OrderEntity> getOrdersOfAccount() {
+        if (account != null) {
+            return client.getOrdersOfAccount(account);
+        }
+        return null;
     }
 }

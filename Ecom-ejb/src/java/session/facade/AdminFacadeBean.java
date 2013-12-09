@@ -122,6 +122,25 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         clientAccountManager.remove(client);
     }
 
+    @Override
+    public void terminateTransactions() {
+        beverageManager.flush();
+        decorationManager.flush();
+        cocktailManager.flush();
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
+
+    /* *************************************************************************
+     * Getter
+     */
+    /* Beverages */
+    @Override
+    public BeverageEntity getBeverage(Long ID) {
+        return beverageManager.find(ID);
+    }
+
     /* *************************************************************************
      * Getter
      */
@@ -147,6 +166,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     /* Decorations */
+    @Override
+    public DecorationEntity getDecoration(Long ID) {
+        return decorationManager.find(ID);
+    }
+
     @Override
     public List<DecorationEntity> getAllDecorations() {
         return decorationManager.findAll();
@@ -179,8 +203,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public CocktailEntity getCocktailFull(Long id) {
-        CocktailEntity cocktail = cocktailManager.find(id);
+    public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
         /* Force deliverables list instanciation and serialization */
         cocktail.getDeliverables().size();
         return cocktail;
@@ -227,6 +250,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     /* Addresses */
+
     @Override
     public List<AddressEntity> getAllAddresses() {
         return addressManager.findAll();
@@ -258,12 +282,22 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public Float getCartPrice() {
-        throw new UnsupportedOperationException("Not supported for the admin.");
+    public List<AddressEntity> getAllAddresses() {
+        return addressManager.findAll();
     }
 
+    /* Orders */
+    /* Clients */
     @Override
-    public Integer getCartSize() {
+    public List<ClientAccountEntity> getAllClients() {
+        return clientAccountManager.findAll();
+    }
+
+    /*
+     * Cart operations (unavailable for admin)
+     */
+    @Override
+    public void addArticleToCart(Long id, int qty) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
     /*
@@ -278,5 +312,38 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     @Override
     public String getQuantityForCocktail(CocktailEntity cocktail) {
         throw new UnsupportedOperationException("Not supported for the admin.");
+    }
+
+    @Override
+    public List<BeverageEntity> getCocktailBeverages(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AddressEntity getAddress(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    /*
+     * Getters
+     ************************************************************************* */
+
+    @Override
+    public OrderEntity getOrder(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ClientAccountEntity connect(String login, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void clearCart() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -13,11 +13,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@NamedQueries({
+    @NamedQuery(name = "getAccountByAuthentification", query = "SELECT a FROM ClientAccountEntity a WHERE a.login = :login and a.password = :password")
+})
 @Entity
 @Table(name = "CLIENTACCOUNT")
 public class ClientAccountEntity implements Serializable {
