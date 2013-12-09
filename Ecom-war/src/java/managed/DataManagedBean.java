@@ -11,8 +11,12 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -40,9 +44,15 @@ public class DataManagedBean {
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
     private boolean displayAddresses = false;
+    private MessageDigest md = null;
 
     public DataManagedBean() {
         super();
+        try {
+            md = MessageDigest.getInstance("md5");
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getLogin() {
@@ -50,15 +60,29 @@ public class DataManagedBean {
     }
 
     public void createAccount(String login, String password, AddressEntity address) {
+        md.reset();
         account = new ClientAccountEntity();
         account.setLogin(login);
-        account.setPassword(password);
+        byte[] encoded = md.digest(password.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < encoded.length; i++) {
+            sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        account.setPassword(sb.toString());
         account.setDelivery_address(address);
         client.addClient(account);
     }
 
     public void connect(String login, String password) {
-        account = client.connect(login, password);
+        if (account == null) {
+            md.reset();
+            byte[] encoded = md.digest(password.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < encoded.length; i++) {
+                sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            account = client.connect(login, sb.toString());
+        }
     }
 
     public String disconnect() {
@@ -71,8 +95,8 @@ public class DataManagedBean {
     public boolean isConnected() {
         return account != null;
     }
-    
-    public AddressEntity getAccountAddress(){
+
+    public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
 

@@ -229,7 +229,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public ClientAccountEntity connect(String login, String password) {
         if(account == null){
             account = clientAccountManager.getAccountByAuthentification(login,password);
-            return account;
         }
         return account;
     }

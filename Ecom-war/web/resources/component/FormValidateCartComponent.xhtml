@@ -38,7 +38,7 @@
                         <h:outputLabel for="login" value="Login : "/>  
                         <p:inputText id="login" binding="#{login}" />
                         <h:outputLabel for="password" value="Mot de passe : "/>  
-                        <p:inputText id="password" binding="#{password}" />
+                        <p:inputText type="password" id="password" binding="#{password}" />
                         <h:outputLabel for="accountCreationButton"/>  
                         <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
                     </h:panelGrid>

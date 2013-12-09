@@ -1,6 +1,8 @@
 package session.manager;
 
 import entity.ClientAccountEntity;
+import entity.ClientAccountEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +27,11 @@ public class ClientAccountManagerBean extends AbstractEntityManager<ClientAccoun
         return em;
     }
     
-    public ClientAccountEntity getAccountByAuthentification(String login, String password){
-        return (ClientAccountEntity) em.createNamedQuery("getAccountByAuthentification").setParameter("login",login).setParameter("password",password).getSingleResult();
+    public ClientAccountEntity getAccountByAuthentification(String login, String password) {
+        List<ClientAccountEntity> res = em.createNamedQuery("getAccountByAuthentification").setParameter("login",login).setParameter("password",password).getResultList();
+        if(res.size() > 0){
+            return res.get(0);
+        }
+        return null;
     }
 }
