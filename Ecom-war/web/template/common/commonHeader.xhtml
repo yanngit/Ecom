@@ -74,13 +74,6 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
-
-                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
-                                <!--UTILISER COMMANDBUTTON pour JS-->
-                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
-                                    #{dataManagedBean.getLogin()} - Deconnection
-                                </h:commandLink>
-                            </ui:fragment>   
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" >
                                     Connection
@@ -92,6 +85,13 @@
                                 Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
                             </h:outputLink>
                         </li>
+                        <c:if test="#{dataManagedBean.connected}">
+                            <li>
+                                <h:outputLink value="Account.xhtml" >
+                                    #{dataManagedBean.getLogin()}
+                                </h:outputLink>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
             </h:form>

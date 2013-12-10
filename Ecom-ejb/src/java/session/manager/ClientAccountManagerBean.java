@@ -1,7 +1,6 @@
 package session.manager;
 
 import entity.ClientAccountEntity;
-import entity.ClientAccountEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
