@@ -162,6 +162,12 @@ div.span2.right {
     float: right;
 }
 
+.p-quantity {
+    display: inline-block;
+    position: relative;
+    top: 30px;
+}
+
 /*panier*/
 .total-cart {
     float: right;

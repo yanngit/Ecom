@@ -15,9 +15,18 @@
                 <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
             </div>
             <div class="caption">
-                <h3 class="title-cocktail">#{cc.attrs.item.name} - X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</h3>
+                <h3 class="title-cocktail">#{cc.attrs.item.name}</h3>
                 <div class="text-center">
-                    <div class="btn-group">
+                    <div class="btn-group" >
+                        <h:commandButton value="+"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.increaseQuantity(cc.attrs.item)}">
+                        </h:commandButton>
+                        <h:commandButton value="-"
+                                         styleClass="btn"
+                                         action="#{dataManagedBean.decreaseQuantity(cc.attrs.item)}">
+                        </h:commandButton>
+                        <br /> <br />
                         <h:commandButton value=" #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}" image="#{resource['img:info_small.png']}"
                                          alt="Détails du cocktail"
                                          styleClass="btn"
@@ -27,16 +36,9 @@
                                          alt="Ajouter le cocktail au panier"
                                          styleClass="btn btn-success"
                                          action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
-                        </h:commandButton>
-                        <h:commandButton value="+"
-                                         styleClass="btn"
-                                         action="#{dataManagedBean.increaseQuantity(cc.attrs.item)}">
-                        </h:commandButton>
-                        <h:commandButton value="-"
-                                         styleClass="btn"
-                                         action="#{dataManagedBean.decreaseQuantity(cc.attrs.item)}">
-                        </h:commandButton>
+                        </h:commandButton>   
                     </div>
+                    <p class="p-quantity">X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</p>
                 </div>
             </div>
         </li>
