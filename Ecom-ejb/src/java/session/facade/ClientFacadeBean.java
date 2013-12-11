@@ -227,16 +227,22 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public ClientAccountEntity connect(String login, String password) {
-        if(account == null){
-            account = clientAccountManager.getAccountByAuthentification(login,password);
-            return account;
-        }
-        return account;
+        return clientAccountManager.getAccountByAuthentification(login,password);
     }
 
     @Override
     public void clearCart() {
         cart.emptyCart();
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
+        return orderManager.getOrdersOfAccount(account);
+    }
+
+    @Override
+    public void modifyAddress(AddressEntity address) {
+        addressManager.edit(address);
     }
 
     @Override

@@ -9,7 +9,7 @@
     <composite:interface>
     </composite:interface>
     <composite:implementation>
-        <h:form id="form" class="span5 offset4">        
+        <h:form id="form-connection" class="span5 offset4">        
             <p:panel header="Connexion">  
                 <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
                     <h:outputLabel for="login" value="Login : "/>  
@@ -17,7 +17,7 @@
                     <h:outputLabel for="password" value="Mot de passe : "/>  
                     <p:inputText id="password" type="password" binding="#{password}" />
                     <h:outputLabel for="connexionButton"/>  
-                    <h:commandButton id="connexionButton" value="Se connecter" action="Cart.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
+                    <h:commandButton id="connexionButton" value="Se connecter" action="Account.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                 </h:panelGrid>
             </p:panel>
         </h:form>  

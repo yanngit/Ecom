@@ -16,11 +16,14 @@
                     <h2>#{cc.attrs.title}</h2>
                     <div class="well well-small">
                         <ul class="thumbnails">
-                            <li class="span2 thumbnail">
+                            <li class="span1 thumbnail">
                                 <h:commandButton action="#{dataManagedBean.setDisplayOrders(true)}" image="#{resource['img:my_orders.png']}" />
                             </li>
-                            <li class="span2 thumbnail">
+                            <li class="span1 thumbnail">
                                 <h:commandButton action="#{dataManagedBean.setDisplayAddresses(true)}" image="#{resource['img:my_addresses.png']}" />
+                            </li>
+                            <li class="span1 thumbnail">
+                                <h:commandButton action="#{dataManagedBean.disconnect()}" image="#{resource['img:logout.png']}" />
                             </li>
                         </ul>
                     </div>
@@ -62,13 +65,7 @@
                 </div>
             </ui:fragment>
             <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
-                <div class="well well-small">
-                    <ul class="thumbnails">
-                        <li class="span2 thumbnail">
-                            <div>First address</div>
-                        </li>
-                    </ul>
-                </div>
+                <component:FormAddressComponent title="Mon adresse" first_name="#{dataManagedBean.accountAddress.first_name}" surname="#{dataManagedBean.accountAddress.surname}" street="#{dataManagedBean.accountAddress.street}" postal_code="#{dataManagedBean.accountAddress.postal_code}" city="#{dataManagedBean.accountAddress.city}"/>
             </ui:fragment>
         </ui:fragment>
     </composite:implementation>

@@ -9,10 +9,6 @@
                 <img src="#{resource['img:banniere.jpg']}"
                      alt="Bannière du site"
                      class="banniereImg"/>
-                <div class="banniereText">
-                    <h1>
-                    </h1>
-                </div>
             </div>
             <h:form transient="true">
                 <div class="navbar navbar-inner">
@@ -78,12 +74,15 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
+<<<<<<< HEAD
 
                             <ui:fragment rendered="#{dataManagedBean.isConnected()}">
                                 <h:commandLink action="#{dataManagedBean.disconnect()}"  >
                                     #{dataManagedBean.getLogin()} - Deconnection
                                 </h:commandLink>
                             </ui:fragment>   
+=======
+>>>>>>> dev_yann
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" >
                                     Connection
@@ -95,6 +94,13 @@
                                 Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
                             </h:outputLink>
                         </li>
+                        <c:if test="#{dataManagedBean.connected}">
+                            <li>
+                                <h:outputLink value="Account.xhtml" >
+                                    #{dataManagedBean.getLogin()}
+                                </h:outputLink>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
             </h:form>

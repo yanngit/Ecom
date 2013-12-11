@@ -11,8 +11,12 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -40,9 +44,99 @@ public class DataManagedBean {
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
     private boolean displayAddresses = false;
+    private MessageDigest md = null;
 
     public DataManagedBean() {
         super();
+        try {
+            md = MessageDigest.getInstance("md5");
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String getLogin() {
+        return account.getLogin();
+    }
+
+    public void createAccount(String login, String password, AddressEntity address) {
+        md.reset();
+        account = new ClientAccountEntity();
+        account.setLogin(login);
+        byte[] encoded = md.digest(password.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < encoded.length; i++) {
+            sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        account.setPassword(sb.toString());
+        account.setDelivery_address(address);
+        client.addClient(account);
+    }
+
+    public void connect(String login, String password) {
+        if (account == null) {
+            md.reset();
+            byte[] encoded = md.digest(password.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < encoded.length; i++) {
+                sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            account = client.connect(login, sb.toString());
+        }
+    }
+
+    public String disconnect() {
+        if (account != null) {
+            account = null;
+        }
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public boolean isConnected() {
+        return account != null;
+    }
+
+    public AddressEntity getAccountAddress() {
+        return account.getDelivery_address();
+    }
+
+    /*récupérer le nb de cocktail de type cocktail dans le caddie*/
+    public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
+        return client.getQuantityForCocktail(cocktail);
+    }
+
+    public void increaseQuantity(CocktailEntity cocktail) {
+        /*Si c'est la première incrémentation pas de problème*/
+        if (cocktailQuantity == null) {
+            cocktailQuantity = cocktail;
+            quantity++;
+        } else {
+            /*Si on incrémente le meme cocktail OK*/
+            if (cocktailQuantity.equals(cocktail)) {
+                quantity++;
+            } /*Sinon on repars à 2 et on oublie ce qui c'est passé avant*/ else {
+                cocktailQuantity = cocktail;
+                quantity = 2;
+            }
+        }
+    }
+
+    public void decreaseQuantity(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail) && quantity > 1) {
+                quantity--;
+            }
+        }
+    }
+
+    /*Récupérer la quantity a afficher pour la mise en panier, local au bean*/
+    public String getQuantityForCocktail(CocktailEntity cocktail) {
+        if (cocktailQuantity != null) {
+            if (cocktailQuantity.equals(cocktail)) {
+                return String.valueOf(quantity);
+            }
+        }
+        return "1";
     }
     
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
@@ -345,5 +439,19 @@ public class DataManagedBean {
             return client.getOrdersOfAccount(account);
         }
         return null;
+    }
+
+    
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city){
+        if(account != null){
+            AddressEntity address = account.getDelivery_address();
+            address.setFirst_name(firstName);
+            address.setSurname(lastName);
+            address.setStreet(street);
+            address.setPostal_code(postalCode);
+            address.setCity(city);
+            /*MANQUE COUNTRY*/
+            client.modifyAddress(address);
+        }
     }
 }
