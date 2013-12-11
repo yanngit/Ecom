@@ -32,6 +32,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
 
     @Override
     public CocktailEntity create(CocktailEntity cocktail) {
+        System.out.println("Creating : " + cocktail.toString());
         boolean available = true;
         String name = cocktail.getName();
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
@@ -48,11 +49,28 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         cocktail.setAvailable(available);
         cocktail.setStatePublication(true);
         em.persist(cocktail);
+        for (Deliverable d : list) {
+            if (d instanceof BeverageEntity) {
+                BeverageEntity bev = beverageManager.find(d.getID());
+                /* Instantiate the cocktails list */
+                bev.getCocktails().size();
+                bev.getCocktails().add(cocktail);
+                beverageManager.edit(bev);
+            } else if (d instanceof DecorationEntity) {
+                DecorationEntity deco = decorationManager.find(d.getID());
+                /* Instantiate the cocktails list */
+                deco.getCocktails().size();
+                deco.getCocktails().add(cocktail);
+                decorationManager.edit(deco);
+            }
+        }
+        System.out.println(" Created : " + cocktail.toString());
         return cocktail;
     }
 
     @Override
     public CocktailEntity edit(CocktailEntity cocktail) {
+        System.out.println("Editing : " + cocktail.toString());
         boolean available = true;
         String name = cocktail.getName();
         name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
@@ -68,7 +86,23 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         cocktail.setPrice(price);
         cocktail.setAvailable(available);
         cocktail.setStatePublication(true);
-        em.merge(cocktail);
+        cocktail = em.merge(cocktail);
+        for (Deliverable d : list) {
+            if (d instanceof BeverageEntity) {
+                BeverageEntity bev = beverageManager.find(d.getID());
+                /* Instantiate the cocktails list */
+                bev.getCocktails().size();
+                bev.getCocktails().add(cocktail);
+                beverageManager.edit(bev);
+            } else if (d instanceof DecorationEntity) {
+                DecorationEntity deco = decorationManager.find(d.getID());
+                /* Instantiate the cocktails list */
+                deco.getCocktails().size();
+                deco.getCocktails().add(cocktail);
+                decorationManager.edit(deco);
+            }
+        }
+        System.out.println(" Edited : " + cocktail.toString());
         return cocktail;
     }
 

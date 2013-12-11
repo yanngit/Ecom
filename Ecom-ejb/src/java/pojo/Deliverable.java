@@ -9,6 +9,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +26,17 @@ public class Deliverable extends Product {
     @NotNull
     protected Integer quantity;
     /* n-to-n relation with cocktails */
-    @ManyToMany(mappedBy = "deliverables")
+    @ManyToMany
+    @JoinTable(
+            name = "COCKTAIL_COMPOSITION",
+            joinColumns =
+            @JoinColumn(
+            name = "DELIVERABLE_ID",
+            referencedColumnName = "ID"),
+            inverseJoinColumns =
+            @JoinColumn(
+            name = "COCKTAIL_ID",
+            referencedColumnName = "ID"))
     protected List<CocktailEntity> cocktails;
 
     protected Deliverable() {

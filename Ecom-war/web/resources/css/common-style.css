@@ -23,7 +23,7 @@
 .image-fond {
     position: fixed;
     z-index: -1;
-    left: 20%;    
+    left: 20%;
 }
 
 /* Navbar dropdown.
@@ -47,11 +47,11 @@
     visibility: visible;
 }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a { 
-background-color: blue;
-border-radius: 4px;
-color: blue;
-text-decoration: none;
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
+    background-color: blue;
+    border-radius: 4px;
+    color: blue;
+    text-decoration: none;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -98,17 +98,17 @@ form[id$="form"] h2 {
     line-height: 10px;
 }
 .form-validate-cart fieldset {
-  padding: 1em;
-  font:80%/1 sans-serif;
-  }
+    padding: 1em;
+    font:80%/1 sans-serif;
+}
 .form-validate-cart label {
-  float:left;
-  width:25%;
-  margin-right:0.5em;
-  padding-top:0.2em;
-  text-align:right;
-  font-weight:bold;
-  }
+    float:left;
+    width:25%;
+    margin-right:0.5em;
+    padding-top:0.2em;
+    text-align:right;
+    font-weight:bold;
+}
 
 
 .paypal-button {
@@ -172,4 +172,10 @@ div.span2.right {
 
 .ShowBev{
     float:left;
+}
+
+
+/* Cocktails details */
+.cocktail-recipe {
+    white-space: pre-line;
 }
