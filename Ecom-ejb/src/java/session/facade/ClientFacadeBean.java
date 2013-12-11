@@ -37,7 +37,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     private ClientAccountManagerBean clientAccountManager;
     @EJB
     private CartFacadeLocalItf cart;
-    private ClientAccountEntity account = null;
 
     /*
      * Operation on Deliverables
@@ -227,10 +226,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public ClientAccountEntity connect(String login, String password) {
-        if(account == null){
-            account = clientAccountManager.getAccountByAuthentification(login,password);
-        }
-        return account;
+        return clientAccountManager.getAccountByAuthentification(login,password);
     }
 
     @Override

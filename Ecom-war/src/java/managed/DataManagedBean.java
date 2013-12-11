@@ -338,14 +338,14 @@ public class DataManagedBean {
     
     public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city){
         if(account != null){
-            AddressEntity add = account.getDelivery_address();
-            add.setFirst_name(firstName);
-            add.setSurname(lastName);
-            add.setStreet(street);
-            add.setPostal_code(postalCode);
-            add.setCity(city);
+            AddressEntity address = account.getDelivery_address();
+            address.setFirst_name(firstName);
+            address.setSurname(lastName);
+            address.setStreet(street);
+            address.setPostal_code(postalCode);
+            address.setCity(city);
             /*MANQUE COUNTRY*/
-            client.modifyAddress(add);
+            client.modifyAddress(address);
         }
     }
 }
