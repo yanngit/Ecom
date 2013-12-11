@@ -55,17 +55,8 @@ public class CocktailEntity extends Product implements Comparable<CocktailEntity
     /* Cascade : when you persist a cocktail, persist all its Deliverables
      *           You can update deliverables through cocktail (merge)
      */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "COCKTAIL_COMPOSITION",
-            joinColumns =
-            @JoinColumn(
-            name = "COCKTAIL_ID",
-            referencedColumnName = "ID"),
-            inverseJoinColumns =
-            @JoinColumn(
-            name = "DELIVERABLE_ID",
-            referencedColumnName = "ID"))
+    @ManyToMany(fetch = FetchType.LAZY,
+            mappedBy = "cocktails")
     @NotNull
     protected List<Deliverable> deliverables;
     @ManyToMany(mappedBy = "cocktails")

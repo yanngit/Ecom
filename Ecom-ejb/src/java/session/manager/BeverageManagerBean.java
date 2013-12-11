@@ -59,6 +59,7 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
 
     @Override
     public void remove(BeverageEntity beverage) {
+        System.out.println("Removing :" + beverage.toString());
         beverage = this.find(beverage.getID());
         List<CocktailEntity> cocktails = beverage.getCocktails();
         /* Remove all cocktails that need this beverage */
@@ -66,5 +67,6 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
             cocktailManagerBean.remove(cocktails.get(i));
         }
         em.remove(beverage);
+        System.out.println(" Removed :" + beverage.toString());
     }
 }
