@@ -89,4 +89,6 @@ public interface ClientFacadeRemoteItf {
     public void terminateTransactions();
 
     public String getQuantityForCocktail(CocktailEntity cocktail);    
+    
+    public void modifyAddress(AddressEntity address);
 }

@@ -335,4 +335,17 @@ public class DataManagedBean {
         }
         return null;
     }
+    
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city){
+        if(account != null){
+            AddressEntity add = account.getDelivery_address();
+            add.setFirst_name(firstName);
+            add.setSurname(lastName);
+            add.setStreet(street);
+            add.setPostal_code(postalCode);
+            add.setCity(city);
+            /*MANQUE COUNTRY*/
+            client.modifyAddress(add);
+        }
+    }
 }

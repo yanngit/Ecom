@@ -8,10 +8,10 @@
 
     <ui:define name="content">
          <c:if test="#{dataManagedBean.connected}">
-            <component:FormValidateCartComponent title="Valider mon panier" first_name="#{dataManagedBean.accountAddress.first_name}" />
+            <component:FormValidateCartComponent title="Valider mon panier" first_name="#{dataManagedBean.accountAddress.first_name}" surname="#{dataManagedBean.accountAddress.surname}" street="#{dataManagedBean.accountAddress.street}" postal_code="#{dataManagedBean.accountAddress.postal_code}" city="#{dataManagedBean.accountAddress.city}" />
         </c:if>
         <c:if test="#{!dataManagedBean.connected}">
-            <component:FormValidateCartComponent title="Valider mon panier" first_name=" " />
+            <component:FormValidateCartComponent title="Valider mon panier" />
         </c:if>
         
     </ui:define>

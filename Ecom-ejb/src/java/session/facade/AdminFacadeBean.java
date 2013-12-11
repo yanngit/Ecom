@@ -328,4 +328,9 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void modifyAddress(AddressEntity address) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
