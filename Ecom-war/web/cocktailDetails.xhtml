@@ -14,7 +14,9 @@
                              alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
                         <p/>
                         <h:commandButton image="#{resource['img:cart.png']}"
-                                         styleClass="btn btn-success btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                         alt="Ajouter le cocktail au panier"
+                                         styleClass="btn btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                         title="Ajouter le cocktail au panier"
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton>
