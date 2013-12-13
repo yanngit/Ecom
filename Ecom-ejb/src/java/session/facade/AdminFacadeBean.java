@@ -172,6 +172,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         return decorationManager.findAll();
     }
 
+    @Override
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return cocktailManager.getCocktailDecorations(id);
     }
@@ -332,6 +333,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public void modifyAddress(AddressEntity address) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Float getCartPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Integer getCartSize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
