@@ -142,75 +142,6 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public void removeOrder(OrderEntity order) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /* Client Account */
-    @Override
-    public ClientAccountEntity addClient(ClientAccountEntity client) {
-        return clientAccountManager.create(client);
-    }
-
-    @Override
-    public void removeClient(ClientAccountEntity client) {
-        clientAccountManager.remove(client);
-    }
-
-    @Override
-    public void terminateTransactions() {
-        beverageManager.flush();
-        decorationManager.flush();
-        cocktailManager.flush();
-        addressManager.flush();
-        orderManager.flush();
-        clientAccountManager.flush();
-    }
-
-    /* *************************************************************************
-     * Getter
-     */
-    /* Beverages */
-    @Override
-    public BeverageEntity getBeverage(Long ID) {
-        return beverageManager.find(ID);
-    }
-
-    /* Client Account */
-    @Override
-    public ClientAccountEntity addClient(ClientAccountEntity client) {
-        return clientAccountManager.create(client);
-    }
-
-    @Override
-    public void removeClient(ClientAccountEntity client) {
-        clientAccountManager.remove(client);
-    }
-
-    @Override
-    public void terminateTransactions() {
-        beverageManager.flush();
-        decorationManager.flush();
-        cocktailManager.flush();
-        addressManager.flush();
-        orderManager.flush();
-        clientAccountManager.flush();
-    }
-
-    /* *************************************************************************
-     * Getter
-     */
-    /* Beverages */
-    @Override
-    public BeverageEntity getBeverage(Long ID) {
-        return beverageManager.find(ID);
-    }
-
-    /* *************************************************************************
-     * Getter
-     */
-    /* Beverages */
-    @Override
     public List<BeverageEntity> getAllBeverages() {
         return beverageManager.findAll();
     }
@@ -344,16 +275,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<CocktailEntity> getCartContent() {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
-
-    @Override
-    public void addArticleToCart(Long id, int qty) throws EcomException {
-        throw new UnsupportedOperationException("Not supported for the admin.");
-    }
-
-    @Override
-    public void removeArticleFromCart(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported for the admin.");
-    }
+    
     /*
      * Getters
      ************************************************************************* */

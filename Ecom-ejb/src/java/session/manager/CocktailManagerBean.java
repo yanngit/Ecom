@@ -106,27 +106,6 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         return cocktail;
     }
 
-    @Override
-    public CocktailEntity edit(CocktailEntity cocktail) {
-        boolean available = true;
-        String name = cocktail.getName();
-        name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
-        cocktail.setName(name);
-        List<Deliverable> list = cocktail.getDeliverables();
-        float price = MARGE;
-        for (Deliverable d : list) {
-            price += d.getPrice();
-            if (d.getQuantity() <= 0) {
-                available = false;
-            }
-        }
-        cocktail.setPrice(price);
-        cocktail.setAvailable(available);
-        cocktail.setStatePublication(true);
-        em.merge(cocktail);
-        return cocktail;
-    }
-
     /*Get the entity manager used by the CocktailManagerBean. Used by the abstract Manager only.*/
     @Override
     protected EntityManager getEntityManager() {
