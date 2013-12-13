@@ -32,9 +32,15 @@ public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
+    /**
+     * Identifier of the order
+     */
     protected Long id;
     @Column(name="STATUS")
     @Enumerated(value=EnumType.ORDINAL)
+    /**
+     * Status of the order
+     */
     protected OrderStateEnum status;
     @ManyToMany
     @JoinTable(name="ORDER_ADDRESS",
@@ -45,6 +51,9 @@ public class OrderEntity implements Serializable {
             name="ADDRESS_ID",
             referencedColumnName="ID"))
     @NotNull
+    /**
+     * List of addresses associated to the order
+     */
     protected List<AddressEntity> addresses;
     
     @ManyToMany
@@ -56,53 +65,79 @@ public class OrderEntity implements Serializable {
             name="COCKTAIL_ID",
             referencedColumnName="ID"))
     @NotNull
+    /**
+     * List of cocktails associated to the order
+     */
     protected List<CocktailEntity> cocktails;
-    /*Il manque le client !!!! */
 
+    /**
+     * Get the list of cocktails associated to the order
+     * @return A list of CocktailEntity associated to the order
+     */
     public List<CocktailEntity> getCocktails(){
         return cocktails;
     }
     
+    /**
+     * Set the list of cocktails associated to the order
+     * @param list A list of CocktailEntity
+     */
     public void setCocktails(List<CocktailEntity> list){
         cocktails = list;
     }
     
-    
+    /**
+     * Get the list of addresses associated to the order
+     * @return A list of AddressEntity associated to the order
+     */
     public List<AddressEntity> getAddresses() {
         return addresses;
     }
 
+    /**
+     * Set the list of addresses associated to the order
+     * @param addresses A list of AddressEntity
+     */
     public void setAddresses(List<AddressEntity> addresses) {
         this.addresses = addresses;
     }
     
-    /*@JoinColumn(name = "CONTENT")
-    protected List<CocktailEntity> content;*/
-
+    /**
+     * Get the status of the order
+     * @return An OrderStateEnum representing the state r
+     */
     public OrderStateEnum getStatus() {
         return status;
     }
 
+    /**
+     * Set the status of the order
+     * @param status An OrderStateEnum representing the state
+     */
     public void setStatus(OrderStateEnum status) {
         this.status = status;
     }
 
-    /*public List<CocktailEntity> getContent() {
-        return content;
-    }*/
-
-    /*public void setContent(List<CocktailEntity> content) {
-        this.content = content;
-    }*/
-
+    /**
+     * Set the identifier associated to the order
+     * @param id A long representing the order identifier
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Get the identifier associated to the order
+     * @return A long representing the order identifier
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get the hash code of the order
+     * @return An int representing the hash code of the order
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -110,9 +145,13 @@ public class OrderEntity implements Serializable {
         return hash;
     }
 
+    /**
+     * Compare two orders 
+     * @param object The object to compare 
+     * @return True if orders are equals, false otherwise
+     */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof OrderEntity)) {
             return false;
         }
@@ -123,6 +162,10 @@ public class OrderEntity implements Serializable {
         return true;
     }
 
+    /**
+     * Get a string representation of the order
+     * @return A string representing the order
+     */
     @Override
     public String toString() {
         return "entity.OrderEntity[ id=" + id + " ]";

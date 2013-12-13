@@ -25,31 +25,57 @@ public class BeverageEntity extends Deliverable  {
     private static final long serialVersionUID = 1L;
     @Column(name="CAPACITY")
     @NotNull
-    protected Integer capacity; /* in cL */
+    /**
+     * The capacity of the beverage container, in cl
+     */
+    protected Integer capacity;
     @Column(name="DEGREE")
     @NotNull
+    /**
+     * The alcoholic degree of the beverage : if the beverage is not alcohol, the degree is equal to 0
+     */
     protected Integer alcoholicDegree;
 
     public BeverageEntity(){
         super();
     }
     
+    /**
+     * Get the capacity of the beverage container
+     * @return An Integer representing the capacity of the beverage container
+     */
     public Integer getCapacity() {
         return capacity;
     }
 
+    /**
+     * Set the capacity of the beverage container
+     * @param capacity An Integer representing the capacity 
+     */
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
+    /**
+     * Set the alcoholic degree of the beverage
+     * @return An Integer representing the alcoholic degree of the beverage
+     */
     public Integer getAlcoholicDegree() {
         return alcoholicDegree;
     }
 
+    /**
+     * Get the alcoholic degree of the beverage
+     * @param alcoholicDegree An Integer representing the alcoholic degree
+     */
     public void setAlcoholicDegree(Integer alcoholicDegree) {
         this.alcoholicDegree = alcoholicDegree;
     }
     
+   /**
+     * Get a string representation of the beverage
+     * @return A string representing the beverage
+     */
     @Override
     public String toString() {
         return "entity.BeverageEntity[" + ID + " : " + name + "]";

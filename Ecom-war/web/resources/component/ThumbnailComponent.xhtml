@@ -18,27 +18,28 @@
                 <h3 class="title-cocktail">#{cc.attrs.item.name}</h3>
                 <div class="text-center">
                     <div class="btn-group" >
-                        <h:commandButton value="+"
-                                         styleClass="btn"
-                                         action="#{dataManagedBean.increaseQuantity(cc.attrs.item)}">
-                        </h:commandButton>
-                        <h:commandButton value="-"
-                                         styleClass="btn"
-                                         action="#{dataManagedBean.decreaseQuantity(cc.attrs.item)}">
-                        </h:commandButton>
-                        <br /> <br />
-                        <h:commandButton value=" #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}" image="#{resource['img:info_small.png']}"
+                        <h:commandButton value=" #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}"
+                                         image="#{resource['img:info_small.png']}"
                                          alt="Détails du cocktail"
+                                         title="#{dataManagedBean.getCocktail(cc.attrs.item.ID).getRecipe()}"
                                          styleClass="btn"
                                          action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                         </h:commandButton>
+                    </div>
+                    <br/><br/>
+                    <div class="input-prepend">
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          alt="Ajouter le cocktail au panier"
-                                         styleClass="btn btn-success"
+                                         title="Ajouter le cocktail au panier"
+                                         styleClass="btn"
                                          action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
-                        </h:commandButton>   
+                        </h:commandButton>
+                        <h:inputText alt="Nombre de cocktails à ajouter au panier"
+                                     maxlength="3"
+                                     styleClass="input-mini"
+                                     value="#{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}"
+                                     title="Nombre de cocktails à ajouter au panier"/>
                     </div>
-                    <p class="p-quantity">X #{dataManagedBean.getQuantityForCocktail(cc.attrs.item)}</p>
                 </div>
             </div>
         </li>

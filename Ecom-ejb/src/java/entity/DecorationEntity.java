@@ -19,6 +19,10 @@ public class DecorationEntity extends Deliverable {
         super();
     }
     
+    /**
+     * Get a string representation of the decoration
+     * @return A string representing the decoration
+     */
     @Override
     public String toString() {
         return "entity.DecorationEntity[" + ID + " : " + name + " ]";
