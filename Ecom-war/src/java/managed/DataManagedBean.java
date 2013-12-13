@@ -221,14 +221,17 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
-        int qty = 1;
+    public String addArticleToCart(CocktailEntity cocktail, String number) throws EcomException {
+       /* int qty = 1;
         if (cocktailQuantity != null) {
             if (cocktailQuantity.equals(cocktail)) {
                 qty = quantity;
             }
+        }*/
+        if(number.equals("")){
+            number = "1";
         }
-        client.addArticleToCart(cocktail.getID(), qty);
+        client.addArticleToCart(cocktail.getID(), Integer.parseInt(number));
         quantity = 1;
         cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
