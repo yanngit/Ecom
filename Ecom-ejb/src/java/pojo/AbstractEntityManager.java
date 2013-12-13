@@ -24,16 +24,23 @@ public abstract class AbstractEntityManager<T> {
     }
 
     public T create(T entity) {
+        System.out.println("Persisting : " + entity.toString());
         getEntityManager().persist(entity);
+        System.out.println(" Persisted : " + entity.toString());
         return entity;
     }
 
     public T edit(T entity) {
-        return getEntityManager().merge(entity);
+        System.out.println("Merging : " + entity.toString());
+        entity = getEntityManager().merge(entity);
+        System.out.println(" Merged : " + entity.toString());
+        return entity;
     }
 
     public void remove(T entity) {
+        System.out.println("Removing : " + entity.toString());
         getEntityManager().remove(getEntityManager().merge(entity));
+        System.out.println(" Removed : " + entity.toString());
     }
 
     public void flush() {

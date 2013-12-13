@@ -141,6 +141,41 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         return beverageManager.find(ID);
     }
 
+    @Override
+    public void removeOrder(OrderEntity order) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /* Client Account */
+    @Override
+    public ClientAccountEntity addClient(ClientAccountEntity client) {
+        return clientAccountManager.create(client);
+    }
+
+    @Override
+    public void removeClient(ClientAccountEntity client) {
+        clientAccountManager.remove(client);
+    }
+
+    @Override
+    public void terminateTransactions() {
+        beverageManager.flush();
+        decorationManager.flush();
+        cocktailManager.flush();
+        addressManager.flush();
+        orderManager.flush();
+        clientAccountManager.flush();
+    }
+
+    /* *************************************************************************
+     * Getter
+     */
+    /* Beverages */
+    @Override
+    public BeverageEntity getBeverage(Long ID) {
+        return beverageManager.find(ID);
+    }
+
     /* Client Account */
     @Override
     public ClientAccountEntity addClient(ClientAccountEntity client) {
@@ -311,21 +346,6 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public List<AddressEntity> getAllAddresses() {
-        return addressManager.findAll();
-    }
-
-    /* Orders */
-    /* Clients */
-    @Override
-    public List<ClientAccountEntity> getAllClients() {
-        return clientAccountManager.findAll();
-    }
-
-    /*
-     * Cart operations (unavailable for admin)
-     */
-    @Override
     public void addArticleToCart(Long id, int qty) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
@@ -363,11 +383,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /* Orders */
+    /* Clients */
     @Override
     public OrderEntity getOrder(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+     * Cart operations (unavailable for admin)
+     */
     @Override
     public ClientAccountEntity connect(String login, String password) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
