@@ -1281,6 +1281,11 @@ textarea::-webkit-input-placeholder {
     margin-left: 10px;
 }
 
+input[type="text"].input-mini {
+    width: 30px;
+    padding: 2px;
+}
+
 .input-mini {
     width: 60px;
 }
