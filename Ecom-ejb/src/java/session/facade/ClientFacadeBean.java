@@ -245,24 +245,4 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         addressManager.edit(address);
     }
 
-    @Override
-    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
-        return orderManager.getOrdersOfAccount(account);
-    }
-
-    @Override
-    public void modifyAddress(AddressEntity address) {
-        addressManager.edit(address);
-    }
-
-    @Override
-    public List<OrderEntity> getOrdersOfAccount(ClientAccountEntity account) {
-        return orderManager.getOrdersOfAccount(account);
-    }
-
-    @Override
-    public String getQuantityForCocktail(CocktailEntity cocktail) {
-        return cart.getQuantityForCocktail(cocktail);
-    }
-
 }
