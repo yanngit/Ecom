@@ -8,7 +8,6 @@ import entity.BeverageEntity;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.List;
-import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

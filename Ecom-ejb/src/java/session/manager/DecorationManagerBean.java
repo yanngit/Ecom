@@ -4,7 +4,6 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import exceptions.EcomException;
 import java.util.List;
-import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
