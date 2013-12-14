@@ -45,6 +45,16 @@ public class DataManagedBean {
     private boolean displayOrders = false;
     private boolean displayAddresses = false;
     private MessageDigest md = null;
+    
+     private String qty = "1";
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String quantity) {
+        this.qty = quantity;
+    }
 
     public DataManagedBean() {
         super();
@@ -104,7 +114,7 @@ public class DataManagedBean {
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
     }
-
+    
     public void increaseQuantity(CocktailEntity cocktail) {
         /*Si c'est la première incrémentation pas de problème*/
         if (cocktailQuantity == null) {
@@ -221,18 +231,18 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public String addArticleToCart(CocktailEntity cocktail, String number) throws EcomException {
+    public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
        /* int qty = 1;
         if (cocktailQuantity != null) {
             if (cocktailQuantity.equals(cocktail)) {
                 qty = quantity;
             }
         }*/
-        if(number.equals("")){
-            number = "1";
+        if(qty.equals("")){
+            qty = "1";
         }
-        client.addArticleToCart(cocktail.getID(), Integer.parseInt(number));
-        quantity = 1;
+        client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
+        qty = "1";
         cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
     }

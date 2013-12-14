@@ -119,16 +119,16 @@ public class OrderEntity implements Serializable {
     }
 
     /**
-     * Set the identifier associated to the order
-     * @param id A long representing the order identifier
+     * Get the identifier associated to the order
+     * @return A long representing the order identifier
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Get the identifier associated to the order
-     * @return A long representing the order identifier
+     * Set the identifier associated to the order
+     * @param id A long representing the order identifier
      */
     public void setId(Long id) {
         this.id = id;

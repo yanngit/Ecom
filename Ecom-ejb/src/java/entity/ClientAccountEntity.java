@@ -20,6 +20,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ *
+ * @author yann
+ */
 @NamedQueries({
     @NamedQuery(name = "getAccountByAuthentification", query = "SELECT a FROM ClientAccountEntity a WHERE a.login = :login and a.password = :password")
 })

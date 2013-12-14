@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html">
     <composite:interface>
         <composite:attribute name="item" type="entity.CocktailEntity" />
@@ -27,13 +28,20 @@
                     </div>
                     <br/><br/>
                     <div class="input-prepend">
+                        <h:form id="addToCart">
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          alt="Ajouter le cocktail au panier"
                                          title="Ajouter le cocktail au panier"
                                          styleClass="btn"
-                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item,number.value)}">
+                                         action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
+                            <f:ajax execute="addToCart"/>
                         </h:commandButton>
-                        <h:inputText alt="Nombre de cocktails à ajouter au panier" maxlength="3" binding="#{number}" styleClass="input-mini" title="Nombre de cocktails à ajouter au panier" ></h:inputText>
+                        <h:inputText alt="Nombre de cocktails à ajouter au panier" 
+                                     maxlength="3" 
+                                     value="#{dataManagedBean.qty}"
+                                     styleClass="input-mini" 
+                                     title="Nombre de cocktails à ajouter au panier" />
+                        </h:form>
                     </div>
                 </div>
             </div>
