@@ -1,7 +1,8 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">#{dataManagedBean.currentCocktail.name}</ui:define>
     <ui:define name="content">
         <!-- Display an image, left-aligned, cocktail name and other info on
@@ -19,7 +20,12 @@
                                          title="Ajouter le cocktail au panier"
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
-                        </h:commandButton>
+                        </h:commandButton><br />
+                        <h:inputText alt="Nombre de cocktails à ajouter au panier" 
+                                     maxlength="3" 
+                                     value="#{dataManagedBean.qty}"
+                                     styleClass="input-mini-plus" 
+                                     title="Nombre de cocktails à ajouter au panier" />
                     </div>
                 </h:form>
             </div>

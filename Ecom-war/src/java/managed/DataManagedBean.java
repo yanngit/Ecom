@@ -39,14 +39,11 @@ public class DataManagedBean {
     private CocktailEntity currentCocktail = null;
     private AddressEntity entireAddress = null;
     private OrderEntity order = null;
-    private int quantity = 1;
-    private CocktailEntity cocktailQuantity = null;
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
     private boolean displayAddresses = false;
     private MessageDigest md = null;
-    
-     private String qty = "1";
+    private String qty = "1";
 
     public String getQty() {
         return qty;
@@ -113,40 +110,6 @@ public class DataManagedBean {
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
-    }
-    
-    public void increaseQuantity(CocktailEntity cocktail) {
-        /*Si c'est la première incrémentation pas de problème*/
-        if (cocktailQuantity == null) {
-            cocktailQuantity = cocktail;
-            quantity++;
-        } else {
-            /*Si on incrémente le meme cocktail OK*/
-            if (cocktailQuantity.equals(cocktail)) {
-                quantity++;
-            } /*Sinon on repars à 2 et on oublie ce qui c'est passé avant*/ else {
-                cocktailQuantity = cocktail;
-                quantity = 2;
-            }
-        }
-    }
-
-    public void decreaseQuantity(CocktailEntity cocktail) {
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail) && quantity > 1) {
-                quantity--;
-            }
-        }
-    }
-
-    /*Récupérer la quantity a afficher pour la mise en panier, local au bean*/
-    public String getQuantityForCocktail(CocktailEntity cocktail) {
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail)) {
-                return String.valueOf(quantity);
-            }
-        }
-        return "1";
     }
 
     /* Navigate to the cocktailDetails.xhtml page and record the cocktail we
@@ -232,18 +195,11 @@ public class DataManagedBean {
 
     /* Setters, symbolizing an action */
     public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
-       /* int qty = 1;
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail)) {
-                qty = quantity;
-            }
-        }*/
-        if(qty.equals("")){
+        if (qty.equals("")) {
             qty = "1";
         }
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
-        cocktailQuantity = null;
         return "index.xhtml?faces-redirect=true";
     }
 
@@ -348,9 +304,9 @@ public class DataManagedBean {
         }
         return null;
     }
-    
-    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city){
-        if(account != null){
+
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
+        if (account != null) {
             AddressEntity address = account.getDelivery_address();
             address.setFirst_name(firstName);
             address.setSurname(lastName);
