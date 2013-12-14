@@ -44,6 +44,42 @@ public class DataManagedBean {
     private boolean displayAddresses = false;
     private MessageDigest md = null;
     private String qty = "1";
+    private String currentCocktailAlcoholLetter = null;
+    private String currentCocktailSoftLetter = null;
+
+    public String getCurrentCocktailAlcoholLetter() {
+        return currentCocktailAlcoholLetter;
+    }
+
+    public void setCurrentCocktailAlcoholLetter(String currentCocktailAlcoholLetter) {
+        this.currentCocktailAlcoholLetter = currentCocktailAlcoholLetter;
+    }
+
+    public String displayCocktailAlcoholFirstLetter(String c) {
+        this.currentCocktailAlcoholLetter = c;
+        return "cocktailsAlcoholFirstLetter.xhtml?faces-redirect=true";
+    }
+
+    public List<CocktailEntity> getListCocktailsWithAlcoholByFirstLetter(String l) {
+        return client.getCocktailsWithAlcoholByFirstLetter(l.charAt(0));
+    }
+
+    public String getCurrentCocktailSoftLetter() {
+        return currentCocktailSoftLetter;
+    }
+
+    public void setCurrentCocktailSoftLetter(String currentCocktailAlcoholLetter) {
+        this.currentCocktailSoftLetter = currentCocktailAlcoholLetter;
+    }
+
+    public String displayCocktailVirginFirstLetter(String c) {
+        this.currentCocktailSoftLetter = c;
+        return "cocktailsVirginFirstLetter.xhtml?faces-redirect=true";
+    }
+
+    public List<CocktailEntity> getListCocktailsWithoutAlcoholByFirstLetter(String l) {
+        return client.getCocktailsWithoutAlcoholByFirstLetter(l.charAt(0));
+    }
 
     public String getQty() {
         return qty;
