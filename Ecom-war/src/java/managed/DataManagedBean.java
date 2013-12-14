@@ -66,7 +66,18 @@ public class DataManagedBean {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, AddressEntity address) {
+    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
+        /*Création de l'adresse*/
+        entireAddress = new AddressEntity();
+        entireAddress.setFirst_name(firstName);
+        entireAddress.setSurname(lastName);
+        entireAddress.setStreet(street);
+        entireAddress.setPostal_code(postalCode);
+        entireAddress.setCity(city);
+        entireAddress.setCountry("France");
+        entireAddress.setOrders(null);
+        client.addAddress(entireAddress);
+        /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
         account.setLogin(login);
@@ -76,7 +87,7 @@ public class DataManagedBean {
             sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
         }
         account.setPassword(sb.toString());
-        account.setDelivery_address(address);
+        account.setDelivery_address(entireAddress);
         client.addClient(account);
     }
 
@@ -200,7 +211,7 @@ public class DataManagedBean {
         }
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
-        return "index.xhtml?faces-redirect=true";
+        return "Cart.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
@@ -248,13 +259,12 @@ public class DataManagedBean {
     }
 
     //ajouter par bach
-    public AddressEntity creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
         //System.out.println(city);
-        entireAddress = new AddressEntity();
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-
+        entireAddress = new AddressEntity();
         entireAddress.setFirst_name(firstName);
         entireAddress.setSurname(lastName);
         entireAddress.setStreet(street);
@@ -277,7 +287,7 @@ public class DataManagedBean {
 
         client.getAddress(tempA.getId()).setOrders(listOrder);
         client.clearCart();
-        return client.getAddress(tempA.getId());
+        //return client.getAddress(tempA.getId());
     }
 
     public void setDisplayOrders(boolean b) {

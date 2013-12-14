@@ -17,35 +17,39 @@
     <composite:implementation>
         <h:form id="form" class="span5 offset4">
             <h2>#{cc.attrs.title}</h2>
-            <p:panel header="Adresse de Livraison">  
-                <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
-                    <h:outputLabel for="firstName" value="Prenom : " />  
-                    <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
-                    <h:outputLabel for="lastName" value="Nom : " />  
-                    <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
-                    <h:outputLabel for="street" value="Rue : " />  
-                    <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
-                    <h:outputLabel for="postalCode" value="Code Postale : " />  
-                    <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
-                    <h:outputLabel for="city" value="Ville : "/>  
-                    <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
-                    <h:commandButton id="pbutton" class="paypal-button" 
-                                     action="Cart.xhtml" 
-                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
-                </h:panelGrid>  
-            </p:panel> 
             <ui:fragment rendered="#{!dataManagedBean.connected}">
-                <p:panel header="Utilisateur">  
+                <p:panel header="Déjà client ou envie de le devenir* :">  
                     <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
                         <h:outputLabel for="login" value="Login : "/>  
                         <p:inputText id="login" binding="#{login}" />
                         <h:outputLabel for="password" value="Mot de passe : "/>  
                         <p:inputText type="password" id="password" binding="#{password}" />
                         <h:outputLabel for="accountCreationButton"/>  
-                        <h:commandButton id="accountCreationButton" value="Créer un compte" action="Cart.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value))}"/>
+                        <h:commandButton id="accountCreationButton" value="Créer un compte" action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/>
+                        <h:outputLabel for="accountLogginButton"/>  
+                        <h:commandButton id="accountLogginButton" value="Se connecter" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                     </h:panelGrid>
+                    * : Pour toute création de compte veuillez saisir vos informations de livraison
                 </p:panel>
             </ui:fragment>
+            <p:panel header="Informations de livraison">  
+                <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
+                    <h:outputLabel for="firstName" value="Prenom** : " />  
+                    <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
+                    <h:outputLabel for="lastName" value="Nom** : " />  
+                    <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
+                    <h:outputLabel for="street" value="Rue** : " />  
+                    <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
+                    <h:outputLabel for="postalCode" value="Code Postale** : " />  
+                    <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
+                    <h:outputLabel for="city" value="Ville** : "/>  
+                    <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
+                    <h:commandButton id="pbutton" class="paypal-button" 
+                                     action="Cart.xhtml" 
+                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
+                </h:panelGrid>  
+                **: champ obligatoire
+            </p:panel> 
         </h:form>  
     </composite:implementation>
 </html>
