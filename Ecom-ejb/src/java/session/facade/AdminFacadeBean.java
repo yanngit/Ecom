@@ -333,4 +333,9 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public void modifyAddress(AddressEntity address) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Long checkAddress(AddressEntity address) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

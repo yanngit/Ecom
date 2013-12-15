@@ -11,6 +11,7 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -242,5 +243,28 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public void modifyAddress(AddressEntity address) {
         addressManager.edit(address);
+    }
+
+    @Override
+    public Long checkAddress(AddressEntity address) {
+        if(addressManager.findAll().isEmpty())
+            return null;
+        else{
+            int i=0;
+            Long found = null;
+            while(i<addressManager.findAll().size()){
+                if(addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name()) && 
+                        addressManager.findAll().get(i).getSurname().equals(address.getSurname()) && 
+                        addressManager.findAll().get(i).getStreet().equals(address.getStreet())){
+                    found =  addressManager.findAll().get(i).getId();
+            
+                }
+                i++;
+            }
+        if(found != null){
+            System.out.println("checkaddress result" + found.toString());
+        }
+        return found;
+        }
     }
 }

@@ -91,4 +91,6 @@ public interface ClientFacadeRemoteItf {
     public String getQuantityForCocktail(CocktailEntity cocktail);    
     
     public void modifyAddress(AddressEntity address);
+    
+    public Long checkAddress(AddressEntity address);
 }

@@ -310,7 +310,17 @@ public class DataManagedBean {
         entireAddress.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
-        AddressEntity tempA = client.addAddress(entireAddress);
+        Long id = client.checkAddress(entireAddress);
+        AddressEntity tempA;
+        if(id == null){
+                    tempA = client.addAddress(entireAddress);
+                    System.out.println("addressnotinbase");
+        }
+        else{
+            tempA = client.getAddress(id);
+            System.out.println("addressinbase" + id);
+
+        }
         listAddress.add(tempA);//client.getAddress(tempA.getId()));
 
         order.setCocktails(client.getCartContent());
