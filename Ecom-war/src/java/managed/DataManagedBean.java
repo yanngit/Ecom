@@ -37,7 +37,7 @@ public class DataManagedBean {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
-    private AddressEntity entireAddress = null;
+    private AddressEntity address = null;
     private OrderEntity order = null;
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
@@ -104,15 +104,15 @@ public class DataManagedBean {
 
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
-        client.addAddress(entireAddress);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
+        client.addAddress(address);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -123,7 +123,7 @@ public class DataManagedBean {
             sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
         }
         account.setPassword(sb.toString());
-        account.setDelivery_address(entireAddress);
+        account.setDelivery_address(address);
         client.addClient(account);
     }
 
@@ -153,7 +153,7 @@ public class DataManagedBean {
     public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
-
+    
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
@@ -300,20 +300,20 @@ public class DataManagedBean {
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
-        Long id = client.checkAddress(entireAddress);
+        Long id = client.checkAddress(address);
         AddressEntity tempA;
         if(id == null){
-                    tempA = client.addAddress(entireAddress);
+                    tempA = client.addAddress(address);
         }
         else{
             tempA = client.getAddress(id);
@@ -328,6 +328,8 @@ public class DataManagedBean {
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
         client.getAddress(tempA.getId()).setOrders(listOrder);
+        order = tempO;
+        address = tempA;
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
@@ -369,4 +371,8 @@ public class DataManagedBean {
             client.modifyAddress(address);
         }
     }
+    public Long getOrderId(){
+        return order.getId();
+    }
+
 }

@@ -45,7 +45,7 @@
                     <h:outputLabel for="city" value="Ville** : "/>  
                     <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
                     <h:commandButton id="pbutton" class="paypal-button" 
-                                     action="Cart.xhtml" 
+                                     action="Confirmation.xhtml" 
                                      actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
                 </h:panelGrid>  
                 **: champ obligatoire
