@@ -261,9 +261,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
                 }
                 i++;
             }
-        if(found != null){
-            System.out.println("checkaddress result" + found.toString());
-        }
         return found;
         }
     }

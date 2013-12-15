@@ -314,15 +314,11 @@ public class DataManagedBean {
         AddressEntity tempA;
         if(id == null){
                     tempA = client.addAddress(entireAddress);
-                    System.out.println("addressnotinbase");
         }
         else{
             tempA = client.getAddress(id);
-            System.out.println("addressinbase" + id);
-
         }
-        listAddress.add(tempA);//client.getAddress(tempA.getId()));
-
+        listAddress.add(tempA);
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
