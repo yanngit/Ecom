@@ -20,13 +20,16 @@
                         </li>
                         <li class="dropdown">
                             <h:outputLink value="CocktailsWithAlcohol.xhtml">
-                                Alcoolisés
+                                Cocktails alcoolisés
                                 <b class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
                                     <li class="dropdown-submenu">
-                                        <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
+                                        <h:commandLink value="#{items[0].name.charAt(0)}"
+                                                                   action="#{dataManagedBean.displayCocktailAlcoholFirstLetter(items[0].name.charAt(0))}">
+                                                    </h:commandLink>
+                                       <!-- <h:outputLink value="{items[0].name.charAt(0)}">{items[0].name.charAt(0)}</h:outputLink>-->
                                         <ul class="dropdown-menu">
                                             <ui:repeat var="itemsItem" value="#{items}">
                                                 <li>
@@ -42,13 +45,15 @@
                         </li>
                         <li class="dropdown">
                             <h:outputLink value="CocktailsWithoutAlcohol.xhtml">
-                                Softs
+                                Cocktails softs
                                 <b class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
                                     <li class="dropdown-submenu">
-                                        <h:outputLink value="#{items[0].name.charAt(0)}">#{items[0].name.charAt(0)}</h:outputLink>
+                                        <h:commandLink value="#{items[0].name.charAt(0)}"
+                                                                   action="#{dataManagedBean.displayCocktailVirginFirstLetter(items[0].name.charAt(0))}">
+                                                    </h:commandLink>
                                         <ul class="dropdown-menu">
                                             <ui:repeat var="itemsItem" value="#{items}">
                                                 <li>
@@ -65,7 +70,7 @@
                         </li>
                         <li>
                             <h:outputLink value="index.xhtml" >
-                                Recherche
+                                Recherche avancée
                             </h:outputLink>
                         </li>
                     </ul>

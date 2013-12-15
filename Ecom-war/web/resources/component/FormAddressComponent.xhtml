@@ -19,15 +19,15 @@
             <h2>#{cc.attrs.title}</h2>
             <p:panel header="Adresse de Livraison">  
                 <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
-                    <h:outputLabel for="firstName" value="Prenom : " />  
+                    <h:outputLabel for="firstName" value="Prenom* : " />  
                     <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
-                    <h:outputLabel for="lastName" value="Nom : " />  
+                    <h:outputLabel for="lastName" value="Nom* : " />  
                     <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
-                    <h:outputLabel for="street" value="Rue : " />  
+                    <h:outputLabel for="street" value="Rue* : " />  
                     <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
-                    <h:outputLabel for="postalCode" value="Code Postale : " />  
+                    <h:outputLabel for="postalCode" value="Code Postale* : " />  
                     <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
-                    <h:outputLabel for="city" value="Ville : "/>  
+                    <h:outputLabel for="city" value="Ville*s : "/>  
                     <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
                     <h:outputLabel for="pbutton"/>  
                     <h:commandButton id="pbutton" value="Modifier" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" />

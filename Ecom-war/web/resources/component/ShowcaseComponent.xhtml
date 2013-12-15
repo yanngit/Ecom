@@ -12,17 +12,15 @@
         <composite:attribute name="list" type="java.util.List" />
     </composite:interface>
     <composite:implementation>
-        <h:form>
             <div id="#{cc.attrs.idDiv}">
                 <h2>#{cc.attrs.title}</h2>
                 <div class="well well-small">
                     <ul class="thumbnails">
                         <ui:repeat value="#{cc.attrs.list}" var="item" varStatus="status">
-                            <component:ThumbnailComponent item="#{item}"/>
+                            <component:ThumbnailComponent item="#{item}" />
                         </ui:repeat>
                     </ul>
                 </div>
             </div>    
-        </h:form>     
     </composite:implementation>
 </html>

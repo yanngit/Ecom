@@ -168,6 +168,10 @@ div.span2.right {
     top: 30px;
 }
 
+.input-mini-plus {
+    width: 90px;
+}
+
 /*panier*/
 .total-cart {
     float: right;

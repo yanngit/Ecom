@@ -101,7 +101,7 @@ public class CocktailEntity extends Product implements Comparable<CocktailEntity
      * A boolean that indicates if the cocktail is published
      */
     protected Boolean statePublication;
-
+    
     /**
      * Get the publication state
      * @return True if the cocktail is published, false otherwise

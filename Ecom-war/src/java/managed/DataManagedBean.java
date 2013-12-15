@@ -39,12 +39,55 @@ public class DataManagedBean {
     private CocktailEntity currentCocktail = null;
     private AddressEntity entireAddress = null;
     private OrderEntity order = null;
-    private int quantity = 1;
-    private CocktailEntity cocktailQuantity = null;
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
     private boolean displayAddresses = false;
     private MessageDigest md = null;
+    private String qty = "1";
+    private String currentCocktailAlcoholLetter = null;
+    private String currentCocktailSoftLetter = null;
+
+    public String getCurrentCocktailAlcoholLetter() {
+        return currentCocktailAlcoholLetter;
+    }
+
+    public void setCurrentCocktailAlcoholLetter(String currentCocktailAlcoholLetter) {
+        this.currentCocktailAlcoholLetter = currentCocktailAlcoholLetter;
+    }
+
+    public String displayCocktailAlcoholFirstLetter(String c) {
+        this.currentCocktailAlcoholLetter = c;
+        return "cocktailsAlcoholFirstLetter.xhtml?faces-redirect=true";
+    }
+
+    public List<CocktailEntity> getListCocktailsWithAlcoholByFirstLetter(String l) {
+        return client.getCocktailsWithAlcoholByFirstLetter(l.charAt(0));
+    }
+
+    public String getCurrentCocktailSoftLetter() {
+        return currentCocktailSoftLetter;
+    }
+
+    public void setCurrentCocktailSoftLetter(String currentCocktailAlcoholLetter) {
+        this.currentCocktailSoftLetter = currentCocktailAlcoholLetter;
+    }
+
+    public String displayCocktailVirginFirstLetter(String c) {
+        this.currentCocktailSoftLetter = c;
+        return "cocktailsVirginFirstLetter.xhtml?faces-redirect=true";
+    }
+
+    public List<CocktailEntity> getListCocktailsWithoutAlcoholByFirstLetter(String l) {
+        return client.getCocktailsWithoutAlcoholByFirstLetter(l.charAt(0));
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String quantity) {
+        this.qty = quantity;
+    }
 
     public DataManagedBean() {
         super();
@@ -59,7 +102,18 @@ public class DataManagedBean {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, AddressEntity address) {
+    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
+        /*Création de l'adresse*/
+        entireAddress = new AddressEntity();
+        entireAddress.setFirst_name(firstName);
+        entireAddress.setSurname(lastName);
+        entireAddress.setStreet(street);
+        entireAddress.setPostal_code(postalCode);
+        entireAddress.setCity(city);
+        entireAddress.setCountry("France");
+        entireAddress.setOrders(null);
+        client.addAddress(entireAddress);
+        /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
         account.setLogin(login);
@@ -69,7 +123,7 @@ public class DataManagedBean {
             sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
         }
         account.setPassword(sb.toString());
-        account.setDelivery_address(address);
+        account.setDelivery_address(entireAddress);
         client.addClient(account);
     }
 
@@ -103,40 +157,6 @@ public class DataManagedBean {
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
-    }
-
-    public void increaseQuantity(CocktailEntity cocktail) {
-        /*Si c'est la première incrémentation pas de problème*/
-        if (cocktailQuantity == null) {
-            cocktailQuantity = cocktail;
-            quantity++;
-        } else {
-            /*Si on incrémente le meme cocktail OK*/
-            if (cocktailQuantity.equals(cocktail)) {
-                quantity++;
-            } /*Sinon on repars à 2 et on oublie ce qui c'est passé avant*/ else {
-                cocktailQuantity = cocktail;
-                quantity = 2;
-            }
-        }
-    }
-
-    public void decreaseQuantity(CocktailEntity cocktail) {
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail) && quantity > 1) {
-                quantity--;
-            }
-        }
-    }
-
-    /*Récupérer la quantity a afficher pour la mise en panier, local au bean*/
-    public String getQuantityForCocktail(CocktailEntity cocktail) {
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail)) {
-                return String.valueOf(quantity);
-            }
-        }
-        return "1";
     }
 
     /* Navigate to the cocktailDetails.xhtml page and record the cocktail we
@@ -222,16 +242,12 @@ public class DataManagedBean {
 
     /* Setters, symbolizing an action */
     public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
-        int qty = 1;
-        if (cocktailQuantity != null) {
-            if (cocktailQuantity.equals(cocktail)) {
-                qty = quantity;
-            }
+        if (qty.equals("")) {
+            qty = "1";
         }
-        client.addArticleToCart(cocktail.getID(), qty);
-        quantity = 1;
-        cocktailQuantity = null;
-        return "index.xhtml?faces-redirect=true";
+        client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
+        qty = "1";
+        return "Cart.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
@@ -279,13 +295,12 @@ public class DataManagedBean {
     }
 
     //ajouter par bach
-    public AddressEntity creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
         //System.out.println(city);
-        entireAddress = new AddressEntity();
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-
+        entireAddress = new AddressEntity();
         entireAddress.setFirst_name(firstName);
         entireAddress.setSurname(lastName);
         entireAddress.setStreet(street);
@@ -308,7 +323,7 @@ public class DataManagedBean {
 
         client.getAddress(tempA.getId()).setOrders(listOrder);
         client.clearCart();
-        return client.getAddress(tempA.getId());
+        //return client.getAddress(tempA.getId());
     }
 
     public void setDisplayOrders(boolean b) {
@@ -335,9 +350,9 @@ public class DataManagedBean {
         }
         return null;
     }
-    
-    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city){
-        if(account != null){
+
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
+        if (account != null) {
             AddressEntity address = account.getDelivery_address();
             address.setFirst_name(firstName);
             address.setSurname(lastName);
