@@ -285,7 +285,6 @@ public class DataManagedBean implements Serializable {
 
     /* Setters, symbolizing an action */
     public void addArticleToCart(CocktailEntity cocktail) throws EcomException {
-        System.out.println("ADDING : "+qty);
         if (qty.equals("")) {
             qty = "1";
         }
