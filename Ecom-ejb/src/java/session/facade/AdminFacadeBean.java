@@ -14,7 +14,6 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import pojo.Product;
 import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
@@ -337,6 +336,11 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     
     @Override
     public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

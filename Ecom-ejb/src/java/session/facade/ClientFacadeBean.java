@@ -14,18 +14,20 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import pojo.Product;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.ClientAccountManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.DeliverableManagerBean;
 import session.manager.OrderManagerBean;
 
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
+    @EJB
+    private DeliverableManagerBean deliverableManager;
     @EJB
     private CocktailManagerBean cocktailManager;
     @EJB
@@ -246,5 +248,10 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
         return beverageManager.getAllBeveragesWithoutAlcohol();
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
+        return deliverableManager.getAllCocktails(beverage.getName());
     }
 }
