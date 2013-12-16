@@ -7,7 +7,6 @@
         <header>
             <div class="jumbotron subhead" id="overview">
                 <img src="#{resource['img:banniere.jpg']}"
-                     alt="Bannière du site"
                      class="banniereImg"/>
             </div>
             <h:form transient="true">
@@ -21,7 +20,7 @@
                         <li class="dropdown">
                             <h:outputLink value="CocktailsWithAlcohol.xhtml">
                                 Cocktails alcoolisés
-                                <b class="caret"/>
+                                <em class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
@@ -46,7 +45,7 @@
                         <li class="dropdown">
                             <h:outputLink value="CocktailsWithoutAlcohol.xhtml">
                                 Cocktails softs
-                                <b class="caret"/>
+                                <em class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
