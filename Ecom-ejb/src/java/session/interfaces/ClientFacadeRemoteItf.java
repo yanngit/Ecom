@@ -13,6 +13,7 @@ import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.Remote;
+import pojo.Product;
 
 @Remote
 public interface ClientFacadeRemoteItf {
@@ -25,6 +26,10 @@ public interface ClientFacadeRemoteItf {
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail);
 
     public List<DecorationEntity> getCocktailDecorations(Long id);
+    
+    public List<BeverageEntity> getAllBeveragesWithAlcohol();
+    
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol();
 
     /* Fetch cocktails */
     public List<CocktailEntity> getAllCocktails();

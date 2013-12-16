@@ -197,3 +197,13 @@ div.span2.right {
 .cocktail-recipe {
     white-space: pre-line;
 }
+
+
+/*Recherche section */
+.label-recherche{
+    display: inline;
+}
+
+.item-recherche{
+   padding : 5px; 
+}

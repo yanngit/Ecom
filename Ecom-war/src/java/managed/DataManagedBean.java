@@ -11,15 +11,19 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pojo.CocktailFlavorEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -30,7 +34,7 @@ import session.interfaces.ClientFacadeRemoteItf;
  */
 @ManagedBean(name = "dataManagedBean")
 @SessionScoped
-public class DataManagedBean {
+public class DataManagedBean implements Serializable {
 
     /* Main facade to interact with Change to the application */
     @EJB
@@ -46,6 +50,36 @@ public class DataManagedBean {
     private String qty = "1";
     private String currentCocktailAlcoholLetter = null;
     private String currentCocktailSoftLetter = null;
+    /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listAlcohol = new ArrayList<BeverageEntity>();
+    private Map<Integer, Boolean> selectedAlcoolId = new HashMap<Integer, Boolean>();
+    
+    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<CocktailFlavorEnum>();
+    private Map<String, Boolean> selectedFlavorsString = new HashMap<String, Boolean>();
+    
+    public Map<Integer, Boolean> getselectedAlcoolId() {
+        return selectedAlcoolId;
+    }
+    
+    public Map<String, Boolean> getselectedFlavorsString() {
+        return selectedFlavorsString;
+    }
+    
+    public List<pojo.CocktailFlavorEnum> getListFlavors(){
+        if(listFlavor.isEmpty()){
+            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
+            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        }
+        return listFlavor;
+    }
+    
+    public List<BeverageEntity> getListAlcohol(){
+        if(listAlcohol.isEmpty()){
+            listAlcohol = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohol;
+    }
+
 
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;
@@ -251,6 +285,7 @@ public class DataManagedBean {
 
     /* Setters, symbolizing an action */
     public void addArticleToCart(CocktailEntity cocktail) throws EcomException {
+        System.out.println("ADDING : "+qty);
         if (qty.equals("")) {
             qty = "1";
         }
