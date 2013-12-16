@@ -10,8 +10,8 @@
         <composite:attribute name="item" type="entity.CocktailEntity" />
     </composite:interface>
     <composite:implementation>
-        <h:form id="cocktailThumbnail">
-            <li class="span2 thumbnail">
+        <li class="span2 thumbnail">
+            <h:form id="cocktailThumbnail">
                 <div class="filling-thumb">
                     <ui:param name="img_path" value="img:#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" />
                     <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
@@ -38,15 +38,15 @@
                                 Avec ajax on envoie que ce form et it works -->
                                 <f:ajax execute="cocktailThumbnail"/>
                             </h:commandButton>
-                            <h:inputText alt="Nombre de cocktails à ajouter au panier" 
-                                         maxlength="3" 
+                            <h:inputText alt="Nombre de cocktails à ajouter au panier"
+                                         maxlength="3"
                                          value="#{dataManagedBean.qty}"
-                                         styleClass="input-mini" 
+                                         styleClass="input-mini"
                                          title="Nombre de cocktails à ajouter au panier" />
                         </div>
                     </div>
                 </div>
-            </li>
-        </h:form>
+            </h:form>
+        </li>
     </composite:implementation>
 </html>

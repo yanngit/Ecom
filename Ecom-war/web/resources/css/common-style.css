@@ -123,6 +123,10 @@ form[id$="form"] h2 {
     padding-top: 2px;
 }
 
+.wrong-value {
+    color: red;
+}
+
 /*Thumbnail cocktail*/
 /* Cocktail thumbnail display */
 li.thumbnail {

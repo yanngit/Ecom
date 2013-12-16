@@ -65,7 +65,9 @@
                 </div>
             </ui:fragment>
             <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
-                <component:FormAddressComponent title="Mon adresse" first_name="#{dataManagedBean.accountAddress.first_name}" surname="#{dataManagedBean.accountAddress.surname}" street="#{dataManagedBean.accountAddress.street}" postal_code="#{dataManagedBean.accountAddress.postal_code}" city="#{dataManagedBean.accountAddress.city}"/>
+                <h:form id="form-client-address" class="span5 offset4">
+                    <component:FormAddressComponent title="Mon adresse" first_name="#{dataManagedBean.accountAddress.first_name}" surname="#{dataManagedBean.accountAddress.surname}" street="#{dataManagedBean.accountAddress.street}" postal_code="#{dataManagedBean.accountAddress.postal_code}" city="#{dataManagedBean.accountAddress.city}"/>
+                </h:form>
             </ui:fragment>
         </ui:fragment>
     </composite:implementation>
