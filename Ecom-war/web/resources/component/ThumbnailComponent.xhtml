@@ -33,10 +33,10 @@
                                              alt="Ajouter le cocktail au panier"
                                              title="Ajouter le cocktail au panier"
                                              styleClass="btn"
-                                             action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
+                                             actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
                                 <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
                                 Avec ajax on envoie que ce form et it works -->
-                                <f:ajax execute="cocktailThumbnail"/>
+                                <f:ajax execute="cocktailThumbnail" render="@all"/>
                             </h:commandButton>
                             <h:inputText alt="Nombre de cocktails à ajouter au panier"
                                          maxlength="3"

@@ -97,9 +97,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public void removeArticle(Long id) throws EcomException {
-        cart.removeArticle(id);
-        cocktailManager.increaseQuantityOfCocktail(id, 1);
+    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+        cart.removeArticle(cocktail);
     }
 
     @Override
@@ -161,11 +160,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         } else {
             throw new EcomException("Impossible d'ajouter le cocktail [" + id + "] au panier, il n'est plus disponible.");
         }
-    }
-
-    @Override
-    public void removeArticleFromCart(Long id) throws EcomException {
-        cart.removeArticle(id);
     }
 
     @Override

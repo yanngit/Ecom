@@ -85,11 +85,11 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     
     
     @Override
-    public void removeArticle(long ID) throws EcomException{
-        CocktailEntity c = cocktailManager.find(ID);
-        cart.remove(c);
-        float prix = c.getPrice();
-        updatePrice(-prix);
+    public void removeArticle(CocktailEntity cocktail) throws EcomException{
+        int nb = cart.get(cocktail);
+        cart.remove(cocktail);
+        float prix = cocktail.getPrice();
+        updatePrice(-(prix*nb));
     }
 
     @Override
