@@ -23,7 +23,7 @@
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
                                              alt="Détails du cocktail"
-                                             title="#{dataManagedBean.getCocktail(cc.attrs.item.ID).getRecipe()}"
+                                             title="Voir détailles de cocktail #{cc.attrs.item.name}"
                                              styleClass="btn"
                                              action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             </h:commandButton>
@@ -40,7 +40,7 @@
                                 <f:ajax execute="cocktailThumbnail"/>
                             </h:commandButton>
                             
-                            <h:outputLabel class="obscure"  for="qty" value="quantité de cocktail : #{cc.attrs.item.name}."/>
+                            <h:outputLabel class="obscure"  for="qty" value="quantité de #{cc.attrs.item.name} à ajouter dans le panier"/>
                             
                             <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
