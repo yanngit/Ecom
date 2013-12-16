@@ -40,9 +40,9 @@
                                 <f:ajax execute="cocktailThumbnail"/>
                             </h:commandButton>
                             
-                            <h:outputLabel class="obscure"  for="qty#{cc.attrs.item.ID}" value="quantité de cocktail : #{cc.attrs.item.name}."/>
+                            <h:outputLabel class="obscure"  for="qty" value="quantité de cocktail : #{cc.attrs.item.name}."/>
                             
-                            <h:inputText id="qty#{cc.attrs.item.ID}"  maxlength="3"
+                            <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
                                          styleClass="input-mini"
                                          title="Nombre de cocktails à ajouter au panier" />
