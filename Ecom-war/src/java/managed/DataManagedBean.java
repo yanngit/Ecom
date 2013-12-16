@@ -14,6 +14,9 @@ import exceptions.EcomException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +49,61 @@ public class DataManagedBean {
     private String qty = "1";
     private String currentCocktailAlcoholLetter = null;
     private String currentCocktailSoftLetter = null;
+    private String dayOfBirth = "JJ";
+    private String monthOfBirth = "MM";
+    private String yearOfBirth = "AAAA";
+    private boolean userIsMajor = false;
+
+    public boolean isUserIsMajor() {
+        return userIsMajor;
+    }
+
+    public String getDayOfBirth() {
+        return dayOfBirth;
+    }
+
+    public void setDayOfBirth(String dayOfBirth) {
+        this.dayOfBirth = dayOfBirth;
+    }
+
+    public String getMonthOfBirth() {
+        return monthOfBirth;
+    }
+
+    public void setMonthOfBirth(String monthOfBirth) {
+        this.monthOfBirth = monthOfBirth;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public String checkAge() {
+        String result;
+        System.out.println("Age Checking...");
+        GregorianCalendar dateOfBirth = new GregorianCalendar(new Integer(yearOfBirth),
+                new Integer(monthOfBirth),
+                new Integer(dayOfBirth));
+        System.out.println(dateOfBirth.toString());
+        GregorianCalendar currentDate = new GregorianCalendar();
+        Long dayElapsed = currentDate.getTimeInMillis() / (1000 * 3600 * 24)
+                - dateOfBirth.getTimeInMillis() / (1000 * 3600 * 24);
+        int yearElapsed = (int) (dayElapsed / 365.25);
+
+        if (yearElapsed < 18) {
+            result = "tooYoung.xhtml";
+            System.out.println("Too Young");
+        } else {
+            System.out.println("OK");
+            userIsMajor = true;
+            result = "index.xhtml";
+        }
+        return result;
+    }
 
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;

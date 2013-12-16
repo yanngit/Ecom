@@ -1,11 +1,74 @@
-<ui:composition template="template/common/commonLayout.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:component="http://java.sun.com/jsf/composite/component">
-    <ui:define name="title">Accueil</ui:define>
-    <ui:define name="content">
-        <component:ShowcaseComponent idDiv="news" title="Nouveautés" list="#{dataManagedBean.listNewestCocktails}"/>
-        <component:ShowcaseComponent idDiv="popular" title="Meilleures ventes" list="#{dataManagedBean.listMostPopularCocktails}"/>
-    </ui:define>
-</ui:composition>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
 
+    <h:head>
+        <meta charset="UTF-8"/>
+        <h:outputStylesheet name="common-style.css" library="css" />
+        <h:outputStylesheet library="css" name ="bootstrap.css"  />
+        <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />
+        <h:outputScript library="js" name="jquery-2.0.3.js" />
+        <h:outputScript library="js" name="bootstrap.js" />
+        <h:outputScript library="js" name="common.js" />
+        <title>Vérification de l'age - Tchin-Tchin - Votre barman en ligne</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
+    </h:head>
+    <h:body>
+        <div id="page">
+            <img src="#{resource['img:fond_resize.jpg']}"
+                 alt="Image de fond, représentant des cocktails"
+                 class="image-fond"/>
+            <header>
+                <div class="jumbotron subhead" id="overview">
+                    <img src="#{resource['img:banniere.jpg']}"
+                         alt="Bannière du site"
+                         class="banniereImg"/>
+                </div>
+                <div class="navbar navbar-inner">
+                </div>
+            </header>
+            <div class="well well-large text-center">
+                <h:form id="ageChecking"
+                        class="jsf-form">
+                    <legend>
+                        Veuillez entrer votre date de naissance
+                    </legend>
+                    <h:inputText id='DayOfBirth'
+                                 title="Jour de naissance"
+                                 alt="Jour de naissance"
+                                 value="#{dataManagedBean.dayOfBirth}"
+                                 class="span1"
+                                 size="2"
+                                 styleClass="input-large"/>
+                    <h:inputText id='MonthOfBirth'
+                                 title="Mois de naissance"
+                                 alt="Mois de naissance"
+                                 value="#{dataManagedBean.monthOfBirth}"
+                                 class="span1"
+                                 size="2"
+                                 styleClass="input-large"/>
+                    <h:inputText id='YearOfBirth'
+                                 title="Année de naissance"
+                                 alt="Année de naissance"
+                                 value="#{dataManagedBean.yearOfBirth}"
+                                 class="span2"
+                                 size="4"
+                                 styleClass="input-large"/>
+                    <br/>
+                    <h:commandButton value="Entrer"
+                                     title="Entrer sur le site"
+                                     alt="Bouton d'accès au site après vérification de l'âge"
+                                     styleClass="btn btn-large"
+                                     action="#{dataManagedBean.checkAge()}"/>
+                </h:form>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container span12">
+                <p class="credit">
+                    ECOM - Tchin-Tchin project.
+                </p>
+            </div>
+        </footer>
+    </h:body>
+</html>
