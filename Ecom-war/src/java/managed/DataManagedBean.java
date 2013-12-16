@@ -127,7 +127,7 @@ public class DataManagedBean {
         client.addClient(account);
     }
 
-    public void connect(String login, String password) {
+    public String connect(String login, String password) {
         if (account == null) {
             md.reset();
             byte[] encoded = md.digest(password.getBytes());
@@ -136,7 +136,11 @@ public class DataManagedBean {
                 sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
             }
             account = client.connect(login, sb.toString());
+            if(account == null){
+                return "Connexion.xhtml?faces-redirect=true";
+            }
         }
+        return "Account.xhtml?faces-redirect=true";
     }
 
     public String disconnect() {
