@@ -136,7 +136,7 @@ public class DataManagedBean {
                 sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
             }
             account = client.connect(login, sb.toString());
-            if(account == null){
+            if (account == null) {
                 return "Connexion.xhtml?faces-redirect=true";
             }
         }
@@ -181,7 +181,12 @@ public class DataManagedBean {
     }
 
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail);
+        if (cocktail != null) {
+            return client.getCocktailFull(cocktail);
+        } else {
+            return null;
+        }
+
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -254,6 +259,7 @@ public class DataManagedBean {
     }
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
+        System.out.println("Dans le DMB ..........................................................................");
         client.removeArticle(cocktail);
     }
 
