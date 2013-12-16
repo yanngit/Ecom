@@ -241,13 +241,12 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
+    public void addArticleToCart(CocktailEntity cocktail) throws EcomException {
         if (qty.equals("")) {
             qty = "1";
         }
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
-        return "Cart.xhtml?faces-redirect=true";
     }
 
     public void removeArticleToCart(Long id) throws EcomException {
