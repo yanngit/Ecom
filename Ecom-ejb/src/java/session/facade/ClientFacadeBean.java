@@ -11,6 +11,7 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -100,8 +101,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
-        cart.removeArticle(cocktail);
+    public void removeArticle(CocktailEntity cocktail, int qty) throws EcomException {
+        cart.removeArticle(cocktail, qty);
     }
 
     @Override
@@ -241,17 +242,38 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public List<BeverageEntity> getAllBeveragesWithAlcohol() {
-        return beverageManager.getAllBeveragesWithAlcohol();
-    }
-
-    @Override
-    public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
-        return beverageManager.getAllBeveragesWithoutAlcohol();
+    public Long checkAddress(AddressEntity address) {
+        if(addressManager.findAll().isEmpty())
+            return null;
+        else{
+            int i=0;
+            Long found = null;
+            while(i<addressManager.findAll().size()){
+                if(addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name()) && 
+                        addressManager.findAll().get(i).getSurname().equals(address.getSurname()) && 
+                        addressManager.findAll().get(i).getStreet().equals(address.getStreet())){
+                    found =  addressManager.findAll().get(i).getId();
+            
+                }
+                i++;
+            }
+        return found;
+        }
     }
 
     @Override
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
-        return deliverableManager.getAllCocktails(beverage.getName());
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<BeverageEntity> getAllBeveragesWithAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
+
