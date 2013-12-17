@@ -174,10 +174,15 @@ div.span2.right {
 
 /*panier*/
 .total-cart {
+    float: left;
+    font-size : 25px;
+    font-weight: bold;
+    /*top: 20px;
+    position : relative;*/
+}
+
+.totalPanier-button{
     float: right;
-    font-size : 40px;
-    top: 20px;
-    position : relative;
 }
 
 .clear{
@@ -187,7 +192,6 @@ div.span2.right {
 .ShowBev{
     float:left;
 }
-
 
 /* Cocktails details */
 .cocktail-recipe {

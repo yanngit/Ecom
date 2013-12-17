@@ -6,7 +6,7 @@
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
         <component:AccountBlocComponent/>
-        <c:if test="#{not empty dataManagedBean.cartContent}">
+        <c:if test="#{dataManagedBean.getCartLength() > 0}">
             <component:CartComponent idDiv="cart-component" title="Panier" list="#{dataManagedBean.cartContent}" />
         </c:if>
         <component:CartTotalComponent idDiv="total-panier" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>

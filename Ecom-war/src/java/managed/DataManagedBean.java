@@ -250,8 +250,8 @@ public class DataManagedBean {
         return "Cart.xhtml?faces-redirect=true";
     }
 
-    public void removeArticleToCart(Long id) throws EcomException {
-        client.removeArticleFromCart(id);
+    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+        client.removeArticle(cocktail);
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
@@ -362,5 +362,9 @@ public class DataManagedBean {
             /*MANQUE COUNTRY*/
             client.modifyAddress(address);
         }
+    }
+    
+    public void clearCart(){
+        client.clearCart();
     }
 }

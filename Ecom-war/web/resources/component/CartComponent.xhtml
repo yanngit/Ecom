@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:component="http://java.sun.com/jsf/composite/component">
     <composite:interface>
         <composite:attribute name="idDiv" />
@@ -17,6 +18,12 @@
                 <ul class="thumbnails">
                     <component:OrderedCocktailComponent list="#{cc.attrs.list}"/>
                 </ul>
+                <h:form>
+                <h:commandButton class="viderPanier btn" value="Vider le panier"
+                                 alt="Vider le panier"
+                                 title="Vider le panier"
+                                 actionListener="#{dataManagedBean.clearCart()}"/>
+                </h:form>
             </div>
         </div>
     </composite:implementation>
