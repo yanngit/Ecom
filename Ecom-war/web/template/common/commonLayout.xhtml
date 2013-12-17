@@ -4,6 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       lang="fr"
       xmlns:f="http://java.sun.com/jsf/core">
+    <f:event type="preRenderView"
+             listener="#{dataManagedBean.checkMajorUser}"/>
     <h:head>
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />

@@ -11,6 +11,7 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -89,6 +91,12 @@ public class DataManagedBean implements Serializable {
 
     public void setYearOfBirth(String yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
+    }
+
+    public void checkMajorUser() throws IOException {
+        if (!userIsMajor) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("ageChecking.xhtml?faces-redirect=true");
+        }
     }
 
     public String checkAge() {
