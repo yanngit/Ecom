@@ -12,7 +12,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
+
+@NamedQueries({
+    @NamedQuery(name = "getCocktailsForBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE d.name = :name ")
+})
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

@@ -11,7 +11,7 @@
     </composite:interface>
     <composite:implementation>
         <li class="span2 thumbnail">
-            <h:form id="cocktailThumbnail">
+            <h:form id="form-cocktail-thumbnail">
                 <div class="filling-thumb">
                     <ui:param name="img_path" value="img:#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" />
                     <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
@@ -36,7 +36,7 @@
                                              actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
                                 <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
                                 Avec ajax on envoie que ce form et it works -->
-                                <f:ajax execute="cocktailThumbnail" render="@all"/>
+                                <f:ajax execute="@form" render="@all" />
                             </h:commandButton>
                             <h:inputText alt="Nombre de cocktails à ajouter au panier"
                                          maxlength="3"

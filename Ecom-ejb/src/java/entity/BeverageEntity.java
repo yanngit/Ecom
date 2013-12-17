@@ -15,7 +15,9 @@ import javax.validation.constraints.NotNull;
 
 @NamedQueries({
 @NamedQuery(name="findUnavailableBeverages",query="SELECT b FROM BeverageEntity b WHERE b.quantity <= 0"),
-@NamedQuery(name="findAvailableBeverages", query="SELECT b FROM BeverageEntity b WHERE b.quantity >= 1")
+@NamedQuery(name="findAvailableBeverages", query="SELECT b FROM BeverageEntity b WHERE b.quantity >= 1"),
+@NamedQuery(name="findAllBeveragesWithAlcohol", query="SELECT b FROM BeverageEntity b WHERE b.alcoholicDegree > 0"),
+@NamedQuery(name="findAllBeveragesWithoutAlcohol", query="SELECT b FROM BeverageEntity b WHERE b.alcoholicDegree = 0")
 })
 
 @Entity
