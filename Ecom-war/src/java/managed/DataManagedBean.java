@@ -11,13 +11,14 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -33,7 +34,7 @@ import session.interfaces.ClientFacadeRemoteItf;
  */
 @ManagedBean(name = "dataManagedBean")
 @SessionScoped
-public class DataManagedBean {
+public class DataManagedBean implements Serializable {
 
     /* Main facade to interact with Change to the application */
     @EJB
@@ -53,6 +54,14 @@ public class DataManagedBean {
     private String monthOfBirth = "MM";
     private String yearOfBirth = "AAAA";
     private boolean userIsMajor = false;
+    /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listAlcohol = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
+    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
+    private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
+    /*Résultat de la recherche*/
+    private List<CocktailEntity> resultSearch = new ArrayList<>();
 
     public boolean isUserIsMajor() {
         return userIsMajor;
@@ -103,6 +112,58 @@ public class DataManagedBean {
             result = "index.xhtml";
         }
         return result;
+    }
+
+    public List<CocktailEntity> getResultSearch() {
+        return resultSearch;
+    }
+
+    public void setResultSearch(List<CocktailEntity> resultSearch) {
+        this.resultSearch = resultSearch;
+    }
+
+    public boolean isSearchAvailable() {
+        return resultSearch.size() > 0;
+    }
+
+    public void searchCocktails() {
+        resultSearch.clear();
+        List<BeverageEntity> selected = new ArrayList<BeverageEntity>();
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
+            if (e.getValue()) {
+                selected.add(e.getKey());
+            }
+        }
+        if (!selected.isEmpty()) {
+            resultSearch = client.getCocktailsForBeverage(selected.get(0));
+        }
+    }
+
+    public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
+        selectedAlcoolId = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
+        return selectedAlcoolId;
+    }
+
+    public Map<String, Boolean> getselectedFlavorsString() {
+        return selectedFlavorsString;
+    }
+
+    public List<pojo.CocktailFlavorEnum> getListFlavors() {
+        if (listFlavor.isEmpty()) {
+            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
+            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        }
+        return listFlavor;
+    }
+
+    public List<BeverageEntity> getListAlcohol() {
+        if (listAlcohol.isEmpty()) {
+            listAlcohol = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohol;
     }
 
     public String getCurrentCocktailAlcoholLetter() {
@@ -185,7 +246,7 @@ public class DataManagedBean {
         client.addClient(account);
     }
 
-    public void connect(String login, String password) {
+    public String connect(String login, String password) {
         if (account == null) {
             md.reset();
             byte[] encoded = md.digest(password.getBytes());
@@ -194,7 +255,11 @@ public class DataManagedBean {
                 sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
             }
             account = client.connect(login, sb.toString());
+            if (account == null) {
+                return "Connexion.xhtml?faces-redirect=true";
+            }
         }
+        return "Account.xhtml?faces-redirect=true";
     }
 
     public String disconnect() {
@@ -235,7 +300,12 @@ public class DataManagedBean {
     }
 
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail);
+        if (cocktail != null) {
+            return client.getCocktailFull(cocktail);
+        } else {
+            return null;
+        }
+
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -299,17 +369,17 @@ public class DataManagedBean {
     }
 
     /* Setters, symbolizing an action */
-    public String addArticleToCart(CocktailEntity cocktail) throws EcomException {
+    public void addArticleToCart(CocktailEntity cocktail) throws EcomException {
         if (qty.equals("")) {
             qty = "1";
         }
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
-        return "Cart.xhtml?faces-redirect=true";
     }
 
-    public void removeArticleToCart(Long id) throws EcomException {
-        client.removeArticleFromCart(id);
+    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+        System.out.println("Dans le DMB ..........................................................................");
+        client.removeArticle(cocktail);
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {

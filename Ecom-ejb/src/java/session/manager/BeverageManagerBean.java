@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pojo.AbstractEntityManager;
+import pojo.Product;
 
 @Stateless
 public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
@@ -67,5 +68,13 @@ public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {
         }
         em.remove(beverage);
         System.out.println(" Removed :" + beverage.toString());
+    }
+
+    public List<BeverageEntity> getAllBeveragesWithAlcohol() {
+        return em.createNamedQuery("findAllBeveragesWithAlcohol").getResultList();
+    }
+    
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
+        return em.createNamedQuery("findAllBeveragesWithoutAlcohol").getResultList();
     }
 }
