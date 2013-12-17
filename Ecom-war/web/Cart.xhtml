@@ -37,8 +37,9 @@
                                             <h:commandButton
                                                 id="SupButton"
                                                 title="Supprimer les articles"
-                                                value="Supprimer les articles ">
-                                                <f:ajax event="click" execute="#{dataManagedBean.removeArticle(item)}" />
+                                                value="Supprimer les articles "
+                                                action="#{dataManagedBean.removeArticle(item)}">
+                                                <f:ajax execute="@this" />
                                             </h:commandButton>
                                           <h:inputText id="qty"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
                                         </div>
