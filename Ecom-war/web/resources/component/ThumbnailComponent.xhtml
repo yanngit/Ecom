@@ -18,12 +18,14 @@
                          alt=" "/>
                 </div>
                 <div class="caption">
-                    <h3 class="title-cocktail">#{cc.attrs.item.name}</h3>
+                    
+                    <div class="title-cocktail">#{cc.attrs.item.name}</div>
+                    
                     <div class="text-center">
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
-                                             alt="Détails du cocktail"
-                                             title="Voir détailles de cocktail #{cc.attrs.item.name}"
+                                             alt=""
+                                             title="Consulter les détailles du cocktail "
                                              styleClass="btn"
                                              action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             </h:commandButton>
@@ -31,7 +33,7 @@
                         <br/><br/>
                         <div class="input-prepend">
                             <h:commandButton image="#{resource['img:cart_small.png']}"
-                                             alt="Ajouter le cocktail au panier"
+                                             alt=""
                                              title="Ajouter le cocktail au panier"
                                              styleClass="btn"
                                              action="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
@@ -44,8 +46,7 @@
                             
                             <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
-                                         styleClass="input-mini"
-                                         title="Nombre de cocktails à ajouter au panier" />
+                                         styleClass="input-mini" />
                             
                             
                             
