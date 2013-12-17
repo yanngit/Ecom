@@ -2,12 +2,60 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:component="http://java.sun.com/jsf/composite/component"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <c:if test="#{not empty dataManagedBean.cartContent}">
-            <component:CartComponent idDiv="cart-component" title="Panier" list="#{dataManagedBean.cartContent}" />
+        <c:if test="#{dataManagedBean.cartLength > 0}">
+            <div id="cart-component">
+                <h2>Panier</h2>
+                <div class="well well-small">
+                    <ul class="thumbnails">
+                        <ui:repeat value = "#{dataManagedBean.cartContent}" var = "item" varStatus="status">
+                            <h:form id="cocktail-panier">
+                                <div class="media">
+                                    <div class="pull-left media-object span2">
+                                        <div class="text-center">
+                                            <img src="resources/img/#{item.photoURIName}.#{item.photoURIExt}"
+                                                 alt="Photo du cocktail #{item.name}"/>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">
+                                            #{item.name}
+                                        </h3>
+                                        <div class="well well-small">
+                                            <ul class="thumbnails">
+                                                <ui:repeat value="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" varStatus="status1">
+                                                    <component:ShowBeverageComponent item="#{bev}"/>
+                                                </ui:repeat>
+                                                <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
+                                                <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
+                                                <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
+                                            </ul>
+                                            <h:commandButton
+                                                title="Supprimer les articles"
+                                                action="#{dataManagedBean.removeArticle(item)}"
+                                                value="Supprimer les articles ">
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
         </c:if>
-        <component:CartTotalComponent idDiv="total-panier" title="Panier" value="#{dataManagedBean.getCartPrice()}"/>
+        <li class="thumbnail">
+            <div class="totalPanier">
+                <div class="total-cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
+                <h:button class="totalPanier-button"
+                          image="#{resource['img:btn_valider.png']}"
+                          alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
+                </h:button>
+                <div class="clear"></div>
+            </div>
+        </li>
     </ui:define>
 </ui:composition>
