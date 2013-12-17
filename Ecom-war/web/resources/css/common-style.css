@@ -148,9 +148,7 @@ li.thumbnail {
     margin: 0px;
 }
 
-h3.title-cocktail {
-    font-size : 15px;
-}
+
 
 .beverage-cart h4 {
     font-size: 10px;
@@ -196,4 +194,34 @@ div.span2.right {
 /* Cocktails details */
 .cocktail-recipe {
     white-space: pre-line;
+}
+
+/*Recherche section */
+.label-recherche{
+    display: inline;
+}
+
+.item-recherche{
+   padding : 5px; 
+}
+
+/* labels for input text accessibility */
+.obscure{
+    position: absolute ; 
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */ 
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+.title-cocktail {
+    font-size : 15px;
+    line-height: 40px;
+    text-align: center;
+    font-family: inherit;
+    font-weight: bold;
+    color: inherit;
+    text-rendering: optimizelegibility;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
 }

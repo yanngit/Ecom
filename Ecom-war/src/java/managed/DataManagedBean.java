@@ -11,15 +11,19 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pojo.CocktailFlavorEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -30,7 +34,7 @@ import session.interfaces.ClientFacadeRemoteItf;
  */
 @ManagedBean(name = "dataManagedBean")
 @SessionScoped
-public class DataManagedBean {
+public class DataManagedBean implements Serializable {
 
     /* Main facade to interact with Change to the application */
     @EJB
@@ -46,49 +50,109 @@ public class DataManagedBean {
     private String qty = "1";
     private String currentCocktailAlcoholLetter = null;
     private String currentCocktailSoftLetter = null;
-
+    /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listAlcohol = new ArrayList<BeverageEntity>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<BeverageEntity, Boolean>();
+    /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
+    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<CocktailFlavorEnum>();
+    private Map<String, Boolean> selectedFlavorsString = new HashMap<String, Boolean>();
+    /*Résultat de la recherche*/
+    private List<CocktailEntity> resultSearch = new ArrayList<CocktailEntity>();
+    
+    public List<CocktailEntity> getResultSearch() {
+        return resultSearch;
+    }
+    
+    public void setResultSearch(List<CocktailEntity> resultSearch) {
+        this.resultSearch = resultSearch;
+    }
+    
+    public boolean isSearchAvailable() {
+        return resultSearch.size() > 0;
+    }
+    
+    public void searchCocktails() {
+        resultSearch.clear();
+        List<BeverageEntity> selected = new ArrayList<BeverageEntity>();
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
+            if (e.getValue()) {
+                selected.add(e.getKey());
+            }
+        }
+        if (!selected.isEmpty()) {
+            resultSearch = client.getCocktailsForBeverage(selected.get(0));
+        }
+    }
+    
+    public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
+        selectedAlcoolId = map;
+    }
+    
+    public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
+        return selectedAlcoolId;
+    }
+    
+    public Map<String, Boolean> getselectedFlavorsString() {
+        return selectedFlavorsString;
+    }
+    
+    public List<pojo.CocktailFlavorEnum> getListFlavors() {
+        if (listFlavor.isEmpty()) {
+            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
+            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        }
+        return listFlavor;
+    }
+    
+    public List<BeverageEntity> getListAlcohol() {
+        if (listAlcohol.isEmpty()) {
+            listAlcohol = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohol;
+    }
+    
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;
     }
-
+    
     public void setCurrentCocktailAlcoholLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailAlcoholLetter = currentCocktailAlcoholLetter;
     }
-
+    
     public String displayCocktailAlcoholFirstLetter(String c) {
         this.currentCocktailAlcoholLetter = c;
         return "cocktailsAlcoholFirstLetter.xhtml?faces-redirect=true";
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithAlcoholByFirstLetter(l.charAt(0));
     }
-
+    
     public String getCurrentCocktailSoftLetter() {
         return currentCocktailSoftLetter;
     }
-
+    
     public void setCurrentCocktailSoftLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailSoftLetter = currentCocktailAlcoholLetter;
     }
-
+    
     public String displayCocktailVirginFirstLetter(String c) {
         this.currentCocktailSoftLetter = c;
         return "cocktailsVirginFirstLetter.xhtml?faces-redirect=true";
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithoutAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithoutAlcoholByFirstLetter(l.charAt(0));
     }
-
+    
     public String getQty() {
         return qty;
     }
-
+    
     public void setQty(String quantity) {
         this.qty = quantity;
     }
-
+    
     public DataManagedBean() {
         super();
         try {
@@ -97,11 +161,11 @@ public class DataManagedBean {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public String getLogin() {
         return account.getLogin();
     }
-
+    
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
         address = new AddressEntity();
@@ -126,7 +190,7 @@ public class DataManagedBean {
         account.setDelivery_address(address);
         client.addClient(account);
     }
-
+    
     public String connect(String login, String password) {
         if (account == null) {
             md.reset();
@@ -136,24 +200,24 @@ public class DataManagedBean {
                 sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
             }
             account = client.connect(login, sb.toString());
-            if(account == null){
+            if (account == null) {
                 return "Connexion.xhtml?faces-redirect=true";
             }
         }
         return "Account.xhtml?faces-redirect=true";
     }
-
+    
     public String disconnect() {
         if (account != null) {
             account = null;
         }
         return "index.xhtml?faces-redirect=true";
     }
-
+    
     public boolean isConnected() {
         return account != null;
     }
-
+    
     public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
@@ -175,71 +239,76 @@ public class DataManagedBean {
     public CocktailEntity getCurrentCocktail() {
         return currentCocktail;
     }
-
+    
     public CocktailEntity getCocktail(Long id) throws Exception {
         return client.getCocktail(id);
     }
-
+    
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
-        return client.getCocktailFull(cocktail);
+        if (cocktail != null) {
+            return client.getCocktailFull(cocktail);
+        } else {
+            return null;
+        }
+        
     }
-
+    
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return client.getCocktailDecorations(id);
     }
-
+    
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
         return client.getCocktailBeverages(cocktail);
     }
-
+    
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
         return cocktail.getDeliverables();
     }
-
+    
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
-
+    
     public List<CocktailEntity> getListAvailableCocktails() {
         return client.getAvailableCocktails();
     }
-
+    
     public List<CocktailEntity> getListUnavailableCocktails() {
         return client.getUnavailableCocktails();
     }
-
+    
     public List<BeverageEntity> getListAvailableBeverages() {
         return client.getAvailableBeverages();
     }
-
+    
     public List<BeverageEntity> getListUnavailableBeverages() {
         return client.getUnavailableBeverages();
     }
-
+    
     public List<CocktailEntity> getCartContent() {
         return client.getCartContent();
     }
-
+    
     public Integer getCartLength() {
         return client.getCartSize();
     }
-
+    
     public Float getCartPrice() {
         return client.getCartPrice();
     }
-
+    
     public List<CocktailEntity> getListMostPopularCocktails() {
         return client.getMostPopularCocktails();
     }
-
+    
     public List<CocktailEntity> getListNewestCocktails() {
         return client.getNewestCocktails();
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithAlcohol() {
         return client.getCocktailsWithAlcohol();
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
         return client.getCocktailsWithoutAlcohol();
     }
@@ -252,15 +321,20 @@ public class DataManagedBean {
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
     }
-
+    
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
-        client.removeArticle(cocktail);
+        System.out.println("Dans le DMB ..........................................................................");
+        if (qty.equals("")) {
+            qty = "1";
+        }
+        client.removeArticle(cocktail, Integer.parseInt(qty));
+        qty = "1";
     }
-
+    
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
         return client.getCocktailsByFirstLetter(letter);
     }
-
+    
     public List<CocktailEntity> listCocktailsByName(String name) {
         return client.getCocktailsByName(name);
     }
@@ -276,7 +350,7 @@ public class DataManagedBean {
         }
         return list;
     }
-
+    
     public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -286,7 +360,7 @@ public class DataManagedBean {
         }
         return list;
     }
-
+    
     public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -336,32 +410,32 @@ public class DataManagedBean {
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
-
+    
     public void setDisplayOrders(boolean b) {
         displayOrders = b;
         displayAddresses = false;
     }
-
+    
     public boolean getDisplayOrders() {
         return displayOrders;
     }
-
+    
     public void setDisplayAddresses(boolean b) {
         displayAddresses = b;
         displayOrders = false;
     }
-
+    
     public boolean getDisplayAddresses() {
         return displayAddresses;
     }
-
+    
     public List<OrderEntity> getOrdersOfAccount() {
         if (account != null) {
             return client.getOrdersOfAccount(account);
         }
         return null;
     }
-
+    
     public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
         if (account != null) {
             AddressEntity address = account.getDelivery_address();
