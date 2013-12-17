@@ -39,7 +39,7 @@
                                              actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
                                 <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
                                 Avec ajax on envoie que ce form et it works -->
-                                <f:ajax execute="@form" render="@all" />
+                                <f:ajax execute="@form" render=":form-menu" />
                             </h:commandButton>
                             
                             <h:outputLabel class="obscure"  for="qty" value="quantité de #{cc.attrs.item.name} à ajouter dans le panier"/>
