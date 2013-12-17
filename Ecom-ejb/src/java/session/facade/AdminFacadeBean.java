@@ -285,7 +285,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
      ************************************************************************* */
 
     @Override
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+    public void removeArticle(CocktailEntity cocktail, int qty) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
 

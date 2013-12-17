@@ -101,8 +101,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
-        cart.removeArticle(cocktail);
+    public void removeArticle(CocktailEntity cocktail, int qty) throws EcomException {
+        cart.removeArticle(cocktail, qty);
     }
 
     @Override

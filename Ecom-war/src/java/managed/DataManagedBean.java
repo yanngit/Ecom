@@ -324,7 +324,11 @@ public class DataManagedBean implements Serializable {
     
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
         System.out.println("Dans le DMB ..........................................................................");
-        client.removeArticle(cocktail);
+        if (qty.equals("")) {
+            qty = "1";
+        }
+        client.removeArticle(cocktail, Integer.parseInt(qty));
+        qty = "1";
     }
     
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {

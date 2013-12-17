@@ -62,7 +62,7 @@ public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */
-    public void removeArticle(CocktailEntity cocktail) throws EcomException;
+    public void removeArticle(CocktailEntity cocktail, int quantity) throws EcomException;
 
     public void addArticleToCart(Long id, int qty) throws EcomException;
 
