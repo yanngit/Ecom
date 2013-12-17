@@ -21,9 +21,10 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                       
-                                        <h2 class="media-heading">#{item.name}</h2>
-                                        
+
+                                         <h3 class="media-heading">
+                                             Les composants de #{item.name}
+                                        </h3>
                                         <div class="well well-small">
                                             <ul class="thumbnails">
                                                 <ui:repeat value="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" varStatus="status1">
@@ -34,10 +35,11 @@
                                                 <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
                                             </ul>
                                             <h:commandButton
-                                                title="Supprimer les articles"
-                                                alt=" "
+
+                                                title="Supprimer cet articles"
+                                                alt="Supprimer cet article de pannier"
                                                 action="#{dataManagedBean.removeArticle(item)}"
-                                                value="Supprimer les articles ">
+                                                value="Supprimer les article ">
                                             </h:commandButton>
                                         </div>
                                     </div>

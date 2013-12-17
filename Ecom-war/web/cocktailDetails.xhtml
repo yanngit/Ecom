@@ -17,19 +17,7 @@
                     <div class="text-center">
                         <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
                              alt=" "/>
-                        <p/>
-                        <h:commandButton image="#{resource['img:cart.png']}"
-                                         alt="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
-                                         styleClass="btn btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
-                                         title="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
-                                         action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
-                                         value="Acheter - #{dataManagedBean.currentCocktail.price} €">
-                        </h:commandButton><br />
-                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
-                                     maxlength="3" 
-                                     value="#{dataManagedBean.qty}"
-                                     styleClass="input-mini-plus" 
-                                     title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" />
+                        
                     </div>
                 </h:form>
             </div>
@@ -61,6 +49,20 @@
                 </p>
             </div>
         </div>
+        <p/>
+                        <h:commandButton image="#{resource['img:cart.png']}"
+                                         alt="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
+                                         styleClass="btn btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
+                                         title="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
+                                         action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
+                                         value="Acheter - #{dataManagedBean.currentCocktail.price} €">
+                        </h:commandButton><br />
+                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
+                                     maxlength="3" 
+                                     value="#{dataManagedBean.qty}"
+                                     styleClass="input-mini-plus" 
+                                     title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
+                        />
     </ui:define>
 </ui:composition>
 
