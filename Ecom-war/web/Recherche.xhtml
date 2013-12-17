@@ -5,12 +5,12 @@
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Connexion</ui:define>
     <ui:define name="content">
-        <h1> Recherche avancée </h1>
+        <h1 class="title-cocktail-details"> Recherche avancée </h1>
         <div class="well well-small">
             <h:form>
                 <ul class="thumbnails">
                     <li>
-                        <h3>Alcools</h3>
+                        <h2>Alcools</h2>
                         <div id="recherche-alcool">
                             <ui:repeat value="#{dataManagedBean.getListAlcohol()}" var="item" varStatus="i">
                                 <div id="item-recherche">
@@ -21,7 +21,7 @@
                         </div>
                     </li>
                     <li>
-                        <h3>Goûts</h3>
+                        <h2>Goûts</h2>
                         <div id="recherche-flavor">
                             <ui:repeat value="#{dataManagedBean.getListFlavors()}" var="item" varStatus="i">
                                 <div id="item-recherche">

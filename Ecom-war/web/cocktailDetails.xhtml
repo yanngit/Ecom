@@ -7,7 +7,7 @@
     <ui:define name="content">
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
-        <h1 class="media-heading">
+        <h1 class="title-cocktail-details">
                     #{dataManagedBean.currentCocktail.name}
                 </h1>
         
@@ -25,7 +25,7 @@
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton><br />
-                        <h:inputText alt=" " 
+                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
                                      maxlength="3" 
                                      value="#{dataManagedBean.qty}"
                                      styleClass="input-mini-plus" 
@@ -34,7 +34,7 @@
                 </h:form>
             </div>
             <div class="media-body">
-                
+                <h2>Description :</h2>
                 <div class="well">
                     <dl class="dl-horizontal">
                         <dt>Gout :</dt>
