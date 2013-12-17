@@ -40,7 +40,10 @@
                                              title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                              styleClass="btn"
                                              actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
-                                <f:ajax execute="@form" render="@all" />
+
+                                <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
+                                Avec ajax on envoie que ce form et it works -->
+                                <f:ajax execute="@form" render=":form-menu" />
                             </h:commandButton>
                             
                             <h:inputText id="qty"  maxlength="3"

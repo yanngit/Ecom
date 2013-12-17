@@ -1,10 +1,23 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Connexion</ui:define>
 
     <ui:define name="content">
-        <component:ConnectionComponent />
+        <h:form id="form-connection" class="span5 offset4">        
+            <p:panel header="Connexion">  
+                <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
+                    <h:outputLabel for="login" value="Login : "/>  
+                    <p:inputText id="login" binding="#{login}" />
+                    <h:outputLabel for="password" value="Mot de passe : "/>  
+                    <p:inputText id="password" type="password" binding="#{password}" />
+                    <h:outputLabel for="connexionButton"/>  
+                    <h:commandButton id="connexionButton" type="submit" onclick="return validateConnexion()" value="Se connecter" action="#{dataManagedBean.connect(login.value,password.value)}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>      
     </ui:define>
 </ui:composition>
