@@ -18,9 +18,9 @@
                          alt=" "/>
                 </div>
                 <div class="caption">
-                    
+
                     <div class="title-cocktail">#{cc.attrs.item.name}</div>
-                    
+
                     <div class="text-center">
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
@@ -35,29 +35,30 @@
                         <div class="input-prepend">
                             <h:commandButton image="#{resource['img:cart_small.png']}"
                                              id="cartBtn"
-                                             
+
                                              alt="Ajouter dans le pannier le "
                                              title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                              styleClass="btn"
                                              actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
-                                <f:ajax execute="@form" render="@all" />
+
+                                <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
+                                Avec ajax on envoie que ce form et it works -->
+                                <f:ajax execute="@form" render=":form-menu" />
+
                             </h:commandButton>
-                            
+
                             <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
                                          styleClass="input-mini"
                                          onkeypress="alert('ok');"
                                          title="quantité à ajouter dans le pannier de "
                                          />
-                            
-                            
-                               
                         </div>
                     </div>
                 </div>
             </h:form>
-            
+
         </li>
-        
+
     </composite:implementation>
 </html>
