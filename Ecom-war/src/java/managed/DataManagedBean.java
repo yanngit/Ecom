@@ -102,11 +102,24 @@ public class DataManagedBean implements Serializable {
     public String checkAge() {
         String result;
         GregorianCalendar dateOfBirth = new GregorianCalendar();
+        dateOfBirth.setLenient(false);
         try {
+            if (new Integer(yearOfBirth) < GregorianCalendar.getInstance().get(GregorianCalendar.YEAR) - 150) {
+                yearOfBirth = "AAAA";
+                throw new NumberFormatException();
+            }
             dateOfBirth.set(new Integer(yearOfBirth),
-                    new Integer(monthOfBirth),
+                    new Integer(monthOfBirth) - 1,
                     new Integer(dayOfBirth));
+            dateOfBirth.getTime();
         } catch (NumberFormatException e) {
+            return "ageChecking.xhtml?faces-redirect=true";
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equalsIgnoreCase("DAY_OF_MONTH")) {
+                dayOfBirth = "JJ";
+            } else if (e.getMessage().contains("MONTH")) {
+                monthOfBirth = "MM";
+            }
             return "ageChecking.xhtml?faces-redirect=true";
         }
         GregorianCalendar currentDate = new GregorianCalendar();

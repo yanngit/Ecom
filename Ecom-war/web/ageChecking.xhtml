@@ -40,6 +40,7 @@
                                  class="span1"
                                  maxlength="2"
                                  styleClass="input-large"/>
+                    <span style="white-space:pre-wrap"> </span>
                     <h:inputText id='MonthOfBirth'
                                  title="Mois de naissance"
                                  alt="Mois de naissance"
@@ -47,13 +48,15 @@
                                  class="span1"
                                  maxlength="2"
                                  styleClass="input-large"/>
+                    <span style="white-space:pre-wrap"> </span>
                     <h:inputText id='YearOfBirth'
                                  title="Année de naissance"
                                  alt="Année de naissance"
                                  value="#{dataManagedBean.yearOfBirth}"
                                  class="span2"
                                  maxlength="4"
-                                 styleClass="input-large"/>
+                                 styleClass="input-large"
+                                 required="true"/>
                     <br/>
                     <h:commandButton value="Entrer"
                                      title="Entrer sur le site"
