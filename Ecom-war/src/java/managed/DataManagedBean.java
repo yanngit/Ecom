@@ -93,11 +93,14 @@ public class DataManagedBean implements Serializable {
 
     public String checkAge() {
         String result;
-        System.out.println("Age Checking...");
-        GregorianCalendar dateOfBirth = new GregorianCalendar(new Integer(yearOfBirth),
-                new Integer(monthOfBirth),
-                new Integer(dayOfBirth));
-        System.out.println(dateOfBirth.toString());
+        GregorianCalendar dateOfBirth = new GregorianCalendar();
+        try {
+            dateOfBirth.set(new Integer(yearOfBirth),
+                    new Integer(monthOfBirth),
+                    new Integer(dayOfBirth));
+        } catch (NumberFormatException e) {
+            return "ageChecking.xhtml?faces-redirect=true";
+        }
         GregorianCalendar currentDate = new GregorianCalendar();
         Long dayElapsed = currentDate.getTimeInMillis() / (1000 * 3600 * 24)
                 - dateOfBirth.getTimeInMillis() / (1000 * 3600 * 24);
@@ -105,9 +108,7 @@ public class DataManagedBean implements Serializable {
 
         if (yearElapsed < 18) {
             result = "tooYoung.xhtml";
-            System.out.println("Too Young");
         } else {
-            System.out.println("OK");
             userIsMajor = true;
             result = "index.xhtml";
         }
