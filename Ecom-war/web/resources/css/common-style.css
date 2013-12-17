@@ -207,9 +207,11 @@ div.span2.right {
 
 /* labels for input text accessibility */
 .obscure{
-    position: absolute ; 
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */ 
-    clip: rect(1px, 1px, 1px, 1px);
+    /*position: absolute ; 
+    clip: rect(1px 1px 1px 1px); 
+    clip: rect(1px, 1px, 1px, 1px);*/
+    visibility: hidden;
+    display: none;
 }
 
 .title-cocktail {
@@ -224,4 +226,8 @@ div.span2.right {
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
+}
+
+.title-cocktail-details{
+    text-align: center;
 }

@@ -24,8 +24,9 @@
                     <div class="text-center">
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
-                                             alt=""
-                                             title="Consulter les détailles du cocktail "
+                                             id="infoBtn"
+                                             alt="Consulter les details de "
+                                             title="#{cc.attrs.item.recipe}"
                                              styleClass="btn"
                                              action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             </h:commandButton>
@@ -33,24 +34,30 @@
                         <br/><br/>
                         <div class="input-prepend">
                             <h:commandButton image="#{resource['img:cart_small.png']}"
-                                             alt=""
-                                             title="Ajouter le cocktail au panier"
+                                             id="cartBtn"
+                                             
+                                             alt="Ajouter dans le pannier le "
+                                             title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                              styleClass="btn"
                                              actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
-                                <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
-                                Avec ajax on envoie que ce form et it works -->
                                 <f:ajax execute="@form" render="@all" />
                             </h:commandButton>
                             
-                            <h:outputLabel class="obscure"  for="qty" value="quantité de #{cc.attrs.item.name} à ajouter dans le panier"/>
-                            
                             <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
-                                         styleClass="input-mini" />
+                                         styleClass="input-mini"
+                                         onkeypress="alert('ok');"
+                                         title="quantité à ajouter dans le pannier de "
+                                         />
+                            
+                            
+                               
                         </div>
                     </div>
                 </div>
             </h:form>
+            
         </li>
+        
     </composite:implementation>
 </html>
