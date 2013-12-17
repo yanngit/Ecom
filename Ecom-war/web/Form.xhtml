@@ -2,21 +2,23 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:component="http://java.sun.com/jsf/composite/component"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Formulaire</ui:define>
 
     <ui:define name="content">
-        <c:if test="#{dataManagedBean.connected}">
-            <component:FormValidateCartComponent title="Valider mon panier"
-                                                 first_name="#{dataManagedBean.accountAddress.first_name}"
-                                                 surname="#{dataManagedBean.accountAddress.surname}"
-                                                 street="#{dataManagedBean.accountAddress.street}"
-                                                 postal_code="#{dataManagedBean.accountAddress.postal_code}"
-                                                 city="#{dataManagedBean.accountAddress.city}"/>
-        </c:if>
-        <c:if test="#{!dataManagedBean.connected}">
-            <component:FormValidateCartComponent title="Valider mon panier" />
-        </c:if>
-
+        <h:form id="form-validate-cart" class="span5 offset4">
+            <c:if test="#{dataManagedBean.connected}">
+                <component:FormValidateCartComponent title="Valider mon panier"
+                                                     first_name="#{dataManagedBean.accountAddress.first_name}"
+                                                     surname="#{dataManagedBean.accountAddress.surname}"
+                                                     street="#{dataManagedBean.accountAddress.street}"
+                                                     postal_code="#{dataManagedBean.accountAddress.postal_code}"
+                                                     city="#{dataManagedBean.accountAddress.city}"/>
+            </c:if>
+            <c:if test="#{!dataManagedBean.connected}">
+                <component:FormValidateCartComponent title="Valider mon panier" />
+            </c:if>
+        </h:form>  
     </ui:define>
 </ui:composition>

@@ -267,11 +267,6 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public void removeArticleFromCart(Long id) throws EcomException {
-        throw new UnsupportedOperationException("Not supported for the admin.");
-    }
-
-    @Override
     public List<CocktailEntity> getCartContent() {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
@@ -290,7 +285,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
      ************************************************************************* */
 
     @Override
-    public void removeArticle(Long id) throws EcomException {
+    public void removeArticle(CocktailEntity cocktail) throws EcomException {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
 
@@ -336,6 +331,20 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public Long checkAddress(AddressEntity address) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+    public List<BeverageEntity> getAllBeveragesWithAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
