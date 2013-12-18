@@ -315,11 +315,14 @@ public class DataManagedBean implements Serializable {
 
     /* Setters, symbolizing an action */
     public void addArticleToCart(CocktailEntity cocktail) throws EcomException {
+        System.out.println("addArticleToCart " + qty);
         if (qty.equals("")) {
             qty = "1";
         }
-        client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
-        qty = "1";
+        if (canBeInteger(qty)) {
+            client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
+            qty = "1";
+        }
     }
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
@@ -434,6 +437,15 @@ public class DataManagedBean implements Serializable {
             address.setCity(city);
             /*MANQUE COUNTRY*/
             client.modifyAddress(address);
+        }
+    }
+
+    private boolean canBeInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
