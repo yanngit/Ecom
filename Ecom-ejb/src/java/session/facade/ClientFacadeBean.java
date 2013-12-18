@@ -58,7 +58,13 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
+        if (cocktail != null)
+            System.out.println("Cocktail name " + cocktail.getName());
+        else
+            System.out.println("Cocktail is dead");
+
         return cocktailManager.getCocktailBeverages(cocktail);
+            
     }
 
     @Override
