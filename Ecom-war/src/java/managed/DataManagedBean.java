@@ -218,7 +218,6 @@ public class DataManagedBean implements Serializable {
         selectedFlavor = null;
         selectedPower = null;
         selectedVirginsMap.clear();
-        resultSearch.clear();
     }
 
     public void afficherListeCocktails(List<CocktailEntity> list) {

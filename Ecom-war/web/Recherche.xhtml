@@ -47,13 +47,16 @@
                                 <h:outputLabel>
                                     <span aria-hidden="true" role="presentation">#{item.getName()}</span>
                                 </h:outputLabel>
+
+
                             </label>
                         </ui:repeat>
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
-                            Gout
+                            Goût
                         </legend>
+
                         <h:selectOneRadio value="#{dataManagedBean.selectedFlavor}">
                             <f:selectItems value="#{dataManagedBean.getListFlavors()}" />
                         </h:selectOneRadio>
@@ -81,19 +84,17 @@
                                      title="Réinitialiser le formulaire"
                                      value="Effacer"
                                      styleClass="btn btn-warning">
-                        <f:ajax execute="@form" render="@form :resultat" listener="#{dataManagedBean.resetResearch()}" />
+                        <f:ajax execute="@form" render="@form" listener="#{dataManagedBean.resetResearch()}" />
 
                     </h:commandButton>
                 </div>
             </h:form>
-            <h:panelGroup id="resultat">
-                <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
-                    <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{!dataManagedBean.isSearchAvailable()}">
-                    <p>Actuellement aucun résultat</p>
-                </ui:fragment>
-            </h:panelGroup>
+            <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
+                <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
+            </ui:fragment>
+            <ui:fragment rendered="#{!dataManagedBean.isSearchAvailable()}">
+                <p>Actuellement aucun résultat</p>
+            </ui:fragment>
         </div>
     </ui:define>
 </ui:composition>
