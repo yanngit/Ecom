@@ -32,7 +32,8 @@ import pojo.Product;
     @NamedQuery(name = "getCocktailsByVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
     @NamedQuery(name = "getCocktailsByExp", query = "SELECT c FROM CocktailEntity c WHERE c.name LIKE :exp"),
     @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),
-    @NamedQuery(name = "getCocktailsByFlavor", query = "SELECT c FROM CocktailEntity c WHERE flavor = :flavor")
+    @NamedQuery(name = "getCocktailsByFlavor", query = "SELECT c FROM CocktailEntity c WHERE c.flavor = :flavor"),
+    @NamedQuery(name = "getCocktailsByPower", query = "SELECT c FROM CocktailEntity c WHERE c.power = :power")
 })
 
 @Entity

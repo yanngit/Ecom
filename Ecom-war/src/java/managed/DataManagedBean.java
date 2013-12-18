@@ -26,6 +26,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import pojo.CocktailFlavorEnum;
+import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -57,14 +59,17 @@ public class DataManagedBean implements Serializable {
     private String yearOfBirth = "AAAA";
     private boolean userIsMajor = false;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listAlcohol = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    private List<BeverageEntity> listAlcohols = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolsMap = new HashMap<>();
     /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listVirgin = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
+    private List<BeverageEntity> listVirgins = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginsMap = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
-    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
-    private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
+    private List<CocktailFlavorEnum> listFlavors = new ArrayList<>();
+    private Map<CocktailFlavorEnum, Boolean> selectedFlavorsMap = new HashMap<>();
+    /*Liste des puissance et stockage d'une map pour les checkboxes de la recherche*/
+    private List<CocktailPowerEnum> listPowers = new ArrayList<>();
+    private Map<CocktailPowerEnum, Boolean> selectedPowersMap = new HashMap<>();
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
 
@@ -156,16 +161,30 @@ public class DataManagedBean implements Serializable {
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
         List<BeverageEntity> selected = new ArrayList<>();
+        List<CocktailFlavorEnum> selectedFlavor = new ArrayList<>();
+        List<CocktailPowerEnum> selectedPower = new ArrayList<>();
         /*Récupération des alcools selectionnes*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolsMap.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
             }
         }
         /*Récupération des diluants selectionnés*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginsMap.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
+            }
+        }
+
+        for (Map.Entry<CocktailFlavorEnum, Boolean> e : selectedFlavorsMap.entrySet()) {
+            if (e.getValue()) {
+                selectedFlavor.add(e.getKey());
+            }
+        }
+        
+        for (Map.Entry<CocktailPowerEnum, Boolean> e : selectedPowersMap.entrySet()) {
+            if (e.getValue()) {
+                selectedPower.add(e.getKey());
             }
         }
 
@@ -179,48 +198,85 @@ public class DataManagedBean implements Serializable {
                 }
             }
         }
-    }
 
-    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
-        selectedVirginId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedVirginId() {
-        return selectedVirginId;
-    }
-
-    public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
-        selectedAlcoolId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
-        return selectedAlcoolId;
-    }
-
-    public Map<String, Boolean> getselectedFlavorsString() {
-        return selectedFlavorsString;
-    }
-
-    public List<pojo.CocktailFlavorEnum> getListFlavors() {
-        if (listFlavor.isEmpty()) {
-            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
-            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        for (CocktailFlavorEnum f : selectedFlavor) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByFlavor(f);
+            } else {
+                resultSearch.retainAll(client.getCocktailsByFlavor(f));
+            }
         }
-        return listFlavor;
+        
+        for (CocktailPowerEnum p  : selectedPower) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByPower(p);
+            } else {
+                resultSearch.retainAll(client.getCocktailsByPower(p));
+            }
+        }
     }
 
-    public List<BeverageEntity> getListVirgin() {
-        if (listVirgin.isEmpty()) {
-            listVirgin = client.getAllBeveragesWithoutAlcohol();
-        }
-        return listVirgin;
+    public void setselectedVirginsMap(Map<BeverageEntity, Boolean> map) {
+        selectedVirginsMap = map;
     }
 
-    public List<BeverageEntity> getListAlcohol() {
-        if (listAlcohol.isEmpty()) {
-            listAlcohol = client.getAllBeveragesWithAlcohol();
+    public void setselectedAlcoolsMap(Map<BeverageEntity, Boolean> map) {
+        selectedAlcoolsMap = map;
+    }
+
+    public void setselectedFlavorsMap(Map<CocktailFlavorEnum, Boolean> map) {
+        selectedFlavorsMap = map;
+    }
+    
+    public void setselectedPowersMap(Map<CocktailPowerEnum, Boolean> map) {
+        selectedPowersMap = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginsMap() {
+        return selectedVirginsMap;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedAlcoolsMap() {
+        return selectedAlcoolsMap;
+    }
+
+    public Map<CocktailFlavorEnum, Boolean> getselectedFlavorsMap() {
+        return selectedFlavorsMap;
+    }
+    
+    public Map<CocktailPowerEnum, Boolean> getselectedPowersMap() {
+        return selectedPowersMap;
+    }
+
+    public List<CocktailFlavorEnum> getListFlavors() {
+        if (listFlavors.isEmpty()) {
+            listFlavors.add(CocktailFlavorEnum.BITTER);
+            listFlavors.add(CocktailFlavorEnum.FRUITY);
         }
-        return listAlcohol;
+        return listFlavors;
+    }
+    
+    public List<CocktailPowerEnum> getListPowers() {
+        if (listPowers.isEmpty()) {
+            listPowers.add(CocktailPowerEnum.SOFT);
+            listPowers.add(CocktailPowerEnum.MEDIUM);
+            listPowers.add(CocktailPowerEnum.STRONG);
+        }
+        return listPowers;
+    }
+
+    public List<BeverageEntity> getListVirgins() {
+        if (listVirgins.isEmpty()) {
+            listVirgins = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgins;
+    }
+
+    public List<BeverageEntity> getListAlcohols() {
+        if (listAlcohols.isEmpty()) {
+            listAlcohols = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohols;
     }
 
     public String getCurrentCocktailAlcoholLetter() {
