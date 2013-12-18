@@ -1,6 +1,7 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
         <meta charset="UTF-8"/>
@@ -66,12 +67,8 @@
                 </h:form>
             </div>
         </div>
-        <footer class="footer">
-            <div class="container span12">
-                <p class="credit">
-                    ECOM - Tchin-Tchin project.
-                </p>
-            </div>
-        </footer>
+        <ui:insert name="footer" >
+            <ui:include src="/template/common/commonFooter.xhtml" />
+        </ui:insert>
     </h:body>
 </html>
