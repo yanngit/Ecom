@@ -13,12 +13,12 @@
                         <legend>
                             Alcools
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListAlcohol()}"
+                        <ui:repeat value="#{dataManagedBean.getListAlcohols()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
-                                                         value="#{dataManagedBean.selectedAlcoolId[item]}"/>
+                                                         value="#{dataManagedBean.selectedAlcoolsMap[item]}"/>
                                 <h:outputLabel value="#{item.getName()}"/>
                             </label>
                         </ui:repeat>
@@ -27,12 +27,12 @@
                         <legend>
                             Diluants
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListVirgin()}"
+                        <ui:repeat value="#{dataManagedBean.getListVirgins()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
-                                                         value="#{dataManagedBean.selectedVirginId[item]}"/>
+                                                         value="#{dataManagedBean.selectedVirginsMap[item]}"/>
                                 <h:outputLabel value="#{item.getName()}"/>
                             </label>
                         </ui:repeat>
@@ -41,12 +41,26 @@
                         <legend>
                             Goût
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.listFlavors}"
+                        <ui:repeat value="#{dataManagedBean.getListFlavors()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.toString()}"
-                                                         value="#{dataManagedBean.selectedFlavorsString[item.toString()]}"/>
+                                                         value="#{dataManagedBean.selectedFlavorsMap[item]}"/>
+                                <h:outputLabel value="#{item.toString()}"/>
+                            </label>
+                        </ui:repeat>
+                    </fieldset>
+                     <fieldset class="span2">
+                        <legend>
+                            Puissance
+                        </legend>
+                        <ui:repeat value="#{dataManagedBean.getListPowers()}"
+                                   var="item"
+                                   varStatus="i">
+                            <label class="checkbox">
+                                <h:selectBooleanCheckbox title="#{item.toString()}"
+                                                         value="#{dataManagedBean.selectedPowersMap[item]}"/>
                                 <h:outputLabel value="#{item.toString()}"/>
                             </label>
                         </ui:repeat>

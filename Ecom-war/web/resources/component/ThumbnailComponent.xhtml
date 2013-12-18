@@ -14,11 +14,16 @@
             <h:form id="form-cocktail-thumbnail">
                 <div class="filling-thumb">
                     <ui:param name="img_path" value="img:#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" />
-                    <img src="#{resource[img_path]}" 
+                    <img src="#{resource[img_path]}"
                          alt=" "/>
                 </div>
                 <div class="caption">
-                    <div class="title-cocktail">#{cc.attrs.item.name}</div>
+                    <div class="title-cocktail"
+                         title="#{cc.attrs.item.name}">
+                        #{cc.attrs.item.price} €
+                        <br/>
+                        #{cc.attrs.item.name}
+                    </div>
                     <div class="text-center">
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
@@ -37,7 +42,7 @@
                                              type="button" >
                                 <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
                                 Avec ajax on envoie que ce form et it works -->
-                                <f:ajax execute="@form" render=":form-menu" listener="#{dataManagedBean.addArticleToCart(item)}"/>                            
+                                <f:ajax execute="@form" render=":form-menu" listener="#{dataManagedBean.addArticleToCart(item)}"/>
                             </h:commandButton>
                             <h:outputLabel class="obscure"  for="qty" value="quantité de #{cc.attrs.item.name} à ajouter dans le panier"/>
                             <h:inputText id="qty"  maxlength="3"

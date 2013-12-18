@@ -4,6 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       lang="fr"
       xmlns:f="http://java.sun.com/jsf/core">
+    <f:event type="preRenderView"
+             listener="#{dataManagedBean.checkMajorUser}"/>
     <h:head>
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />
@@ -16,8 +18,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
     </h:head>
     <h:body>
-        <div id="page">
-            <f:view>
+        <f:view>
+            <div id="wrap">
                 <ui:insert name="header" >
                     <ui:include src="/template/common/commonHeader.xhtml" />
                 </ui:insert>
@@ -27,10 +29,11 @@
                 <div id="content">
                     <ui:insert name="content"/>
                 </div>
-                <ui:insert name="footer" >
-                    <ui:include src="/template/common/commonFooter.xhtml" />
-                </ui:insert>
-           </f:view>
-        </div>
+                <div id="push"/>
+            </div>
+            <ui:insert name="footer" >
+                <ui:include src="/template/common/commonFooter.xhtml" />
+            </ui:insert>
+        </f:view>
     </h:body>
 </html>

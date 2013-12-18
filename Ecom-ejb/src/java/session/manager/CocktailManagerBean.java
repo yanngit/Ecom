@@ -184,7 +184,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
 
     public List<CocktailEntity> getMostPopularCocktails() {
         return em.createNamedQuery("getPopularCocktails")
-                .setMaxResults(3)
+                .setMaxResults(5)
                 .getResultList();
     }
 
@@ -238,6 +238,14 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
             }
         }
         return res;
-        
     }
+    
+    public List<CocktailEntity> getCocktailsByFlavor(pojo.CocktailFlavorEnum flavor) {
+        return em.createNamedQuery("getCocktailsByFlavor").setParameter("flavor",flavor).getResultList();
+    }
+    
+    public List<CocktailEntity> getCocktailsByPower(pojo.CocktailPowerEnum power) {
+        return em.createNamedQuery("getCocktailsByPower").setParameter("power",power).getResultList();
+    }
+    
 }
