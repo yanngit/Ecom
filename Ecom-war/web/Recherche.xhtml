@@ -1,6 +1,7 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Recherche</ui:define>
@@ -16,22 +17,22 @@
                         <legend>
                             Alcools
                         </legend>
-                        
+
                         <ui:repeat value="#{dataManagedBean.getListAlcohols()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
                                                          value="#{dataManagedBean.selectedAlcoolsMap[item]}"/>
-                                
+
                                 <h:outputLabel>
                                     <span aria-hidden="true" role="presentation">#{item.getName()}</span>
                                 </h:outputLabel>
-                                
-                                
+
+
                             </label>
                         </ui:repeat>
-                        
+
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
@@ -46,8 +47,8 @@
                                 <h:outputLabel>
                                     <span aria-hidden="true" role="presentation">#{item.getName()}</span>
                                 </h:outputLabel>
-                                
-                                
+
+
                             </label>
                         </ui:repeat>
                     </fieldset>
@@ -64,11 +65,11 @@
                                 <h:outputLabel>
                                     <span aria-hidden="true" role="presentation">#{item.toString()}</span>
                                 </h:outputLabel>
-                                
+
                             </label>
                         </ui:repeat>
                     </fieldset>
-                     <fieldset class="span2">
+                    <fieldset class="span2">
                         <legend>
                             Puissance
                         </legend>
@@ -81,7 +82,7 @@
                                 <h:outputLabel>
                                     <span aria-hidden="true" role="presentation">#{item.toString()}</span>
                                 </h:outputLabel>
-                                
+
                             </label>
                         </ui:repeat>
                     </fieldset>
@@ -98,7 +99,10 @@
                                      alt="Réinitialiser le formulaire, décocher tous les champs"
                                      title="Réinitialiser le formulaire"
                                      value="Effacer"
-                                     styleClass="btn btn-warning"/>
+                                     styleClass="btn btn-warning">
+                        <f:ajax execute="@form" render="@form" listener="#{dataManagedBean.resetResearch()}" />
+
+                    </h:commandButton>
                 </div>
             </h:form>
             <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">

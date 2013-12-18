@@ -32,7 +32,6 @@ import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 import java.util.*; 
-import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
@@ -61,7 +60,8 @@ public class DataManagedBean implements Serializable {
     private String dayOfBirth = "JJ";
     private String monthOfBirth = "MM";
     private String yearOfBirth = "AAAA";
-    private boolean userIsMajor = false;
+    /*Passer a false pour la prod*/
+    private boolean userIsMajor = true;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
     private List<BeverageEntity> listAlcohols = new ArrayList<>();
     private Map<BeverageEntity, Boolean> selectedAlcoolsMap = new HashMap<>();
@@ -161,6 +161,7 @@ public class DataManagedBean implements Serializable {
     }
 
     public void searchCocktails() {
+        boolean isInit = false;
         /*Netoyage des résultats précédents*/
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
@@ -195,32 +196,50 @@ public class DataManagedBean implements Serializable {
         /*Intersection des résltats*/
         if (!selectedBeverages.isEmpty()) {
             for (BeverageEntity b : selectedBeverages) {
-                if (resultSearch.isEmpty()) {
+                if (resultSearch.isEmpty() && !isInit) {
                     resultSearch = client.getCocktailsForBeverage(b);
+                    isInit = true;
+                    
                 } else {
                     resultSearch.retainAll(client.getCocktailsForBeverage(b));
                 }
             }
         }
         
-        if (!selectedFlavor.isEmpty()) {
+        if (!selectedFlavor.isEmpty() && !isInit) {
             for (CocktailFlavorEnum f : selectedFlavor) {
                 if (resultSearch.isEmpty()) {
                     resultSearch = client.getCocktailsByFlavor(f);
+                    isInit = true;
                 } else {
                     resultSearch.retainAll(client.getCocktailsByFlavor(f));
                 }
             }
         }
 
-        if (!selectedPower.isEmpty()) {
+        if (!selectedPower.isEmpty() && !isInit) {
             for (CocktailPowerEnum p : selectedPower) {
                 if (resultSearch.isEmpty()) {
                     resultSearch = client.getCocktailsByPower(p);
+                    isInit = true;
                 } else {
                     resultSearch.retainAll(client.getCocktailsByPower(p));
                 }
             }
+        }
+    }
+    
+    public void resetResearch(){
+        selectedAlcoolsMap.clear();
+        selectedFlavorsMap.clear();
+        selectedPowersMap.clear();
+        selectedVirginsMap.clear();
+    }
+    
+    public void afficherListeCocktails(List<CocktailEntity> list){
+        System.out.println("Affichage Liste : ");
+        for(CocktailEntity c : list){
+            System.out.println(c.getName());
         }
     }
 
