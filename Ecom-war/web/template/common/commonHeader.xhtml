@@ -27,9 +27,9 @@
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
                                     <li class="dropdown-submenu">
                                         <h:commandLink value="#{items[0].name.charAt(0)}"
-                                                                   action="#{dataManagedBean.displayCocktailAlcoholFirstLetter(items[0].name.charAt(0))}">
-                                                    </h:commandLink>
-                                       <!-- <h:outputLink value="{items[0].name.charAt(0)}">{items[0].name.charAt(0)}</h:outputLink>-->
+                                                       action="#{dataManagedBean.displayCocktailAlcoholFirstLetter(items[0].name.charAt(0))}">
+                                        </h:commandLink>
+                                        <!-- <h:outputLink value="{items[0].name.charAt(0)}">{items[0].name.charAt(0)}</h:outputLink>-->
                                         <ul class="dropdown-menu">
                                             <ui:repeat var="itemsItem" value="#{items}">
                                                 <li>
@@ -52,8 +52,8 @@
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
                                     <li class="dropdown-submenu">
                                         <h:commandLink value="#{items[0].name.charAt(0)}"
-                                                                   action="#{dataManagedBean.displayCocktailVirginFirstLetter(items[0].name.charAt(0))}">
-                                                    </h:commandLink>
+                                                       action="#{dataManagedBean.displayCocktailVirginFirstLetter(items[0].name.charAt(0))}">
+                                        </h:commandLink>
                                         <ul class="dropdown-menu">
                                             <ui:repeat var="itemsItem" value="#{items}">
                                                 <li>
@@ -76,21 +76,19 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
-
-                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
-                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
-                                    #{dataManagedBean.getLogin()} - Deconnection
-                                </h:commandLink>
-                            </ui:fragment>   
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" title="Se connecter">
                                     Connection
                                 </h:outputLink>
+                                
                             </ui:fragment>
                         </li>
+                        
                         <li>
                             <h:outputLink value="Cart.xhtml" title="Mon pannier contient #{dataManagedBean.cartLength} cocktails. Total = #{dataManagedBean.cartPrice} €">
-                                Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                                
+                                 Panier <span aria-hidden="true" role="presentation">(#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €</span> 
+                         
                             </h:outputLink>
                         </li>
                         <c:if test="#{dataManagedBean.connected}">

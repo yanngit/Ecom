@@ -5,15 +5,16 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core">
-    <ui:define name="title">Panier</ui:define>
+    <ui:define name="title">Mon panier</ui:define>
     <ui:define name="content">
-        <h:panelGroup style="display: block">
+        <h:panelGroup style="display: block" >
             <div id="cart_component">
-                <h2>Panier</h2>
+                <h1 class="title-cocktail-details">Mon panier</h1>
                 <div class="well well-small">
                     <ul class="thumbnails">
                         <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
                             <h:form>
+
                                 <c:if test="#{dataManagedBean.getQuantityForCocktailInCart(item) > 0}">
                                     <div class="media">
                                         <div class="pull-left media-object span2">

@@ -1,11 +1,15 @@
 <ui:composition template="template/common/commonLayout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Recherche</ui:define>
     <ui:define name="content">
-        <h2> Recherche avancée </h2>
+
+        <span aria-label="Effectuer une recherche avancée, vous pouvez faire une recherche , par alcool, par déluant, par le gout, par la puissance">
+            Recherche avancée
+        </span>
         <div class="well">
             <h:form>
                 <div class="row-fluid">
@@ -13,63 +17,83 @@
                         <legend>
                             Alcools
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListAlcohol()}"
+
+                        <ui:repeat value="#{dataManagedBean.getListAlcohols()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
-                                                         value="#{dataManagedBean.selectedAlcoolId[item]}"/>
-                                <h:outputLabel value="#{item.getName()}"/>
+                                                         value="#{dataManagedBean.selectedAlcoolsMap[item]}"/>
+
+                                <h:outputLabel>
+                                    <span aria-hidden="true" role="presentation">#{item.getName()}</span>
+                                </h:outputLabel>
+
+
                             </label>
                         </ui:repeat>
+
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
                             Diluants
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListVirgin()}"
+                        <ui:repeat value="#{dataManagedBean.getListVirgins()}"
                                    var="item"
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
-                                                         value="#{dataManagedBean.selectedVirginId[item]}"/>
-                                <h:outputLabel value="#{item.getName()}"/>
+                                                         value="#{dataManagedBean.selectedVirginsMap[item]}"/>
+                                <h:outputLabel>
+                                    <span aria-hidden="true" role="presentation">#{item.getName()}</span>
+                                </h:outputLabel>
                             </label>
                         </ui:repeat>
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
-                            Goût
+                            Gout
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.listFlavors}"
-                                   var="item"
-                                   varStatus="i">
-                            <label class="checkbox">
-                                <h:selectBooleanCheckbox title="#{item.toString()}"
-                                                         value="#{dataManagedBean.selectedFlavorsString[item.toString()]}"/>
-                                <h:outputLabel value="#{item.toString()}"/>
-                            </label>
-                        </ui:repeat>
+                        <h:selectOneRadio value="#{dataManagedBean.selectedFlavor}">
+                            <f:selectItems value="#{dataManagedBean.getListFlavors()}" />
+                        </h:selectOneRadio>
+                    </fieldset>
+                    <fieldset class="span2">
+                        <legend>
+                            Puissance
+                        </legend>
+
+                        <h:selectOneRadio value="#{dataManagedBean.selectedPower}">
+                            <f:selectItems value="#{dataManagedBean.getListPowers()}" />
+                        </h:selectOneRadio>
                     </fieldset>
                 </div>
                 <br/>
                 <div>
                     <h:commandButton type="submit"
                                      actionListener="#{dataManagedBean.searchCocktails()}"
-                                     label="Boutton de recherche"
-                                     title="Boutton pour lancer la recherche"
+                                     alt="Lancer la recherche"
+                                     title="Lancer la recherche"
                                      value="Rechercher"
                                      styleClass="btn"/><span style="white-space:pre-wrap"> </span>
                     <h:commandButton type="reset"
-                                     label="Réinitialiser le formulaire"
-                                     title="Boutton pour réinitialiser le formulaire"
+                                     alt="Réinitialiser le formulaire, décocher tous les champs"
+                                     title="Réinitialiser le formulaire"
                                      value="Effacer"
-                                     styleClass="btn btn-warning"/>
+                                     styleClass="btn btn-warning">
+                        <f:ajax execute="@form" render="@form :resultat" listener="#{dataManagedBean.resetResearch()}" />
+
+                    </h:commandButton>
                 </div>
             </h:form>
-            <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
-                <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
-            </ui:fragment>
+            <h:panelGroup id="resultat">
+                <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
+                    <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{!dataManagedBean.isSearchAvailable()}">
+                    <p>Actuellement aucun résultat</p>
+                </ui:fragment>
+            </h:panelGroup>
         </div>
     </ui:define>
 </ui:composition>

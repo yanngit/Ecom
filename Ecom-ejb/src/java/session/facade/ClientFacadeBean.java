@@ -14,6 +14,8 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import pojo.CocktailFlavorEnum;
+import pojo.CocktailPowerEnum;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.AddressManagerBean;
@@ -280,6 +282,16 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
         return beverageManager.getAllBeveragesWithoutAlcohol();
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsByFlavor(CocktailFlavorEnum flavor) {
+        return cocktailManager.getCocktailsByFlavor(flavor);
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsByPower(CocktailPowerEnum power) {
+        return cocktailManager.getCocktailsByPower(power);
     }
 }
 

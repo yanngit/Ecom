@@ -26,9 +26,15 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import pojo.CocktailFlavorEnum;
+import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.naming.*;
 
 /**
  *
@@ -55,16 +61,20 @@ public class DataManagedBean implements Serializable {
     private String dayOfBirth = "JJ";
     private String monthOfBirth = "MM";
     private String yearOfBirth = "AAAA";
-    private boolean userIsMajor = false;
+    /*Passer a false pour la prod*/
+    private boolean userIsMajor = true;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listAlcohol = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    private List<BeverageEntity> listAlcohols = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolsMap = new HashMap<>();
     /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listVirgin = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
+    private List<BeverageEntity> listVirgins = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginsMap = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
-    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
-    private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
+    private Map<String, Object> listFlavors = new HashMap<>();
+    CocktailFlavorEnum selectedFlavor = null;
+    /*Liste des puissances et stockage d'une map pour les checkboxes de la recherche*/
+    private Map<String, Object> listPowers = new HashMap<>();
+    CocktailPowerEnum selectedPower = null;
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
 
@@ -152,75 +162,133 @@ public class DataManagedBean implements Serializable {
     }
 
     public void searchCocktails() {
+        boolean isInit = false;
         /*Netoyage des résultats précédents*/
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
-        List<BeverageEntity> selected = new ArrayList<>();
+        List<BeverageEntity> selectedBeverages = new ArrayList<>();
+
         /*Récupération des alcools selectionnes*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolsMap.entrySet()) {
             if (e.getValue()) {
-                selected.add(e.getKey());
+                selectedBeverages.add(e.getKey());
             }
         }
         /*Récupération des diluants selectionnés*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginsMap.entrySet()) {
             if (e.getValue()) {
-                selected.add(e.getKey());
+                selectedBeverages.add(e.getKey());
             }
         }
 
         /*Intersection des résltats*/
-        if (!selected.isEmpty()) {
-            for (BeverageEntity b : selected) {
-                if (resultSearch.isEmpty()) {
+        if (!selectedBeverages.isEmpty()) {
+            for (BeverageEntity b : selectedBeverages) {
+                if (resultSearch.isEmpty() && !isInit) {
                     resultSearch = client.getCocktailsForBeverage(b);
+                    isInit = true;
+
                 } else {
                     resultSearch.retainAll(client.getCocktailsForBeverage(b));
                 }
             }
         }
-    }
 
-    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
-        selectedVirginId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedVirginId() {
-        return selectedVirginId;
-    }
-
-    public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
-        selectedAlcoolId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
-        return selectedAlcoolId;
-    }
-
-    public Map<String, Boolean> getselectedFlavorsString() {
-        return selectedFlavorsString;
-    }
-
-    public List<pojo.CocktailFlavorEnum> getListFlavors() {
-        if (listFlavor.isEmpty()) {
-            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
-            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        if (selectedFlavor != null) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByFlavor(selectedFlavor);
+                isInit = true;
+            } else {
+                resultSearch.retainAll(client.getCocktailsByFlavor(selectedFlavor));
+            }
         }
-        return listFlavor;
+
+        if (selectedPower != null) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByPower(selectedPower);
+                isInit = true;
+            } else {
+                resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
+            }
+        }
     }
 
-    public List<BeverageEntity> getListVirgin() {
-        if (listVirgin.isEmpty()) {
-            listVirgin = client.getAllBeveragesWithoutAlcohol();
-        }
-        return listVirgin;
+    public void resetResearch() {
+        selectedAlcoolsMap.clear();
+        selectedFlavor = null;
+        selectedPower = null;
+        selectedVirginsMap.clear();
+        resultSearch.clear();
     }
 
-    public List<BeverageEntity> getListAlcohol() {
-        if (listAlcohol.isEmpty()) {
-            listAlcohol = client.getAllBeveragesWithAlcohol();
+    public void afficherListeCocktails(List<CocktailEntity> list) {
+        System.out.println("Affichage Liste : ");
+        for (CocktailEntity c : list) {
+            System.out.println(c.getName());
         }
-        return listAlcohol;
+    }
+
+    public void setselectedVirginsMap(Map<BeverageEntity, Boolean> map) {
+        selectedVirginsMap = map;
+    }
+
+    public void setselectedAlcoolsMap(Map<BeverageEntity, Boolean> map) {
+        selectedAlcoolsMap = map;
+    }
+
+    public void setselectedFlavor(CocktailFlavorEnum flavor) {
+        selectedFlavor = flavor;
+    }
+
+    public void setselectedPower(CocktailPowerEnum power) {
+        selectedPower = power;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginsMap() {
+        return selectedVirginsMap;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedAlcoolsMap() {
+        return selectedAlcoolsMap;
+    }
+
+    public CocktailFlavorEnum getselectedFlavor() {
+        return selectedFlavor;
+    }
+
+    public CocktailPowerEnum getselectedPower() {
+        return selectedPower;
+    }
+
+    public Map<String, Object> getListFlavors() {
+        if (listFlavors.isEmpty()) {
+            listFlavors.put(CocktailFlavorEnum.BITTER.name(), CocktailFlavorEnum.BITTER);
+            listFlavors.put(CocktailFlavorEnum.FRUITY.name(), CocktailFlavorEnum.FRUITY);
+        }
+        return listFlavors;
+    }
+
+    public Map<String, Object> getListPowers() {
+        if (listPowers.isEmpty()) {
+            listPowers.put(CocktailPowerEnum.SOFT.name(),CocktailPowerEnum.SOFT);
+            listPowers.put(CocktailPowerEnum.MEDIUM.name(),CocktailPowerEnum.MEDIUM);
+            listPowers.put(CocktailPowerEnum.STRONG.name(),CocktailPowerEnum.STRONG);
+        }
+        return listPowers;
+    }
+
+    public List<BeverageEntity> getListVirgins() {
+        if (listVirgins.isEmpty()) {
+            listVirgins = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgins;
+    }
+
+    public List<BeverageEntity> getListAlcohols() {
+        if (listAlcohols.isEmpty()) {
+            listAlcohols = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohols;
     }
 
     public String getCurrentCocktailAlcoholLetter() {
@@ -429,8 +497,10 @@ public class DataManagedBean implements Serializable {
         if (qty.equals("")) {
             qty = "1";
         }
-        client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
-        qty = "1";
+        if (canBeInteger(qty)) {
+            client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
+            qty = "1";
+        }
     }
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
@@ -559,7 +629,42 @@ public class DataManagedBean implements Serializable {
         }
     }
 
+    private boolean canBeInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public Long getOrderId() {
         return order.getId();
+    }
+
+    public void contactUs(String clientMail, String msgSubject, String msgTxt) throws MessagingException {
+        try {
+            msgTxt = msgTxt + "\n sent by" + clientMail;
+            InitialContext ic = new InitialContext();
+            String snName = "mail/EmailMe";
+            Session session = (Session) ic.lookup(snName);
+            Message msg = new MimeMessage(session);
+            msg.setSubject(msgSubject);
+            msg.setSentDate(new Date());
+            msg.setFrom();
+            String Admin = "bachar.nejem@gmail.com";
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Admin, false));
+            MimeBodyPart mbp = new MimeBodyPart();
+            mbp.setText(msgTxt);
+            Multipart mp = new MimeMultipart();
+            mp.addBodyPart(mbp);
+            msg.setContent(mp);
+            Transport.send(msg);
+
+        } catch (NamingException ex) {
+            Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }
 }

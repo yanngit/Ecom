@@ -44,7 +44,7 @@
                 <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
                 <h:outputLabel for="pbutton"/> 
                 <h:commandButton id="pbutton" class="paypal-button" 
-                                 action="Cart.xhtml" 
+                                 action="Confirmation.xhtml" 
                                  actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
                 <c:if test="#{!dataManagedBean.connected}">
                     <h:outputLabel for="accountCreationButton"/>  

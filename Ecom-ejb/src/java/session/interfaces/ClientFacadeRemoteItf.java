@@ -19,6 +19,10 @@ public interface ClientFacadeRemoteItf {
 
     /*Search cocktail*/
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage);
+    
+    public List<CocktailEntity> getCocktailsByPower(pojo.CocktailPowerEnum power);
+    
+    public List<CocktailEntity> getCocktailsByFlavor(pojo.CocktailFlavorEnum flavor);
     /* Fetch deliverables */
     public List<BeverageEntity> getAvailableBeverages();
 
@@ -97,4 +101,6 @@ public interface ClientFacadeRemoteItf {
     public void modifyAddress(AddressEntity address);
     
     public Long checkAddress(AddressEntity address);
+    
+
 }
