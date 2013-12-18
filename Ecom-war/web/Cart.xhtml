@@ -40,7 +40,7 @@
                                                     styleClass="btn"
                                                     value="Supprimer les articles "
                                                     type="button" >
-                                                    <f:ajax execute="@form" render="@form :form-menu :total-panier" listener="#{dataManagedBean.removeArticle(item)}" />
+                                                    <f:ajax execute="@form" render="@form :form-menu :form-total" listener="#{dataManagedBean.removeArticle(item)}" />
                                                 </h:commandButton>
                                                 <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
 
@@ -55,14 +55,14 @@
             </div>
         </h:panelGroup>
         <li class="thumbnail">
-            <h:form id="total-panier">
+            <h:form id="form-total">
                 <div class="totalPanier">
-                    <div class="total_cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
-                    <h:button class="totalPanier-button"
-                              image="#{resource['img:btn_valider.png']}"
-                              alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
-                    </h:button>
-                    <div class="clear"></div>
+                    <div class="totalPrice"> Total:  #{dataManagedBean.getCartPrice()}€
+                        <h:button class="totalPanierButton"
+                                  image="#{resource['img:btn_valider.png']}"
+                                  alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
+                        </h:button>
+                    </div>
                 </div>
             </h:form>
         </li>
