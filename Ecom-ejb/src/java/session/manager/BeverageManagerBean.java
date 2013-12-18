@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pojo.AbstractEntityManager;
+import pojo.Product;
 
 @Stateless
 public class BeverageManagerBean extends AbstractEntityManager<BeverageEntity> {

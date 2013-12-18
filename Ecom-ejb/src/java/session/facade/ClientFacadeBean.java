@@ -40,6 +40,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     private ClientAccountManagerBean clientAccountManager;
     @EJB
     private CartFacadeLocalItf cart;
+    private ClientAccountEntity account = null;
 
     /*
      * Operation on Deliverables

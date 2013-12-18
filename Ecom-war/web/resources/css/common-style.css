@@ -206,7 +206,6 @@ input[id*="qty-cart"]{
     margin-top: 10px;
 }
 
-
 /* Cocktails details */
 .cocktail-recipe {
     white-space: pre-line;
@@ -218,7 +217,7 @@ input[id*="qty-cart"]{
 }
 
 .item-recherche{
-    padding : 5px; 
+   padding : 5px; 
 }
 
 /* labels for input text accessibility */

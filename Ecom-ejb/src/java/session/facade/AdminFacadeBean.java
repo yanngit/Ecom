@@ -172,6 +172,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         return decorationManager.findAll();
     }
 
+    @Override
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return cocktailManager.getCocktailDecorations(id);
     }
@@ -270,16 +271,7 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<CocktailEntity> getCartContent() {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
-
-    @Override
-    public Float getCartPrice() {
-        throw new UnsupportedOperationException("Not supported for the admin.");
-    }
-
-    @Override
-    public Integer getCartSize() {
-        throw new UnsupportedOperationException("Not supported for the admin.");
-    }
+    
     /*
      * Getters
      ************************************************************************* */
@@ -294,21 +286,31 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
         throw new UnsupportedOperationException("Not supported for the admin.");
     }
 
+    /* Orders */
+    /* Clients */
     @Override
     public List<BeverageEntity> getCocktailBeverages(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+     * Cart operations (unavailable for admin)
+     */
     @Override
     public AddressEntity getAddress(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /* Orders */
+    /* Clients */
     @Override
     public OrderEntity getOrder(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /*
+     * Cart operations (unavailable for admin)
+     */
     @Override
     public ClientAccountEntity connect(String login, String password) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -345,6 +347,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Float getCartPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Integer getCartSize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

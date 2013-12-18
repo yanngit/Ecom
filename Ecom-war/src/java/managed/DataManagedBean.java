@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import pojo.CocktailFlavorEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -149,45 +150,45 @@ public class DataManagedBean implements Serializable {
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;
     }
-
+    
     public void setCurrentCocktailAlcoholLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailAlcoholLetter = currentCocktailAlcoholLetter;
     }
-
+    
     public String displayCocktailAlcoholFirstLetter(String c) {
         this.currentCocktailAlcoholLetter = c;
         return "cocktailsAlcoholFirstLetter.xhtml?faces-redirect=true";
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithAlcoholByFirstLetter(l.charAt(0));
     }
-
+    
     public String getCurrentCocktailSoftLetter() {
         return currentCocktailSoftLetter;
     }
-
+    
     public void setCurrentCocktailSoftLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailSoftLetter = currentCocktailAlcoholLetter;
     }
-
+    
     public String displayCocktailVirginFirstLetter(String c) {
         this.currentCocktailSoftLetter = c;
         return "cocktailsVirginFirstLetter.xhtml?faces-redirect=true";
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithoutAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithoutAlcoholByFirstLetter(l.charAt(0));
     }
-
+    
     public String getQty() {
         return qty;
     }
-
+    
     public void setQty(String quantity) {
         this.qty = quantity;
     }
-
+    
     public DataManagedBean() {
         super();
         try {
@@ -196,11 +197,11 @@ public class DataManagedBean implements Serializable {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public String getLogin() {
         return account.getLogin();
     }
-
+    
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
         address = new AddressEntity();
@@ -241,18 +242,18 @@ public class DataManagedBean implements Serializable {
         }
         return "Account.xhtml?faces-redirect=true";
     }
-
+    
     public String disconnect() {
         if (account != null) {
             account = null;
         }
         return "index.xhtml?faces-redirect=true";
     }
-
+    
     public boolean isConnected() {
         return account != null;
     }
-
+    
     public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
@@ -274,76 +275,75 @@ public class DataManagedBean implements Serializable {
     public CocktailEntity getCurrentCocktail() {
         return currentCocktail;
     }
-
+    
     public CocktailEntity getCocktail(Long id) throws Exception {
         return client.getCocktail(id);
     }
-
+    
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
         if (cocktail != null) {
             return client.getCocktailFull(cocktail);
         } else {
             return null;
         }
-
     }
-
+    
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return client.getCocktailDecorations(id);
     }
-
+    
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
         return client.getCocktailBeverages(cocktail);
     }
-
+    
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
         return cocktail.getDeliverables();
     }
-
+    
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
-
+    
     public List<CocktailEntity> getListAvailableCocktails() {
         return client.getAvailableCocktails();
     }
-
+    
     public List<CocktailEntity> getListUnavailableCocktails() {
         return client.getUnavailableCocktails();
     }
-
+    
     public List<BeverageEntity> getListAvailableBeverages() {
         return client.getAvailableBeverages();
     }
-
+    
     public List<BeverageEntity> getListUnavailableBeverages() {
         return client.getUnavailableBeverages();
     }
-
+    
     public List<CocktailEntity> getCartContent() {
         return client.getCartContent();
     }
-
+    
     public Integer getCartLength() {
         return client.getCartSize();
     }
-
+    
     public Float getCartPrice() {
         return client.getCartPrice();
     }
-
+    
     public List<CocktailEntity> getListMostPopularCocktails() {
         return client.getMostPopularCocktails();
     }
-
+    
     public List<CocktailEntity> getListNewestCocktails() {
         return client.getNewestCocktails();
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithAlcohol() {
         return client.getCocktailsWithAlcohol();
     }
-
+    
     public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
         return client.getCocktailsWithoutAlcohol();
     }
@@ -365,11 +365,11 @@ public class DataManagedBean implements Serializable {
         client.removeArticle(cocktail, Integer.parseInt(qty));
         qty = "1";
     }
-
+    
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
         return client.getCocktailsByFirstLetter(letter);
     }
-
+    
     public List<CocktailEntity> listCocktailsByName(String name) {
         return client.getCocktailsByName(name);
     }
@@ -385,7 +385,7 @@ public class DataManagedBean implements Serializable {
         }
         return list;
     }
-
+    
     public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -395,7 +395,7 @@ public class DataManagedBean implements Serializable {
         }
         return list;
     }
-
+    
     public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -445,32 +445,32 @@ public class DataManagedBean implements Serializable {
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
-
+    
     public void setDisplayOrders(boolean b) {
         displayOrders = b;
         displayAddresses = false;
     }
-
+    
     public boolean getDisplayOrders() {
         return displayOrders;
     }
-
+    
     public void setDisplayAddresses(boolean b) {
         displayAddresses = b;
         displayOrders = false;
     }
-
+    
     public boolean getDisplayAddresses() {
         return displayAddresses;
     }
-
+    
     public List<OrderEntity> getOrdersOfAccount() {
         if (account != null) {
             return client.getOrdersOfAccount(account);
         }
         return null;
     }
-
+    
     public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
         if (account != null) {
             AddressEntity address = account.getDelivery_address();

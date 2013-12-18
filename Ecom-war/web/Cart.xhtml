@@ -7,7 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <h:panelGroup style="display: block" rendered="#{dataManagedBean.cartLength > 0}">
+        <h:panelGroup style="display: block">
             <div id="cart_component">
                 <h2>Panier</h2>
                 <div class="well well-small">
@@ -43,7 +43,6 @@
                                                     <f:ajax execute="@form" render="@form :form-menu :form-total" listener="#{dataManagedBean.removeArticle(item)}" />
                                                 </h:commandButton>
                                                 <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
-
                                             </div>
                                         </div>
                                     </div> 
