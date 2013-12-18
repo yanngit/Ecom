@@ -240,3 +240,13 @@ input[id*="qty-cart"]{
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
+
+.footer{
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:40px;
+    border: 1px solid black;
+    border-radius: 5px 5px 5px 5px;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #F2F2F2);
+}

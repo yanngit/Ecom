@@ -134,7 +134,6 @@ public class CartFacadeBean implements CartFacadeLocalItf {
         if (cart.containsKey(cocktail)) {
             return String.valueOf(cart.get(cocktail));
         }
-        /*THROW erreur*/
         return "0";
     }
 }
