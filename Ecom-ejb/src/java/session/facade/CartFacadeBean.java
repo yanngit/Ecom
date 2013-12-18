@@ -82,14 +82,23 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     }
 
     @Override
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+    public void removeArticle(CocktailEntity cocktail, int qty) throws EcomException {
         if (!cart.containsKey(cocktail)) {
             throw new EcomException("Impossible de supprimer ce cocktail, il n'existe pas dans le panier");
         } else {
+            
             int nb = cart.get(cocktail);
-            cart.remove(cocktail);
             float prix = cocktail.getPrice();
-            updatePrice(-(prix * nb));
+            if(nb >= qty) {
+                cart.put(cocktail, nb-qty);
+                updatePrice(-(prix * qty));
+
+            }
+            else{
+                cart.remove(cocktail);
+                updatePrice(-(prix * nb));
+            }
+                
             System.out.println("FIN DU DELETE ............................................................................");
         }
     }
