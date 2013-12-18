@@ -7,21 +7,21 @@
         <header>
             <div class="jumbotron subhead" id="overview">
                 <img src="#{resource['img:banniere.jpg']}"
-                     alt="Bannière du site"
+                     alt=" "
                      class="banniereImg"/>
             </div>
-            <h:form transient="true">
-                <div id="menu" class="navbar navbar-inner">
+            <h:form id="form-menu" transient="true">
+                <div class="navbar navbar-inner">
                     <ul class="nav">
                         <li>
-                            <h:outputLink value="index.xhtml" >
+                            <h:outputLink value="index.xhtml" title="Aller à la page d'accueil" >
                                 Accueil
                             </h:outputLink>
                         </li>
                         <li class="dropdown">
-                            <h:outputLink value="CocktailsWithAlcohol.xhtml">
+                            <h:outputLink value="CocktailsWithAlcohol.xhtml" title="Liste de nos cocktail alcoolisés" >
                                 Cocktails alcoolisés
-                                <b class="caret"/>
+                                <em class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllCocktailsWithAlcoholByFirstLetter()}">
@@ -44,9 +44,9 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <h:outputLink value="CocktailsWithoutAlcohol.xhtml">
+                            <h:outputLink value="CocktailsWithoutAlcohol.xhtml" title="Nos cocktail non alcoolisés">
                                 Cocktails softs
-                                <b class="caret"/>
+                                <em class="caret"/>
                             </h:outputLink>
                             <ul class="dropdown-menu">
                                 <ui:repeat var="items" value="#{dataManagedBean.listAllVirginCocktailsByFirstLetter()}">
@@ -69,27 +69,33 @@
                             </ul>
                         </li>
                         <li>
-                            <h:outputLink value="Recherche.xhtml" >
+                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche">
                                 Recherche avancée
                             </h:outputLink>
                         </li>
                     </ul>
                     <ul class="nav pull-right">
                         <li>
+
+                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
+                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
+                                    #{dataManagedBean.getLogin()} - Deconnection
+                                </h:commandLink>
+                            </ui:fragment>   
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
-                                <h:outputLink value="Connexion.xhtml" >
+                                <h:outputLink value="Connexion.xhtml" title="Se connecter">
                                     Connection
                                 </h:outputLink>
                             </ui:fragment>
                         </li>
                         <li>
-                            <h:outputLink value="Cart.xhtml" >
+                            <h:outputLink value="Cart.xhtml" title="Mon pannier contient #{dataManagedBean.cartLength} cocktails. Total = #{dataManagedBean.cartPrice} €">
                                 Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
                             </h:outputLink>
                         </li>
                         <c:if test="#{dataManagedBean.connected}">
                             <li>
-                                <h:outputLink value="Account.xhtml" >
+                                <h:outputLink value="Account.xhtml" title="Connecté en tant que #{dataManagedBean.getLogin()}">
                                     #{dataManagedBean.getLogin()}
                                 </h:outputLink>
                             </li>

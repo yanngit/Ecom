@@ -43,7 +43,7 @@ public class DataManagedBean implements Serializable {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
-    private AddressEntity entireAddress = null;
+    private AddressEntity address = null;
     private OrderEntity order = null;
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
@@ -59,6 +59,9 @@ public class DataManagedBean implements Serializable {
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
     private List<BeverageEntity> listAlcohol = new ArrayList<>();
     private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listVirgin = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
     private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
     private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
@@ -149,16 +152,41 @@ public class DataManagedBean implements Serializable {
     }
 
     public void searchCocktails() {
+        /*Netoyage des résultats précédents*/
         resultSearch.clear();
-        List<BeverageEntity> selected = new ArrayList<BeverageEntity>();
+        /*Liste des boissons selectionnées*/
+        List<BeverageEntity> selected = new ArrayList<>();
+        /*Récupération des alcools selectionnes*/
         for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
             }
         }
-        if (!selected.isEmpty()) {
-            resultSearch = client.getCocktailsForBeverage(selected.get(0));
+        /*Récupération des diluants selectionnés*/
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginId.entrySet()) {
+            if (e.getValue()) {
+                selected.add(e.getKey());
+            }
         }
+
+        /*Intersection des résltats*/
+        if (!selected.isEmpty()) {
+            for (BeverageEntity b : selected) {
+                if (resultSearch.isEmpty()) {
+                    resultSearch = client.getCocktailsForBeverage(b);
+                } else {
+                    resultSearch.retainAll(client.getCocktailsForBeverage(b));
+                }
+            }
+        }
+    }
+
+    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
+        selectedVirginId = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginId() {
+        return selectedVirginId;
     }
 
     public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
@@ -179,6 +207,13 @@ public class DataManagedBean implements Serializable {
             listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
         }
         return listFlavor;
+    }
+
+    public List<BeverageEntity> getListVirgin() {
+        if (listVirgin.isEmpty()) {
+            listVirgin = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgin;
     }
 
     public List<BeverageEntity> getListAlcohol() {
@@ -245,15 +280,15 @@ public class DataManagedBean implements Serializable {
 
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
-        client.addAddress(entireAddress);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
+        client.addAddress(address);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -264,7 +299,7 @@ public class DataManagedBean implements Serializable {
             sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
         }
         account.setPassword(sb.toString());
-        account.setDelivery_address(entireAddress);
+        account.setDelivery_address(address);
         client.addClient(account);
     }
 
@@ -327,7 +362,6 @@ public class DataManagedBean implements Serializable {
         } else {
             return null;
         }
-
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -401,7 +435,11 @@ public class DataManagedBean implements Serializable {
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
         System.out.println("Dans le DMB ..........................................................................");
-        client.removeArticle(cocktail);
+        if (qty.equals("")) {
+            qty = "1";
+        }
+        client.removeArticle(cocktail, Integer.parseInt(qty));
+        qty = "1";
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
@@ -450,19 +488,24 @@ public class DataManagedBean implements Serializable {
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
-        AddressEntity tempA = client.addAddress(entireAddress);
-        listAddress.add(tempA);//client.getAddress(tempA.getId()));
-
+        Long id = client.checkAddress(address);
+        AddressEntity tempA;
+        if (id == null) {
+            tempA = client.addAddress(address);
+        } else {
+            tempA = client.getAddress(id);
+        }
+        listAddress.add(tempA);
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
@@ -472,6 +515,8 @@ public class DataManagedBean implements Serializable {
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
         client.getAddress(tempA.getId()).setOrders(listOrder);
+        order = tempO;
+        address = tempA;
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
@@ -512,5 +557,9 @@ public class DataManagedBean implements Serializable {
             /*MANQUE COUNTRY*/
             client.modifyAddress(address);
         }
+    }
+
+    public Long getOrderId() {
+        return order.getId();
     }
 }

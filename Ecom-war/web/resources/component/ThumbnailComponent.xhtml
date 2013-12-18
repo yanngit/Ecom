@@ -14,15 +14,16 @@
             <h:form id="form-cocktail-thumbnail">
                 <div class="filling-thumb">
                     <ui:param name="img_path" value="img:#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" />
-                    <img src="#{resource[img_path]}" alt="Cocktail#{cc.attrs.item.name}"/>
+                    <img src="#{resource[img_path]}" 
+                         alt=" "/>
                 </div>
                 <div class="caption">
-                    <h3 class="title-cocktail">#{cc.attrs.item.name}</h3>
+                    <div class="title-cocktail">#{cc.attrs.item.name}</div>
                     <div class="text-center">
                         <div class="btn-group" >
                             <h:commandButton image="#{resource['img:info_small.png']}"
-                                             alt="Détails du cocktail"
-                                             title="#{dataManagedBean.getCocktail(cc.attrs.item.ID).getRecipe()}"
+                                             alt=""
+                                             title="Consulter les détailles du cocktail "
                                              styleClass="btn"
                                              action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             </h:commandButton>
@@ -30,19 +31,18 @@
                         <br/><br/>
                         <div class="input-prepend">
                             <h:commandButton image="#{resource['img:cart_small.png']}"
-                                             alt="Ajouter le cocktail au panier"
+                                             alt=""
                                              title="Ajouter le cocktail au panier"
                                              styleClass="btn"
-                                             actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
+                                             type="button" >
                                 <!--Utilisation de ajax sinon lors du clic tous les input sont envoyé et donc qty = qty du dernier input
                                 Avec ajax on envoie que ce form et it works -->
-                                <f:ajax execute="@form" render="@all" />
+                                <f:ajax execute="@form" render=":form-menu" listener="#{dataManagedBean.addArticleToCart(item)}"/>                            
                             </h:commandButton>
-                            <h:inputText alt="Nombre de cocktails à ajouter au panier"
-                                         maxlength="3"
+                            <h:outputLabel class="obscure"  for="qty" value="quantité de #{cc.attrs.item.name} à ajouter dans le panier"/>
+                            <h:inputText id="qty"  maxlength="3"
                                          value="#{dataManagedBean.qty}"
-                                         styleClass="input-mini"
-                                         title="Nombre de cocktails à ajouter au panier" />
+                                         styleClass="input-mini" />
                         </div>
                     </div>
                 </div>
