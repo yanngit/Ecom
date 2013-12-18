@@ -75,15 +75,32 @@ public class DataManagedBean implements Serializable {
     }
 
     public void searchCocktails() {
+        /*Netoyage des résultats précédents*/
         resultSearch.clear();
+        /*Liste des boissons selectionnées*/
         List<BeverageEntity> selected = new ArrayList<>();
+        /*Récupération des alcools selectionnes*/
         for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
             }
         }
+        /*Récupération des diluants selectionnés*/
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginId.entrySet()) {
+            if (e.getValue()) {
+                selected.add(e.getKey());
+            }
+        }
+        
+        /*Intersection des résltats*/
         if (!selected.isEmpty()) {
-            resultSearch = client.getCocktailsForBeverage(selected.get(0));
+            for(BeverageEntity b : selected){
+                if(resultSearch.isEmpty()){
+                    resultSearch = client.getCocktailsForBeverage(b);
+                } else {
+                    resultSearch.retainAll(client.getCocktailsForBeverage(b));
+                }
+            }
         }
     }
     
