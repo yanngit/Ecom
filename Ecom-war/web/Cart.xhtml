@@ -7,8 +7,7 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="title">Mon panier</ui:define>
     <ui:define name="content">
-
-        <h:panelGroup style="display: block">
+        <h:panelGroup style="display: block" >
             <div id="cart_component">
                 <h1 class="title-cocktail-details">Mon panier</h1>
                 <div class="well well-small">
@@ -56,26 +55,6 @@
             </div>
         </h:panelGroup>
         <li class="thumbnail">
-<<<<<<< HEAD
-<<!--
-            <<<<<<< HEAD
-            <div class="totalPanier">
-                <div class="total-cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
-                
-                <h:button class="totalPanier-button"
-                          image="#{resource['img:btn_valider.png']}"
-                          alt="Valider mon pannier" 
-                          title="Valider mon pannier"
-                          outcome="Form.xhtml" 
-                          rendered="#{dataManagedBean.cartLength > 0}">
-                </h:button>
-                <div class="clear"></div>
-            </div>
-=======
--->
-=======
-
->>>>>>> 25a1ab14e89cf098fec454133b7929255d6a7142
             <h:form id="form-total">
                 <div class="totalPanier">
                     <div class="totalPrice"> Total:  #{dataManagedBean.getCartPrice()}€
@@ -86,10 +65,6 @@
                     </div>
                 </div>
             </h:form>
-<<<<<<< HEAD
-><!-->>>>>> dev_yann -->
-=======
->>>>>>> 25a1ab14e89cf098fec454133b7929255d6a7142
         </li>
     </ui:define>
 </ui:composition>

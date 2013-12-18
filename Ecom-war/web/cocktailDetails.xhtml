@@ -32,6 +32,7 @@
                                      styleClass="input-mini-plus" 
                                      title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
                         />
+
                     </div>
                 </h:form>
             </div>
@@ -39,10 +40,12 @@
                 <h2>Description :</h2>
                 <div class="well">
                     <dl class="dl-horizontal">
-                        <dt>Gout :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
+                        <dt>Prix :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.price} €</dd>
+                        <dt>Goût :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.flavor.toString()}</dd>
                         <dt>Puissance :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                        <dd>#{dataManagedBean.currentCocktail.power.toString()}</dd>
                         <dt/><dd/>
                         <dt>Composition :</dt>
                         <dd>

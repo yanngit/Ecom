@@ -14,6 +14,8 @@ import exceptions.EcomException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import pojo.CocktailFlavorEnum;
+import pojo.CocktailPowerEnum;
 import session.interfaces.AdminFacadeRemoteItf;
 import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
@@ -357,6 +359,16 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
 
     @Override
     public Integer getCartSize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsByFlavor(CocktailFlavorEnum flavor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsByPower(CocktailPowerEnum power) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

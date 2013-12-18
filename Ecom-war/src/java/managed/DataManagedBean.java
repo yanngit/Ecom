@@ -11,10 +11,12 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,9 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import pojo.CocktailFlavorEnum;
+import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -50,17 +54,96 @@ public class DataManagedBean implements Serializable {
     private String qty = "1";
     private String currentCocktailAlcoholLetter = null;
     private String currentCocktailSoftLetter = null;
+    private String dayOfBirth = "JJ";
+    private String monthOfBirth = "MM";
+    private String yearOfBirth = "AAAA";
+    private boolean userIsMajor = false;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listAlcohol = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    private List<BeverageEntity> listAlcohols = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolsMap = new HashMap<>();
     /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listVirgin = new ArrayList<>();
-    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
+    private List<BeverageEntity> listVirgins = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginsMap = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
-    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
-    private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
+
+    private List<CocktailFlavorEnum> listFlavors = new ArrayList<>();
+    private Map<CocktailFlavorEnum, Boolean> selectedFlavorsMap = new HashMap<>();
+    /*Liste des puissance et stockage d'une map pour les checkboxes de la recherche*/
+    private List<CocktailPowerEnum> listPowers = new ArrayList<>();
+    private Map<CocktailPowerEnum, Boolean> selectedPowersMap = new HashMap<>();
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
+
+    public boolean isUserIsMajor() {
+        return userIsMajor;
+    }
+
+    public String getDayOfBirth() {
+        return dayOfBirth;
+    }
+
+    public void setDayOfBirth(String dayOfBirth) {
+        this.dayOfBirth = dayOfBirth;
+    }
+
+    public String getMonthOfBirth() {
+        return monthOfBirth;
+    }
+
+    public void setMonthOfBirth(String monthOfBirth) {
+        this.monthOfBirth = monthOfBirth;
+    }
+
+    public String getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public void checkMajorUser() throws IOException {
+        if (!userIsMajor) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("ageChecking.xhtml?faces-redirect=true");
+        }
+    }
+
+    public String checkAge() {
+        String result;
+        GregorianCalendar dateOfBirth = new GregorianCalendar();
+        dateOfBirth.setLenient(false);
+        try {
+            if (new Integer(yearOfBirth) < GregorianCalendar.getInstance().get(GregorianCalendar.YEAR) - 150) {
+                yearOfBirth = "AAAA";
+                throw new NumberFormatException();
+            }
+            dateOfBirth.set(new Integer(yearOfBirth),
+                    new Integer(monthOfBirth) - 1,
+                    new Integer(dayOfBirth));
+            dateOfBirth.getTime();
+        } catch (NumberFormatException e) {
+            return "ageChecking.xhtml?faces-redirect=true";
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().equalsIgnoreCase("DAY_OF_MONTH")) {
+                dayOfBirth = "JJ";
+            } else if (e.getMessage().contains("MONTH")) {
+                monthOfBirth = "MM";
+            }
+            return "ageChecking.xhtml?faces-redirect=true";
+        }
+        GregorianCalendar currentDate = new GregorianCalendar();
+        Long dayElapsed = currentDate.getTimeInMillis() / (1000 * 3600 * 24)
+                - dateOfBirth.getTimeInMillis() / (1000 * 3600 * 24);
+        int yearElapsed = (int) (dayElapsed / 365.25);
+
+        if (yearElapsed < 18) {
+            result = "tooYoung.xhtml";
+        } else {
+            userIsMajor = true;
+            result = "index.xhtml";
+        }
+        return result;
+    }
 
     public List<CocktailEntity> getResultSearch() {
         return resultSearch;
@@ -79,115 +162,166 @@ public class DataManagedBean implements Serializable {
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
         List<BeverageEntity> selected = new ArrayList<>();
+        List<CocktailFlavorEnum> selectedFlavor = new ArrayList<>();
+        List<CocktailPowerEnum> selectedPower = new ArrayList<>();
         /*Récupération des alcools selectionnes*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolsMap.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
             }
         }
         /*Récupération des diluants selectionnés*/
-        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginId.entrySet()) {
+        for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginsMap.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
             }
         }
+
+        for (Map.Entry<CocktailFlavorEnum, Boolean> e : selectedFlavorsMap.entrySet()) {
+            if (e.getValue()) {
+                selectedFlavor.add(e.getKey());
+            }
+        }
         
+        for (Map.Entry<CocktailPowerEnum, Boolean> e : selectedPowersMap.entrySet()) {
+            if (e.getValue()) {
+                selectedPower.add(e.getKey());
+            }
+        }
+
         /*Intersection des résltats*/
         if (!selected.isEmpty()) {
-            for(BeverageEntity b : selected){
-                if(resultSearch.isEmpty()){
+            for (BeverageEntity b : selected) {
+                if (resultSearch.isEmpty()) {
                     resultSearch = client.getCocktailsForBeverage(b);
                 } else {
                     resultSearch.retainAll(client.getCocktailsForBeverage(b));
                 }
             }
         }
-    }
 
-    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
-        selectedVirginId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedVirginId() {
-        return selectedVirginId;
-    }
-
-    public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
-        selectedAlcoolId = map;
-    }
-
-    public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
-        return selectedAlcoolId;
-    }
-
-    public Map<String, Boolean> getselectedFlavorsString() {
-        return selectedFlavorsString;
-    }
-
-    public List<pojo.CocktailFlavorEnum> getListFlavors() {
-        if (listFlavor.isEmpty()) {
-            listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
-            listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
+        for (CocktailFlavorEnum f : selectedFlavor) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByFlavor(f);
+            } else {
+                resultSearch.retainAll(client.getCocktailsByFlavor(f));
+            }
         }
-        return listFlavor;
+        
+        for (CocktailPowerEnum p  : selectedPower) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByPower(p);
+            } else {
+                resultSearch.retainAll(client.getCocktailsByPower(p));
+            }
+        }
     }
 
-    public List<BeverageEntity> getListVirgin() {
-        if (listVirgin.isEmpty()) {
-            listVirgin = client.getAllBeveragesWithoutAlcohol();
-        }
-        return listVirgin;
+    public void setselectedVirginsMap(Map<BeverageEntity, Boolean> map) {
+        selectedVirginsMap = map;
     }
 
-    public List<BeverageEntity> getListAlcohol() {
-        if (listAlcohol.isEmpty()) {
-            listAlcohol = client.getAllBeveragesWithAlcohol();
+    public void setselectedAlcoolsMap(Map<BeverageEntity, Boolean> map) {
+        selectedAlcoolsMap = map;
+    }
+
+    public void setselectedFlavorsMap(Map<CocktailFlavorEnum, Boolean> map) {
+        selectedFlavorsMap = map;
+    }
+    
+    public void setselectedPowersMap(Map<CocktailPowerEnum, Boolean> map) {
+        selectedPowersMap = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginsMap() {
+        return selectedVirginsMap;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedAlcoolsMap() {
+        return selectedAlcoolsMap;
+    }
+
+    public Map<CocktailFlavorEnum, Boolean> getselectedFlavorsMap() {
+        return selectedFlavorsMap;
+    }
+    
+    public Map<CocktailPowerEnum, Boolean> getselectedPowersMap() {
+        return selectedPowersMap;
+    }
+
+    public List<CocktailFlavorEnum> getListFlavors() {
+        if (listFlavors.isEmpty()) {
+            listFlavors.add(CocktailFlavorEnum.BITTER);
+            listFlavors.add(CocktailFlavorEnum.FRUITY);
         }
-        return listAlcohol;
+        return listFlavors;
+    }
+    
+    public List<CocktailPowerEnum> getListPowers() {
+        if (listPowers.isEmpty()) {
+            listPowers.add(CocktailPowerEnum.SOFT);
+            listPowers.add(CocktailPowerEnum.MEDIUM);
+            listPowers.add(CocktailPowerEnum.STRONG);
+        }
+        return listPowers;
+    }
+
+    public List<BeverageEntity> getListVirgins() {
+        if (listVirgins.isEmpty()) {
+            listVirgins = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgins;
+    }
+
+    public List<BeverageEntity> getListAlcohols() {
+        if (listAlcohols.isEmpty()) {
+            listAlcohols = client.getAllBeveragesWithAlcohol();
+        }
+        return listAlcohols;
     }
 
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;
     }
-    
+
     public void setCurrentCocktailAlcoholLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailAlcoholLetter = currentCocktailAlcoholLetter;
     }
-    
+
     public String displayCocktailAlcoholFirstLetter(String c) {
         this.currentCocktailAlcoholLetter = c;
         return "cocktailsAlcoholFirstLetter.xhtml?faces-redirect=true";
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithAlcoholByFirstLetter(l.charAt(0));
     }
-    
+
     public String getCurrentCocktailSoftLetter() {
         return currentCocktailSoftLetter;
     }
-    
+
     public void setCurrentCocktailSoftLetter(String currentCocktailAlcoholLetter) {
         this.currentCocktailSoftLetter = currentCocktailAlcoholLetter;
     }
-    
+
     public String displayCocktailVirginFirstLetter(String c) {
         this.currentCocktailSoftLetter = c;
         return "cocktailsVirginFirstLetter.xhtml?faces-redirect=true";
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithoutAlcoholByFirstLetter(String l) {
         return client.getCocktailsWithoutAlcoholByFirstLetter(l.charAt(0));
     }
-    
+
     public String getQty() {
         return qty;
     }
-    
+
     public void setQty(String quantity) {
         this.qty = quantity;
     }
-    
+
     public DataManagedBean() {
         super();
         try {
@@ -196,11 +330,11 @@ public class DataManagedBean implements Serializable {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String getLogin() {
         return account.getLogin();
     }
-    
+
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
         address = new AddressEntity();
@@ -241,18 +375,18 @@ public class DataManagedBean implements Serializable {
         }
         return "Account.xhtml?faces-redirect=true";
     }
-    
+
     public String disconnect() {
         if (account != null) {
             account = null;
         }
         return "index.xhtml?faces-redirect=true";
     }
-    
+
     public boolean isConnected() {
         return account != null;
     }
-    
+
     public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
@@ -274,11 +408,11 @@ public class DataManagedBean implements Serializable {
     public CocktailEntity getCurrentCocktail() {
         return currentCocktail;
     }
-    
+
     public CocktailEntity getCocktail(Long id) throws Exception {
         return client.getCocktail(id);
     }
-    
+
     public CocktailEntity getCocktailFull(CocktailEntity cocktail) {
         if (cocktail != null) {
             return client.getCocktailFull(cocktail);
@@ -286,63 +420,63 @@ public class DataManagedBean implements Serializable {
             return null;
         }
     }
-    
+
     public List<DecorationEntity> getCocktailDecorations(Long id) {
         return client.getCocktailDecorations(id);
     }
-    
+
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
         return client.getCocktailBeverages(cocktail);
     }
-    
+
     public List<Deliverable> getCocktailDeliverables(CocktailEntity cocktail) {
         return cocktail.getDeliverables();
     }
-    
+
     public List<CocktailEntity> getListCocktails() {
         return client.getAllCocktails();
     }
-    
+
     public List<CocktailEntity> getListAvailableCocktails() {
         return client.getAvailableCocktails();
     }
-    
+
     public List<CocktailEntity> getListUnavailableCocktails() {
         return client.getUnavailableCocktails();
     }
-    
+
     public List<BeverageEntity> getListAvailableBeverages() {
         return client.getAvailableBeverages();
     }
-    
+
     public List<BeverageEntity> getListUnavailableBeverages() {
         return client.getUnavailableBeverages();
     }
-    
+
     public List<CocktailEntity> getCartContent() {
         return client.getCartContent();
     }
-    
+
     public Integer getCartLength() {
         return client.getCartSize();
     }
-    
+
     public Float getCartPrice() {
         return client.getCartPrice();
     }
-    
+
     public List<CocktailEntity> getListMostPopularCocktails() {
         return client.getMostPopularCocktails();
     }
-    
+
     public List<CocktailEntity> getListNewestCocktails() {
         return client.getNewestCocktails();
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithAlcohol() {
         return client.getCocktailsWithAlcohol();
     }
-    
+
     public List<CocktailEntity> getListCocktailsWithoutAlcohol() {
         return client.getCocktailsWithoutAlcohol();
     }
@@ -366,11 +500,11 @@ public class DataManagedBean implements Serializable {
         client.removeArticle(cocktail, Integer.parseInt(qty));
         qty = "1";
     }
-    
+
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
         return client.getCocktailsByFirstLetter(letter);
     }
-    
+
     public List<CocktailEntity> listCocktailsByName(String name) {
         return client.getCocktailsByName(name);
     }
@@ -386,7 +520,7 @@ public class DataManagedBean implements Serializable {
         }
         return list;
     }
-    
+
     public List<List<CocktailEntity>> listAllVirginCocktailsByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -396,7 +530,7 @@ public class DataManagedBean implements Serializable {
         }
         return list;
     }
-    
+
     public List<List<CocktailEntity>> listAllCocktailsWithAlcoholByFirstLetter() {
         List<List<CocktailEntity>> list = new ArrayList<>();
         for (char ch : "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()) {
@@ -445,32 +579,32 @@ public class DataManagedBean implements Serializable {
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
-    
+
     public void setDisplayOrders(boolean b) {
         displayOrders = b;
         displayAddresses = false;
     }
-    
+
     public boolean getDisplayOrders() {
         return displayOrders;
     }
-    
+
     public void setDisplayAddresses(boolean b) {
         displayAddresses = b;
         displayOrders = false;
     }
-    
+
     public boolean getDisplayAddresses() {
         return displayAddresses;
     }
-    
+
     public List<OrderEntity> getOrdersOfAccount() {
         if (account != null) {
             return client.getOrdersOfAccount(account);
         }
         return null;
     }
-    
+
     public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
         if (account != null) {
             AddressEntity address = account.getDelivery_address();
@@ -495,5 +629,4 @@ public class DataManagedBean implements Serializable {
     public Long getOrderId(){
         return order.getId();
     }
-
 }
