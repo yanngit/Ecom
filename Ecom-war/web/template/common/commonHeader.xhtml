@@ -84,7 +84,9 @@
                         </li>
                         <li>
                             <h:outputLink value="Cart.xhtml" title="Mon pannier contient #{dataManagedBean.cartLength} cocktails. Total = #{dataManagedBean.cartPrice} €">
-                                Panier (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                                
+                                 Panier <span role="presentation">to ignore</span> (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                                
                             </h:outputLink>
                         </li>
                         <c:if test="#{dataManagedBean.connected}">
