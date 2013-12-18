@@ -176,7 +176,7 @@ div.span2.right {
 
 /*panier*/
 #form-total {
-    margin-bottom: 0px;    
+    margin-bottom: 0px;
 }
 
 .totalPanier {
@@ -217,13 +217,13 @@ input[id*="qty-cart"]{
 }
 
 .item-recherche{
-   padding : 5px; 
+    padding : 5px;
 }
 
 /* labels for input text accessibility */
 .obscure{
-    position: absolute ; 
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */ 
+    position: absolute ;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px, 1px, 1px, 1px);
 }
 
@@ -235,6 +235,8 @@ input[id*="qty-cart"]{
     font-weight: bold;
     color: inherit;
     text-rendering: optimizelegibility;
+    overflow: hidden;
+    white-space: nowrap;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;

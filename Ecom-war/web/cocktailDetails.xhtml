@@ -21,10 +21,10 @@
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton><br />
-                        <h:inputText alt="Nombre de cocktails à ajouter au panier" 
-                                     maxlength="3" 
+                        <h:inputText alt="Nombre de cocktails à ajouter au panier"
+                                     maxlength="3"
                                      value="#{dataManagedBean.qty}"
-                                     styleClass="input-mini-plus" 
+                                     styleClass="input-mini-plus"
                                      title="Nombre de cocktails à ajouter au panier" />
                     </div>
                 </h:form>
@@ -35,10 +35,12 @@
                 </h1>
                 <div class="well">
                     <dl class="dl-horizontal">
-                        <dt>Gout :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.flavor}</dd>
+                        <dt>Prix :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.price} €</dd>
+                        <dt>Goût :</dt>
+                        <dd>#{dataManagedBean.currentCocktail.flavor.toString()}</dd>
                         <dt>Puissance :</dt>
-                        <dd>#{dataManagedBean.currentCocktail.power}</dd>
+                        <dd>#{dataManagedBean.currentCocktail.power.toString()}</dd>
                         <dt/><dd/>
                         <dt>Composition :</dt>
                         <dd>
