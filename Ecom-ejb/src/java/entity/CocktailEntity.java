@@ -5,7 +5,6 @@
 package entity;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Entity;
@@ -32,7 +31,10 @@ import pojo.Product;
     @NamedQuery(name = "getNewestCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
     @NamedQuery(name = "getCocktailsByVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
     @NamedQuery(name = "getCocktailsByExp", query = "SELECT c FROM CocktailEntity c WHERE c.name LIKE :exp"),
-    @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),})
+    @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),
+    @NamedQuery(name = "getCocktailsByFlavor", query = "SELECT c FROM CocktailEntity c WHERE flavor = :flavor")
+})
+
 @Entity
 @Table(name = "COCKTAIL")
 public class CocktailEntity extends Product implements Comparable<CocktailEntity>{

@@ -18,12 +18,6 @@ html, body {
     position: relative;
 }
 
-.banniereText {
-    position: absolute;
-    top: 0px;
-    left: 150px;
-}
-
 .image-fond {
     position: fixed;
     z-index: -1;
