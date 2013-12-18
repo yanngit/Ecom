@@ -20,11 +20,14 @@ import session.manager.AddressManagerBean;
 import session.manager.BeverageManagerBean;
 import session.manager.ClientAccountManagerBean;
 import session.manager.CocktailManagerBean;
+import session.manager.DeliverableManagerBean;
 import session.manager.OrderManagerBean;
 
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
+    @EJB
+    private DeliverableManagerBean deliverableManager;
     @EJB
     private CocktailManagerBean cocktailManager;
     @EJB
@@ -186,7 +189,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         return orderManager.create(o);
     }
 
-
     @Override
     public AddressEntity getAddress(Long id) {
         return addressManager.find(id);
@@ -221,7 +223,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public ClientAccountEntity connect(String login, String password) {
-        return clientAccountManager.getAccountByAuthentification(login,password);
+        return clientAccountManager.getAccountByAuthentification(login, password);
     }
 
     @Override
@@ -239,4 +241,18 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         addressManager.edit(address);
     }
 
+    @Override
+    public List<BeverageEntity> getAllBeveragesWithAlcohol() {
+        return beverageManager.getAllBeveragesWithAlcohol();
+    }
+
+    @Override
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
+        return beverageManager.getAllBeveragesWithoutAlcohol();
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
+        return deliverableManager.getAllCocktails(beverage.getName());
+    }
 }

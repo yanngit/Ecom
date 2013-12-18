@@ -123,6 +123,10 @@ form[id$="form"] h2 {
     padding-top: 2px;
 }
 
+.wrong-value {
+    color: red;
+}
+
 /*Thumbnail cocktail*/
 /* Cocktail thumbnail display */
 li.thumbnail {
@@ -196,4 +200,14 @@ div.span2.right {
 /* Cocktails details */
 .cocktail-recipe {
     white-space: pre-line;
+}
+
+
+/*Recherche section */
+.label-recherche{
+    display: inline;
+}
+
+.item-recherche{
+   padding : 5px; 
 }

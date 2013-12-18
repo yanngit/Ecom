@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:component="http://java.sun.com/jsf/composite/component">
     <composite:interface>
@@ -12,7 +14,7 @@
     <composite:implementation>
 
         <ui:repeat value = "#{cc.attrs.list}" var = "item" varStatus="status">
-            <h:form>
+            <h:form id="cocktail-panier">
                 <div class="media">
                     <div class="pull-left media-object span2">
                         <div class="text-center">
@@ -38,8 +40,7 @@
                                 </ui:repeat>
                                 <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
                                 <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
-                                <div class = "span2 right">Prix total : <!-- <h:outputText value="{#{item.price} * #{dataManagedBean.getQuantityForCocktailInCart(item)}}"/> -->
-                                </div>
+                                <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
                             </ul>
                         </div>
                     </div>

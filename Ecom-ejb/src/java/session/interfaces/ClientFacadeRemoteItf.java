@@ -17,6 +17,8 @@ import javax.ejb.Remote;
 @Remote
 public interface ClientFacadeRemoteItf {
 
+    /*Search cocktail*/
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage);
     /* Fetch deliverables */
     public List<BeverageEntity> getAvailableBeverages();
 
@@ -25,6 +27,10 @@ public interface ClientFacadeRemoteItf {
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail);
 
     public List<DecorationEntity> getCocktailDecorations(Long id);
+    
+    public List<BeverageEntity> getAllBeveragesWithAlcohol();
+    
+    public List<BeverageEntity> getAllBeveragesWithoutAlcohol();
 
     /* Fetch cocktails */
     public List<CocktailEntity> getAllCocktails();
@@ -36,8 +42,6 @@ public interface ClientFacadeRemoteItf {
     public CocktailEntity getCocktail(Long id);
 
     public CocktailEntity getCocktailFull(CocktailEntity cocktail);
-
-    public void removeArticle(CocktailEntity cocktail) throws EcomException;
 
     public List<CocktailEntity> getCartContent();
 
@@ -58,6 +62,8 @@ public interface ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */
+    public void removeArticle(CocktailEntity cocktail) throws EcomException;
+
     public void addArticleToCart(Long id, int qty) throws EcomException;
 
     public Float getCartPrice();
