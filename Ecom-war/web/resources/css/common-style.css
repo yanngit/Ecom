@@ -171,6 +171,11 @@ div.span2.right {
 }
 
 /*panier*/
+
+#cart-vide{
+    display: inline;
+}
+
 #form-total {
     margin-bottom: 0px;
 }
@@ -238,8 +243,7 @@ input[id*="qty-cart"]{
     color: #FF9900;
 }
 
-/* Sticky footer styles
-            -------------------------------------------------- */
+/* Sticky footer styles-------------------------------------------------- */
 
 footer.navbar {
     margin-bottom: 0px;

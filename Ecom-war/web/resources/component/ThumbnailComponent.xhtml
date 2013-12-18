@@ -47,11 +47,12 @@
                                          alt="Ajouter dans le pannier le "
                                          title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                          styleClass="btn"
+                                         onclick="showDialog();"
                                          actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
                             <f:ajax execute="@form" render=":form-menu" />
 
                         </h:commandButton>
-
+                        <div id="dialog-modal" title="Basic modal dialog" style="display: none;"></div>
                         <h:inputText id="qty"  maxlength="3"
                                      value="#{dataManagedBean.qty}"
                                      styleClass="input-mini"
