@@ -4,6 +4,7 @@
  */
 package session.manager;
 
+import entity.BeverageEntity;
 import entity.CocktailEntity;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -27,8 +28,8 @@ public class DeliverableManagerBean extends AbstractEntityManager<Deliverable> {
         return em;
     }
 
-    public List<CocktailEntity> getAllCocktails(String name) {
-        return em.createNamedQuery("getCocktailsForBeverage").setParameter("name", name).getResultList();
+    public List<CocktailEntity> getAllCocktails(BeverageEntity beverage) {
+        return em.createNamedQuery("getCocktailsForBeverage").setParameter("name", beverage.getName()).getResultList();
     }
 
 }

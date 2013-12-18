@@ -190,6 +190,10 @@ div.span2.right {
     float:left;
 }
 
+input[id*="qty-cart"]{
+    margin-top: 10px;
+}
+
 
 /* Cocktails details */
 .cocktail-recipe {

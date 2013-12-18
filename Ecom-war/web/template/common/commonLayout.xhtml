@@ -8,17 +8,17 @@
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />
         <h:outputStylesheet library="css" name ="bootstrap.css"  />
-        <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />      
+        <h:outputStylesheet library="css" name ="bootstrap-responsive.css"  />
         <h:outputScript library="js" name="jquery-2.0.3.js" />
         <h:outputScript library="js" name="bootstrap.js" />
         <h:outputScript library="js" name="common.js" />
-        <title>Tchi-Tchi <ui:insert name="title">COMMON TITLE</ui:insert></title>
+        <title>Tchin-Tchin - <ui:insert name="title">COMMON TITLE</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" lang="fr" />
     </h:head>
     <h:body>
         <div id="page">
             <f:view>
-                 <ui:insert name="header" >
+                <ui:insert name="header" >
                     <ui:include src="/template/common/commonHeader.xhtml" />
                 </ui:insert>
                 <img src="#{resource['img:fond_resize.jpg']}"
@@ -30,10 +30,7 @@
                 <ui:insert name="footer" >
                     <ui:include src="/template/common/commonFooter.xhtml" />
                 </ui:insert>
-            </f:view>
-           <!-- <h:form class="jsf-form container-fluid"> -->
-               
-            <!-- </h:form> -->
+           </f:view>
         </div>
     </h:body>
 </html>
