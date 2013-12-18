@@ -175,16 +175,23 @@ div.span2.right {
 }
 
 /*panier*/
-.total-cart {
-    float: left;
-    font-size : 25px;
-    font-weight: bold;
-    /*top: 20px;
-    position : relative;*/
+#form-total {
+    margin-bottom: 0px;    
 }
 
-.totalPanier-button{
+.totalPanier {
+    height: 60px;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+.totalPrice {
+    font-size: 40px;
+}
+
+.totalPanierButton {
     float: right;
+    display: inline-block;
 }
 
 .clear{
@@ -210,7 +217,7 @@ input[id*="qty-cart"]{
 }
 
 .item-recherche{
-   padding : 5px; 
+    padding : 5px; 
 }
 
 /* labels for input text accessibility */
