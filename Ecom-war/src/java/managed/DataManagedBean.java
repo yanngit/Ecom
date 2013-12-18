@@ -31,10 +31,11 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
-import java.util.*; 
+import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
+
 /**
  *
  * @author yann
@@ -69,11 +70,11 @@ public class DataManagedBean implements Serializable {
     private List<BeverageEntity> listVirgins = new ArrayList<>();
     private Map<BeverageEntity, Boolean> selectedVirginsMap = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
-    private List<CocktailFlavorEnum> listFlavors = new ArrayList<>();
-    private Map<CocktailFlavorEnum, Boolean> selectedFlavorsMap = new HashMap<>();
-    /*Liste des puissance et stockage d'une map pour les checkboxes de la recherche*/
-    private List<CocktailPowerEnum> listPowers = new ArrayList<>();
-    private Map<CocktailPowerEnum, Boolean> selectedPowersMap = new HashMap<>();
+    private Map<String, Object> listFlavors = new HashMap<>();
+    CocktailFlavorEnum selectedFlavor = null;
+    /*Liste des puissances et stockage d'une map pour les checkboxes de la recherche*/
+    private Map<String, Object> listPowers = new HashMap<>();
+    CocktailPowerEnum selectedPower = null;
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
 
@@ -166,8 +167,7 @@ public class DataManagedBean implements Serializable {
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
         List<BeverageEntity> selectedBeverages = new ArrayList<>();
-        List<CocktailFlavorEnum> selectedFlavor = new ArrayList<>();
-        List<CocktailPowerEnum> selectedPower = new ArrayList<>();
+
         /*Récupération des alcools selectionnes*/
         for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolsMap.entrySet()) {
             if (e.getValue()) {
@@ -181,64 +181,48 @@ public class DataManagedBean implements Serializable {
             }
         }
 
-        for (Map.Entry<CocktailFlavorEnum, Boolean> e : selectedFlavorsMap.entrySet()) {
-            if (e.getValue()) {
-                selectedFlavor.add(e.getKey());
-            }
-        }
-
-        for (Map.Entry<CocktailPowerEnum, Boolean> e : selectedPowersMap.entrySet()) {
-            if (e.getValue()) {
-                selectedPower.add(e.getKey());
-            }
-        }
-
         /*Intersection des résltats*/
         if (!selectedBeverages.isEmpty()) {
             for (BeverageEntity b : selectedBeverages) {
                 if (resultSearch.isEmpty() && !isInit) {
                     resultSearch = client.getCocktailsForBeverage(b);
                     isInit = true;
-                    
+
                 } else {
                     resultSearch.retainAll(client.getCocktailsForBeverage(b));
                 }
             }
         }
-        
-        if (!selectedFlavor.isEmpty() && !isInit) {
-            for (CocktailFlavorEnum f : selectedFlavor) {
-                if (resultSearch.isEmpty()) {
-                    resultSearch = client.getCocktailsByFlavor(f);
-                    isInit = true;
-                } else {
-                    resultSearch.retainAll(client.getCocktailsByFlavor(f));
-                }
+
+        if (selectedFlavor != null) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByFlavor(selectedFlavor);
+                isInit = true;
+            } else {
+                resultSearch.retainAll(client.getCocktailsByFlavor(selectedFlavor));
             }
         }
 
-        if (!selectedPower.isEmpty() && !isInit) {
-            for (CocktailPowerEnum p : selectedPower) {
-                if (resultSearch.isEmpty()) {
-                    resultSearch = client.getCocktailsByPower(p);
-                    isInit = true;
-                } else {
-                    resultSearch.retainAll(client.getCocktailsByPower(p));
-                }
+        if (selectedPower != null) {
+            if (resultSearch.isEmpty()) {
+                resultSearch = client.getCocktailsByPower(selectedPower);
+                isInit = true;
+            } else {
+                resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
             }
         }
     }
-    
-    public void resetResearch(){
+
+    public void resetResearch() {
         selectedAlcoolsMap.clear();
-        selectedFlavorsMap.clear();
-        selectedPowersMap.clear();
+        selectedFlavor = null;
+        selectedPower = null;
         selectedVirginsMap.clear();
     }
-    
-    public void afficherListeCocktails(List<CocktailEntity> list){
+
+    public void afficherListeCocktails(List<CocktailEntity> list) {
         System.out.println("Affichage Liste : ");
-        for(CocktailEntity c : list){
+        for (CocktailEntity c : list) {
             System.out.println(c.getName());
         }
     }
@@ -251,12 +235,12 @@ public class DataManagedBean implements Serializable {
         selectedAlcoolsMap = map;
     }
 
-    public void setselectedFlavorsMap(Map<CocktailFlavorEnum, Boolean> map) {
-        selectedFlavorsMap = map;
+    public void setselectedFlavor(CocktailFlavorEnum flavor) {
+        selectedFlavor = flavor;
     }
 
-    public void setselectedPowersMap(Map<CocktailPowerEnum, Boolean> map) {
-        selectedPowersMap = map;
+    public void setselectedPower(CocktailPowerEnum power) {
+        selectedPower = power;
     }
 
     public Map<BeverageEntity, Boolean> getselectedVirginsMap() {
@@ -267,27 +251,27 @@ public class DataManagedBean implements Serializable {
         return selectedAlcoolsMap;
     }
 
-    public Map<CocktailFlavorEnum, Boolean> getselectedFlavorsMap() {
-        return selectedFlavorsMap;
+    public CocktailFlavorEnum getselectedFlavor() {
+        return selectedFlavor;
     }
 
-    public Map<CocktailPowerEnum, Boolean> getselectedPowersMap() {
-        return selectedPowersMap;
+    public CocktailPowerEnum getselectedPower() {
+        return selectedPower;
     }
 
-    public List<CocktailFlavorEnum> getListFlavors() {
+    public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.add(CocktailFlavorEnum.BITTER);
-            listFlavors.add(CocktailFlavorEnum.FRUITY);
+            listFlavors.put(CocktailFlavorEnum.BITTER.name(), CocktailFlavorEnum.BITTER);
+            listFlavors.put(CocktailFlavorEnum.FRUITY.name(), CocktailFlavorEnum.FRUITY);
         }
         return listFlavors;
     }
 
-    public List<CocktailPowerEnum> getListPowers() {
+    public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.add(CocktailPowerEnum.SOFT);
-            listPowers.add(CocktailPowerEnum.MEDIUM);
-            listPowers.add(CocktailPowerEnum.STRONG);
+            listPowers.put(CocktailPowerEnum.SOFT.name(),CocktailPowerEnum.SOFT);
+            listPowers.put(CocktailPowerEnum.MEDIUM.name(),CocktailPowerEnum.MEDIUM);
+            listPowers.put(CocktailPowerEnum.STRONG.name(),CocktailPowerEnum.STRONG);
         }
         return listPowers;
     }
@@ -656,13 +640,13 @@ public class DataManagedBean implements Serializable {
     public Long getOrderId() {
         return order.getId();
     }
-    
-    public void contactUs( String clientMail ,String msgSubject, String msgTxt ) throws MessagingException {
+
+    public void contactUs(String clientMail, String msgSubject, String msgTxt) throws MessagingException {
         try {
             msgTxt = msgTxt + "\n sent by" + clientMail;
             InitialContext ic = new InitialContext();
             String snName = "mail/EmailMe";
-            Session session = (Session)ic.lookup(snName);
+            Session session = (Session) ic.lookup(snName);
             Message msg = new MimeMessage(session);
             msg.setSubject(msgSubject);
             msg.setSentDate(new Date());
@@ -675,11 +659,11 @@ public class DataManagedBean implements Serializable {
             mp.addBodyPart(mbp);
             msg.setContent(mp);
             Transport.send(msg);
-            
+
         } catch (NamingException ex) {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
 
     }
 }

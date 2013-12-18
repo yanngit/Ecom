@@ -56,35 +56,19 @@
                         <legend>
                             Goût
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListFlavors()}"
-                                   var="item"
-                                   varStatus="i">
-                            <label class="checkbox">
-                                <h:selectBooleanCheckbox title="#{item.toString()}"
-                                                         value="#{dataManagedBean.selectedFlavorsMap[item]}"/>
-                                <h:outputLabel>
-                                    <span aria-hidden="true" role="presentation">#{item.toString()}</span>
-                                </h:outputLabel>
 
-                            </label>
-                        </ui:repeat>
+                        <h:selectOneRadio value="#{dataManagedBean.selectedFlavor}">
+                            <f:selectItems value="#{dataManagedBean.getListFlavors()}" />
+                        </h:selectOneRadio>
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
                             Puissance
                         </legend>
-                        <ui:repeat value="#{dataManagedBean.getListPowers()}"
-                                   var="item"
-                                   varStatus="i">
-                            <label class="checkbox">
-                                <h:selectBooleanCheckbox title="#{item.toString()}"
-                                                         value="#{dataManagedBean.selectedPowersMap[item]}"/>
-                                <h:outputLabel>
-                                    <span aria-hidden="true" role="presentation">#{item.toString()}</span>
-                                </h:outputLabel>
 
-                            </label>
-                        </ui:repeat>
+                        <h:selectOneRadio value="#{dataManagedBean.selectedPower}">
+                            <f:selectItems value="#{dataManagedBean.getListPowers()}" />
+                        </h:selectOneRadio>
                     </fieldset>
                 </div>
                 <br/>
