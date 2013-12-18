@@ -76,6 +76,12 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
+
+                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
+                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
+                                    #{dataManagedBean.getLogin()} - Deconnection
+                                </h:commandLink>
+                            </ui:fragment>   
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" title="Se connecter">
                                     Connection

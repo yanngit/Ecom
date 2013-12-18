@@ -8,48 +8,47 @@
     <ui:define name="title">Mon panier</ui:define>
     <ui:define name="content">
 
-        <h:panelGroup style="display: block" rendered="#{dataManagedBean.cartLength > 0}">
+        <h:panelGroup style="display: block">
             <div id="cart_component">
                 <h1 class="title-cocktail-details">Mon panier</h1>
                 <div class="well well-small">
                     <ul class="thumbnails">
                         <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
                             <h:form>
-                                <div class="media">
-                                    <div class="pull-left media-object span2">
-                                        <div class="text-center">
-                                            <img src="resources/img/#{item.photoURIName}.#{item.photoURIExt}"
-                                                 alt=" "/>
+
+                                <c:if test="#{dataManagedBean.getQuantityForCocktailInCart(item) > 0}">
+                                    <div class="media">
+                                        <div class="pull-left media-object span2">
+                                            <div class="text-center">
+                                                <img src="resources/img/#{item.photoURIName}.#{item.photoURIExt}"
+                                                     alt="Photo du cocktail #{item.name}"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="media-body">
-
-                                        <h3 class="media-heading">
-                                            Les composants de #{item.name}
-                                        </h3>
-                                        <div class="well well-small">
-                                            <ul class="thumbnails">
-                                                <c:forEach items="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" >
-                                                    <component:ShowBeverageComponent item="#{bev}"/>
-                                                </c:forEach>
-                                         
-                                                <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
-                                                <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
-                                                <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
-
-                                            </ul>                 
-                                            <h:commandButton 
-                                                title=""
-                                                styleClass="btn"
-                                                value="Supprimer les articles "
-                                                type="button" >
-                                                <f:ajax execute="@form" render="@all" listener="#{dataManagedBean.removeArticle(item)}" />
-                                            </h:commandButton>
-                                            <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
-
+                                        <div class="media-body">
+                                            <h3 class="media-heading">
+                                                #{item.name}
+                                            </h3>
+                                            <div class="well well-small">
+                                                <ul class="thumbnails">
+                                                    <c:forEach items="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" >
+                                                        <component:ShowBeverageComponent item="#{bev}"/>
+                                                    </c:forEach>
+                                                    <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
+                                                    <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
+                                                    <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
+                                                </ul>                 
+                                                <h:commandButton 
+                                                    title=""
+                                                    styleClass="btn"
+                                                    value="Supprimer les articles "
+                                                    type="button" >
+                                                    <f:ajax execute="@form" render="@form :form-menu :form-total" listener="#{dataManagedBean.removeArticle(item)}" />
+                                                </h:commandButton>
+                                                <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>  
+                                    </div> 
+                                </c:if>
                             </h:form>
                         </c:forEach>
                     </ul>
@@ -57,18 +56,17 @@
             </div>
         </h:panelGroup>
         <li class="thumbnail">
-            <div class="totalPanier">
-                <div class="total-cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
 
-                <h:button class="totalPanier-button"
-                          image="#{resource['img:btn_valider.png']}"
-                          alt="Valider mon pannier" 
-                          title="Valider mon pannier"
-                          outcome="Form.xhtml" 
-                          rendered="#{dataManagedBean.cartLength > 0}">
-                </h:button>
-                <div class="clear"></div>
-            </div>
+            <h:form id="form-total">
+                <div class="totalPanier">
+                    <div class="totalPrice"> Total:  #{dataManagedBean.getCartPrice()}€
+                        <h:button class="totalPanierButton"
+                                  image="#{resource['img:btn_valider.png']}"
+                                  alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
+                        </h:button>
+                    </div>
+                </div>
+            </h:form>
         </li>
     </ui:define>
 </ui:composition>
