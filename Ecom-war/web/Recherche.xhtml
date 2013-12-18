@@ -6,14 +6,25 @@
     <ui:define name="title">Recherche</ui:define>
     <ui:define name="content">
 
-        <h1 class="title-cocktail-details"> Recherche avancée </h1>
+        <!--
+        <h1 class="title-cocktail-details" title="Effectuer une recherche avancée" aria-label=" x equals 0.25"> 
+             Recherche avancée
+        </h1>
+        -->
+        <span aria-label="Effectuer une recherche avancée, vous pouvez faire une recherche , par alcool, ou par déluant, ou par le gout">
+            Recherche avancée
+        </span> 
+        
+        
         <div class="well">
             <h:form>
                 <div class="row-fluid">
                     <fieldset class="span2">
+                        
                         <legend>
                             Alcools
                         </legend>
+                        
                         <ui:repeat value="#{dataManagedBean.getListAlcohol()}"
                                    var="item"
                                    varStatus="i">
@@ -33,8 +44,12 @@
                                    varStatus="i">
                             <label class="checkbox">
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
-                                                         value="#{dataManagedBean.selectedVirginId[item]}"/>
+                                                         value="#{dataManagedBean.selectedVirginId[item]}"
+                                />
+                                
                                 <h:outputLabel value="#{item.getName()}"/>
+                                
+                                
                             </label>
                         </ui:repeat>
                     </fieldset>
