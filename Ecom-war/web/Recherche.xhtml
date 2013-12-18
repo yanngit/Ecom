@@ -5,7 +5,10 @@
                 xmlns:component="http://java.sun.com/jsf/composite/component">
     <ui:define name="title">Recherche</ui:define>
     <ui:define name="content">
-        <h2> Recherche avancée </h2>
+
+        <span aria-label="Effectuer une recherche avancée, vous pouvez faire une recherche , par alcool, ou par déluant, ou par le gout">
+            Recherche avancée
+        </span>
         <div class="well">
             <h:form>
                 <div class="row-fluid">
@@ -34,6 +37,7 @@
                                 <h:selectBooleanCheckbox title="#{item.getName()}"
                                                          value="#{dataManagedBean.selectedVirginsMap[item]}"/>
                                 <h:outputLabel value="#{item.getName()}"/>
+                                
                             </label>
                         </ui:repeat>
                     </fieldset>
@@ -83,6 +87,9 @@
             </h:form>
             <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
                 <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
+            </ui:fragment>
+            <ui:fragment rendered="#{!dataManagedBean.isSearchAvailable()}">
+                <p>Actuellement aucun résultat</p>
             </ui:fragment>
         </div>
     </ui:define>

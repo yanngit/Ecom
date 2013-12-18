@@ -160,19 +160,19 @@ public class DataManagedBean implements Serializable {
         /*Netoyage des résultats précédents*/
         resultSearch.clear();
         /*Liste des boissons selectionnées*/
-        List<BeverageEntity> selected = new ArrayList<>();
+        List<BeverageEntity> selectedBeverages = new ArrayList<>();
         List<CocktailFlavorEnum> selectedFlavor = new ArrayList<>();
         List<CocktailPowerEnum> selectedPower = new ArrayList<>();
         /*Récupération des alcools selectionnes*/
         for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolsMap.entrySet()) {
             if (e.getValue()) {
-                selected.add(e.getKey());
+                selectedBeverages.add(e.getKey());
             }
         }
         /*Récupération des diluants selectionnés*/
         for (Map.Entry<BeverageEntity, Boolean> e : selectedVirginsMap.entrySet()) {
             if (e.getValue()) {
-                selected.add(e.getKey());
+                selectedBeverages.add(e.getKey());
             }
         }
 
@@ -181,7 +181,7 @@ public class DataManagedBean implements Serializable {
                 selectedFlavor.add(e.getKey());
             }
         }
-        
+
         for (Map.Entry<CocktailPowerEnum, Boolean> e : selectedPowersMap.entrySet()) {
             if (e.getValue()) {
                 selectedPower.add(e.getKey());
@@ -189,8 +189,8 @@ public class DataManagedBean implements Serializable {
         }
 
         /*Intersection des résltats*/
-        if (!selected.isEmpty()) {
-            for (BeverageEntity b : selected) {
+        if (!selectedBeverages.isEmpty()) {
+            for (BeverageEntity b : selectedBeverages) {
                 if (resultSearch.isEmpty()) {
                     resultSearch = client.getCocktailsForBeverage(b);
                 } else {
@@ -198,20 +198,24 @@ public class DataManagedBean implements Serializable {
                 }
             }
         }
-
-        for (CocktailFlavorEnum f : selectedFlavor) {
-            if (resultSearch.isEmpty()) {
-                resultSearch = client.getCocktailsByFlavor(f);
-            } else {
-                resultSearch.retainAll(client.getCocktailsByFlavor(f));
+        
+        if (!selectedFlavor.isEmpty()) {
+            for (CocktailFlavorEnum f : selectedFlavor) {
+                if (resultSearch.isEmpty()) {
+                    resultSearch = client.getCocktailsByFlavor(f);
+                } else {
+                    resultSearch.retainAll(client.getCocktailsByFlavor(f));
+                }
             }
         }
-        
-        for (CocktailPowerEnum p  : selectedPower) {
-            if (resultSearch.isEmpty()) {
-                resultSearch = client.getCocktailsByPower(p);
-            } else {
-                resultSearch.retainAll(client.getCocktailsByPower(p));
+
+        if (!selectedPower.isEmpty()) {
+            for (CocktailPowerEnum p : selectedPower) {
+                if (resultSearch.isEmpty()) {
+                    resultSearch = client.getCocktailsByPower(p);
+                } else {
+                    resultSearch.retainAll(client.getCocktailsByPower(p));
+                }
             }
         }
     }
@@ -227,7 +231,7 @@ public class DataManagedBean implements Serializable {
     public void setselectedFlavorsMap(Map<CocktailFlavorEnum, Boolean> map) {
         selectedFlavorsMap = map;
     }
-    
+
     public void setselectedPowersMap(Map<CocktailPowerEnum, Boolean> map) {
         selectedPowersMap = map;
     }
@@ -243,7 +247,7 @@ public class DataManagedBean implements Serializable {
     public Map<CocktailFlavorEnum, Boolean> getselectedFlavorsMap() {
         return selectedFlavorsMap;
     }
-    
+
     public Map<CocktailPowerEnum, Boolean> getselectedPowersMap() {
         return selectedPowersMap;
     }
@@ -255,7 +259,7 @@ public class DataManagedBean implements Serializable {
         }
         return listFlavors;
     }
-    
+
     public List<CocktailPowerEnum> getListPowers() {
         if (listPowers.isEmpty()) {
             listPowers.add(CocktailPowerEnum.SOFT);
@@ -485,8 +489,10 @@ public class DataManagedBean implements Serializable {
         if (qty.equals("")) {
             qty = "1";
         }
-        client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
-        qty = "1";
+        if (canBeInteger(qty)) {
+            client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
+            qty = "1";
+        }
     }
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
@@ -612,6 +618,15 @@ public class DataManagedBean implements Serializable {
             address.setCity(city);
             /*MANQUE COUNTRY*/
             client.modifyAddress(address);
+        }
+    }
+
+    private boolean canBeInteger(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

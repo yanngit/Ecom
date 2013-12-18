@@ -7,32 +7,37 @@
     <ui:define name="content">
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
+        <h1 class="title-cocktail-details">
+            Fiche descriptif : <span class="cocktail-name">#{dataManagedBean.currentCocktail.name}</span>
+                </h1>
+        
         <div class="media">
             <div class="pull-left media-object span2">
                 <h:form>
                     <div class="text-center">
                         <img src="resources/img/#{dataManagedBean.currentCocktail.photoURIName}_large.#{dataManagedBean.currentCocktail.photoURIExt}"
-                             alt="Photo du cocktail #{dataManagedBean.currentCocktail.name}"/>
-                        <p/>
+                             alt=" "/>
+                        <br/>
                         <h:commandButton image="#{resource['img:cart.png']}"
-                                         alt="Ajouter le cocktail au panier"
+                                         alt="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
                                          styleClass="btn btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
-                                         title="Ajouter le cocktail au panier"
+                                         title="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton><br />
-                        <h:inputText alt="Nombre de cocktails à ajouter au panier"
-                                     maxlength="3"
+                        <br/>
+                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
+                                     maxlength="3" 
                                      value="#{dataManagedBean.qty}"
-                                     styleClass="input-mini-plus"
-                                     title="Nombre de cocktails à ajouter au panier" />
+                                     styleClass="input-mini-plus" 
+                                     title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
+                        />
+
                     </div>
                 </h:form>
             </div>
             <div class="media-body">
-                <h1 class="media-heading">
-                    #{dataManagedBean.currentCocktail.name}
-                </h1>
+                <h2>Description :</h2>
                 <div class="well">
                     <dl class="dl-horizontal">
                         <dt>Prix :</dt>
@@ -61,6 +66,8 @@
                 </p>
             </div>
         </div>
+        <p/>
+                        
     </ui:define>
 </ui:composition>
 
