@@ -31,7 +31,11 @@ import pojo.CocktailPowerEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
-
+import java.util.*; 
+import javax.activation.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.naming.*;
 /**
  *
  * @author yann
@@ -632,5 +636,31 @@ public class DataManagedBean implements Serializable {
 
     public Long getOrderId() {
         return order.getId();
+    }
+    
+    public void contactUs( String clientMail ,String msgSubject, String msgTxt ) throws MessagingException {
+        try {
+            msgTxt = msgTxt + "\n sent by" + clientMail;
+            InitialContext ic = new InitialContext();
+            String snName = "mail/EmailMe";
+            Session session = (Session)ic.lookup(snName);
+            Message msg = new MimeMessage(session);
+            msg.setSubject(msgSubject);
+            msg.setSentDate(new Date());
+            msg.setFrom();
+            String Admin = "bachar.nejem@gmail.com";
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Admin, false));
+            MimeBodyPart mbp = new MimeBodyPart();
+            mbp.setText(msgTxt);
+            Multipart mp = new MimeMultipart();
+            mp.addBodyPart(mbp);
+            msg.setContent(mp);
+            Transport.send(msg);
+            
+        } catch (NamingException ex) {
+            Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+
     }
 }
