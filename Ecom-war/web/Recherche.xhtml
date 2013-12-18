@@ -25,6 +25,20 @@
                     </fieldset>
                     <fieldset class="span2">
                         <legend>
+                            Diluants
+                        </legend>
+                        <ui:repeat value="#{dataManagedBean.getListVirgin()}"
+                                   var="item"
+                                   varStatus="i">
+                            <label class="checkbox">
+                                <h:selectBooleanCheckbox title="#{item.getName()}"
+                                                         value="#{dataManagedBean.selectedVirginId[item]}"/>
+                                <h:outputLabel value="#{item.getName()}"/>
+                            </label>
+                        </ui:repeat>
+                    </fieldset>
+                    <fieldset class="span2">
+                        <legend>
                             Goût
                         </legend>
                         <ui:repeat value="#{dataManagedBean.listFlavors}"

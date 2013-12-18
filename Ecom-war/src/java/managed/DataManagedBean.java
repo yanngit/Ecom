@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import pojo.CocktailFlavorEnum;
 import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
@@ -53,9 +52,13 @@ public class DataManagedBean implements Serializable {
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
     private List<BeverageEntity> listAlcohol = new ArrayList<>();
     private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listVirgin = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
     private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
     private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
+    
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
 
@@ -83,6 +86,14 @@ public class DataManagedBean implements Serializable {
             resultSearch = client.getCocktailsForBeverage(selected.get(0));
         }
     }
+    
+    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
+        selectedVirginId = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginId() {
+        return selectedVirginId;
+    }
 
     public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
         selectedAlcoolId = map;
@@ -102,6 +113,13 @@ public class DataManagedBean implements Serializable {
             listFlavor.add(pojo.CocktailFlavorEnum.FRUITY);
         }
         return listFlavor;
+    }
+    
+    public List<BeverageEntity> getListVirgin() {
+        if (listVirgin.isEmpty()) {
+            listVirgin = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgin;
     }
 
     public List<BeverageEntity> getListAlcohol() {

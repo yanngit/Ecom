@@ -11,7 +11,6 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -263,17 +262,17 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return deliverableManager.getAllCocktails(beverage);
     }
 
     @Override
     public List<BeverageEntity> getAllBeveragesWithAlcohol() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beverageManager.getAllBeveragesWithAlcohol();
     }
 
     @Override
     public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return beverageManager.getAllBeveragesWithoutAlcohol();
     }
 }
 

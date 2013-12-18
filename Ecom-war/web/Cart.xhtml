@@ -7,13 +7,13 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
-        <c:if test="#{dataManagedBean.cartLength > 0}">
-                <div id="cart-component">
-                    <h2>Panier</h2>
-                    <div class="well well-small">
-                        <ul class="thumbnails">
-                            <ui:repeat value = "#{dataManagedBean.cartContent}" var = "item" varStatus="status">
-                                <h:form id="cocktail-panier">
+        <h:panelGroup style="display: block" rendered="#{dataManagedBean.cartLength > 0}">
+            <div id="cart_component">
+                <h2>Panier</h2>
+                <div class="well well-small">
+                    <ul class="thumbnails">
+                        <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
+                            <h:form>
                                 <div class="media">
                                     <div class="pull-left media-object span2">
                                         <div class="text-center">
@@ -27,34 +27,34 @@
                                         </h3>
                                         <div class="well well-small">
                                             <ul class="thumbnails">
-                                                <ui:repeat value="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" varStatus="status1">
+                                                <c:forEach items="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}" var="bev" >
                                                     <component:ShowBeverageComponent item="#{bev}"/>
-                                                </ui:repeat>
+                                                </c:forEach>
                                                 <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
                                                 <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
                                                 <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
                                             </ul>                 
-                                            <h:commandButton
+                                            <h:commandButton 
                                                 title=""
+                                                styleClass="btn"
                                                 value="Supprimer les articles "
-                                                type="button"
-                                                actionListener="#{dataManagedBean.removeArticle(item)}">
-                                                <f:ajax execute="@form" render="@all" />
+                                                type="button" >
+                                                <f:ajax execute="@form" render="@all" listener="#{dataManagedBean.removeArticle(item)}" />
                                             </h:commandButton>
-                                            <h:inputText id="qty"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
+                                            <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
 
                                         </div>
                                     </div>
                                 </div>  
-                                </h:form>
-                            </ui:repeat>
-                        </ul>
-                    </div>
+                            </h:form>
+                        </c:forEach>
+                    </ul>
                 </div>
-        </c:if>
+            </div>
+        </h:panelGroup>
         <li class="thumbnail">
             <div class="totalPanier">
-                <div class="total-cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
+                <div class="total_cart"> Total:  #{dataManagedBean.getCartPrice()}€</div>
                 <h:button class="totalPanier-button"
                           image="#{resource['img:btn_valider.png']}"
                           alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
