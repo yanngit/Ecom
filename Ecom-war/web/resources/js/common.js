@@ -29,6 +29,27 @@ function validateConnexion() {
     }
 }
 
+function validateContact() {
+    var text = "";
+    var valid = true;
+    if (!$("[id*='form-contact:Email']").val().match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+        //$("[id*='login']").after('<p>Veuillez saisir une adresse email valide en tant qu\'identifiant</p>');
+        text += "Veuillez saisir une adresse email valide\n";
+        valid = false;
+    }
+    if (!$("[id*='form-contact:Titre']").val.match(/^[\w-\.]/)) {
+        //$("[id*='login']").after('<p>Veuillez saisir une adresse email valide en tant qu\'identifiant</p>');
+        text += "Veuillez saisir un titre valide \n";
+        valid = false;
+    }
+
+    if (valid) {
+        return true;
+    } else {
+        alert(text);
+        return false;
+    }
+}
 $(document).ready(function() {
 
 });

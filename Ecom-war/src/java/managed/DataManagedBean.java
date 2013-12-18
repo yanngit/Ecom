@@ -577,7 +577,7 @@ public class DataManagedBean implements Serializable {
             msg.setSubject(msgSubject);
             msg.setSentDate(new Date());
             msg.setFrom();
-            String Admin = "bachar.nejem@gmail.com";
+            String Admin = "tchin.tchin.ecom@gmail.com";
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Admin, false));
             MimeBodyPart mbp = new MimeBodyPart();
             mbp.setText(msgTxt);
