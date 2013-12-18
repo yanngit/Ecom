@@ -11,7 +11,8 @@
     </composite:interface>
     <composite:implementation>
         <li class="span2 thumbnail">
-            <h:form id="form-cocktail-thumbnail">
+            <h:form id="form-cocktail-thumbnail"
+                    styleClass="jsf-form">
                 <div class="filling-thumb">
                     <ui:param name="img_path" value="img:#{cc.attrs.item.photoURIName}.#{cc.attrs.item.photoURIExt}" />
                     <img src="#{resource[img_path]}"
@@ -38,18 +39,17 @@
                 </div>
             </h:form>
 
-            <h:form id="form-cocktail-thumbnail-cmd">
+            <h:form id="form-cocktail-thumbnail-cmd"
+                    class="jsf-form">
                 <div class="text-center">
                     <div class="input-prepend">
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          id="cartBtn"
-
                                          alt="Ajouter dans le pannier le "
-                                         title="Ajouter #{cc.attrs.item.name} dans mon pannier"
+                                         title="Ajouter #{cc.attrs.item.name} dans mon panier"
                                          styleClass="btn"
                                          actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
                             <f:ajax execute="@form" render=":form-menu" />
-
                         </h:commandButton>
 
                         <h:inputText id="qty"  maxlength="3"
