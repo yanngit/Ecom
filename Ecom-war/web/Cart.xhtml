@@ -8,12 +8,12 @@
     <ui:define name="title">Panier</ui:define>
     <ui:define name="content">
         <c:if test="#{dataManagedBean.cartLength > 0}">
-            <div id="cart-component">
-                <h2>Panier</h2>
-                <div class="well well-small">
-                    <ul class="thumbnails">
-                        <ui:repeat value = "#{dataManagedBean.cartContent}" var = "item" varStatus="status">
-                            <h:form id="cocktail-panier">
+                <div id="cart-component">
+                    <h2>Panier</h2>
+                    <div class="well well-small">
+                        <ul class="thumbnails">
+                            <ui:repeat value = "#{dataManagedBean.cartContent}" var = "item" varStatus="status">
+                                <h:form id="cocktail-panier">
                                 <div class="media">
                                     <div class="pull-left media-object span2">
                                         <div class="text-center">
@@ -33,22 +33,24 @@
                                                 <div class = "span2 right">Quantité : #{dataManagedBean.getQuantityForCocktailInCart(item)}</div><br />
                                                 <div class = "span2 right">Prix unitaire : #{item.price} €</div><br />
                                                 <div class = "span2 right">Prix total : #{item.price * dataManagedBean.getQuantityForCocktailInCart(item)} €</div>
-                                            </ul>
+                                            </ul>                 
                                             <h:commandButton
-                                                id="SupButton"
-                                                title="Supprimer les articles"
-                                                value="Supprimer les articles ">
-                                                <f:ajax event="click" execute="#{dataManagedBean.removeArticle(item)}" />
+                                                title=""
+                                                value="Supprimer les articles "
+                                                type="button"
+                                                actionListener="#{dataManagedBean.removeArticle(item)}">
+                                                <f:ajax execute="@form" render="@all" />
                                             </h:commandButton>
-                                          <h:inputText id="qty"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
+                                            <h:inputText id="qty"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
+
                                         </div>
                                     </div>
-                                </div>
-                            </h:form>
-                        </ui:repeat>
-                    </ul>
+                                </div>  
+                                </h:form>
+                            </ui:repeat>
+                        </ul>
+                    </div>
                 </div>
-            </div>
         </c:if>
         <li class="thumbnail">
             <div class="totalPanier">
