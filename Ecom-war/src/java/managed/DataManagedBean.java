@@ -270,9 +270,9 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.name(),CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.name(),CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.name(),CocktailPowerEnum.STRONG);
+            listPowers.put(CocktailPowerEnum.SOFT.name(), CocktailPowerEnum.SOFT);
+            listPowers.put(CocktailPowerEnum.MEDIUM.name(), CocktailPowerEnum.MEDIUM);
+            listPowers.put(CocktailPowerEnum.STRONG.name(), CocktailPowerEnum.STRONG);
         }
         return listPowers;
     }
@@ -666,5 +666,9 @@ public class DataManagedBean implements Serializable {
         }
 
 
+    }
+
+    public OrderEntity getOrder() {
+        return order;
     }
 }
