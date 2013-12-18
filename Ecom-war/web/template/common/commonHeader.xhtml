@@ -76,6 +76,12 @@
                     </ul>
                     <ul class="nav pull-right">
                         <li>
+
+                            <ui:fragment rendered="#{dataManagedBean.isConnected()}">
+                                <h:commandLink action="#{dataManagedBean.disconnect()}"  >
+                                    #{dataManagedBean.getLogin()} - Deconnection
+                                </h:commandLink>
+                            </ui:fragment>   
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" title="Se connecter">
                                     Connection
@@ -85,7 +91,7 @@
                         <li>
                             <h:outputLink value="Cart.xhtml" title="Mon pannier contient #{dataManagedBean.cartLength} cocktails. Total = #{dataManagedBean.cartPrice} €">
                                 
-                                 Panier <span role="presentation">to ignore</span> (#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €
+                                 Panier <span aria-hidden="true" role="presentation">(#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €</span> 
                                 
                             </h:outputLink>
                         </li>

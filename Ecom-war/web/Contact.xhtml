@@ -1,0 +1,21 @@
+<ui:composition template="template/common/commonLayout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">Contact</ui:define>
+    <ui:define name="content">
+        <h:form id="form-contact" class="span5 offset5">
+            <p:panel header="Vous avez une question :">  
+                <h:panelGrid id="grid-contact" columns="2">
+                    <h:outputLabel for="Name" value="Name : "/>  
+                    <p:inputText id="Name" binding="#{name}" />
+                    <h:outputLabel for="Titre" value="Titre : "/>  
+                    <p:inputText type="Titre" id="Titre" binding="#{titre}" />
+                    <h:outputLabel for="Message" value="Message : "/>  
+                    <h:inputTextarea id="Message" binding="#{message}"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>  
+    </ui:define>
+</ui:composition>
