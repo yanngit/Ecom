@@ -32,6 +32,11 @@ function validateConnexion() {
 }
         
 $(document).ready(function(){ 
-
+    //alert('ok');
 }); 
+
+
+
+
+
 

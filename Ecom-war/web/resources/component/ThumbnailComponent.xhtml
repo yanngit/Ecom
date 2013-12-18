@@ -31,7 +31,6 @@
                                              action="#{dataManagedBean.displayCocktailDetails(cc.attrs.item)}">
                             </h:commandButton>
                         </div>
-
                     </div>
                 </div>
             </h:form>
@@ -39,31 +38,25 @@
             <h:form id="form-cocktail-thumbnail-cmd">
                 <div class="text-center">
                     <div class="input-prepend">
-                        
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          id="cartBtn"
                                          alt="Ajouter dans le pannier le "
                                          title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                          styleClass="btn"
                                          actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}"
-                                         onclick="getQtyID()">
+                                         onclick="setFocusOnCart()">
                             <f:ajax execute="@form" render=":form-menu" />
                         </h:commandButton>
 
                         <h:inputText id="qty"  maxlength="3"
-
                                      value="#{dataManagedBean.qty}"
                                      styleClass="input-mini"
                                      title="Quantité de #{cc.attrs.item.name} à ajouter dans le pannier"
                                      immediate="true"
-
                                      />
                     </div>
                 </div>
             </h:form>
-
-
-
         </li>
 
     </composite:implementation>
