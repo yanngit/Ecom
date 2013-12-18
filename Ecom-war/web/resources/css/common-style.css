@@ -229,14 +229,12 @@ input[id*="qty-cart"]{
 
 .title-cocktail {
     font-size : 15px;
-    line-height: 40px;
+    line-height: 20px;
     text-align: center;
     font-family: inherit;
     font-weight: bold;
     color: inherit;
     text-rendering: optimizelegibility;
-    overflow: hidden;
-    white-space: nowrap;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
