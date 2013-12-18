@@ -101,8 +101,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
-        cart.removeArticle(cocktail);
+    public void removeArticle(CocktailEntity cocktail, int qty) throws EcomException {
+        cart.removeArticle(cocktail, qty);
     }
 
     @Override
@@ -242,6 +242,31 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
+    public Long checkAddress(AddressEntity address) {
+        if(addressManager.findAll().isEmpty())
+            return null;
+        else{
+            int i=0;
+            Long found = null;
+            while(i<addressManager.findAll().size()){
+                if(addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name()) && 
+                        addressManager.findAll().get(i).getSurname().equals(address.getSurname()) && 
+                        addressManager.findAll().get(i).getStreet().equals(address.getStreet())){
+                    found =  addressManager.findAll().get(i).getId();
+            
+                }
+                i++;
+            }
+        return found;
+        }
+    }
+
+    @Override
+    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
+        return deliverableManager.getAllCocktails(beverage);
+    }
+
+    @Override
     public List<BeverageEntity> getAllBeveragesWithAlcohol() {
         return beverageManager.getAllBeveragesWithAlcohol();
     }
@@ -250,9 +275,5 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<BeverageEntity> getAllBeveragesWithoutAlcohol() {
         return beverageManager.getAllBeveragesWithoutAlcohol();
     }
-
-    @Override
-    public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage) {
-        return deliverableManager.getAllCocktails(beverage.getName());
-    }
 }
+

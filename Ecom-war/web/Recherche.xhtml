@@ -3,39 +3,72 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:component="http://java.sun.com/jsf/composite/component">
-    <ui:define name="title">Connexion</ui:define>
+    <ui:define name="title">Recherche</ui:define>
     <ui:define name="content">
-        <h1> Recherche avancée </h1>
-        <div class="well well-small">
+        <h2> Recherche avancée </h2>
+        <div class="well">
             <h:form>
-                <ul class="thumbnails">
-                    <li>
-                        <h3>Alcools</h3>
-                        <div id="recherche-alcool">
-                            <ui:repeat value="#{dataManagedBean.getListAlcohol()}" var="item" varStatus="i">
-                                <div id="item-recherche">
-                                    <h:selectBooleanCheckbox id="item" title="#{item.getName()}" value="#{dataManagedBean.selectedAlcoolId[item]}" />
-                                    <h:outputLabel class="label-recherche" value="#{item.getName()}" for="item" />
-                                </div>
-                            </ui:repeat>
-                        </div>
-                    </li>
-                    <li>
-                        <h3>Goûts</h3>
-                        <div id="recherche-flavor">
-                            <ui:repeat value="#{dataManagedBean.getListFlavors()}" var="item" varStatus="i">
-                                <div id="item-recherche">
-                                    <h:selectBooleanCheckbox id="item" title="#{item.toString()}" value="#{dataManagedBean.selectedFlavorsString[item.toString()]}" />
-                                    <h:outputLabel class="label-recherche" value="#{item.toString()}" for="item" />
-                                </div>
-                            </ui:repeat>
-                        </div>
-                    </li>
-                </ul>
-                <h:commandButton type="submit" actionListener="#{dataManagedBean.searchCocktails()}" label="Boutton de recherche" title="Boutton pour lancer la recherche" value="Rechercher" />
+                <div class="row-fluid">
+                    <fieldset class="span2">
+                        <legend>
+                            Alcools
+                        </legend>
+                        <ui:repeat value="#{dataManagedBean.getListAlcohol()}"
+                                   var="item"
+                                   varStatus="i">
+                            <label class="checkbox">
+                                <h:selectBooleanCheckbox title="#{item.getName()}"
+                                                         value="#{dataManagedBean.selectedAlcoolId[item]}"/>
+                                <h:outputLabel value="#{item.getName()}"/>
+                            </label>
+                        </ui:repeat>
+                    </fieldset>
+                    <fieldset class="span2">
+                        <legend>
+                            Diluants
+                        </legend>
+                        <ui:repeat value="#{dataManagedBean.getListVirgin()}"
+                                   var="item"
+                                   varStatus="i">
+                            <label class="checkbox">
+                                <h:selectBooleanCheckbox title="#{item.getName()}"
+                                                         value="#{dataManagedBean.selectedVirginId[item]}"/>
+                                <h:outputLabel value="#{item.getName()}"/>
+                            </label>
+                        </ui:repeat>
+                    </fieldset>
+                    <fieldset class="span2">
+                        <legend>
+                            Goût
+                        </legend>
+                        <ui:repeat value="#{dataManagedBean.listFlavors}"
+                                   var="item"
+                                   varStatus="i">
+                            <label class="checkbox">
+                                <h:selectBooleanCheckbox title="#{item.toString()}"
+                                                         value="#{dataManagedBean.selectedFlavorsString[item.toString()]}"/>
+                                <h:outputLabel value="#{item.toString()}"/>
+                            </label>
+                        </ui:repeat>
+                    </fieldset>
+                </div>
+                <br/>
+                <div>
+                    <h:commandButton type="submit"
+                                     actionListener="#{dataManagedBean.searchCocktails()}"
+                                     label="Boutton de recherche"
+                                     title="Boutton pour lancer la recherche"
+                                     value="Rechercher"
+                                     styleClass="btn"/><span style="white-space:pre-wrap"> </span>
+                    <h:commandButton type="reset"
+                                     label="Réinitialiser le formulaire"
+                                     title="Boutton pour réinitialiser le formulaire"
+                                     value="Effacer"
+                                     styleClass="btn btn-warning"/>
+                </div>
             </h:form>
             <ui:fragment rendered="#{dataManagedBean.isSearchAvailable()}">
-                    <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
+                <component:ShowcaseComponent idDiv="search" title="Résultats de la recherche" list="#{dataManagedBean.resultSearch}"/>
             </ui:fragment>
         </div>
     </ui:define>

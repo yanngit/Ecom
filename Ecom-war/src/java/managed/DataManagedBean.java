@@ -41,7 +41,7 @@ public class DataManagedBean implements Serializable {
     private ClientFacadeRemoteItf client;
     /* Save the cocktail we want to see details */
     private CocktailEntity currentCocktail = null;
-    private AddressEntity entireAddress = null;
+    private AddressEntity address = null;
     private OrderEntity order = null;
     private ClientAccountEntity account = null;
     private boolean displayOrders = false;
@@ -51,29 +51,33 @@ public class DataManagedBean implements Serializable {
     private String currentCocktailAlcoholLetter = null;
     private String currentCocktailSoftLetter = null;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
-    private List<BeverageEntity> listAlcohol = new ArrayList<BeverageEntity>();
-    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<BeverageEntity, Boolean>();
+    private List<BeverageEntity> listAlcohol = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedAlcoolId = new HashMap<>();
+    /*Liste des boissons non alcoolisées et stockage d'une map pour les checkboxes de la recherche*/
+    private List<BeverageEntity> listVirgin = new ArrayList<>();
+    private Map<BeverageEntity, Boolean> selectedVirginId = new HashMap<>();
     /*Liste des gouts et stockage d'une map pour les checkboxes de la recherche*/
-    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<CocktailFlavorEnum>();
-    private Map<String, Boolean> selectedFlavorsString = new HashMap<String, Boolean>();
-    /*Résultat de la recherche*/
-    private List<CocktailEntity> resultSearch = new ArrayList<CocktailEntity>();
+    private List<pojo.CocktailFlavorEnum> listFlavor = new ArrayList<>();
+    private Map<String, Boolean> selectedFlavorsString = new HashMap<>();
     
+    /*Résultat de la recherche*/
+    private List<CocktailEntity> resultSearch = new ArrayList<>();
+
     public List<CocktailEntity> getResultSearch() {
         return resultSearch;
     }
-    
+
     public void setResultSearch(List<CocktailEntity> resultSearch) {
         this.resultSearch = resultSearch;
     }
-    
+
     public boolean isSearchAvailable() {
         return resultSearch.size() > 0;
     }
-    
+
     public void searchCocktails() {
         resultSearch.clear();
-        List<BeverageEntity> selected = new ArrayList<BeverageEntity>();
+        List<BeverageEntity> selected = new ArrayList<>();
         for (Map.Entry<BeverageEntity, Boolean> e : selectedAlcoolId.entrySet()) {
             if (e.getValue()) {
                 selected.add(e.getKey());
@@ -84,18 +88,26 @@ public class DataManagedBean implements Serializable {
         }
     }
     
+    public void setselectedVirginId(Map<BeverageEntity, Boolean> map) {
+        selectedVirginId = map;
+    }
+
+    public Map<BeverageEntity, Boolean> getselectedVirginId() {
+        return selectedVirginId;
+    }
+
     public void setselectedAlcoolId(Map<BeverageEntity, Boolean> map) {
         selectedAlcoolId = map;
     }
-    
+
     public Map<BeverageEntity, Boolean> getselectedAlcoolId() {
         return selectedAlcoolId;
     }
-    
+
     public Map<String, Boolean> getselectedFlavorsString() {
         return selectedFlavorsString;
     }
-    
+
     public List<pojo.CocktailFlavorEnum> getListFlavors() {
         if (listFlavor.isEmpty()) {
             listFlavor.add(pojo.CocktailFlavorEnum.BITTER);
@@ -104,13 +116,20 @@ public class DataManagedBean implements Serializable {
         return listFlavor;
     }
     
+    public List<BeverageEntity> getListVirgin() {
+        if (listVirgin.isEmpty()) {
+            listVirgin = client.getAllBeveragesWithoutAlcohol();
+        }
+        return listVirgin;
+    }
+
     public List<BeverageEntity> getListAlcohol() {
         if (listAlcohol.isEmpty()) {
             listAlcohol = client.getAllBeveragesWithAlcohol();
         }
         return listAlcohol;
     }
-    
+
     public String getCurrentCocktailAlcoholLetter() {
         return currentCocktailAlcoholLetter;
     }
@@ -168,15 +187,15 @@ public class DataManagedBean implements Serializable {
     
     public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
         /*Création de l'adresse*/
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
-        client.addAddress(entireAddress);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
+        client.addAddress(address);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -187,10 +206,10 @@ public class DataManagedBean implements Serializable {
             sb.append(Integer.toString((encoded[i] & 0xff) + 0x100, 16).substring(1));
         }
         account.setPassword(sb.toString());
-        account.setDelivery_address(entireAddress);
+        account.setDelivery_address(address);
         client.addClient(account);
     }
-    
+
     public String connect(String login, String password) {
         if (account == null) {
             md.reset();
@@ -221,7 +240,7 @@ public class DataManagedBean implements Serializable {
     public AddressEntity getAccountAddress() {
         return account.getDelivery_address();
     }
-
+    
     /*récupérer le nb de cocktail de type cocktail dans le caddie*/
     public String getQuantityForCocktailInCart(CocktailEntity cocktail) {
         return client.getQuantityForCocktail(cocktail);
@@ -250,7 +269,6 @@ public class DataManagedBean implements Serializable {
         } else {
             return null;
         }
-        
     }
     
     public List<DecorationEntity> getCocktailDecorations(Long id) {
@@ -321,10 +339,14 @@ public class DataManagedBean implements Serializable {
         client.addArticleToCart(cocktail.getID(), Integer.parseInt(qty));
         qty = "1";
     }
-    
+
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
         System.out.println("Dans le DMB ..........................................................................");
-        client.removeArticle(cocktail);
+        if (qty.equals("")) {
+            qty = "1";
+        }
+        client.removeArticle(cocktail, Integer.parseInt(qty));
+        qty = "1";
     }
     
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {
@@ -373,19 +395,25 @@ public class DataManagedBean implements Serializable {
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
-        entireAddress = new AddressEntity();
-        entireAddress.setFirst_name(firstName);
-        entireAddress.setSurname(lastName);
-        entireAddress.setStreet(street);
-        entireAddress.setPostal_code(postalCode);
-        entireAddress.setCity(city);
-        entireAddress.setCountry("France");
-        entireAddress.setOrders(null);
+        address = new AddressEntity();
+        address.setFirst_name(firstName);
+        address.setSurname(lastName);
+        address.setStreet(street);
+        address.setPostal_code(postalCode);
+        address.setCity(city);
+        address.setCountry("France");
+        address.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
-        AddressEntity tempA = client.addAddress(entireAddress);
-        listAddress.add(tempA);//client.getAddress(tempA.getId()));
-
+        Long id = client.checkAddress(address);
+        AddressEntity tempA;
+        if(id == null){
+                    tempA = client.addAddress(address);
+        }
+        else{
+            tempA = client.getAddress(id);
+        }
+        listAddress.add(tempA);
         order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
@@ -395,6 +423,8 @@ public class DataManagedBean implements Serializable {
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
         client.getAddress(tempA.getId()).setOrders(listOrder);
+        order = tempO;
+        address = tempA;
         client.clearCart();
         //return client.getAddress(tempA.getId());
     }
@@ -436,8 +466,8 @@ public class DataManagedBean implements Serializable {
             client.modifyAddress(address);
         }
     }
-    
-    public void clearCart(){
-        client.clearCart();
+    public Long getOrderId(){
+        return order.getId();
     }
+
 }
