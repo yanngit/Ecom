@@ -160,8 +160,8 @@ public class DataManagedBean implements Serializable {
     public boolean isSearchAvailable() {
         return resultSearch.size() > 0;
     }
-    
-    public void searchCocktailsByKeyWords(String text){
+
+    public void searchCocktailsByKeyWords(String text) {
         System.out.println(text);
         resultSearch.clear();
         resultSearch = client.getCocktailsByName(text);
@@ -217,12 +217,12 @@ public class DataManagedBean implements Serializable {
                 resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
             }
         }
-        
+
         List<CocktailEntity> res = client.getCocktailsByName("blue");
-        for(CocktailEntity c : res){
+        for (CocktailEntity c : res) {
             System.out.println(c.getName());
         }
-        
+
     }
 
     public void resetResearch() {
