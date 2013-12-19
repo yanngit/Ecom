@@ -7,9 +7,30 @@
     <ui:define name="title">Erreur</ui:define>
 
     <ui:define name="content">
-        <div>
-            #{dataManagedBean.exceptionMessage}
+        <div class="well">
+            <div class="alert alert-error">
+                <h3>
+                    Désolé
+                </h3>
+                <p>
+                    Une erreur s'est produite...
+                </p>
+                <p>
+                    <h5>Description :</h5>
+                    #{dataManagedBean.exceptionMessage}
+                </p>
+                <hr/>
+                <p>
+                    Veuillez nous excuser pour la gêne occasionnée...<br/>
+                    L'équipe technique Tchin-Tchin.com
+                </p>
+                <h:outputLink value="index.xhtml"
+                              title="Accueil de Tchin-Tchin"
+                              styleClass="btn">
+                    Retour à l'accueil
+                </h:outputLink>
+            </div>
         </div>
     </ui:define>
-    
+
 </ui:composition>
