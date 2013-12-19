@@ -32,9 +32,6 @@ import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 import java.util.*;
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
-import javax.faces.application.FacesMessage;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
@@ -46,15 +43,7 @@ import javax.naming.*;
 @ManagedBean(name = "dataManagedBean")
 @SessionScoped
 public class DataManagedBean implements Serializable {
-    
-    
-    
-    /*DEPLACER DANS CLIENT et tester*/
-    @Resource
-    private SessionContext sctx;
-    
-    
-    
+
     /* Main facade to interact with Change to the application */
     @EJB
     private ClientFacadeRemoteItf client;
@@ -88,6 +77,16 @@ public class DataManagedBean implements Serializable {
     CocktailPowerEnum selectedPower = null;
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
+    
+    private String exceptionMessage = "";
+
+    public String getExceptionMessage() {
+        return exceptionMessage;
+    }
+
+    public void setExceptionMessage(String exceptionMessage) {
+        this.exceptionMessage = exceptionMessage;
+    }
 
     public boolean isUserIsMajor() {
         return userIsMajor;
@@ -568,20 +567,15 @@ public class DataManagedBean implements Serializable {
     }
 
     //ajouter par bach
-    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+    public String creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
         /*Décrémentation des quantités du cocktail, peut lever une exception*/
-        List<CocktailEntity> command = client.getCartContent();
-        for (CocktailEntity c : command) {
-            try {
-                c = client.getCocktailFull(c);
-                client.decreaseQuantityOfCocktail(c, Integer.parseInt(getQuantityForCocktailInCart(c)));
-            } catch (EcomException ex) {
-                String message = "Erreur : " + ex.getMessage();
-                FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-                ex.printStackTrace(); // Or use a logger.
-                sctx.setRollbackOnly();
-                return;
-            }
+        try {
+            client.validateOrder();
+        } catch (EcomException ex) {
+            exceptionMessage = ex.getMessage();
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), null));
+            ex.printStackTrace(); // Or use a logger.
+            return "Erreur.xhtml?faces-redirect=true";
         }
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
@@ -604,11 +598,11 @@ public class DataManagedBean implements Serializable {
             tempA = client.getAddress(id);
         }
         listAddress.add(tempA);
-        order.setCocktails(command);
+        order.setCocktails(client.getCartContent());
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
 
-        //Persistance de la commande vérification dans addOrder des quantités, exception si pas disponible
+        //Persistance de la commande vérification dans addOrder des quantités
         OrderEntity tempO = client.addOrder(order);
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
@@ -617,6 +611,7 @@ public class DataManagedBean implements Serializable {
         address = tempA;
         client.clearCart();
         //return client.getAddress(tempA.getId());
+        return "Confirmation.xhtml?faces-redirect=true";
     }
 
     public void setDisplayOrders(boolean b) {

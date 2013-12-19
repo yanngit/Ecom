@@ -13,8 +13,12 @@ import entity.OrderEntity;
 import exceptions.EcomException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
@@ -31,6 +35,8 @@ import session.manager.OrderManagerBean;
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
+    @Resource
+    private SessionContext sctx;
     @EJB
     private DeliverableManagerBean deliverableManager;
     @EJB
@@ -307,16 +313,21 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name) {
         return cocktailManager.getCocktailsByExpName(name);
     }
-    
-    public void decreaseQuantityOfCocktail(CocktailEntity cocktail, int number) throws EcomException {
-        List<Deliverable> deliv = cocktail.getDeliverables();
-        for(Deliverable d : deliv){
-            int qty = d.getQuantity() - number;
-            if(qty <= 0){
-                throw new EcomException("Impossible de décrémenter de "+number+" le cocktail : "+cocktail.getName());
+
+    @Override
+    public void validateOrder() throws EcomException {
+        Map<CocktailEntity, Integer> map = cart.getMap();
+        for (CocktailEntity c : map.keySet()) {
+            List<Deliverable> deliv = c.getDeliverables();
+            for (Deliverable d : deliv) {
+                int qty = d.getQuantity() - map.get(c);
+                try {
+                    d.setQuantity(qty);
+                } catch (EJBException ex) {
+                    throw new EcomException("Impossible de valider la commande. La quantité restante du cocktail " + c.getName() + " est de "+cocktailManager.getQuantityAvailable(c));
+                }
+                deliverableManager.edit(d);
             }
-            d.setQuantity(d.getQuantity()-number);
-            deliverableManager.edit(d);
         }
     }
 }

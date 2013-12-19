@@ -379,7 +379,8 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public void decreaseQuantityOfCocktail(CocktailEntity cocktail, int number) throws EcomException {
+    public void validateOrder() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

@@ -2,6 +2,7 @@ package pojo;
 
 import entity.CocktailEntity;
 import java.util.List;
+import javax.ejb.EJBException;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -19,9 +20,7 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "getCocktailsForBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE d.name = :name "),
     @NamedQuery(name = "getCocktailsByKeyWordsBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE LOWER(d.name) = :name ")
-
 })
-
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
@@ -55,7 +54,10 @@ public class Deliverable extends Product {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Integer quantity) throws EJBException {
+        if (quantity < 0) {
+            throw new EJBException("Impossible de décrémenter le délivrable " + this.getName() + "avec la quantité fournie");
+        }
         this.quantity = quantity;
     }
 

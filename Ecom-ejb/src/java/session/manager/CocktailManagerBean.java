@@ -128,6 +128,21 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         CocktailEntity c = find(id);
         return c.getAvailable();
     }
+    
+    public int getQuantityAvailable(CocktailEntity cocktail){
+        int res = -1;
+        List<Deliverable> list = cocktail.getDeliverables();
+        for(Deliverable d : list){
+            if(res == -1){
+                res = d.getQuantity();
+            } else {
+                if(res > d.getQuantity()){
+                    res = d.getQuantity();
+                }
+            }
+        }
+        return res;
+    }
 
     /*Decrease the quantity of components of the cocktail by a certain number, the number of cocktails added to a
      * client cart.*/
