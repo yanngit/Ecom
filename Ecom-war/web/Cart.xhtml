@@ -10,13 +10,7 @@
     </ui:define>
     <ui:define name="content">
         <div id="cart_component">
-            <h1 class="title-cocktail-details">Mon panier 
-                <h:form id="cart-vide">
-                    <c:if test="#{! (dataManagedBean.cartLength > 0)}">
-                        vide
-                    </c:if>
-                </h:form>
-            </h1>
+            <h1 class="title-cocktail-details">Mon panier </h1>
             <div class="well well-small">
                 <ul class="thumbnails">
                     <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
