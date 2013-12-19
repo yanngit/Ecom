@@ -78,7 +78,7 @@
                         <h:outputLabel for="country" value="Pays** : "/>  
                         <p:inputText id="country"  value="#{cc.attrs.country}" binding="#{country}"/>
                         <h:outputLabel for="pbutton"/>  
-                        <h:commandButton id="pbutton" value="Modifier" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" />
+                        <h:commandButton id="pbutton" value="Modifier" onclick="return validateModifiedAddress();" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" />
                     </h:panelGrid>  
                     *: champ obligatoire
                 </p:panel> 
