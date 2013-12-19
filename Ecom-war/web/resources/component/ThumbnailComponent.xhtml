@@ -21,9 +21,11 @@
                 <div class="caption">
                     <div class="title-cocktail"
                          title="#{cc.attrs.item.name}">
-                        #{cc.attrs.item.price} €
-                        <br/>
+                        
                         #{cc.attrs.item.name}
+                        <br/>
+                        #{cc.attrs.item.price} €
+                    
                     </div>
                     <div class="text-center">
                         <div class="btn-group" >
@@ -48,7 +50,9 @@
                                          alt="Ajouter dans le pannier le "
                                          title="Ajouter #{cc.attrs.item.name} dans mon panier"
                                          styleClass="btn"
-                                         actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}">
+                                         actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}"
+                                         onclick="alert('#{cc.attrs.item.name} a été ajouté au panier');">
+
                             <f:ajax execute="@form" render=":form-menu" />
                         </h:commandButton>
                         <div id="dialog-modal" title="Basic modal dialog" style="display: none;"></div>

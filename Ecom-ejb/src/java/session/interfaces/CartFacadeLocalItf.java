@@ -7,6 +7,7 @@ package session.interfaces;
 import entity.CocktailEntity;
 import exceptions.EcomException;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.LocalBean;
 
 @LocalBean
@@ -21,4 +22,5 @@ public interface CartFacadeLocalItf {
     public float getPrice();
     public int getSize();
     public String getQuantityForCocktail(CocktailEntity cocktail);
+    public Map<CocktailEntity,Integer> getMap();
 }

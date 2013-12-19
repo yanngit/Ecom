@@ -31,5 +31,8 @@ public class DeliverableManagerBean extends AbstractEntityManager<Deliverable> {
     public List<CocktailEntity> getAllCocktails(BeverageEntity beverage) {
         return em.createNamedQuery("getCocktailsForBeverage").setParameter("name", beverage.getName()).getResultList();
     }
-
+    
+    public List<CocktailEntity> getCocktailsByKeyWordsBeverage(String name) {
+        return em.createNamedQuery("getCocktailsByKeyWordsBeverage").setParameter("name", name.toLowerCase()).getResultList();
+    }
 }

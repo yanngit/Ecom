@@ -116,11 +116,13 @@ form[id$="form"] h2 {
 
 
 .paypal-button {
-    background-image: url("#{resource['img:paypal-button.png']}");
-    padding-bottom: 2px;
-    padding-left: 57px;
-    padding-right: 57px;
-    padding-top: 2px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.valide-cart-button {
+    text-align: center;
+    margin-left: 37px;
 }
 
 .wrong-value {
@@ -226,7 +228,6 @@ input[id*="qty-cart"]{
 .item-recherche{
     padding : 5px;
 }
-
 .title-cocktail {
     font-size : 15px;
     line-height: 20px;
@@ -249,8 +250,7 @@ input[id*="qty-cart"]{
     color: #FF9900;
 }
 
-/* Sticky footer styles
-            -------------------------------------------------- */
+
 footer.navbar {
     margin-bottom: 0px;
 }
@@ -278,3 +278,13 @@ footer.navbar {
         padding-right: 20px;
     }
 }
+
+.recherche-resultats{
+    color: black;
+}
+
+a.recherche-resultats :link {color:black;}     
+a.recherche-resultats :visited {color:black;}  
+a.recherche-resultats :hover {color:black;}  
+a.recherche-resultats :active {color:black;} 
+

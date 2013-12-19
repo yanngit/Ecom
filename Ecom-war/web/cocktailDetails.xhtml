@@ -23,7 +23,8 @@
                                          styleClass="btn btn-large #{dataManagedBean.currentCocktail.available ? '' : 'disabled'}"
                                          title="Ajouter #{dataManagedBean.currentCocktail.name} dans le pannier"
                                          action="#{dataManagedBean.addArticleToCart(dataManagedBean.currentCocktail)}"
-                                         value="Acheter - #{dataManagedBean.currentCocktail.price} €">
+                                         value="Acheter - #{dataManagedBean.currentCocktail.price} €"
+                                         onclick="alert('#{dataManagedBean.currentCocktail.name} a été ajouté au panier');">
                         </h:commandButton><br />
                         <br/>
                         <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier"
