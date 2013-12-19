@@ -282,7 +282,7 @@ public class DataManagedBean implements Serializable {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) {
+    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
         /*Création de l'adresse*/
         address = new AddressEntity();
         address.setFirst_name(firstName);
@@ -304,6 +304,7 @@ public class DataManagedBean implements Serializable {
         }
         account.setPassword(sb.toString());
         account.setDelivery_address(address);
+        
         client.addClient(account);
     }
 

@@ -57,7 +57,7 @@
                                      actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" /> 
                     <c:if test="#{!dataManagedBean.connected}">
                         <h:outputLabel for="accountCreationButton"/>  
-                        <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="return validateAddressForm()" action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/>
+                        <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="var v= validateConnexion(); var w= validateAddressForm();  return!((!v)||(!w)); " action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/>
                     </c:if>
 
                 </h:panelGrid>  
