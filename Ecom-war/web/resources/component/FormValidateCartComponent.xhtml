@@ -36,7 +36,7 @@
 
                         <p:inputText type="password" id="password" binding="#{password}" />
 
-                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion();" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
+                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion()" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                     </h:panelGrid>
 
                     <span aria-hidden="true" role="presentation">
