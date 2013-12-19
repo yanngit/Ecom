@@ -69,10 +69,16 @@
                             </ul>
                         </li>
                         <li>
+                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche avancée">
+                                Recherche avancée
+                            </h:outputLink>
+                        </li>
+                        <li>
                             <h:inputText id="mot-clef"  maxlength="25"
                                          value="Recherche par mots clef"
                                          styleClass="input"
-                                         title="Mots clefs à rechercher"
+                                         title="Effectuer une recherche par mot clef, entrez le mot à rechercher"
+                                         alt="Effectuer une recherche par mot clef, entrez le mot à rechercher"
                                          immediate="true"
                                          onclick="$('[id*=\'mot-clef\']').val('');"
                                          binding="#{keyWords}"
@@ -80,17 +86,15 @@
                             
                             <h:commandButton style="display:inline; margin-left: 3px; margin-top: -1px" 
                                              action="Recherche.xhtml" 
+                                             title="Effectuer une recherche par mot clef, entrez le mot à rechercher"
+                                             alt="Effectuer une recherche par mot clef, entrez le mot à rechercher"               
                                              styleClass="btn"
                                              value="Rechercher" 
                                              actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" 
                             />
                             
                         </li>
-                        <li>
-                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche">
-                                Recherche avancée
-                            </h:outputLink>
-                        </li>
+                        
                         
                     </ul>
                     <ul class="nav pull-right">
