@@ -14,7 +14,8 @@
                                                      surname="#{dataManagedBean.accountAddress.surname}"
                                                      street="#{dataManagedBean.accountAddress.street}"
                                                      postal_code="#{dataManagedBean.accountAddress.postal_code}"
-                                                     city="#{dataManagedBean.accountAddress.city}"/>
+                                                     city="#{dataManagedBean.accountAddress.city}"
+                                                     country="#{dataManagedBean.accountAddress.country}" />
             </c:if>
             <c:if test="#{!dataManagedBean.connected}">
                 <component:FormValidateCartComponent title="Valider mon panier" />

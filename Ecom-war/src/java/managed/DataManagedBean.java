@@ -282,7 +282,7 @@ public class DataManagedBean implements Serializable {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
+    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) {
         /*Création de l'adresse*/
         address = new AddressEntity();
         address.setFirst_name(firstName);
@@ -290,7 +290,7 @@ public class DataManagedBean implements Serializable {
         address.setStreet(street);
         address.setPostal_code(postalCode);
         address.setCity(city);
-        address.setCountry("France");
+        address.setCountry(country);
         address.setOrders(null);
         client.addAddress(address);
         /*Création du compte et association du compte à l'adresse*/
@@ -487,7 +487,7 @@ public class DataManagedBean implements Serializable {
     }
 
     //ajouter par bach
-    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city, String country) {
         //System.out.println(city);
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
@@ -498,7 +498,7 @@ public class DataManagedBean implements Serializable {
         address.setStreet(street);
         address.setPostal_code(postalCode);
         address.setCity(city);
-        address.setCountry("France");
+        address.setCountry(country);
         address.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée

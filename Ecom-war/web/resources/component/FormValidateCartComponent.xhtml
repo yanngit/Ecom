@@ -14,7 +14,9 @@
         <composite:attribute name="surname"/>
         <composite:attribute name="street"/>
         <composite:attribute name="postal_code"/>
-        <composite:attribute name="city"/>    </composite:interface>
+        <composite:attribute name="city"/>    
+        <composite:attribute name="country"/>
+    </composite:interface>
     <composite:implementation>
         <h2>#{cc.attrs.title}</h2>
         <ui:fragment rendered="#{!dataManagedBean.connected}">
@@ -33,7 +35,6 @@
             </h:form>
         </ui:fragment>
         <h:form id="form-validate-cart-livraison" class="span5 offset4">
-
             <p:panel header="Informations de livraison">  
                 <h:panelGrid id="grid-address" columns="2" style="margin-bottom:10px">  
                     <h:outputLabel for="firstName" value="Prenom** : " />  
@@ -46,12 +47,14 @@
                     <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
                     <h:outputLabel for="city" value="Ville** : "/>  
                     <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
+                    <h:outputLabel for="country" value="Pays** : "/>  
+                    <p:inputText id="country"  value="#{cc.attrs.country}" binding="#{country}"/>
                     <h:outputLabel for="pbutton"/> 
                     <h:commandButton id="pbutton" class="paypal-button"
                                      type="submit"
                                      onclick="return validateAddressForm()"
                                      action="Confirmation.xhtml" 
-                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
+                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" /> 
                     <c:if test="#{!dataManagedBean.connected}">
                         <h:outputLabel for="accountCreationButton"/>  
                         <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="return validateAddressForm()" action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/>

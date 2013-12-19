@@ -59,8 +59,8 @@ function validateAddressForm() {
         text += "Le champ 'Nom' ne peut contenir que des lettres. [au moins 3 caractères ]\n";
         valid = false;
     }
-    if (!$("[id*='form-validate-cart-livraison:street']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
-        text += "Le champ 'Rue' ne peut contenir que des lettres. [au moins 3 caractères ]\n";
+    if (!$("[id*='form-validate-cart-livraison:street']").val().match(/^[a-zA-Z\s]*$/)) {
+        text += "Le champ 'Rue' ne peut contenir que des lettres et des éspaces. [au moins 3 caractères ]\n";
         valid = false;
     }
     if (!$("[id*='form-validate-cart-livraison:postalCode']").val().match(/^[a-zA-Z0-9]+$/)) {
@@ -69,6 +69,10 @@ function validateAddressForm() {
     }
     if (!$("[id*='form-validate-cart-livraison:city']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
         text += "Le champ 'Ville' ne peut contenir que des lettres. [au moins 3 caractères ] \n";
+        valid = false;
+    }
+    if (!$("[id*='form-validate-cart-livraison:country']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
+        text += "Le champ 'Pays' ne peut contenir que des lettres. [au moins 3 caractères ] \n";
         valid = false;
     }
     if (valid) {
