@@ -61,28 +61,28 @@
             </div>
         </ui:fragment>
         <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
-            <div class="row">
-                <h:form id="form-client-address" class="span5 offset4">
-                    <h2>Mon adresse</h2>
-                    <p:panel header="Adresse de Livraison">  
-                        <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
-                            <h:outputLabel for="firstName" value="Prenom* : " />  
-                            <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
-                            <h:outputLabel for="lastName" value="Nom* : " />  
-                            <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
-                            <h:outputLabel for="street" value="Rue* : " />  
-                            <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
-                            <h:outputLabel for="postalCode" value="Code Postale* : " />  
-                            <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
-                            <h:outputLabel for="city" value="Ville* : "/>  
-                            <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
-                            <h:outputLabel for="pbutton"/>  
-                            <h:commandButton id="pbutton" value="Modifier" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" />
-                        </h:panelGrid>  
-                        *: champ obligatoire
-                    </p:panel> 
-                </h:form>
-            </div>
+            <h:form id="form-client-address" class="span5 offset4">
+                <h2>Mon adresse</h2>
+                <p:panel header="Adresse de Livraison">  
+                    <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
+                        <h:outputLabel for="firstName" value="Prenom* : " />  
+                        <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
+                        <h:outputLabel for="lastName" value="Nom* : " />  
+                        <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
+                        <h:outputLabel for="street" value="Rue* : " />  
+                        <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
+                        <h:outputLabel for="postalCode" value="Code Postale* : " />  
+                        <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
+                        <h:outputLabel for="city" value="Ville* : "/>  
+                        <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
+                        <h:outputLabel for="country" value="Pays** : "/>  
+                        <p:inputText id="country"  value="#{cc.attrs.country}" binding="#{country}"/>
+                        <h:outputLabel for="pbutton"/>  
+                        <h:commandButton id="pbutton" value="Modifier" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" />
+                    </h:panelGrid>  
+                    *: champ obligatoire
+                </p:panel> 
+            </h:form>
         </ui:fragment>
     </ui:define>
 </ui:composition>

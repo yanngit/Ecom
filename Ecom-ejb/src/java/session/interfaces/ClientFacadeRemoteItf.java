@@ -94,7 +94,7 @@ public interface ClientFacadeRemoteItf {
     /*
      * Account creation functions
      */
-    public ClientAccountEntity addClient(ClientAccountEntity client);
+    public ClientAccountEntity addClient(ClientAccountEntity client) throws Exception;
 
     public ClientAccountEntity connect(String login, String password);
     
