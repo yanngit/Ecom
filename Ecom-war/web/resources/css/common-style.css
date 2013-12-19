@@ -29,6 +29,12 @@ html, body {
  *   - Allow non JS user
  *   - Display menu on hover, not click !
  */
+
+input[id*=mot-clef] {
+    margin-top: 5px ! important;
+    margin-bottom: 5px ! important;    
+}
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -181,7 +187,7 @@ div.span2.right {
 }
 
 .totalPanier {
-    height: 60px;
+    height: 45px;
     font-size: 40px;
     line-height: 40px;
 }
@@ -218,7 +224,7 @@ input[id*="qty-cart"]{
 }
 
 .item-recherche{
-    padding : 5px; 
+    padding : 5px;
 }
 
 .title-cocktail {
@@ -243,8 +249,8 @@ input[id*="qty-cart"]{
     color: #FF9900;
 }
 
-/* Sticky footer styles-------------------------------------------------- */
-
+/* Sticky footer styles
+            -------------------------------------------------- */
 footer.navbar {
     margin-bottom: 0px;
 }

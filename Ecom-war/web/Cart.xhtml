@@ -15,7 +15,6 @@
                 <ul class="thumbnails">
                     <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
                         <h:form>
-
                             <c:if test="#{dataManagedBean.getQuantityForCocktailInCart(item) > 0}">
                                 <div class="media">
                                     <div class="pull-left media-object span2">
@@ -42,7 +41,7 @@
                                                 styleClass="btn"
                                                 value="Supprimer les articles "
                                                 type="button" >
-                                                <f:ajax execute="@form" render="@form :form-menu :form-total :cart-vide" listener="#{dataManagedBean.removeArticle(item)}" />
+                                                <f:ajax execute="@form" render="@form :form-menu :form-total" listener="#{dataManagedBean.removeArticle(item)}" />
                                             </h:commandButton>
                                             <h:inputText id="qty-cart"  maxlength="3" value="#{dataManagedBean.qty}" styleClass="input-mini" />
                                         </div>
@@ -58,10 +57,11 @@
             <h:form id="form-total">
                 <div class="totalPanier">
                     <div class="totalPrice"> Total:  #{dataManagedBean.getCartPrice()}€
-                        <h:button class="totalPanierButton"
-                                  image="#{resource['img:btn_valider.png']}"
-                                  alt="valider" outcome="Form.xhtml" rendered="#{dataManagedBean.cartLength > 0}">
-                        </h:button>
+                        <h:button class="totalPanierButton btn btn-large"
+                                  value="Valider"
+                                  alt="valider"
+                                  outcome="Form.xhtml"
+                                  rendered="#{dataManagedBean.cartLength > 0}"/>
                     </div>
                 </div>
             </h:form>
