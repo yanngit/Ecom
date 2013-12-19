@@ -63,6 +63,7 @@
                                      title="Quantité de #{cc.attrs.item.name} à ajouter dans le pannier"
                                      immediate="true"
                                      onclick="$(this).val('');"
+                                     onblur="if(!(parseInt($(this).val()) >= 0)) {alert('La quantité doit étre un chiffre');$(this).val(''); }"
                                      />
 
                     </div>

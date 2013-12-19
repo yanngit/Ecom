@@ -65,6 +65,8 @@
                                                 title="Quantité de #{item.name} à supprimer du pannier"
                                                 value="#{dataManagedBean.qty}" 
                                                 onclick="$(this).val('');"
+                                                onblur="if(!(parseInt($(this).val()) >= 0)) {alert('La quantité doit étre un chiffre');$(this).val(''); }"
+                                     
                                                 styleClass="input-mini" 
                                                 />
                                         </div>

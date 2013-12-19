@@ -33,6 +33,7 @@
                                      styleClass="input-mini-plus"
                                      onclick="$(this).val('');"
                                      title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier"
+                                     onblur="if(!(parseInt($(this).val()) >= 0)) {alert('La quantité doit étre un chiffre');$(this).val(''); }"
                                      />
 
                     </div>
