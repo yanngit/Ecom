@@ -52,12 +52,12 @@
                     </c:forEach>
                 </ul>
                 <c:if test="#{dataManagedBean.cartLength > 0}">
-                <h:commandButton class="span2 thumbnail2 btn btn-warning"
+                    <h:commandButton class="span2 thumbnail2 btn btn-warning"
                                                 title=""
                                                 value="Vider le panier "
                                                 type="button" >
                                                 <f:ajax execute="@form" render="@all" listener="#{dataManagedBean.ClearCart()}" />
-                </h:commandButton>
+                    </h:commandButton>
                 </c:if>
             </div>
         </div>
