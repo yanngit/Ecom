@@ -32,6 +32,7 @@ import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 import java.util.*;
+import javax.faces.context.ExternalContext;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
@@ -171,11 +172,17 @@ public class DataManagedBean implements Serializable {
     }
 
     public void searchCocktailsByKeyWords(String text) {
-        resultSearch.clear();
-        resultSearch = client.getCocktailsByExp(text);
+        try {
+            resultSearch.clear();
+            resultSearch = client.getCocktailsByExp(text);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect("Recherche.xhtml#Results");
+        } catch (IOException ex) {
+            Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void searchCocktails() {
+    public void searchCocktails() throws IOException {
         boolean isInit = false;
         /*Netoyage des résultats précédents*/
         resultSearch.clear();
@@ -225,6 +232,8 @@ public class DataManagedBean implements Serializable {
                 resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
             }
         }
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect("Recherche.xhtml#Results");
     }
 
     public String resetResearch() {
