@@ -62,7 +62,7 @@ public class DataManagedBean implements Serializable {
     private String monthOfBirth = "MM";
     private String yearOfBirth = "AAAA";
     /*Passer a false pour la prod*/
-    private boolean userIsMajor = true;
+    private boolean userIsMajor = false;
     /*Liste des alcools et stockage d'une map pour les checkboxes de la recherche*/
     private List<BeverageEntity> listAlcohols = new ArrayList<>();
     private Map<BeverageEntity, Boolean> selectedAlcoolsMap = new HashMap<>();
@@ -234,12 +234,6 @@ public class DataManagedBean implements Serializable {
         selectedVirginsMap.clear();
     }
 
-    public void afficherListeCocktails(List<CocktailEntity> list) {
-        System.out.println("Affichage Liste : ");
-        for (CocktailEntity c : list) {
-            System.out.println(c.getName());
-        }
-    }
 
     public void setselectedVirginsMap(Map<BeverageEntity, Boolean> map) {
         selectedVirginsMap = map;
@@ -525,7 +519,6 @@ public class DataManagedBean implements Serializable {
     }
 
     public void removeArticle(CocktailEntity cocktail) throws EcomException {
-        System.out.println("Dans le DMB ..........................................................................");
         if (qty.equals("")) {
             qty = "1";
         }
@@ -617,7 +610,6 @@ public class DataManagedBean implements Serializable {
         order = tempO;
         address = tempA;
         client.clearCart();
-        //return client.getAddress(tempA.getId());
         return "Confirmation.xhtml?faces-redirect=true";
     }
 
