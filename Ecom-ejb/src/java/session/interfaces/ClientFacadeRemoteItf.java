@@ -17,6 +17,9 @@ import javax.ejb.Remote;
 @Remote
 public interface ClientFacadeRemoteItf {
 
+    /*Transactions*/
+    public void validateOrder() throws EcomException;
+
     /*Search cocktail*/
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage);
     
@@ -64,6 +67,8 @@ public interface ClientFacadeRemoteItf {
 
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter);
 
+    public List<CocktailEntity> getCocktailsByExp(String name);
+    
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */

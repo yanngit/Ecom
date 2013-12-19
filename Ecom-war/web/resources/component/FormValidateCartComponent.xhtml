@@ -20,8 +20,6 @@
         <ui:fragment rendered="#{!dataManagedBean.connected}">
             <p:panel header="Déjà client ou envie de le devenir* :">  
                 <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
-
-
                     <h:outputLabel for="login">
                         <span aria-label="login : un champs obligatoire.">Login</span>   
                     </h:outputLabel>
@@ -91,8 +89,8 @@
                                  value="Valider mon panier"
                                  alt="Payer avec Paypal"
                                  title="Payer avec Paypal"
-                                 action="Confirmation.xhtml" 
-                                 actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}" /> 
+                                 action="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/> 
+
                 <c:if test="#{!dataManagedBean.connected}">
                     <h:outputLabel for="accountCreationButton"/>  
                     <h:commandButton id="accountCreationButton" class="valide-cart-button"
@@ -100,12 +98,10 @@
                                      action="Form.xhtml" 
                                      actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value)}"/>
                 </c:if>
-
             </h:panelGrid>  
             <span aria-hidden="true" role="presentation">
                 **: champ obligatoire·
             </span>
-
         </p:panel> 
     </composite:implementation>
 </html>

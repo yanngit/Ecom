@@ -128,6 +128,21 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         CocktailEntity c = find(id);
         return c.getAvailable();
     }
+    
+    public int getQuantityAvailable(CocktailEntity cocktail){
+        int res = -1;
+        List<Deliverable> list = cocktail.getDeliverables();
+        for(Deliverable d : list){
+            if(res == -1){
+                res = d.getQuantity();
+            } else {
+                if(res > d.getQuantity()){
+                    res = d.getQuantity();
+                }
+            }
+        }
+        return res;
+    }
 
     /*Decrease the quantity of components of the cocktail by a certain number, the number of cocktails added to a
      * client cart.*/
@@ -214,8 +229,12 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
         return em.createNamedQuery("getCocktailsByExpAndVirginDetail").setParameter("num", false).setParameter("exp", letter + "%").getResultList();
     }
 
-    public List<CocktailEntity> getCocktailsByName(String name) {
-        return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%" + name.toLowerCase() + "%").getResultList();
+    public List<CocktailEntity> getCocktailsByExpName(String name) {
+        return em.createNamedQuery("getCocktailsByExpName").setParameter("exp", "%" + name.toLowerCase() + "%").getResultList();
+    }
+    
+     public List<CocktailEntity> getCocktailsByExpRecipe(String name) {
+        return em.createNamedQuery("getCocktailsByExpRecipe").setParameter("exp", "%" + name.toLowerCase() + "%").getResultList();
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {

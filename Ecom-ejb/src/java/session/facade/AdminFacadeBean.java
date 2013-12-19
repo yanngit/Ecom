@@ -234,8 +234,9 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     }
 
     @Override
-    public List<CocktailEntity> getCocktailsByName(String name) {
-        return cocktailManager.getCocktailsByName(name);
+    public List<CocktailEntity> getCocktailsByExp(String name) {
+        /*TODO recherche sur boisson et texte descriptif comme dans clientfacade*/
+        return cocktailManager.getCocktailsByExpName(name);
     }
 
     @Override
@@ -371,4 +372,15 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByPower(CocktailPowerEnum power) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<CocktailEntity> getCocktailsByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void validateOrder() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
