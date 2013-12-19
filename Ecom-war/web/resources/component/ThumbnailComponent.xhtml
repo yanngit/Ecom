@@ -45,17 +45,15 @@
                     <div class="input-prepend">
                         <h:commandButton image="#{resource['img:cart_small.png']}"
                                          id="cartBtn"
-
                                          alt="Ajouter dans le pannier le "
                                          title="Ajouter #{cc.attrs.item.name} dans mon pannier"
                                          styleClass="btn"
                                          actionListener="#{dataManagedBean.addArticleToCart(cc.attrs.item)}"
                                          onclick="alert('#{cc.attrs.item.name} a été ajouté au panier');">
-                            
                             <f:ajax execute="@form" render=":form-menu" />
 
                         </h:commandButton>
-
+                        <div id="dialog-modal" title="Basic modal dialog" style="display: none;"></div>
                         <h:inputText id="qty"  maxlength="3"
                                      value="#{dataManagedBean.qty}"
                                      styleClass="input-mini"

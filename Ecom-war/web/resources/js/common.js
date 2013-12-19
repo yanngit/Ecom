@@ -2,6 +2,28 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+function showDialog()
+{
+    $("#dialog-modal").dialog();
+    /*{
+        width: 600,
+        height: 400,
+        open: function(event, ui)
+        {
+            var textarea = $('<textarea style="height: 276px;">');
+            $(textarea).redactor({
+                focus: true,
+                autoresize: false,
+                initCallback: function()
+                {
+                    this.set('<p>Lorem...</p>');
+                }
+            });
+        }
+     });*/
+}
+
 function validateConnexion() {
     var text = "";
     var valid = true;
@@ -30,5 +52,5 @@ function validateConnexion() {
 }
 
 $(document).ready(function() {
-    
+
 });

@@ -171,6 +171,11 @@ div.span2.right {
 }
 
 /*panier*/
+
+#cart-vide{
+    display: inline;
+}
+
 #form-total {
     margin-bottom: 0px;
 }
@@ -215,8 +220,6 @@ input[id*="qty-cart"]{
 .item-recherche{
     padding : 5px;
 }
-
-
 .title-cocktail {
     font-size : 15px;
     line-height: 20px;
@@ -238,6 +241,7 @@ input[id*="qty-cart"]{
 .cocktail-name{
     color: #FF9900;
 }
+
 
 footer.navbar {
     margin-bottom: 0px;
