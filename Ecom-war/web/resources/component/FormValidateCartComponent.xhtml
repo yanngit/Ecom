@@ -19,7 +19,7 @@
     </composite:interface>
     <composite:implementation>
         <h2>#{cc.attrs.title}</h2>
-        <h:form class="span5 offset4">
+        <h:form id="form-validate-cart" class="span5 offset4">
             <ui:fragment rendered="#{!dataManagedBean.connected}">
                 <p:panel header="Déjà client ou envie de le devenir* :">  
                     <h:panelGrid id="grid-connection" columns="2" style="margin-bottom:10px">
