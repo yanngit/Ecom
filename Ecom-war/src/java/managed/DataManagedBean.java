@@ -275,17 +275,18 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.put(CocktailFlavorEnum.BITTER.toString(), CocktailFlavorEnum.BITTER);
-            listFlavors.put(CocktailFlavorEnum.FRUITY.toString(), CocktailFlavorEnum.FRUITY);
+            for (CocktailFlavorEnum f : CocktailFlavorEnum.values()) {
+                listFlavors.put(f.toString(), f);
+            }
         }
         return listFlavors;
     }
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.toString(), CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.toString(), CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.toString(), CocktailPowerEnum.STRONG);
+            for (CocktailPowerEnum p : CocktailPowerEnum.values()) {
+                listPowers.put(p.toString(), p);
+            }
         }
         return listPowers;
     }
@@ -359,7 +360,7 @@ public class DataManagedBean implements Serializable {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
+    public String createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
         /*Création de l'adresse*/
         address = new AddressEntity();
         address.setFirst_name(firstName);
@@ -370,7 +371,6 @@ public class DataManagedBean implements Serializable {
         address.setCountry(country);
         address.setOrders(null);
         address = client.addAddress(address);
-        System.out.println("LLOOGGIINN" + password);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -382,8 +382,14 @@ public class DataManagedBean implements Serializable {
         }
         account.setPassword(sb.toString());
         account.setDelivery_address(address);
-
-        client.addClient(account);
+        try {
+            client.addClient(account);
+        } catch (EcomException ex) {
+            exceptionMessage = ex.getMessage();
+            account = null;
+            return "Erreur.xhtml?faces-redirect=true";
+        }
+        return "Form.xhtml?faces-redirect=true";
     }
 
     public String connect(String login, String password) {
@@ -693,4 +699,8 @@ public class DataManagedBean implements Serializable {
     public OrderEntity getOrder() {
         return order;
     }
+    
+    public void ClearCart(){
+        client.clearCart();
+    } 
 }

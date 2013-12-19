@@ -6,7 +6,8 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Formulaire</ui:define>
 
-    <ui:define name="content">        
+    <ui:define name="content">      
+        <div class='row'>
             <c:if test="#{dataManagedBean.connected}">
                 <component:FormValidateCartComponent title="Valider mon panier"
                                                      first_name="#{dataManagedBean.accountAddress.first_name}"
@@ -19,5 +20,6 @@
             <c:if test="#{!dataManagedBean.connected}">
                 <component:FormValidateCartComponent title="Valider mon panier" />
             </c:if>
+        </div>
     </ui:define>
 </ui:composition>

@@ -226,7 +226,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public ClientAccountEntity addClient(ClientAccountEntity client) throws Exception {
         List<ClientAccountEntity> clients = clientAccountManager.findAll();
         boolean existed = false;
-        System.out.println("MAILLLLLLLLLLLLLLLLL Test");
         for (ClientAccountEntity c: clients ){
                if(c.getLogin().equals(client.getLogin()))
                    existed = true;
@@ -234,8 +233,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         if (!existed)
             return clientAccountManager.create(client);
         else
-            System.out.println("MAILLLLLLLLLLLLLLLLL IS USED");
-            throw new Exception("Mail already used.") ;
+            throw new EcomException("Impossible de créer un compte avec ce login : login déjà existant.") ;
     }
 
     @Override
