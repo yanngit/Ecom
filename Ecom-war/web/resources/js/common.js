@@ -1,3 +1,13 @@
+/*alert sans titre :D*/
+window.alert = function(msg){
+    var iframe = document.createElement("IFRAME");
+    iframe.setAttribute("src", 'data:text/plain,');
+    document.documentElement.appendChild(iframe);
+    window.frames[0].window.alert(msg);
+    iframe.parentNode.removeChild(iframe);
+}
+
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
