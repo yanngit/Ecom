@@ -8,14 +8,14 @@
     <ui:define name="content">
 
         <h2> 
-            <span  aria-label="Effectuer une recherche avancée, vous pouvez faire une recherche , par alcool, par déluant, par le gout, par la puissance">
+            <span  aria-label="Effectuer une recherche avancée, vous pouvez faire une recherche , par alcool, par déluant, par gout, par la puissance">
             Recherche avancée
         </span> 
         
         </h2>
         
         
-        <a href="#Results" title="Passer au résultats de recherche">Résultats</a>
+        <a href="#Results" title="Passer aux résultats de la recherche">Résultats</a>
         
         <div class="well">
             <h:form>
@@ -81,12 +81,12 @@
                                      title="Lancer la recherche"
                                      value="Rechercher"
                                      styleClass="btn"/><span style="white-space:pre-wrap"> </span>
-                    <h:commandButton type="reset"
+                    <h:commandButton type="submit"
                                      alt="Réinitialiser le formulaire, décocher tous les champs"
                                      title="Réinitialiser le formulaire"
                                      value="Effacer"
+                                     action="#{dataManagedBean.resetResearch()}"
                                      styleClass="btn btn-warning">
-                        <f:ajax execute="@form" render="@form" listener="#{dataManagedBean.resetResearch()}" />
                     </h:commandButton>
                 </div>
             </h:form>

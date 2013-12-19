@@ -54,8 +54,8 @@
                                                 title="Supprimer #{item.name} du pannier"
                                                 styleClass="btn"
                                                 value="Supprimer les articles "
+                                                action="#{dataManagedBean.removeArticle(item)}"
                                                 onclick="alert('#{item.name} a été supprimé du pannier');">
-                                                <f:ajax execute="@form" render="@form :form-menu :form-total :form-title-cart" listener="#{dataManagedBean.removeArticle(item)}" />
 
                                             </h:commandButton>
 

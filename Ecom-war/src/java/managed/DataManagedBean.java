@@ -227,11 +227,13 @@ public class DataManagedBean implements Serializable {
         }
     }
 
-    public void resetResearch() {
+    public String resetResearch() {
         selectedAlcoolsMap.clear();
         selectedFlavor = null;
         selectedPower = null;
         selectedVirginsMap.clear();
+        resultSearch.clear();
+        return "Recherche.xhtml?faces-redirect=true";
     }
 
 
@@ -518,12 +520,13 @@ public class DataManagedBean implements Serializable {
         }
     }
 
-    public void removeArticle(CocktailEntity cocktail) throws EcomException {
+    public String removeArticle(CocktailEntity cocktail) throws EcomException {
         if (qty.equals("")) {
             qty = "1";
         }
         client.removeArticle(cocktail, Integer.parseInt(qty));
         qty = "1";
+        return "Cart.xhtml?faces-redirect=true";
     }
 
     public List<CocktailEntity> listCocktailsByFirstLetter(char letter) {

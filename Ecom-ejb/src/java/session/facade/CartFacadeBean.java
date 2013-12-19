@@ -94,7 +94,7 @@ public class CartFacadeBean implements CartFacadeLocalItf {
             
             int nb = cart.get(cocktail);
             float prix = cocktail.getPrice();
-            if(nb >= qty) {
+            if(nb > qty) {
                 cart.put(cocktail, nb-qty);
                 updatePrice(-(prix * qty));
 
