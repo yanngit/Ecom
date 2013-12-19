@@ -6,21 +6,20 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     <ui:define name="title">Formulaire</ui:define>
 
-    <ui:define name="content">
-        <div class="row">
-            <h:form id="form-validate-cart" class="span5 offset4">
-                <c:if test="#{dataManagedBean.connected}">
-                    <component:FormValidateCartComponent title="Valider mon panier"
-                                                         first_name="#{dataManagedBean.accountAddress.first_name}"
-                                                         surname="#{dataManagedBean.accountAddress.surname}"
-                                                         street="#{dataManagedBean.accountAddress.street}"
-                                                         postal_code="#{dataManagedBean.accountAddress.postal_code}"
-                                                         city="#{dataManagedBean.accountAddress.city}"/>
-                </c:if>
-                <c:if test="#{!dataManagedBean.connected}">
-                    <component:FormValidateCartComponent title="Valider mon panier" />
-                </c:if>
-            </h:form>  
+    <ui:define name="content">      
+        <div class='row'>
+            <c:if test="#{dataManagedBean.connected}">
+                <component:FormValidateCartComponent title="Valider mon panier"
+                                                     first_name="#{dataManagedBean.accountAddress.first_name}"
+                                                     surname="#{dataManagedBean.accountAddress.surname}"
+                                                     street="#{dataManagedBean.accountAddress.street}"
+                                                     postal_code="#{dataManagedBean.accountAddress.postal_code}"
+                                                     city="#{dataManagedBean.accountAddress.city}"
+                                                     country="#{dataManagedBean.accountAddress.country}" />
+            </c:if>
+            <c:if test="#{!dataManagedBean.connected}">
+                <component:FormValidateCartComponent title="Valider mon panier" />
+            </c:if>
         </div>
     </ui:define>
 </ui:composition>
