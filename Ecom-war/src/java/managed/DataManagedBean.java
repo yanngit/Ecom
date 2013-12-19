@@ -160,6 +160,12 @@ public class DataManagedBean implements Serializable {
     public boolean isSearchAvailable() {
         return resultSearch.size() > 0;
     }
+    
+    public void searchCocktailsByKeyWords(String text){
+        System.out.println(text);
+        resultSearch.clear();
+        resultSearch = client.getCocktailsByName(text);
+    }
 
     public void searchCocktails() {
         boolean isInit = false;
@@ -211,6 +217,12 @@ public class DataManagedBean implements Serializable {
                 resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
             }
         }
+        
+        List<CocktailEntity> res = client.getCocktailsByName("blue");
+        for(CocktailEntity c : res){
+            System.out.println(c.getName());
+        }
+        
     }
 
     public void resetResearch() {
@@ -269,9 +281,9 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.name(),CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.name(),CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.name(),CocktailPowerEnum.STRONG);
+            listPowers.put(CocktailPowerEnum.SOFT.name(), CocktailPowerEnum.SOFT);
+            listPowers.put(CocktailPowerEnum.MEDIUM.name(), CocktailPowerEnum.MEDIUM);
+            listPowers.put(CocktailPowerEnum.STRONG.name(), CocktailPowerEnum.STRONG);
         }
         return listPowers;
     }
@@ -665,5 +677,9 @@ public class DataManagedBean implements Serializable {
         }
 
 
+    }
+
+    public OrderEntity getOrder() {
+        return order;
     }
 }

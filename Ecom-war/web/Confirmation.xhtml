@@ -7,10 +7,53 @@
     <ui:define name="title">Confirmation</ui:define>
 
     <ui:define name="content">
-        <h:form id="form" class="span12">
-            <h2> la commande a été bien enrigistrée</h2>
-            <p>le numero de votre commande : <b>#{dataManagedBean.orderId}</b> .
-            <br/> Merci  Tchin-Tchin.com.  </p>
-        </h:form>  
+        <div class="alert alert-success">
+            <h4>
+                Félicitations,
+            </h4>
+            <p>
+                Votre commande a bien été enregistrée !
+            </p>
+            <p>
+                Veuillez conserver le numéro de votre commande : <b>#{dataManagedBean.orderId}</b>
+            </p>
+            <h:outputLink value="index.xhtml"
+                          title="Accueil Tchin-Tchin"
+                          styleClass="btn">
+                Retour à l'accueil
+            </h:outputLink>
+        </div>
+        <div class="well">
+            <legend>
+                <h2>
+                    Récapitulatif :
+                </h2>
+            </legend>
+            <ul class="thumbnails">
+                <c:forEach items="#{dataManagedBean.order.cocktails}" var = "item">
+                    <div class="media">
+                        <div class="pull-left media-object span2">
+                            <div class="text-center">
+                                <img src="resources/img/#{item.photoURIName}.#{item.photoURIExt}"
+                                     alt="Photo du cocktail #{item.name}"/>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h3 class="media-heading">
+                                #{item.name}
+                            </h3>
+                            <div class="well well-small">
+                                <ul class="thumbnails">
+                                    <c:forEach items="#{dataManagedBean.getCocktailBeverages(dataManagedBean.getCocktailFull(item))}"
+                                               var="bev" >
+                                        <component:ShowBeverageComponent item="#{bev}"/>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ul>
+        </div>
     </ui:define>
 </ui:composition>

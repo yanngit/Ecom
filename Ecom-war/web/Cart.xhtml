@@ -10,17 +10,12 @@
     </ui:define>
     <ui:define name="content">
         <div id="cart_component">
-            <h1 class="title-cocktail-details">Mon panier 
-                <h:form id="cart-vide">
-                    <c:if test="#{! (dataManagedBean.cartLength > 0)}">
-                        vide
-                    </c:if>
-                </h:form>
-            </h1>
+            <h1 class="title-cocktail-details">Mon panier </h1>
             <div class="well well-small">
                 <ul class="thumbnails">
                     <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
-                        <h:form >
+
+                        <h:form>
                             <c:if test="#{dataManagedBean.getQuantityForCocktailInCart(item) > 0}">
                                 <div class="media">
                                     <div class="pull-left media-object span2">
@@ -49,6 +44,7 @@
                                                 value="Supprimer les articles "
                                                 onclick="alert('#{item.name} a été supprimé du pannier');">
                                                 <f:ajax execute="@form" render="@form :form-menu :form-total :cart-vide" listener="#{dataManagedBean.removeArticle(item)}" />
+
                                             </h:commandButton>
                                             
                                             <h:inputText 
@@ -71,15 +67,17 @@
         <li class="thumbnail">
             <h:form id="form-total">
                 <div class="totalPanier">
+
                     <div class="totalPrice"> 
                         <span aria-hidden="true" role="presentation">Total:  #{dataManagedBean.getCartPrice()}€</span>
-                        <h:button class="totalPanierButton"
+                        <h:button class="totalPanierButton btn btn-large"
                                   image="#{resource['img:btn_valider.png']}"
                                   alt="Valider mon pannier de total = #{dataManagedBean.getCartPrice()}€" 
                                   title="Valider mon pannier" 
                                   outcome="Form.xhtml" 
                                   rendered="#{dataManagedBean.cartLength > 0}">
                         </h:button>
+
                     </div>
                 </div>
             </h:form>

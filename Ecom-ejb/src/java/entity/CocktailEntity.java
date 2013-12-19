@@ -30,7 +30,7 @@ import pojo.Product;
     @NamedQuery(name = "getPopularCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY SIZE(c.orders) DESC"),
     @NamedQuery(name = "getNewestCocktails", query = "SELECT c FROM CocktailEntity c ORDER BY(c.ID) DESC"),
     @NamedQuery(name = "getCocktailsByVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num"),
-    @NamedQuery(name = "getCocktailsByExp", query = "SELECT c FROM CocktailEntity c WHERE c.name LIKE :exp"),
+    @NamedQuery(name = "getCocktailsByExp", query = "SELECT c FROM CocktailEntity c WHERE LOWER(c.name) LIKE :exp"),
     @NamedQuery(name = "getCocktailsByExpAndVirginDetail", query = "SELECT c FROM CocktailEntity c WHERE c.virgin = :num and c.name LIKE :exp"),
     @NamedQuery(name = "getCocktailsByFlavor", query = "SELECT c FROM CocktailEntity c WHERE c.flavor = :flavor"),
     @NamedQuery(name = "getCocktailsByPower", query = "SELECT c FROM CocktailEntity c WHERE c.power = :power")

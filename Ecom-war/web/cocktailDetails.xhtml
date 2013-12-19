@@ -8,9 +8,9 @@
         <!-- Display an image, left-aligned, cocktail name and other info on
         the right side -->
         <h1 class="title-cocktail-details">
-            Fiche descriptif : <span class="cocktail-name">#{dataManagedBean.currentCocktail.name}</span>
-                </h1>
-        
+            Fiche descriptive : <span class="cocktail-name">#{dataManagedBean.currentCocktail.name}</span>
+        </h1>
+
         <div class="media">
             <div class="pull-left media-object span2">
                 <h:form>
@@ -26,12 +26,12 @@
                                          value="Acheter - #{dataManagedBean.currentCocktail.price} €">
                         </h:commandButton><br />
                         <br/>
-                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
-                                     maxlength="3" 
+                        <h:inputText alt="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier"
+                                     maxlength="3"
                                      value="#{dataManagedBean.qty}"
-                                     styleClass="input-mini-plus" 
-                                     title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier" 
-                        />
+                                     styleClass="input-mini-plus"
+                                     title="quantité de #{dataManagedBean.currentCocktail.name} à ajouter dans le pannier"
+                                     />
 
                     </div>
                 </h:form>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <p/>
-                        
+
     </ui:define>
 </ui:composition>
 

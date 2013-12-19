@@ -215,7 +215,7 @@ public class CocktailManagerBean extends AbstractEntityManager<CocktailEntity> {
     }
 
     public List<CocktailEntity> getCocktailsByName(String name) {
-        return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%" + name + "%").getResultList();
+        return em.createNamedQuery("getCocktailsByExp").setParameter("exp", "%" + name.toLowerCase() + "%").getResultList();
     }
 
     public List<DecorationEntity> getCocktailDecorations(Long id) {
