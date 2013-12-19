@@ -51,28 +51,28 @@ function validateContact() {
 function validateAddressForm() {
     var text = "";
     var valid = true;
-    if (!$("[id*='form-validate-cart:firstName']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
-        text += "Le champ 'Prénom' ne peut contenir que des lettres. [au moins 3 caractères ]\n";
+    if (!$("[id*='form-validate-cart:firstName']").val().match(/^[a-zA-Z -]+[a-zA-Z -]+[a-zA-Z -]+$/)) {
+        text += "Le champ 'Prénom' ne peut contenir que des lettres et { ,-}. [au moins 3 caractères ]\n";
         valid = false;
     }
-    if (!$("[id*='form-validate-cart:lastName']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
-        text += "Le champ 'Nom' ne peut contenir que des lettres. [au moins 3 caractères ]\n";
+    if (!$("[id*='form-validate-cart:lastName']").val().match(/^[a-zA-Z -]+[a-zA-Z -]+[a-zA-Z -]+$/)) {
+        text += "Le champ 'Nom' ne peut contenir que des lettres et { ,-}. [au moins 3 caractères ]\n";
         valid = false;
     }
-    if (!$("[id*='form-validate-cart:street']").val().match(/^[a-zA-Z\s]*$/)) {
-        text += "Le champ 'Rue' ne peut contenir que des lettres et des éspaces. [au moins 3 caractères ]\n";
+    if (!$("[id*='form-validate-cart:street']").val().match(/^[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+$/)) {
+        text += "Le champ 'Rue' ne peut contenir que des lettres, des chiffres, des éspaces et {',-, }. [au moins 3 caractères ]\n";
         valid = false;
     }
     if (!$("[id*='form-validate-cart:postalCode']").val().match(/^[a-zA-Z0-9]+$/)) {
         text += "Le champ 'Code Postale' ne peut contenir que des chiffres et/ou des lettres.\n";
         valid = false;
     }
-    if (!$("[id*='form-validate-cart:city']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
-        text += "Le champ 'Ville' ne peut contenir que des lettres. [au moins 3 caractères ] \n";
+    if (!$("[id*='form-validate-cart:city']").val().match(/^[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+$/)) {
+        text += "Le champ 'Ville' ne peut contenir que des lettres, des chiffres, des éspaces et {',-, }. [au moins 3 caractères ]\n";
         valid = false;
     }
-    if (!$("[id*='form-validate-cart:country']").val().match(/^[a-zA-Z]+[a-zA-Z]+[a-zA-Z]+$/)) {
-        text += "Le champ 'Pays' ne peut contenir que des lettres. [au moins 3 caractères ] \n";
+    if (!$("[id*='form-validate-cart:country']").val().match(/^[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+$/)) {
+        text += "Le champ 'Pays' ne peut contenir que des lettres, des chiffres, des éspaces et {',-, }. [au moins 3 caractères ]\n";
         valid = false;
     }
     if (valid) {
