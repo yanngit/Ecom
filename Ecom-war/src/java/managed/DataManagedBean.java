@@ -682,4 +682,8 @@ public class DataManagedBean implements Serializable {
     public OrderEntity getOrder() {
         return order;
     }
+    
+    public void ClearCart(){
+        client.clearCart();
+    } 
 }
