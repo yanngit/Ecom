@@ -26,6 +26,11 @@ public class CartFacadeBean implements CartFacadeLocalItf {
     private float price = 0;
     private float reduction = 0;
 
+    
+    public Map<CocktailEntity,Integer> getMap(){
+        return cart;
+    }
+    
     @Override
     public int getSize() {
         int size = 0;

@@ -77,6 +77,15 @@ public class DataManagedBean implements Serializable {
     CocktailPowerEnum selectedPower = null;
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
+    private String exceptionMessage = "";
+
+    public String getExceptionMessage() {
+        return exceptionMessage;
+    }
+
+    public void setExceptionMessage(String exceptionMessage) {
+        this.exceptionMessage = exceptionMessage;
+    }
 
     public boolean isUserIsMajor() {
         return userIsMajor;
@@ -161,6 +170,11 @@ public class DataManagedBean implements Serializable {
         return resultSearch.size() > 0;
     }
 
+    public void searchCocktailsByKeyWords(String text) {
+        resultSearch.clear();
+        resultSearch = client.getCocktailsByExp(text);
+    }
+
     public void searchCocktails() {
         boolean isInit = false;
         /*Netoyage des résultats précédents*/
@@ -218,7 +232,6 @@ public class DataManagedBean implements Serializable {
         selectedFlavor = null;
         selectedPower = null;
         selectedVirginsMap.clear();
-        resultSearch.clear();
     }
 
     public void afficherListeCocktails(List<CocktailEntity> list) {
@@ -262,17 +275,18 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.put(CocktailFlavorEnum.BITTER.name(), CocktailFlavorEnum.BITTER);
-            listFlavors.put(CocktailFlavorEnum.FRUITY.name(), CocktailFlavorEnum.FRUITY);
+            for (CocktailFlavorEnum f : CocktailFlavorEnum.values()) {
+                listFlavors.put(f.toString(), f);
+            }
         }
         return listFlavors;
     }
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.name(),CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.name(),CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.name(),CocktailPowerEnum.STRONG);
+            for (CocktailPowerEnum p : CocktailPowerEnum.values()) {
+                listPowers.put(p.toString(), p);
+            }
         }
         return listPowers;
     }
@@ -346,7 +360,7 @@ public class DataManagedBean implements Serializable {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
+    public String createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
         /*Création de l'adresse*/
         address = new AddressEntity();
         address.setFirst_name(firstName);
@@ -357,7 +371,6 @@ public class DataManagedBean implements Serializable {
         address.setCountry(country);
         address.setOrders(null);
         address = client.addAddress(address);
-        System.out.println("LLOOGGIINN" + password);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -369,8 +382,14 @@ public class DataManagedBean implements Serializable {
         }
         account.setPassword(sb.toString());
         account.setDelivery_address(address);
-        
-        client.addClient(account);
+        try {
+            client.addClient(account);
+        } catch (EcomException ex) {
+            exceptionMessage = ex.getMessage();
+            account = null;
+            return "Erreur.xhtml?faces-redirect=true";
+        }
+        return "Form.xhtml?faces-redirect=true";
     }
 
     public String connect(String login, String password) {
@@ -555,8 +574,16 @@ public class DataManagedBean implements Serializable {
     }
 
     //ajouter par bach
-    public void creatOrder(String firstName, String lastName, String street, String postalCode, String city, String country) {
-        //System.out.println(city);
+    public String creatOrder(String firstName, String lastName, String street, String postalCode, String city, String country) {
+        /*Décrémentation des quantités du cocktail, peut lever une exception*/
+        try {
+            client.validateOrder();
+        } catch (EcomException ex) {
+            exceptionMessage = ex.getMessage();
+            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ex.getMessage(), null));
+            ex.printStackTrace(); // Or use a logger.
+            return "Erreur.xhtml?faces-redirect=true";
+        }
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
@@ -582,7 +609,7 @@ public class DataManagedBean implements Serializable {
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
 
-        //Persistance de la commande
+        //Persistance de la commande vérification dans addOrder des quantités
         OrderEntity tempO = client.addOrder(order);
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
@@ -591,6 +618,7 @@ public class DataManagedBean implements Serializable {
         address = tempA;
         client.clearCart();
         //return client.getAddress(tempA.getId());
+        return "Confirmation.xhtml?faces-redirect=true";
     }
 
     public void setDisplayOrders(boolean b) {
@@ -666,7 +694,13 @@ public class DataManagedBean implements Serializable {
         } catch (NamingException ex) {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+    
+    public void ClearCart(){
+        client.clearCart();
+    } 
 }

@@ -11,11 +11,18 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
+import pojo.Deliverable;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.AddressManagerBean;
@@ -28,6 +35,8 @@ import session.manager.OrderManagerBean;
 @Stateful
 public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
+    @Resource
+    private SessionContext sctx;
     @EJB
     private DeliverableManagerBean deliverableManager;
     @EJB
@@ -60,13 +69,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
-        if (cocktail != null)
-            System.out.println("Cocktail name " + cocktail.getName());
-        else
-            System.out.println("Cocktail is dead");
-
         return cocktailManager.getCocktailBeverages(cocktail);
-            
+
     }
 
     @Override
@@ -144,8 +148,19 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public List<CocktailEntity> getCocktailsByName(String name) {
-        return cocktailManager.getCocktailsByName(name);
+    public List<CocktailEntity> getCocktailsByExp(String name) {
+        List<CocktailEntity> list = cocktailManager.getCocktailsByExpName(name);
+        Set<CocktailEntity> set = new HashSet();
+        set.addAll(list);
+        list = cocktailManager.getCocktailsByExpRecipe(name);
+        set.addAll(list);
+        list = deliverableManager.getCocktailsByKeyWordsBeverage(name);
+        set.addAll(list);
+        list.clear();
+        for (CocktailEntity c : set) {
+            list.add(c);
+        }
+        return list;
     }
 
     @Override
@@ -211,7 +226,6 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public ClientAccountEntity addClient(ClientAccountEntity client) throws Exception {
         List<ClientAccountEntity> clients = clientAccountManager.findAll();
         boolean existed = false;
-        System.out.println("MAILLLLLLLLLLLLLLLLL Test");
         for (ClientAccountEntity c: clients ){
                if(c.getLogin().equals(client.getLogin()))
                    existed = true;
@@ -219,8 +233,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
         if (!existed)
             return clientAccountManager.create(client);
         else
-            System.out.println("MAILLLLLLLLLLLLLLLLL IS USED");
-            throw new Exception("Mail already used.") ;
+            throw new EcomException("Impossible de créer un compte avec ce login : login déjà existant.") ;
     }
 
     @Override
@@ -262,21 +275,21 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public Long checkAddress(AddressEntity address) {
-        if(addressManager.findAll().isEmpty())
+        if (addressManager.findAll().isEmpty()) {
             return null;
-        else{
-            int i=0;
+        } else {
+            int i = 0;
             Long found = null;
-            while(i<addressManager.findAll().size()){
-                if(addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name()) && 
-                        addressManager.findAll().get(i).getSurname().equals(address.getSurname()) && 
-                        addressManager.findAll().get(i).getStreet().equals(address.getStreet())){
-                    found =  addressManager.findAll().get(i).getId();
-            
+            while (i < addressManager.findAll().size()) {
+                if (addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name())
+                        && addressManager.findAll().get(i).getSurname().equals(address.getSurname())
+                        && addressManager.findAll().get(i).getStreet().equals(address.getStreet())) {
+                    found = addressManager.findAll().get(i).getId();
+
                 }
                 i++;
             }
-        return found;
+            return found;
         }
     }
 
@@ -304,5 +317,26 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByPower(CocktailPowerEnum power) {
         return cocktailManager.getCocktailsByPower(power);
     }
-}
 
+    @Override
+    public List<CocktailEntity> getCocktailsByName(String name) {
+        return cocktailManager.getCocktailsByExpName(name);
+    }
+
+    @Override
+    public void validateOrder() throws EcomException {
+        Map<CocktailEntity, Integer> map = cart.getMap();
+        for (CocktailEntity c : map.keySet()) {
+            List<Deliverable> deliv = c.getDeliverables();
+            for (Deliverable d : deliv) {
+                int qty = d.getQuantity() - map.get(c);
+                try {
+                    d.setQuantity(qty);
+                } catch (EJBException ex) {
+                    throw new EcomException("Impossible de valider la commande. La quantité restante du cocktail " + c.getName() + " est de "+cocktailManager.getQuantityAvailable(c));
+                }
+                deliverableManager.edit(d);
+            }
+        }
+    }
+}

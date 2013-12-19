@@ -10,7 +10,7 @@
                      alt=" "
                      class="banniereImg"/>
             </div>
-            <h:form id="form-menu" transient="true">
+            <h:form id="form-menu" >
                 <div class="navbar navbar-inner">
                     <ul class="nav">
                         <li>
@@ -69,26 +69,45 @@
                             </ul>
                         </li>
                         <li>
-                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche">
+                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche avancée">
                                 Recherche avancée
                             </h:outputLink>
                         </li>
+                        <li>
+                            <h:inputText id="mot-clef"  maxlength="25"
+                                         value="Recherche par mots clef"
+                                         styleClass="input"
+                                         title="Effectuer une recherche par mot clef, entrez le mot à rechercher"
+                                         alt="Effectuer une recherche par mot clef, entrez le mot à rechercher"
+                                         immediate="true"
+                                         onclick="$('[id*=\'mot-clef\']').val('');"
+                                         binding="#{keyWords}"
+                                         />
+                            <h:commandButton style="display:inline; margin-left: 3px; margin-top: -1px" 
+                                             action="Recherche.xhtml" 
+                                             title="Effectuer une recherche par mot clef, entrez le mot à rechercher"
+                                             alt="Effectuer une recherche par mot clef, entrez le mot à rechercher"               
+                                             styleClass="btn"
+                                             value="Rechercher" 
+                                             actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" 
+                            />                            
+                        </li>             
                     </ul>
                     <ul class="nav pull-right">
                         <li>
                             <ui:fragment rendered="#{!dataManagedBean.isConnected()}">
                                 <h:outputLink value="Connexion.xhtml" title="Se connecter">
-                                    Connection
+                                    Connexion
                                 </h:outputLink>
-                                
+
                             </ui:fragment>
                         </li>
-                        
+
                         <li>
                             <h:outputLink value="Cart.xhtml" title="Mon pannier contient #{dataManagedBean.cartLength} cocktails. Total = #{dataManagedBean.cartPrice} €">
-                                
-                                 Panier <span aria-hidden="true" role="presentation">(#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €</span> 
-                         
+
+                                Panier <span aria-hidden="true" role="presentation">(#{dataManagedBean.cartLength}) : #{dataManagedBean.cartPrice} €</span>
+
                             </h:outputLink>
                         </li>
                         <c:if test="#{dataManagedBean.connected}">

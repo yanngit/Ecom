@@ -22,46 +22,101 @@
         <h:form id="form-validate-cart" class="span5 offset4">
             <ui:fragment rendered="#{!dataManagedBean.connected}">
                 <p:panel header="Déjà client ou envie de le devenir* :">  
-                    <h:panelGrid id="grid-connection" columns="2" style="margin-bottom:10px">
-                        <h:outputLabel for="login" value="Login : "/>  
+                    <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
+                        <h:outputLabel for="login">
+                            <span aria-label="login : un champs obligatoire.">Login</span>   
+                        </h:outputLabel>
+
                         <p:inputText id="login" binding="#{login}" />
-                        <h:outputLabel for="password" value="Mot de passe : "/>  
+
+                        <h:outputLabel for="password">
+                            <span aria-label="mot de passe : un champs obligatoire.">password</span>   
+                        </h:outputLabel>
+
                         <p:inputText type="password" id="password" binding="#{password}" />
-                        <h:outputLabel for="accountLogginButton"/>  
+
                         <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion();" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                     </h:panelGrid>
-                    * : Pour toute création de compte veuillez saisir vos informations de livraison
+
+                    <span aria-hidden="true" role="presentation">
+                        * : Pour toute création de compte veuillez saisir vos informations de livraison
+                    </span>
+
                 </p:panel>
             </ui:fragment>
+
             <p:panel header="Informations de livraison">  
-                <h:panelGrid id="grid-address" columns="2" style="margin-bottom:10px">  
-                    <h:outputLabel for="firstName" value="Prenom** : " />  
+                <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
+
+                    <h:outputLabel for="firstName">
+                        <span aria-label="Prenom : un champs obligatoire.">
+                            Prenom
+                            <span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> 
+                        </span>   
+                    </h:outputLabel>
+
                     <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
-                    <h:outputLabel for="lastName" value="Nom** : " />  
+
+                    <h:outputLabel for="lastName">
+                        <span aria-label="Nom : un champs obligatoire.">Nom<span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> </span>   
+                    </h:outputLabel>
+
                     <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
-                    <h:outputLabel for="street" value="Rue** : " />  
+
+                    <h:outputLabel for="street">
+                        <span aria-label="Rue : un champs obligatoire.">Rue<span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> </span>   
+                    </h:outputLabel>
                     <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
-                    <h:outputLabel for="postalCode" value="Code Postale** : " />  
+
+                    <h:outputLabel for="postalCode">
+                        <span aria-label="Code postal : un champs obligatoire.">Code Postal<span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> </span>   
+                    </h:outputLabel>
                     <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
-                    <h:outputLabel for="city" value="Ville** : "/>  
+
+                    <h:outputLabel for="city">
+                        <span aria-label="Ville : un champs obligatoire.">Ville<span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> </span>   
+                    </h:outputLabel>
                     <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
-                    <h:outputLabel for="country" value="Pays** : "/>  
+
+                    
+                    <h:outputLabel for="country">
+                        <span aria-label="Pays : un champs obligatoire.">Pays<span aria-hidden="true" role="presentation">
+                                ** :
+                            </span> </span>   
+                    </h:outputLabel>
                     <p:inputText id="country"  value="#{cc.attrs.country}" binding="#{country}"/>
+                    
                     <h:outputLabel for="pbutton"/> 
                     <h:commandButton id="pbutton" class="paypal-button"
-                                     type="submit"
+                                     value="Valider mon panier"
+                                     alt="Payer avec Paypal"
                                      onclick="return validateAddressForm();"
-                                     action="Confirmation.xhtml" 
-                                     actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" /> 
+                                     title="Payer avec Paypal"
+                                     action="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/> 
+
                     <c:if test="#{!dataManagedBean.connected}">
                         <h:outputLabel for="accountCreationButton"/>  
-                        <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="var v = validateConnexion();
-                            var w = validateAddressForm();
-                            return!((!v) || (!w));" action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/>
+                        <h:commandButton id="accountCreationButton" class="valide-cart-button"
+                                         value="Créer un compte" 
+                                         onclick="var v = validateConnexion();
+                                var w = validateAddressForm();
+                                return!((!v) || (!w));"
+                                         action="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/>
                     </c:if>
-
                 </h:panelGrid>  
-                **: champ obligatoire
+                <span aria-hidden="true" role="presentation">
+                    **: champ obligatoire·
+                </span>
             </p:panel> 
         </h:form>
     </composite:implementation>

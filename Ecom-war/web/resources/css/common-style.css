@@ -29,6 +29,12 @@ html, body {
  *   - Allow non JS user
  *   - Display menu on hover, not click !
  */
+
+input[id*=mot-clef] {
+    margin-top: 5px ! important;
+    margin-bottom: 5px ! important;    
+}
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -110,11 +116,13 @@ form[id$="form"] h2 {
 
 
 .paypal-button {
-    background-image: url("#{resource['img:paypal-button.png']}");
-    padding-bottom: 2px;
-    padding-left: 57px;
-    padding-right: 57px;
-    padding-top: 2px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.valide-cart-button {
+    text-align: center;
+    margin-left: 37px;
 }
 
 .wrong-value {
@@ -171,12 +179,17 @@ div.span2.right {
 }
 
 /*panier*/
+
+#cart-vide{
+    display: inline;
+}
+
 #form-total {
     margin-bottom: 0px;
 }
 
 .totalPanier {
-    height: 60px;
+    height: 45px;
     font-size: 40px;
     line-height: 40px;
 }
@@ -213,28 +226,8 @@ input[id*="qty-cart"]{
 }
 
 .item-recherche{
-<<<<<<< HEAD
-    padding : 5px; 
-=======
     padding : 5px;
->>>>>>> dev_yann
 }
-
-/* labels for input text accessibility */
-.obscure{
-<<<<<<< HEAD
-    /*position: absolute ; 
-    clip: rect(1px 1px 1px 1px); 
-    clip: rect(1px, 1px, 1px, 1px);*/
-    visibility: hidden;
-    display: none;
-=======
-    position: absolute ;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
->>>>>>> dev_yann
-}
-
 .title-cocktail {
     font-size : 15px;
     line-height: 20px;
@@ -249,28 +242,14 @@ input[id*="qty-cart"]{
     -webkit-margin-end: 0px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .title-cocktail-details{
     text-align: center;
 }
 
 .cocktail-name{
     color: #FF9900;
-=======
-.footer{
-    position:absolute;
-    bottom:0px;
-    width:100%;
-    height:40px;
-    border: 1px solid black;
-    border-radius: 5px 5px 5px 5px;
-    background-image: -moz-linear-gradient(center top , #FFFFFF, #F2F2F2);
->>>>>>> dev_yann
 }
-=======
-/* Sticky footer styles
-            -------------------------------------------------- */
+
 
 footer.navbar {
     margin-bottom: 0px;
@@ -299,4 +278,13 @@ footer.navbar {
         padding-right: 20px;
     }
 }
->>>>>>> dev_yann
+
+.recherche-resultats{
+    color: black;
+}
+
+a.recherche-resultats :link {color:black;}     
+a.recherche-resultats :visited {color:black;}  
+a.recherche-resultats :hover {color:black;}  
+a.recherche-resultats :active {color:black;} 
+

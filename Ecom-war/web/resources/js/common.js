@@ -1,7 +1,18 @@
+/*alert sans titre :D*/
+/*window.alert = function(msg){
+    var iframe = document.createElement("IFRAME");
+    iframe.setAttribute("src", 'data:text/plain,');
+    document.documentElement.appendChild(iframe);
+    window.frames[0].window.alert(msg);
+    iframe.parentNode.removeChild(iframe);
+}*/
+
+
 /* 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function validateConnexion() {
     var text = "";
     var valid = true;
@@ -68,11 +79,11 @@ function validateAddressForm() {
         valid = false;
     }
     if (!$("[id*='form-validate-cart:city']").val().match(/^[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+$/)) {
-        text += "Le champ 'Ville' ne peut contenir que des lettres, des chiffres, des éspaces et {',-, }. [au moins 3 caractères ]\n";
+        text += "Le champ 'Ville' ne peut contenir que des lettres, des chiffres et {',-, }. [au moins 3 caractères ]\n";
         valid = false;
     }
     if (!$("[id*='form-validate-cart:country']").val().match(/^[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+[a-zA-Z0-9 '-]+$/)) {
-        text += "Le champ 'Pays' ne peut contenir que des lettres, des chiffres, des éspaces et {',-, }. [au moins 3 caractères ]\n";
+        text += "Le champ 'Pays' ne peut contenir que des lettres, des chiffres et {',-, }. [au moins 3 caractères ]\n";
         valid = false;
     }
     if (valid) {
@@ -83,5 +94,5 @@ function validateAddressForm() {
     }
 }
 $(document).ready(function() {
-    
+
 });

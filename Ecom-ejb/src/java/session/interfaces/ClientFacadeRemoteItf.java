@@ -17,12 +17,16 @@ import javax.ejb.Remote;
 @Remote
 public interface ClientFacadeRemoteItf {
 
+    /*Transactions*/
+    public void validateOrder() throws EcomException;
+
     /*Search cocktail*/
     public List<CocktailEntity> getCocktailsForBeverage(BeverageEntity beverage);
     
     public List<CocktailEntity> getCocktailsByPower(pojo.CocktailPowerEnum power);
     
     public List<CocktailEntity> getCocktailsByFlavor(pojo.CocktailFlavorEnum flavor);
+    
     /* Fetch deliverables */
     public List<BeverageEntity> getAvailableBeverages();
 
@@ -63,6 +67,8 @@ public interface ClientFacadeRemoteItf {
 
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter);
 
+    public List<CocktailEntity> getCocktailsByExp(String name);
+    
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */
@@ -101,6 +107,4 @@ public interface ClientFacadeRemoteItf {
     public void modifyAddress(AddressEntity address);
     
     public Long checkAddress(AddressEntity address);
-    
-
 }
