@@ -15,7 +15,7 @@
                     <h:outputLabel for="Message" value="Message : "/>  
                     <h:inputTextarea id="Message" binding="#{message}"/>
                     <h:outputLabel for="mailButton"/>  
-                    <h:commandButton id="mailButton" type="submit" value="Envoyer" onclick="return validateContact()" action="SentMail.xhtml"  />
+                    <h:commandButton id="mailButton" type="submit" value="Envoyer" onclick="return validateContact()" action="SentMail.xhtml" actionListener="#{dataManagedBean.contactUs(email.value,titre.value,message.value)}" />
                 </h:panelGrid>
             </p:panel>
         </h:form>  

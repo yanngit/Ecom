@@ -7,7 +7,7 @@
     <ui:define name="title">Formulaire</ui:define>
 
     <ui:define name="content">
-        <h:form id="form-validate-cart" class="span5 offset4">
+        
             <c:if test="#{dataManagedBean.connected}">
                 <component:FormValidateCartComponent title="Valider mon panier"
                                                      first_name="#{dataManagedBean.accountAddress.first_name}"
@@ -19,6 +19,5 @@
             <c:if test="#{!dataManagedBean.connected}">
                 <component:FormValidateCartComponent title="Valider mon panier" />
             </c:if>
-        </h:form>  
     </ui:define>
 </ui:composition>
