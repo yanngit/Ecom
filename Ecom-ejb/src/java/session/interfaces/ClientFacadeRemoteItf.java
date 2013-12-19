@@ -64,6 +64,8 @@ public interface ClientFacadeRemoteItf {
 
     public List<CocktailEntity> getCocktailsWithoutAlcoholByFirstLetter(char letter);
 
+    public List<CocktailEntity> getCocktailsByExp(String name);
+    
     public List<CocktailEntity> getCocktailsByName(String name);
 
     /* Cart operations */

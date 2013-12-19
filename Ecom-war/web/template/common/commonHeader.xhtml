@@ -82,7 +82,11 @@
                                          onclick="$('[id*=\'mot-clef\']').val('');"
                                          binding="#{keyWords}"
                                          />
-                            <h:commandButton style="display:none;" action="Recherche.xhtml" value="Lancer la recherche" actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" />
+                            <h:commandButton 
+                                style="display:none;" 
+                                action="Recherche.xhtml" 
+                                value="Lancer la recherche" 
+                                actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" />
                         </li>
                     </ul>
                     <ul class="nav pull-right">

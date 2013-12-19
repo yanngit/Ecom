@@ -17,7 +17,9 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 @NamedQueries({
-    @NamedQuery(name = "getCocktailsForBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE d.name = :name ")
+    @NamedQuery(name = "getCocktailsForBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE d.name = :name "),
+    @NamedQuery(name = "getCocktailsByKeyWordsBeverage", query = "SELECT d.cocktails FROM Deliverable d WHERE LOWER(d.name) = :name ")
+
 })
 
 @Entity

@@ -11,7 +11,9 @@ import entity.CocktailEntity;
 import entity.DecorationEntity;
 import entity.OrderEntity;
 import exceptions.EcomException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import pojo.CocktailFlavorEnum;
@@ -60,13 +62,8 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public List<BeverageEntity> getCocktailBeverages(CocktailEntity cocktail) {
-        if (cocktail != null)
-            System.out.println("Cocktail name " + cocktail.getName());
-        else
-            System.out.println("Cocktail is dead");
-
         return cocktailManager.getCocktailBeverages(cocktail);
-            
+
     }
 
     @Override
@@ -144,8 +141,19 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public List<CocktailEntity> getCocktailsByName(String name) {
-        return cocktailManager.getCocktailsByName(name);
+    public List<CocktailEntity> getCocktailsByExp(String name) {
+        List<CocktailEntity> list = cocktailManager.getCocktailsByExpName(name);
+        Set<CocktailEntity> set = new HashSet();
+        set.addAll(list);
+        list = cocktailManager.getCocktailsByExpRecipe(name);
+        set.addAll(list);
+        list = deliverableManager.getCocktailsByKeyWordsBeverage(name);
+        set.addAll(list);
+        list.clear();
+        for (CocktailEntity c : set) {
+            list.add(c);
+        }
+        return list;
     }
 
     @Override
@@ -251,21 +259,21 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
 
     @Override
     public Long checkAddress(AddressEntity address) {
-        if(addressManager.findAll().isEmpty())
+        if (addressManager.findAll().isEmpty()) {
             return null;
-        else{
-            int i=0;
+        } else {
+            int i = 0;
             Long found = null;
-            while(i<addressManager.findAll().size()){
-                if(addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name()) && 
-                        addressManager.findAll().get(i).getSurname().equals(address.getSurname()) && 
-                        addressManager.findAll().get(i).getStreet().equals(address.getStreet())){
-                    found =  addressManager.findAll().get(i).getId();
-            
+            while (i < addressManager.findAll().size()) {
+                if (addressManager.findAll().get(i).getFirst_name().equals(address.getFirst_name())
+                        && addressManager.findAll().get(i).getSurname().equals(address.getSurname())
+                        && addressManager.findAll().get(i).getStreet().equals(address.getStreet())) {
+                    found = addressManager.findAll().get(i).getId();
+
                 }
                 i++;
             }
-        return found;
+            return found;
         }
     }
 
@@ -293,5 +301,9 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByPower(CocktailPowerEnum power) {
         return cocktailManager.getCocktailsByPower(power);
     }
-}
 
+    @Override
+    public List<CocktailEntity> getCocktailsByName(String name) {
+        return cocktailManager.getCocktailsByExpName(name);
+    }
+}

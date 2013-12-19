@@ -160,11 +160,10 @@ public class DataManagedBean implements Serializable {
     public boolean isSearchAvailable() {
         return resultSearch.size() > 0;
     }
-    
-    public void searchCocktailsByKeyWords(String text){
-        System.out.println(text);
+
+    public void searchCocktailsByKeyWords(String text) {
         resultSearch.clear();
-        resultSearch = client.getCocktailsByName(text);
+        resultSearch = client.getCocktailsByExp(text);
     }
 
     public void searchCocktails() {
@@ -217,12 +216,6 @@ public class DataManagedBean implements Serializable {
                 resultSearch.retainAll(client.getCocktailsByPower(selectedPower));
             }
         }
-        
-        List<CocktailEntity> res = client.getCocktailsByName("blue");
-        for(CocktailEntity c : res){
-            System.out.println(c.getName());
-        }
-        
     }
 
     public void resetResearch() {
@@ -273,17 +266,17 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.put(CocktailFlavorEnum.BITTER.name(), CocktailFlavorEnum.BITTER);
-            listFlavors.put(CocktailFlavorEnum.FRUITY.name(), CocktailFlavorEnum.FRUITY);
+            listFlavors.put(CocktailFlavorEnum.BITTER.toString(), CocktailFlavorEnum.BITTER);
+            listFlavors.put(CocktailFlavorEnum.FRUITY.toString(), CocktailFlavorEnum.FRUITY);
         }
         return listFlavors;
     }
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.name(), CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.name(), CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.name(), CocktailPowerEnum.STRONG);
+            listPowers.put(CocktailPowerEnum.SOFT.toString(), CocktailPowerEnum.SOFT);
+            listPowers.put(CocktailPowerEnum.MEDIUM.toString(), CocktailPowerEnum.MEDIUM);
+            listPowers.put(CocktailPowerEnum.STRONG.toString(), CocktailPowerEnum.STRONG);
         }
         return listPowers;
     }
@@ -591,7 +584,7 @@ public class DataManagedBean implements Serializable {
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
 
-        //Persistance de la commande
+        //Persistance de la commande vérification dans addOrder des quantités, exception si pas disponible
         OrderEntity tempO = client.addOrder(order);
         listOrder.add(tempO);//client.getOrder(tempO.getId()));
 
@@ -675,8 +668,6 @@ public class DataManagedBean implements Serializable {
         } catch (NamingException ex) {
             Logger.getLogger(DataManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
 
     public OrderEntity getOrder() {
