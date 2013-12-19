@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import pojo.CocktailFlavorEnum;
 import pojo.CocktailPowerEnum;
+import pojo.Deliverable;
 import session.interfaces.CartFacadeLocalItf;
 import session.interfaces.ClientFacadeRemoteItf;
 import session.manager.AddressManagerBean;
@@ -305,5 +306,17 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     @Override
     public List<CocktailEntity> getCocktailsByName(String name) {
         return cocktailManager.getCocktailsByExpName(name);
+    }
+    
+    public void decreaseQuantityOfCocktail(CocktailEntity cocktail, int number) throws EcomException {
+        List<Deliverable> deliv = cocktail.getDeliverables();
+        for(Deliverable d : deliv){
+            int qty = d.getQuantity() - number;
+            if(qty <= 0){
+                throw new EcomException("Impossible de décrémenter de "+number+" le cocktail : "+cocktail.getName());
+            }
+            d.setQuantity(d.getQuantity()-number);
+            deliverableManager.edit(d);
+        }
     }
 }

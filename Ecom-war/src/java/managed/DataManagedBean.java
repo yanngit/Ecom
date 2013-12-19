@@ -32,6 +32,9 @@ import pojo.Deliverable;
 import pojo.OrderStateEnum;
 import session.interfaces.ClientFacadeRemoteItf;
 import java.util.*;
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
+import javax.faces.application.FacesMessage;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.naming.*;
@@ -43,7 +46,15 @@ import javax.naming.*;
 @ManagedBean(name = "dataManagedBean")
 @SessionScoped
 public class DataManagedBean implements Serializable {
-
+    
+    
+    
+    /*DEPLACER DANS CLIENT et tester*/
+    @Resource
+    private SessionContext sctx;
+    
+    
+    
     /* Main facade to interact with Change to the application */
     @EJB
     private ClientFacadeRemoteItf client;
@@ -558,7 +569,20 @@ public class DataManagedBean implements Serializable {
 
     //ajouter par bach
     public void creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
-        //System.out.println(city);
+        /*Décrémentation des quantités du cocktail, peut lever une exception*/
+        List<CocktailEntity> command = client.getCartContent();
+        for (CocktailEntity c : command) {
+            try {
+                c = client.getCocktailFull(c);
+                client.decreaseQuantityOfCocktail(c, Integer.parseInt(getQuantityForCocktailInCart(c)));
+            } catch (EcomException ex) {
+                String message = "Erreur : " + ex.getMessage();
+                FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+                ex.printStackTrace(); // Or use a logger.
+                sctx.setRollbackOnly();
+                return;
+            }
+        }
         order = new OrderEntity();
         List<OrderEntity> listOrder = new ArrayList<>();
         List<AddressEntity> listAddress = new ArrayList<>();
@@ -580,7 +604,7 @@ public class DataManagedBean implements Serializable {
             tempA = client.getAddress(id);
         }
         listAddress.add(tempA);
-        order.setCocktails(client.getCartContent());
+        order.setCocktails(command);
         order.setStatus(OrderStateEnum.PAYED);
         order.setAddresses(listAddress);
 

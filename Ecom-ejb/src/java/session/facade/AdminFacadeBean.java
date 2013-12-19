@@ -377,4 +377,9 @@ public class AdminFacadeBean implements AdminFacadeRemoteItf {
     public List<CocktailEntity> getCocktailsByName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void decreaseQuantityOfCocktail(CocktailEntity cocktail, int number) throws EcomException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
