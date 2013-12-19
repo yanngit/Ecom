@@ -275,17 +275,18 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.put(CocktailFlavorEnum.BITTER.toString(), CocktailFlavorEnum.BITTER);
-            listFlavors.put(CocktailFlavorEnum.FRUITY.toString(), CocktailFlavorEnum.FRUITY);
+            for (CocktailFlavorEnum f : CocktailFlavorEnum.values()) {
+                listFlavors.put(f.toString(), f);
+            }
         }
         return listFlavors;
     }
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.toString(), CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.toString(), CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.toString(), CocktailPowerEnum.STRONG);
+            for (CocktailPowerEnum p : CocktailPowerEnum.values()) {
+                listPowers.put(p.toString(), p);
+            }
         }
         return listPowers;
     }
