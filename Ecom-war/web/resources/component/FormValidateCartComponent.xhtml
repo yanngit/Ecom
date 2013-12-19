@@ -18,13 +18,14 @@
         <composite:attribute name="country"/>
     </composite:interface>
     <composite:implementation>
+
         <h2>#{cc.attrs.title}</h2>
-        <h:form id ="form-validate-cart" class="span5 offset4">
+        <h:form id="form-validate-cart" class="span5 offset4">
             <ui:fragment rendered="#{!dataManagedBean.connected}">
                 <p:panel header="Déjà client ou envie de le devenir* :">  
                     <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
                         <h:outputLabel for="login">
-                            <span aria-label="login : un champs obligatoire.">Login</span>   
+                            <span aria-label="Adresse mail : un champs obligatoire,">Login (mail)</span>   
                         </h:outputLabel>
 
                         <p:inputText id="login" binding="#{login}" />
@@ -35,7 +36,7 @@
 
                         <p:inputText type="password" id="password" binding="#{password}" />
 
-                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion();" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
+                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion()" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                     </h:panelGrid>
 
                     <span aria-hidden="true" role="presentation">
@@ -98,6 +99,7 @@
                     
                     <h:outputLabel for="pbutton"/> 
                     <h:commandButton id="pbutton" class="paypal-button"
+
                                      value="Valider mon panier"
                                      alt="Payer avec Paypal"
                                      onclick="return validateAddressForm();"

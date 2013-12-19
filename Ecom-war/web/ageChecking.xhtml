@@ -4,6 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['img:favicon.png']}" />
         <meta charset="UTF-8"/>
         <h:outputStylesheet name="common-style.css" library="css" />
         <h:outputStylesheet library="css" name ="bootstrap.css"  />
@@ -40,7 +41,8 @@
                                  value="#{dataManagedBean.dayOfBirth}"
                                  class="span1"
                                  maxlength="2"
-                                 styleClass="input-large"/>
+                                 styleClass="input-large"
+                                 onclick="$('[id*=\'DayOfBirth\']').val('');"/>
                     <span style="white-space:pre-wrap"> </span>
                     <h:inputText id='MonthOfBirth'
                                  title="Mois de naissance"
@@ -48,7 +50,8 @@
                                  value="#{dataManagedBean.monthOfBirth}"
                                  class="span1"
                                  maxlength="2"
-                                 styleClass="input-large"/>
+                                 styleClass="input-large"
+                                 onclick="$('[id*=\'MonthOfBirth\']').val('');"/>
                     <span style="white-space:pre-wrap"> </span>
                     <h:inputText id='YearOfBirth'
                                  title="Année de naissance"
@@ -57,7 +60,8 @@
                                  class="span2"
                                  maxlength="4"
                                  styleClass="input-large"
-                                 required="true"/>
+                                 required="true"
+                                 onclick="$('[id*=\'YearOfBirth\']').val('');"/>
                     <br/>
                     <h:commandButton value="Entrer"
                                      title="Entrer sur le site"

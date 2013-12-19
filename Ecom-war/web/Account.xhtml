@@ -5,7 +5,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite">
     <ui:define name="title">Mon compte</ui:define>
     <ui:define name="content">
         <h:form>
@@ -13,14 +14,22 @@
                 <h2>#{cc.attrs.title}</h2>
                 <div class="well well-small">
                     <ul class="thumbnails">
+                        
                         <li class="span1 thumbnail">
-                            <h:commandButton action="#{dataManagedBean.setDisplayOrders(true)}" image="#{resource['img:account_orders.png']}" />
+                            <h:commandButton
+                                alt="Changer mon adresse de livraison"
+                                title="Changer mon adresse de livraison"
+                                action="#{dataManagedBean.setDisplayAddresses(true)}" 
+                                image="#{resource['img:account_addresses.png']}" 
+                                />
                         </li>
                         <li class="span1 thumbnail">
-                            <h:commandButton action="#{dataManagedBean.setDisplayAddresses(true)}" image="#{resource['img:account_addresses.png']}" />
-                        </li>
-                        <li class="span1 thumbnail">
-                            <h:commandButton action="#{dataManagedBean.disconnect()}" image="#{resource['img:logout.png']}" />
+                            <h:commandButton 
+                                alt="Se deconnecter"
+                                title="Se deconnecter"
+                                action="#{dataManagedBean.disconnect()}" 
+                                image="#{resource['img:logout.png']}" 
+                                />
                         </li>
                     </ul>
                 </div>
@@ -61,28 +70,31 @@
             </div>
         </ui:fragment>
         <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
+            <div class="row">
             <h:form id="form-client-address" class="span5 offset4">
-                <h2>Mon adresse</h2>
+                <h2 class="title-cocktail-details">Mon adresse</h2>
                 <p:panel header="Adresse de Livraison">  
+                    <ui:param name="addr" value="#{dataManagedBean.getAccountAddress()}" />
                     <h:panelGrid id="gridpanel" columns="2" style="margin-bottom:10px">  
                         <h:outputLabel for="firstName" value="Prenom* : " />  
-                        <p:inputText id="firstName" value="#{cc.attrs.first_name}" binding="#{firstName}"/>
+                        <p:inputText id="firstName" value="#{addr.first_name}" binding="#{firstName}"/>
                         <h:outputLabel for="lastName" value="Nom* : " />  
-                        <p:inputText id="lastName" value="#{cc.attrs.surname}" binding="#{lastName}"/>
+                        <p:inputText id="lastName" value="#{addr.surname}" binding="#{lastName}"/>
                         <h:outputLabel for="street" value="Rue* : " />  
-                        <p:inputText id="street" value="#{cc.attrs.street}" binding="#{street}" />
+                        <p:inputText id="street" value="#{addr.street}" binding="#{street}" />
                         <h:outputLabel for="postalCode" value="Code Postale* : " />  
-                        <p:inputText id="postalCode" value="#{cc.attrs.postal_code}" binding="#{postalCode}" />
+                        <p:inputText id="postalCode" value="#{addr.postal_code}" binding="#{postalCode}" />
                         <h:outputLabel for="city" value="Ville* : "/>  
-                        <p:inputText id="city"  value="#{cc.attrs.city}" binding="#{city}"/>
+                        <p:inputText id="city"  value="#{addr.city}" binding="#{city}"/>
                         <h:outputLabel for="country" value="Pays** : "/>  
-                        <p:inputText id="country"  value="#{cc.attrs.country}" binding="#{country}"/>
+                        <p:inputText id="country"  value="#{addr.country}" binding="#{country}"/>
                         <h:outputLabel for="pbutton"/>  
-                        <h:commandButton id="pbutton" value="Modifier" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" />
+                        <h:commandButton id="pbutton" value="Modifier" onclick="return validateModifiedAddress();" actionListener="#{dataManagedBean.modifyAddress(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" />
                     </h:panelGrid>  
                     *: champ obligatoire
                 </p:panel> 
             </h:form>
+            </div>
         </ui:fragment>
     </ui:define>
 </ui:composition>
