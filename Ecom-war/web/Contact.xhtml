@@ -5,19 +5,21 @@
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="title">Contact</ui:define>
     <ui:define name="content">
-        <h:form id="form-contact" class="span5 offset5">
-            <p:panel header="Vous avez une question :">  
-                <h:panelGrid id="grid-contact" columns="2">
-                    <h:outputLabel for="Email" value="Email : "/>  
-                    <p:inputText id="Email" binding="#{email}" />
-                    <h:outputLabel for="Titre" value="Titre : "/>  
-                    <p:inputText type="Titre" id="Titre" binding="#{titre}" />
-                    <h:outputLabel for="Message" value="Message : "/>  
-                    <h:inputTextarea id="Message" binding="#{message}"/>
-                    <h:outputLabel for="mailButton"/>  
-                    <h:commandButton id="mailButton" type="submit" value="Envoyer" onclick="return validateContact()" action="SentMail.xhtml" actionListener="#{dataManagedBean.contactUs(email.value,titre.value,message.value)}" />
-                </h:panelGrid>
-            </p:panel>
-        </h:form>  
+        <div class="row">
+            <h:form id="form-contact" class="span5 offset5">
+                <p:panel header="Vous avez une question :">
+                    <h:panelGrid id="grid-contact" columns="2">
+                        <h:outputLabel for="Email" value="Email : "/>
+                        <p:inputText id="Email" binding="#{email}" />
+                        <h:outputLabel for="Titre" value="Titre : "/>
+                        <p:inputText type="Titre" id="Titre" binding="#{titre}" />
+                        <h:outputLabel for="Message" value="Message : "/>
+                        <h:inputTextarea id="Message" binding="#{message}"/>
+                        <h:outputLabel for="mailButton"/>
+                        <h:commandButton id="mailButton" type="submit" value="Envoyer" onclick="return validateContact()" action="SentMail.xhtml" actionListener="#{dataManagedBean.contactUs(email.value,titre.value,message.value)}" />
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>
