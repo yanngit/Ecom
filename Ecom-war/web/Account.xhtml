@@ -70,6 +70,7 @@
             </div>
         </ui:fragment>
         <ui:fragment rendered="#{dataManagedBean.getDisplayAddresses()}">
+            <div class="row">
             <h:form id="form-client-address" class="span5 offset4">
                 <h2>Mon adresse</h2>
                 <p:panel header="Adresse de Livraison">  
@@ -93,6 +94,7 @@
                     *: champ obligatoire
                 </p:panel> 
             </h:form>
+            </div>
         </ui:fragment>
     </ui:define>
 </ui:composition>
