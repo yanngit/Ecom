@@ -16,7 +16,9 @@
         <composite:attribute name="postal_code"/>
         <composite:attribute name="city"/>    </composite:interface>
     <composite:implementation>
-        <h2>#{cc.attrs.title}</h2>
+        
+        <h1 class="title-cocktail-details">#{cc.attrs.title}</h1>
+        
         <ui:fragment rendered="#{!dataManagedBean.connected}">
             <p:panel header="Déjà client ou envie de le devenir* :">  
                 <h:panelGrid id="grid" columns="2" style="margin-bottom:10px">
