@@ -550,7 +550,7 @@ public class DataManagedBean implements Serializable {
         return null;
     }
 
-    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city, String country) {
         if (account != null) {
             AddressEntity address = account.getDelivery_address();
             address.setFirst_name(firstName);
@@ -558,7 +558,7 @@ public class DataManagedBean implements Serializable {
             address.setStreet(street);
             address.setPostal_code(postalCode);
             address.setCity(city);
-            /*MANQUE COUNTRY*/
+            address.setCountry(country);
             client.modifyAddress(address);
         }
     }
