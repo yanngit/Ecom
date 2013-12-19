@@ -10,7 +10,14 @@
     </ui:define>
     <ui:define name="content">
         <div id="cart_component">
-            <h1 class="title-cocktail-details">Mon panier </h1>
+            <h1 class="title-cocktail-details">Mon panier 
+                <form id="form-menu">
+                    <c:if test="#{!(dataManagedBean.getCartLength() > 0)}">
+                        est vide
+                    </c:if>
+                </form>
+
+            </h1>
             <div class="well well-small">
                 <ul class="thumbnails">
                     <c:forEach items="#{dataManagedBean.cartContent}" var = "item">
@@ -43,10 +50,10 @@
                                                 styleClass="btn"
                                                 value="Supprimer les articles "
                                                 onclick="alert('#{item.name} a été supprimé du pannier');">
-                                                <f:ajax execute="@form" render="@form :form-menu :form-total :cart-vide" listener="#{dataManagedBean.removeArticle(item)}" />
+                                                <f:ajax execute="@form" render="@form :form-menu :form-total" listener="#{dataManagedBean.removeArticle(item)}" />
 
                                             </h:commandButton>
-                                            
+
                                             <h:inputText 
                                                 id="qty-cart"  
                                                 maxlength="3" 
@@ -54,7 +61,7 @@
                                                 value="#{dataManagedBean.qty}" 
                                                 styleClass="input-mini" 
                                                 />
-                                        
+
                                         </div>
                                     </div>
                                 </div> 
