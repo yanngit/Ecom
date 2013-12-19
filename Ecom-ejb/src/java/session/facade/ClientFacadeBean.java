@@ -211,6 +211,7 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     public ClientAccountEntity addClient(ClientAccountEntity client) throws Exception {
         List<ClientAccountEntity> clients = clientAccountManager.findAll();
         boolean existed = false;
+        System.out.println("MAILLLLLLLLLLLLLLLLL Test");
         for (ClientAccountEntity c: clients ){
                if(c.getLogin().equals(client.getLogin()))
                    existed = true;

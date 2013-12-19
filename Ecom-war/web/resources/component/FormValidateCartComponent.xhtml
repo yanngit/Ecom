@@ -19,8 +19,8 @@
     </composite:interface>
     <composite:implementation>
         <h2>#{cc.attrs.title}</h2>
-        <ui:fragment rendered="#{!dataManagedBean.connected}">
-            <h:form id="form-validate-cart-connexion" class="span5 offset4">
+        <h:form class="span5 offset4">
+            <ui:fragment rendered="#{!dataManagedBean.connected}">
                 <p:panel header="Déjà client ou envie de le devenir* :">  
                     <h:panelGrid id="grid-connection" columns="2" style="margin-bottom:10px">
                         <h:outputLabel for="login" value="Login : "/>  
@@ -28,13 +28,11 @@
                         <h:outputLabel for="password" value="Mot de passe : "/>  
                         <p:inputText type="password" id="password" binding="#{password}" />
                         <h:outputLabel for="accountLogginButton"/>  
-                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion()" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
+                        <h:commandButton id="accountLogginButton" value="Se connecter" type="submit" onclick="return validateConnexion();" action="Form.xhtml" actionListener="#{dataManagedBean.connect(login.value,password.value)}"/>
                     </h:panelGrid>
                     * : Pour toute création de compte veuillez saisir vos informations de livraison
                 </p:panel>
-            </h:form>
-        </ui:fragment>
-        <h:form id="form-validate-cart-livraison" class="span5 offset4">
+            </ui:fragment>
             <p:panel header="Informations de livraison">  
                 <h:panelGrid id="grid-address" columns="2" style="margin-bottom:10px">  
                     <h:outputLabel for="firstName" value="Prenom** : " />  
@@ -52,12 +50,14 @@
                     <h:outputLabel for="pbutton"/> 
                     <h:commandButton id="pbutton" class="paypal-button"
                                      type="submit"
-                                     onclick="return validateAddressForm()"
+                                     onclick="return validateAddressForm();"
                                      action="Confirmation.xhtml" 
                                      actionListener="#{dataManagedBean.creatOrder(firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}" /> 
                     <c:if test="#{!dataManagedBean.connected}">
                         <h:outputLabel for="accountCreationButton"/>  
-                        <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="var v= validateConnexion(); var w= validateAddressForm();  return!((!v)||(!w)); " action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/>
+                        <h:commandButton id="accountCreationButton" value="Créer un compte" type="submit" onclick="var v = validateConnexion();
+                            var w = validateAddressForm();
+                            return!((!v) || (!w));" action="Form.xhtml" actionListener="#{dataManagedBean.createAccount(login.value,password.value,firstName.value,lastName.value,street.value,postalCode.value,city.value,country.value)}"/>
                     </c:if>
 
                 </h:panelGrid>  

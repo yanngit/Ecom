@@ -356,7 +356,8 @@ public class DataManagedBean implements Serializable {
         address.setCity(city);
         address.setCountry(country);
         address.setOrders(null);
-        client.addAddress(address);
+        address = client.addAddress(address);
+        System.out.println("LLOOGGIINN" + password);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
