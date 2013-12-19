@@ -278,3 +278,13 @@ footer.navbar {
         padding-right: 20px;
     }
 }
+
+.recherche-resultats{
+    color: black;
+}
+
+a.recherche-resultats :link {color:black;}     
+a.recherche-resultats :visited {color:black;}  
+a.recherche-resultats :hover {color:black;}  
+a.recherche-resultats :active {color:black;} 
+

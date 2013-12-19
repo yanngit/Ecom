@@ -69,11 +69,6 @@
                             </ul>
                         </li>
                         <li>
-                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche">
-                                Recherche avancée
-                            </h:outputLink>
-                        </li>
-                        <li>
                             <h:inputText id="mot-clef"  maxlength="25"
                                          value="Recherche par mots clef"
                                          styleClass="input"
@@ -82,8 +77,21 @@
                                          onclick="$('[id*=\'mot-clef\']').val('');"
                                          binding="#{keyWords}"
                                          />
-                            <h:commandButton style="display:none;" action="Recherche.xhtml" value="Lancer la recherche" actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" />
+                            
+                            <h:commandButton style="display:inline; margin-left: 3px; margin-bottom: 7px" 
+                                             action="Recherche.xhtml" 
+                                             styleClass="btn"
+                                             value="Rechercher" 
+                                             actionListener="#{dataManagedBean.searchCocktailsByKeyWords(keyWords.value)}" 
+                            />
+                            
                         </li>
+                        <li>
+                            <h:outputLink value="Recherche.xhtml" title="Effectuer une recherche">
+                                Recherche avancée
+                            </h:outputLink>
+                        </li>
+                        
                     </ul>
                     <ul class="nav pull-right">
                         <li>
