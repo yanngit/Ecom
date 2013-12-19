@@ -223,8 +223,17 @@ public class ClientFacadeBean implements ClientFacadeRemoteItf {
     }
 
     @Override
-    public ClientAccountEntity addClient(ClientAccountEntity client) {
-        return clientAccountManager.create(client);
+    public ClientAccountEntity addClient(ClientAccountEntity client) throws Exception {
+        List<ClientAccountEntity> clients = clientAccountManager.findAll();
+        boolean existed = false;
+        for (ClientAccountEntity c: clients ){
+               if(c.getLogin().equals(client.getLogin()))
+                   existed = true;
+        }   
+        if (!existed)
+            return clientAccountManager.create(client);
+        else
+            throw new EcomException("Impossible de créer un compte avec ce login : login déjà existant.") ;
     }
 
     @Override

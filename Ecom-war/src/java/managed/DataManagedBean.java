@@ -77,7 +77,6 @@ public class DataManagedBean implements Serializable {
     CocktailPowerEnum selectedPower = null;
     /*Résultat de la recherche*/
     private List<CocktailEntity> resultSearch = new ArrayList<>();
-    
     private String exceptionMessage = "";
 
     public String getExceptionMessage() {
@@ -276,17 +275,18 @@ public class DataManagedBean implements Serializable {
 
     public Map<String, Object> getListFlavors() {
         if (listFlavors.isEmpty()) {
-            listFlavors.put(CocktailFlavorEnum.BITTER.toString(), CocktailFlavorEnum.BITTER);
-            listFlavors.put(CocktailFlavorEnum.FRUITY.toString(), CocktailFlavorEnum.FRUITY);
+            for (CocktailFlavorEnum f : CocktailFlavorEnum.values()) {
+                listFlavors.put(f.toString(), f);
+            }
         }
         return listFlavors;
     }
 
     public Map<String, Object> getListPowers() {
         if (listPowers.isEmpty()) {
-            listPowers.put(CocktailPowerEnum.SOFT.toString(), CocktailPowerEnum.SOFT);
-            listPowers.put(CocktailPowerEnum.MEDIUM.toString(), CocktailPowerEnum.MEDIUM);
-            listPowers.put(CocktailPowerEnum.STRONG.toString(), CocktailPowerEnum.STRONG);
+            for (CocktailPowerEnum p : CocktailPowerEnum.values()) {
+                listPowers.put(p.toString(), p);
+            }
         }
         return listPowers;
     }
@@ -360,7 +360,7 @@ public class DataManagedBean implements Serializable {
         return account.getLogin();
     }
 
-    public void createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city) {
+    public String createAccount(String login, String password, String firstName, String lastName, String street, String postalCode, String city, String country) throws Exception {
         /*Création de l'adresse*/
         address = new AddressEntity();
         address.setFirst_name(firstName);
@@ -368,9 +368,9 @@ public class DataManagedBean implements Serializable {
         address.setStreet(street);
         address.setPostal_code(postalCode);
         address.setCity(city);
-        address.setCountry("France");
+        address.setCountry(country);
         address.setOrders(null);
-        client.addAddress(address);
+        address = client.addAddress(address);
         /*Création du compte et association du compte à l'adresse*/
         md.reset();
         account = new ClientAccountEntity();
@@ -382,7 +382,14 @@ public class DataManagedBean implements Serializable {
         }
         account.setPassword(sb.toString());
         account.setDelivery_address(address);
-        client.addClient(account);
+        try {
+            client.addClient(account);
+        } catch (EcomException ex) {
+            exceptionMessage = ex.getMessage();
+            account = null;
+            return "Erreur.xhtml?faces-redirect=true";
+        }
+        return "Form.xhtml?faces-redirect=true";
     }
 
     public String connect(String login, String password) {
@@ -567,7 +574,7 @@ public class DataManagedBean implements Serializable {
     }
 
     //ajouter par bach
-    public String creatOrder(String firstName, String lastName, String street, String postalCode, String city) {
+    public String creatOrder(String firstName, String lastName, String street, String postalCode, String city, String country) {
         /*Décrémentation des quantités du cocktail, peut lever une exception*/
         try {
             client.validateOrder();
@@ -586,7 +593,7 @@ public class DataManagedBean implements Serializable {
         address.setStreet(street);
         address.setPostal_code(postalCode);
         address.setCity(city);
-        address.setCountry("France");
+        address.setCountry(country);
         address.setOrders(null);
         // Persistance de l'addresse saiasie et
         //Récuperation de l'addresse persistée
@@ -639,7 +646,7 @@ public class DataManagedBean implements Serializable {
         return null;
     }
 
-    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city) {
+    public void modifyAddress(String firstName, String lastName, String street, String postalCode, String city, String country) {
         if (account != null) {
             AddressEntity address = account.getDelivery_address();
             address.setFirst_name(firstName);
@@ -647,7 +654,7 @@ public class DataManagedBean implements Serializable {
             address.setStreet(street);
             address.setPostal_code(postalCode);
             address.setCity(city);
-            /*MANQUE COUNTRY*/
+            address.setCountry(country);
             client.modifyAddress(address);
         }
     }
@@ -675,7 +682,7 @@ public class DataManagedBean implements Serializable {
             msg.setSubject(msgSubject);
             msg.setSentDate(new Date());
             msg.setFrom();
-            String Admin = "bachar.nejem@gmail.com";
+            String Admin = "tchin.tchin.ecom@gmail.com";
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Admin, false));
             MimeBodyPart mbp = new MimeBodyPart();
             mbp.setText(msgTxt);
