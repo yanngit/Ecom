@@ -1,3 +1,2 @@
 # Ecom
-Site de e-commerce, pour la vente de cocktails, réalisé en J2EE dans un cadre scolaire avec l'utilisation du framework PrimeFaces et bootstrap. 
-Projet réalisé par groupe de 5 étudiants en Master1 à l'UFR IM²AG de Grenoble.
+E-commerce website, for cocktail's sale, realized with J2EE technology, PrimeFaces and bootstrap frameworks. This is a scolar project executed by 5 students (including me) during the first year of a master's degree at UFR IM²AG in Grenoble.
